@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HoaDon>
+@{
+    ViewData["Title"] = "DaGiaoDaThanhToan";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>DaGiaoDaThanhToan</h1>
+<div class="card">
+    <div class="card-body">
+        <h2 class="col-md-8">Quản lí đơn hàng (Đã thanh toán & đã giao )</h2>
+        @if (Model != null)
+        {
+            <div id="list" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                        
+                            <th>Họ tên KH</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng giao hàng</th>
+                            <th>Ngày giao</th>
+                            <th>Đã thanh toán</th>
+                            <th>Ưu đãi</th>
+                            <th>Đã hủy</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.MakhNavigation?.UserName</td>
+                                <td>@item.Ngaythanhtoan</td>
+                                <td>@item.Tinhtranggiaohang</td>
+                                <td>@item.Ngaygiao</td>
+                                <td>@item.Dathanhtoan</td>
+                                <td>@item.Khuyenmai</td>
+                                <td>@item.Dahuy</td>
+                                <td>
+                                    @if (item.Idhoadon != null)
+                                    {
+                                        <a href="@Url.Action("DuyetDonHang", "HoaDon", new { id = item.Idhoadon })" target="_blank">Duyệt đơn</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

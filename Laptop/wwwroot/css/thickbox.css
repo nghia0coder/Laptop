@@ -1,0 +1,75 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace GiayDep.wwwroot.css
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class thickbox : ControllerBase
+    {
+    }
+}
+
+/* Thickbox Overlay */
+#TB_overlay {
+    background: #000;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+}
+
+/* Thickbox Container */
+#TB_window {
+    padding: 10px;
+    background: #fff;
+    text-align: center;
+    border: 4px solid #525252;
+}
+
+/* Thickbox Close Button */
+#TB_closeWindow {
+    font-size: 21px;
+    font-weight: bold;
+    color: #525252;
+    cursor: pointer;
+}
+
+/* Thickbox Content */
+#TB_ajaxContent {
+    padding: 10px;
+}
+
+/* Other Styling */
+#TB_title {
+    font-weight: bold;
+    color: #333;
+}
+
+#TB_load {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -20px;
+    z-index: 101;
+    visibility: hidden;
+}
+
+#TB_ImageOff {
+    display: none;
+}
+
+#TB_Image {
+    border: none;
+}
+
+#TB_window img#TB_Image {
+    display: block;
+}
+
+/* Loading Animation */
+#TB_ajax_loader {
+    visibility: hidden;
+}
+
+#TB_load img {
+    display: block;
+}

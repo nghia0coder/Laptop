@@ -1,0 +1,13 @@
+﻿
+<div class="cart box_1">
+    <a asp-action="Index" asp-controller="ShoppingCart">
+        <h3>
+            <div class="total">
+                <!-- Display total price and total quantity -->
+                @ViewBag.TongTien.ToString("#,##") VNĐ (<span> @ViewBag.TongSoLuong</span> sp)
+            </div>
+            <img src="~/Contents/Material/images/cart.png" alt="" />
+        </h3>
+    </a>
+    <p><a asp-action="Index" asp-controller="ShoppingCart" class="simpleCart_empty">Giỏ hàng</a></p>
+</div>

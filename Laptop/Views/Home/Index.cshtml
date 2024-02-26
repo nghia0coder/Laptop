@@ -1,0 +1,224 @@
+﻿@model IEnumerable<SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+
+    // Định nghĩa các viewbag để truyền vào partial view
+    IEnumerable<SanPham> lstLTM = ViewBag.ListLTM as IEnumerable<SanPham>; // Cách ép kiểu 1
+	IEnumerable<SanPham> lstSelling = ViewBag.ListSelling as IEnumerable<SanPham>;
+    IEnumerable<SanPham> lstDTM = ViewBag.ListDTM as IEnumerable<SanPham>;
+}
+
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- shop -->
+			<div class="col-md-4 col-xs-6">
+				<div class="shop">
+					<div class="shop-img">
+						<img src="~/Product/img/shop01.png" alt="">
+					</div>
+					<div class="shop-body">
+						<h3>Laptop<br>Collection</h3>
+						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /shop -->
+			<!-- shop -->
+			<div class="col-md-4 col-xs-6">
+				<div class="shop">
+					<div class="shop-img">
+						<img src="~/Product/img/shop03.png" alt="">
+					</div>
+					<div class="shop-body">
+						<h3>Accessories<br>Collection</h3>
+						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /shop -->
+			<!-- shop -->
+			<div class="col-md-4 col-xs-6">
+				<div class="shop">
+					<div class="shop-img">
+						<img src="~/Product/img/shop02.png" alt="">
+					</div>
+					<div class="shop-body">
+						<h3>Cameras<br>Collection</h3>
+						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /shop -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<div class="container">
+    @await Html.PartialAsync("~/Views/ProductView/ProductStyle1.cshtml", lstLTM) 
+</div>
+
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hot-deal">
+					<ul class="hot-deal-countdown">
+						<li>
+							<div>
+								<h3>02</h3>
+								<span>Days</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>10</h3>
+								<span>Hours</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>34</h3>
+								<span>Mins</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<h3>60</h3>
+								<span>Secs</span>
+							</div>
+						</li>
+					</ul>
+					<h2 class="text-uppercase" style="color: #fff;">hot deal this week</h2>
+					<p style="color : #fff">New Collection Up to 50% OFF</p>
+					<a class="primary-btn cta-btn" href="#">Shop now</a>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /HOT DEAL SECTION -->
+
+<div class="container">
+    @await Html.PartialAsync("~/Views/ProductView/ProductStyle2.cshtml", lstDTM)
+</div>
+
+
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-3" class="products-slick-nav"></div>
+	=				</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-3">
+					<div>
+						<!-- product widget -->
+						@foreach (var item in lstDTM.Take(3))
+						{
+							<div class="product-widget">
+								<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.Idsp })">
+								<div class="product-img">
+									<img src="~/Contents/img/@item.Hinhanh1" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.MaloaispNavigation.Tenloai.ToUpper()</p>
+									<h3 class="product-name"><a href="#">@item.Tensp.ToUpper()</a></h3>
+									<h4 class="product-price">$@item.Dongia <del class="product-old-price">$@(item.Dongia+200)</del></h4>
+								</div>
+							</div>
+						}
+						<!-- /product widget -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-4" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-4">
+					<div>
+						<!-- product widget -->
+						@foreach (var item in lstSelling.Take(3))
+						{
+							<div class="product-widget">
+								<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.Idsp })">
+								<div class="product-img">
+									<img src="~/Contents/img/@item.Hinhanh1" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.MaloaispNavigation.Tenloai.ToUpper()</p>
+									<h3 class="product-name"><a href="#">@item.Tensp.ToUpper()</a></h3>
+									<h4 class="product-price">$@item.Dongia <del class="product-old-price">$@(item.Dongia + 200)</del></h4>
+								</div>
+							</div>
+						}
+						<!-- /product widget -->
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix visible-sm visible-xs"></div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-5" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-5">
+					<div>
+						<!-- product widget -->
+						@foreach (var item in lstLTM.Take(3))
+						{
+							<div class="product-widget">
+								<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.Idsp })">
+								<div class="product-img">
+									<img src="~/Contents/img/@item.Hinhanh1" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.MaloaispNavigation.Tenloai.ToUpper()</p>
+									<h3 class="product-name"><a href="#">@item.Tensp.ToUpper()</a></h3>
+									<h4 class="product-price">$@item.Dongia <del class="product-old-price">$@(item.Dongia + 200)</del></h4>
+								</div>
+							</div>
+						}
+
+						<!-- /product widget -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->

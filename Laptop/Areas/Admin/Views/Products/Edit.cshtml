@@ -1,0 +1,89 @@
+﻿@model GiayDep.Models.SanPham
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>SanPham</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Idsp" />
+            <div class="form-group">
+                <label asp-for="Tensp" class="control-label"></label>
+                <input asp-for="Tensp" class="form-control" />
+                <span asp-validation-for="Tensp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dongia" class="control-label"></label>
+                <input asp-for="Dongia" class="form-control" />
+                <span asp-validation-for="Dongia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Soluong" class="control-label"></label>
+                <input asp-for="Soluong" class="form-control" />
+                <span asp-validation-for="Soluong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Baohanh" class="control-label"></label>
+                <input asp-for="Baohanh" class="form-control" />
+                <span asp-validation-for="Baohanh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Khuyenmai" class="control-label"></label>
+                <input asp-for="Khuyenmai" class="form-control" />
+                <span asp-validation-for="Khuyenmai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Maloaisp" class="control-label"></label>
+                <select asp-for="Maloaisp" class="form-control" asp-items="ViewBag.Maloaisp"></select>
+                <span asp-validation-for="Maloaisp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manhacc" class="control-label" ></label>
+                <select asp-for="Manhacc" class="form-control" asp-items="ViewBag.Manhacc"></select>
+                <span asp-validation-for="Manhacc" class="text-danger"></span>
+            </div>
+            <div class="form-group col-7 p-0" style="transform:translate(-10px,-60px);">
+                <div class="form-group col-7 p-0" style="transform:translate(-10px,-60px);">
+                    <div class="input-group custom-file-button mt-5 pt-5">
+                        <input asp-for="Image1" class="form-control custom-file-input" id="customFile">
+                    </div>
+                </div>
+
+                <div class="form-group pt-0 mt-0">
+                    <div ID="HiddenDiv" style="visibility: hidden;">
+                        <input asp-for="Hinhanh1" id="PhotoUrl" value="" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group pt-0 mt-0">
+                <div ID="HiddenDiv" style="visibility: hidden;">
+                    <input asp-for="Hinhanh1" id="PhotoUrl"  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+       
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+        
+
+

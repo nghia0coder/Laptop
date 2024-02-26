@@ -1,0 +1,55 @@
+﻿@model GiayDep.Models.Membership
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Membership</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tk)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tk)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sđt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sđt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLoaiTvNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaLoaiTvNavigation.MaLoaiTv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Idtv">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,65 @@
+﻿@model GiayDep.Models.NhaSanXuat
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>NhaSanXuat</h4>
+<hr />
+<h4>@Html.ActionLink("Quản lý NSX", "Index") > Tạo mới</h4>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Tạo mới nhà sản xuất</h4>
+        <form asp-action="Create" asp-controller="NhaSX" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group row">
+                    <label asp-for="Tennhasx" class="col-form-label font-weight-bold col-sm-2"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Tennhasx" class="form-control" />
+                        <span asp-validation-for="Tennhasx" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Diachi" class="col-form-label font-weight-bold col-sm-2"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Diachi" class="form-control" />
+                        <span asp-validation-for="Diachi" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sđt" class="col-form-label font-weight-bold col-sm-2"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Sđt" class="form-control" />
+                        <span asp-validation-for="Sđt" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-form-label font-weight-bold col-sm-2"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row ">
+                    <div class="col-sm-4 mt-3">
+                        <button type="submit" class="btn btn-sm btn-primary font-weight-bold w-25">Thêm mới</button>
+                        <a asp-action="Index" class="btn btn-sm btn-secondary font-weight-bold w-25">Trở về</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

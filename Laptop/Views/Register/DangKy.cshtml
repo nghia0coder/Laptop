@@ -1,0 +1,90 @@
+﻿@model GiayDep.Models.Membership;
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/_RegisterLayout.cshtml";
+}
+
+<style>
+    .register-bottom-grid input[type="text"] {
+        width: 100%;
+        padding: 1em;
+        margin: 1em 0;
+        background: none;
+        outline: none;
+        border: 1px solid #A09F9F;
+        -webkit-appearance: none;
+    }
+</style>
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.SuccessMessage
+    </div>
+}
+<div class="container">
+
+    <div class=" register">
+        <h1>Đăng ký thành viên</h1>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-md-6 register-top-grid">
+                <h3>Thông tin cá nhân</h3>
+
+                <div>
+                    <span>@Html.LabelFor(model => model.HoTen)</span>
+                    @Html.TextBoxFor(model => model.HoTen)
+                    @Html.ValidationMessageFor(model => model.HoTen, "", new { @style = "margin-bottom:15px; color:#DC143C;" })
+                </div>
+                <div>
+                    <span>@Html.LabelFor(model => model.DiaChi)</span>
+                    @Html.TextBoxFor(model => model.DiaChi)
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @style = "margin-bottom:15px; color:#DC143C;" })
+                </div>
+                <div>
+                    <span>@Html.LabelFor(model => model.Email)</span>
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @style = "margin-bottom:15px; color:#DC143C;" })
+                </div>
+                <div>
+                    <span>@Html.LabelFor(model => model.Sđt)</span>
+                    @Html.TextBoxFor(model => model.Sđt)
+                    @Html.ValidationMessageFor(model => model.Sđt, "", new { @style = "margin-bottom:15px; color:#DC143C;" })
+                </div>
+            </div>
+            <div class="col-md-6 register-bottom-grid">
+                <h3>Thông tin đăng nhập</h3>
+                <div>
+                    <span>@Html.LabelFor(model => model.Tk)</span>
+                    @Html.TextBoxFor(model => model.Tk)
+                    @Html.ValidationMessageFor(model => model.Tk, "", new { @style = "margin-bottom:15px; color:#DC143C;" })
+                </div>
+                <div>
+                    <span>@Html.LabelFor(model => model.Mk)</span>
+                    @Html.PasswordFor(model => model.Mk)
+                    @Html.ValidationMessageFor(model => model.Mk, "", new { @style = "margin-bottom:15px; color:#DC143C;" })
+                </div>
+                <div>
+                    <span>Nhập lại mật khẩu</span>
+                    @Html.Password("NhapLaiMatKhau")
+                </div>
+                <input type="submit" value="Xác nhận">
+              
+            </div>
+            <div class="clearfix"> </div>
+        }
+        
+    </div>
+</div>
+
+@if (ViewBag.RedirectDelay != null)
+{
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Index", "Home")';
+        }, @ViewBag.RedirectDelay);
+    </script>
+}
+
+
