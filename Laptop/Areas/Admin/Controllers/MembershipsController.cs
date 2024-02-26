@@ -11,7 +11,8 @@ namespace GiayDep.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class MembershipsController : Controller
-    {
+    {   
+        //Tesst
         private readonly LaptopContext _context;
 
         public MembershipsController(LaptopContext context)
