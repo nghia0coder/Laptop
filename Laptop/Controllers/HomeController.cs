@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace GiayDep.Controllers
 {	
-	//he lo may cung
+	// haloooooo
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
