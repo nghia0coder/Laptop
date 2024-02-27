@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace GiayDep.Controllers
 {
     public class AccountController : Controller
-    {
+    {   
+        //sdaddsđ
         private UserManager<AppUserModel> _userManager;
         private SignInManager<AppUserModel> _signInManager;
         public AccountController(UserManager<AppUserModel> userManager, SignInManager<AppUserModel> signInManager) 
