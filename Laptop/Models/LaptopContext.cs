@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-//asknfkjsadn
+//okqwoqwo
 namespace GiayDep.Models
 {
     public partial class LaptopContext : IdentityDbContext<AppUserModel>
