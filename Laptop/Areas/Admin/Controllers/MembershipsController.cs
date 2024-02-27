@@ -12,7 +12,7 @@ namespace GiayDep.Areas.Admin.Controllers
     [Area("Admin")]
     public class MembershipsController : Controller
     {   
-        //Tesst
+        //Tesstcommit
         private readonly LaptopContext _context;
 
         public MembershipsController(LaptopContext context)
