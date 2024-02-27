@@ -6,8 +6,7 @@ using System.Diagnostics;
 
 namespace GiayDep.Controllers
 {	
-	//change
-    //nghia
+	//djahksdghsad
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
