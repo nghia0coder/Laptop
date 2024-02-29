@@ -12,7 +12,7 @@ namespace GiayDep.Models
         public string Address { get; set; }
         [Required(ErrorMessage = "Vui Lòng Nhập Email"), EmailAddress]
         public string Email { get; set; }
-        [DataType(DataType.Password),Required(ErrorMessage ="Làm ơn nhập Password")]  
+        [DataType(DataType.Password),Required(ErrorMessage ="Xin hãy nhập Password")]  
         public string Password { get; set; }
     }
 }
