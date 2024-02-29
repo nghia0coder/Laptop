@@ -5,56 +5,64 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<!-- Thêm liên kết đến Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<h1>Nhà cung cấp</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Tennhacc)
+                Tên nhà cung cấp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Diachi)
+                Địa chỉ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sdt)
+                Số điện thoại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdnhasxNavigation)
+                Id nhà sản xuất
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tennhacc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Diachi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sdt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdnhasxNavigation.Idnhasx)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Idnhacc">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Idnhacc">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Idnhacc">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tennhacc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Diachi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sdt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdnhasxNavigation.Idnhasx)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idnhacc" class="btn btn-primary">Chỉnh sửa</a>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Idnhacc" class="btn btn-info">Chi tiết</a>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Idnhacc" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+

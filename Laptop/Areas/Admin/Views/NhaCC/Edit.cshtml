@@ -1,13 +1,16 @@
 ﻿@model GiayDep.Models.NhaCungCap
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
 
-<h4>NhaCungCap</h4>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<h1>Chỉnh sửa</h1>
+
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,38 +18,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Idnhacc" />
             <div class="form-group">
-                <label asp-for="Tennhacc" class="control-label"></label>
+                <label asp-for="Tennhacc" class="control-label">Tên nhà cung cấp</label>
                 <input asp-for="Tennhacc" class="form-control" />
                 <span asp-validation-for="Tennhacc" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Diachi" class="control-label"></label>
+                <label asp-for="Diachi" class="control-label">Địa chỉ</label>
                 <input asp-for="Diachi" class="form-control" />
                 <span asp-validation-for="Diachi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sdt" class="control-label"></label>
+                <label asp-for="Sdt" class="control-label">Số điện thoại</label>
                 <input asp-for="Sdt" class="form-control" />
                 <span asp-validation-for="Sdt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+                <label asp-for="Email" class="control-label">Email</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Idnhasx" class="control-label"></label>
+                <label asp-for="Idnhasx" class="control-label">Mã nhà sản xuất</label>
                 <select asp-for="Idnhasx" class="form-control" asp-items="ViewBag.Idnhasx"></select>
                 <span asp-validation-for="Idnhasx" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Trở về</a>
 </div>
-
