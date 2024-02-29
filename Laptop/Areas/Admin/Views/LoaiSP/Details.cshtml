@@ -8,9 +8,8 @@
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-<h1>Chi tiết</h1>
+<h2 class="text-center"> Chi tiết </h2>
 
-<div class="container">
 
     <hr />
     <dl class="row">
@@ -21,8 +20,8 @@
             @Html.DisplayFor(model => model.Tenloai)
         </dd>
     </dl>
-</div>
-<div class="container">
+
+<div>
     <a asp-action="Edit" asp-route-id="@Model?.Idloai" class="btn btn-primary">Chỉnh sửa</a> |
     <a asp-action="Index" class="btn btn-secondary">Trở về</a>
 </div>
