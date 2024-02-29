@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\Laptop.csproj": {}
+    "C:\\Users\\My Computer\\source\\repos\\Laptop\\Laptop\\Laptop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\Laptop.csproj": {
+    "C:\\Users\\My Computer\\source\\repos\\Laptop\\Laptop\\Laptop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\Laptop.csproj",
+        "projectUniqueName": "C:\\Users\\My Computer\\source\\repos\\Laptop\\Laptop\\Laptop.csproj",
         "projectName": "Laptop",
-        "projectPath": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\Laptop.csproj",
+        "projectPath": "C:\\Users\\My Computer\\source\\repos\\Laptop\\Laptop\\Laptop.csproj",
         "packagesPath": "C:\\Users\\My Computer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\obj\\",
+        "outputPath": "C:\\Users\\My Computer\\source\\repos\\Laptop\\Laptop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\My Computer\\AppData\\Roaming\\NuGet\\NuGet.Config",
