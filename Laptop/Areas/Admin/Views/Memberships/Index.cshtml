@@ -5,61 +5,64 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="text-center font-weight-bold">Danh sách thành viên</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Create")'">Tạo mới</button>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Tk)
+                Tài khoản
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoTen)
+                Họ tên
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiaChi)
+                Địa chỉ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sđt)
+                SĐT
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaLoaiTvNavigation)
+                Mã loại
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sđt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaLoaiTvNavigation.MaLoaiTv)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Idtv">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Idtv">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sđt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaLoaiTvNavigation.MaLoaiTv)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idtv" class="btn btn-warning">Chỉnh sửa</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Idtv" class="btn btn-danger">Xóa</a>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+

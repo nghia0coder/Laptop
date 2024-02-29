@@ -5,28 +5,28 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="text-center font-weight-bold">danh sách phiếu nhập</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Create")'">Tạo mới</button>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NgayNhap)
+                Ngày nhập
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Soluong)
+                Số lượng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gia)
+                Giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdphieunhapNavigation)
+                Mã phiếu nhập
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdspNavigation)
+                Mã sản phầm
             </th>
             <th></th>
         </tr>
@@ -50,9 +50,10 @@
                 @Html.DisplayFor(modelItem => item.IdspNavigation.Idsp)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdchitietPn">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdchitietPn">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdchitietPn">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdchitietPn" class="btn btn-warning">Chỉnh sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdchitietPn" class="btn btn-success">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdchitietPn" class="btn btn-danger">Xóa</a>
+
             </td>
         </tr>
 }

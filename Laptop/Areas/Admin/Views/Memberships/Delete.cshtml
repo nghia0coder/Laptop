@@ -5,60 +5,63 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<<h2 class="text-center font-weight-bold">Xóa thông tin thành viên</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="text-danger">Bạn có muốn xóa thành viên này khỏi danh sách?</h3>
+
 <div>
-    <h4>Membership</h4>
+    <h4>Thành viên</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Tk)
+            Tài khoản
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Tk)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Mk)
+            Mật khẩu
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Mk)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
+            Họ tên
         </dt>
         <dd>
             @Html.DisplayFor(model => model.HoTen)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
+            Địa chỉ
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DiaChi)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Sđt)
+            SĐT
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Sđt)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MaLoaiTvNavigation)
+            Mã loại thành viên
         </dt>
         <dd>
             @Html.DisplayFor(model => model.MaLoaiTvNavigation.MaLoaiTv)
         </dd>
     </dl>
+
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Idtv" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-success">Quay trở lại</a> 
     </form>
+
 </div>
