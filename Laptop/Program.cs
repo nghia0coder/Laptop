@@ -6,7 +6,8 @@ using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 
 namespace GiayDep
-{
+{  
+    //eweweeq
     public class Program
     {
         public static async Task Main(string[] args)
