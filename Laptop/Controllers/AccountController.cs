@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GiayDep.Controllers
-{
+{   
+    //hjhjhjhjh
     public class AccountController : Controller
     {
         private UserManager<AppUserModel> _userManager;
