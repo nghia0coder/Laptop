@@ -9,7 +9,7 @@ namespace GiayDep.Models
         {
             CtHoaDons = new HashSet<CtHoaDon>();
         }
-
+        //dsadđa
         public int Idhoadon { get; set; }
         public DateTime? Ngaythanhtoan { get; set; }
         public bool Tinhtranggiaohang { get; set; }
