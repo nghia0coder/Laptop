@@ -48,7 +48,7 @@ namespace GiayDep.Areas.Admin.Controllers
         // GET: Admin/NhaCC/Create
         public async Task<IActionResult> Create()
         {   var sxList = await nhaSXRepository.GetAll();
-            ViewData["Idnhasx"] = new SelectList(sxList, "Idnhasx", "Idnhasx");
+            ViewData["Idnhasx"] = new SelectList(sxList, "Idnhasx", "Tennhasx");
             return View();
         }
         [Authorize(Roles = "Manager")]
@@ -91,7 +91,6 @@ namespace GiayDep.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 await _nhaCCRepository.Update(nhaCungCap);
