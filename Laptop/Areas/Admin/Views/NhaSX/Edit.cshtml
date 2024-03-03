@@ -5,9 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<!-- Thêm liên kết đến Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-<h4>NhaSanXuat</h4>
+<h2 class="text-center"> Chỉnh sửa </h2>
+
+
 <hr />
 <div class="row">
     <div class="col-md-6">
@@ -15,35 +18,46 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Idnhasx" />
             <div class="form-group">
+
                 <label asp-for="Tennhasx" class="control-label font-weight-bold">Tên NSX</label>
                 <input asp-for="Tennhasx" class="form-control" required />
+
                 <span asp-validation-for="Tennhasx" class="text-danger"></span>
                 <div class="invalid-feedback">Vui lòng nhập tên nhà sản xuất.</div>
             </div>
             <div class="form-group">
+
                 <label asp-for="Diachi" class="control-label font-weight-bold">Địa chỉ</label>
                 <input asp-for="Diachi" class="form-control" required />
+
                 <span asp-validation-for="Diachi" class="text-danger"></span>
                 <div class="invalid-feedback">Vui lòng nhập địa chỉ của nhà sản xuất.</div>
             </div>
             <div class="form-group">
+
                 <label asp-for="Sđt" class="control-label font-weight-bold">Số điện thoại</label>
                 <input asp-for="Sđt" class="form-control" required />
+
                 <span asp-validation-for="Sđt" class="text-danger"></span>
                 <div class="invalid-feedback">Vui lòng nhập số điện thoại của nhà sản xuất.</div>
             </div>
             <div class="form-group">
+
                 <label asp-for="Email" class="control-label font-weight-bold">Email</label>
                 <input asp-for="Email" class="form-control" required />
+
                 <span asp-validation-for="Email" class="text-danger"></span>
                 <div class="invalid-feedback">Vui lòng nhập địa chỉ email hợp lệ.</div>
             </div>
             <div class="form-group">
+
                 <input type="submit" value="Save" class="btn btn-primary font-weight-bold" />
+
             </div>
         </form>
     </div>
 </div>
+
 
 <div>
     <a asp-action="Index" class="btn btn-secondary font-weight-bold">Back to List</a>

@@ -10,7 +10,8 @@ using Laptop.Models;
 using Laptop.Service;
 
 namespace GiayDep
-{
+{  
+    //eweweeq
     public class Program
     {
         public static async Task Main(string[] args)

@@ -5,32 +5,36 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<h2 class="text-center"> Loại sản phẩm </h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Tenloai)
+                Tên loại
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tenloai)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Idloai">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Idloai">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Idloai">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tenloai)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idloai" class="btn btn-primary">Chỉnh sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Idloai" class="btn btn-info">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Idloai" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

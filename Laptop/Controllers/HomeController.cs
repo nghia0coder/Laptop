@@ -6,8 +6,8 @@ using System.Diagnostics;
 
 namespace GiayDep.Controllers
 {	
-	//SĐSS
-    //ĐÂSDADASDA
+
+//Day la master
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

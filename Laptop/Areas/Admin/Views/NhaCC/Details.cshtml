@@ -1,49 +1,53 @@
 ﻿@model GiayDep.Models.NhaCungCap
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>NhaCungCap</h4>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<h2 class="text-center"> Chi tiết </h2>
+
+<div class="container">
+
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tennhacc)
+        <dt class="col-sm-2">
+            Tên nhà cung cấp:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tennhacc)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Diachi)
+        <dt class="col-sm-2">
+            Địa chỉ:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Diachi)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sdt)
+        <dt class="col-sm-2">
+            Số điện thoại:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Sdt)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+        <dt class="col-sm-2">
+            Email:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdnhasxNavigation)
+        <dt class="col-sm-2">
+            ID nhà sản xuất:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IdnhasxNavigation.Idnhasx)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Idnhacc">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="container">
+    <a asp-action="Edit" asp-route-id="@Model?.Idnhacc" class="btn btn-primary">Chỉnh sửa</a> |
+    <a asp-action="Index" class="btn btn-secondary">Trở về</a>
 </div>

@@ -1,0 +1,1409 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Laptop.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Laptop.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\assets\\demo\\chart-area-demo.js",
+      "PackagePath": "staticwebassets\\Assets\\admin\\assets\\demo\\chart-area-demo.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\assets\\demo\\chart-bar-demo.js",
+      "PackagePath": "staticwebassets\\Assets\\admin\\assets\\demo\\chart-bar-demo.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\assets\\demo\\chart-pie-demo.js",
+      "PackagePath": "staticwebassets\\Assets\\admin\\assets\\demo\\chart-pie-demo.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\assets\\demo\\datatables-demo.js",
+      "PackagePath": "staticwebassets\\Assets\\admin\\assets\\demo\\datatables-demo.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\assets\\img\\error-404-monochrome.svg",
+      "PackagePath": "staticwebassets\\Assets\\admin\\assets\\img\\error-404-monochrome.svg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\css\\styles.css",
+      "PackagePath": "staticwebassets\\Assets\\admin\\css\\styles.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\js\\datatables-simple-demo.js",
+      "PackagePath": "staticwebassets\\Assets\\admin\\js\\datatables-simple-demo.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Assets\\admin\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\Assets\\admin\\js\\scripts.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\PagedList.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\PagedList.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\Site.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\Site.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap-theme.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap-theme.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap-theme.css.map",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap-theme.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap-theme.min.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap-theme.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap-theme.min.css.map",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap-theme.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\Contents\\Material\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\css\\Home_style.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\css\\Home_style.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\css\\Style_form_dangNhap.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\css\\Style_form_dangNhap.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\css\\flexslider.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\css\\flexslider.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\css\\memenu.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\css\\memenu.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\css\\style.css",
+      "PackagePath": "staticwebassets\\Contents\\Material\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\4172331.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\4172331.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\banner-black-friday-giay-dep-crocs-bosin.jpg",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\banner-black-friday-giay-dep-crocs-bosin.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\giaydepthai-banner-1.jpg",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\giaydepthai-banner-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\lo.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\lo.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\lo1.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\lo1.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\lo2.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\lo2.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\lo3.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\lo3.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\lo4.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\lo4.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\pi1.jpg",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\pi1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\pi5.jpg",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\pi5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\images\\tick1.png",
+      "PackagePath": "staticwebassets\\Contents\\Material\\images\\tick1.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\js\\jquery.flexslider.js",
+      "PackagePath": "staticwebassets\\Contents\\Material\\js\\jquery.flexslider.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Material\\js\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\js\\main.js",
+      "PackagePath": "staticwebassets\\Contents\\Material\\js\\main.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\js\\memenu.js",
+      "PackagePath": "staticwebassets\\Contents\\Material\\js\\memenu.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\js\\responsiveslides.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Material\\js\\responsiveslides.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Material\\js\\simpleCart.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Material\\js\\simpleCart.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\README.md",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\bootstrap.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper-utils.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper-utils.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper-utils.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper-utils.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper-utils.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper-utils.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper-utils.min.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper-utils.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\esm\\popper.min.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\esm\\popper.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\index.d.ts",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\index.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\index.js.flow",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\index.js.flow"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.intellisense.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.intellisense.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.min.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.min.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.slim.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.slim.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.slim.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.slim.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery-3.4.1.slim.min.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery-3.4.1.slim.min.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.unobtrusive-ajax.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.unobtrusive-ajax.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.unobtrusive-ajax.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.unobtrusive-ajax.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.validate-vsdoc.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.validate-vsdoc.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\modernizr-2.8.3.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\modernizr-2.8.3.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper-utils.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper-utils.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper-utils.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper-utils.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper-utils.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper-utils.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper-utils.min.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper-utils.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\popper.min.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\popper.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\index.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\index.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\methods\\defaults.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\methods\\defaults.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\methods\\destroy.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\methods\\destroy.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\methods\\disableEventListeners.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\methods\\disableEventListeners.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\methods\\enableEventListeners.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\methods\\enableEventListeners.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\methods\\placements.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\methods\\placements.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\methods\\update.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\methods\\update.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\applyStyle.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\applyStyle.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\arrow.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\arrow.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\computeStyle.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\computeStyle.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\flip.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\flip.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\hide.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\hide.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\index.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\index.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\inner.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\inner.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\keepTogether.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\keepTogether.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\offset.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\offset.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\preventOverflow.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\preventOverflow.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\modifiers\\shift.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\modifiers\\shift.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\clockwise.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\clockwise.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\computeAutoPlacement.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\computeAutoPlacement.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\debounce.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\debounce.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\find.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\find.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\findCommonOffsetParent.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\findCommonOffsetParent.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\findIndex.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\findIndex.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getBordersSize.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getBordersSize.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getBoundaries.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getBoundaries.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getBoundingClientRect.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getBoundingClientRect.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getClientRect.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getClientRect.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getFixedPositionOffsetParent.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getFixedPositionOffsetParent.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getOffsetParent.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getOffsetParent.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getOffsetRect.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getOffsetRect.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getOffsetRectRelativeToArbitraryNode.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getOffsetRectRelativeToArbitraryNode.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getOppositePlacement.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getOppositePlacement.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getOppositeVariation.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getOppositeVariation.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getOuterSizes.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getOuterSizes.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getParentNode.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getParentNode.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getPopperOffsets.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getPopperOffsets.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getReferenceNode.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getReferenceNode.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getReferenceOffsets.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getReferenceOffsets.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getRoot.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getRoot.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getRoundedOffsets.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getRoundedOffsets.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getScroll.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getScroll.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getScrollParent.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getScrollParent.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getStyleComputedProperty.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getStyleComputedProperty.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getSupportedPropertyName.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getSupportedPropertyName.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getViewportOffsetRectRelativeToArtbitraryNode.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getViewportOffsetRectRelativeToArtbitraryNode.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getWindow.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getWindow.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\getWindowSizes.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\getWindowSizes.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\includeScroll.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\includeScroll.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\index.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\index.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isBrowser.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isBrowser.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isFixed.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isFixed.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isFunction.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isFunction.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isIE.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isIE.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isModifierEnabled.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isModifierEnabled.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isModifierRequired.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isModifierRequired.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isNumeric.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isNumeric.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\isOffsetContainer.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\isOffsetContainer.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\removeEventListeners.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\removeEventListeners.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\runModifiers.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\runModifiers.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\setAttributes.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\setAttributes.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\setStyles.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\setStyles.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\src\\utils\\setupEventListeners.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\src\\utils\\setupEventListeners.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper-utils.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper-utils.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper-utils.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper-utils.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper-utils.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper-utils.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper-utils.min.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper-utils.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper.js.flow",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper.js.flow"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper.min.js",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\Scripts\\umd\\popper.min.js.map",
+      "PackagePath": "staticwebassets\\Contents\\Scripts\\umd\\popper.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\de08cba5-8cf4-4a3d-a348-1dc163222a3d_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\de08cba5-8cf4-4a3d-a348-1dc163222a3d_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\all.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\all.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\all.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\all.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\brands.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\brands.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\brands.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\brands.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\fontawesome.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\fontawesome.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\fontawesome.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\fontawesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\regular.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\regular.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\regular.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\regular.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\solid.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\solid.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\solid.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\solid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\svg-with-js.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\svg-with-js.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\svg-with-js.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\svg-with-js.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\v4-shims.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\v4-shims.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\css\\v4-shims.min.css",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\css\\v4-shims.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_animated.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_animated.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_bordered-pulled.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_bordered-pulled.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_core.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_core.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_fixed-width.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_fixed-width.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_icons.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_icons.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_larger.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_larger.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_list.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_list.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_mixins.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_mixins.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_rotated-flipped.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_rotated-flipped.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_screen-reader.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_screen-reader.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_shims.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_shims.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_stacked.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_stacked.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\_variables.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\_variables.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\brands.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\brands.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\fontawesome.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\fontawesome.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\regular.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\regular.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\solid.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\solid.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\less\\v4-shims.less",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\less\\v4-shims.less"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_animated.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_animated.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_bordered-pulled.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_bordered-pulled.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_core.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_core.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_fixed-width.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_fixed-width.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_icons.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_icons.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_larger.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_larger.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_list.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_list.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_mixins.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_mixins.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_rotated-flipped.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_rotated-flipped.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_screen-reader.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_screen-reader.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_shims.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_shims.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_stacked.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_stacked.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\_variables.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\_variables.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\brands.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\brands.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\fontawesome.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\fontawesome.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\regular.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\regular.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\solid.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\solid.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\scss\\v4-shims.scss",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\scss\\v4-shims.scss"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-brands-400.eot",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-brands-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-brands-400.svg",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-brands-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-regular-400.eot",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-regular-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-regular-400.svg",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-regular-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-solid-900.eot",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-solid-900.eot"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-solid-900.svg",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-solid-900.svg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\fontawesome\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\Contents\\fontawesome\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\0756b5ef-c74b-44f2-9318-97d4a5a7bdd3_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\0756b5ef-c74b-44f2-9318-97d4a5a7bdd3_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\0cab7471-be0f-473b-a7c9-bbb6b273d946_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\0cab7471-be0f-473b-a7c9-bbb6b273d946_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\17a1df55-cbbd-455f-857d-db9b5c9c1ba9_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\17a1df55-cbbd-455f-857d-db9b5c9c1ba9_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\1f3bbb65-cd3e-4c81-8394-5cb21eb15afd_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\1f3bbb65-cd3e-4c81-8394-5cb21eb15afd_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\2a60d039-abff-4ca1-ba96-8553421fcb1f_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\2a60d039-abff-4ca1-ba96-8553421fcb1f_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\2f5eb49a-0d58-4bee-91fe-587c68a393ab_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\2f5eb49a-0d58-4bee-91fe-587c68a393ab_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\316199c2-a91f-4173-a8c1-9b7d2e2817c9_58fa9fa0-ad20-4703-ba26-b614292ac30a.gif",
+      "PackagePath": "staticwebassets\\Contents\\img\\316199c2-a91f-4173-a8c1-9b7d2e2817c9_58fa9fa0-ad20-4703-ba26-b614292ac30a.gif"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\31fe54be-0005-475d-b262-7578f32558f3_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\31fe54be-0005-475d-b262-7578f32558f3_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\3b6b7612-71eb-4619-97f9-55a3dce5bd52_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\3b6b7612-71eb-4619-97f9-55a3dce5bd52_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\56939a19-cb90-4c1d-969c-44f77e9c6c7d_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\56939a19-cb90-4c1d-969c-44f77e9c6c7d_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\68cbe67c-e3bf-4c5f-9fb5-03b9042dfe8e_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\68cbe67c-e3bf-4c5f-9fb5-03b9042dfe8e_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\869c06b7-999e-4fe1-9f16-7a9670887a86_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\869c06b7-999e-4fe1-9f16-7a9670887a86_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\8971858d-eb12-4f4c-bf6e-c5ed7dc3b95b_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\8971858d-eb12-4f4c-bf6e-c5ed7dc3b95b_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\9f08ed06-4f8c-4d5b-8275-474787ca61a5_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\9f08ed06-4f8c-4d5b-8275-474787ca61a5_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\a4e98dcf-341e-4fb7-82de-a730f9eed763_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\a4e98dcf-341e-4fb7-82de-a730f9eed763_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\b418ba44-cd62-4e85-87c1-cfa75bd8ccdb_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\b418ba44-cd62-4e85-87c1-cfa75bd8ccdb_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\cfb52ee2-58ca-45fb-abb6-9316410331b5_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\cfb52ee2-58ca-45fb-abb6-9316410331b5_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\d06a3b74-8623-4dfe-889d-7da1a499d3ae_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\d06a3b74-8623-4dfe-889d-7da1a499d3ae_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\da4aa98b-f250-4000-9128-042d5c7cda2e_adidas-forum-84-hi-blue-white-release-date-FY7793-2.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\da4aa98b-f250-4000-9128-042d5c7cda2e_adidas-forum-84-hi-blue-white-release-date-FY7793-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\db94dc88-43b8-4127-bfe3-109864fc7249_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\db94dc88-43b8-4127-bfe3-109864fc7249_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\de08cba5-8cf4-4a3d-a348-1dc163222a3d_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\de08cba5-8cf4-4a3d-a348-1dc163222a3d_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\deal.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\deal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\eebfcc60-f640-465b-a1a9-830a84112437_ao-thun-soc-xanh-at718-9143.jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\eebfcc60-f640-465b-a1a9-830a84112437_ao-thun-soc-xanh-at718-9143.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\f04216af-1093-4945-9b87-f7f604e0fdfc_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\f04216af-1093-4945-9b87-f7f604e0fdfc_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Contents\\img\\f9ecf636-ccd6-48ed-ae45-61aa8a24a23c_OIP (4).jpg",
+      "PackagePath": "staticwebassets\\Contents\\img\\f9ecf636-ccd6-48ed-ae45-61aa8a24a23c_OIP (4).jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\Product\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\Product\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\css\\nouislider.min.css",
+      "PackagePath": "staticwebassets\\Product\\css\\nouislider.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\css\\slick-theme.css",
+      "PackagePath": "staticwebassets\\Product\\css\\slick-theme.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\css\\slick.css",
+      "PackagePath": "staticwebassets\\Product\\css\\slick.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\css\\style.css",
+      "PackagePath": "staticwebassets\\Product\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\Product\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\Product\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\Product\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\Product\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\Product\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\Product\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\slick.eot",
+      "PackagePath": "staticwebassets\\Product\\fonts\\slick.eot"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\slick.svg",
+      "PackagePath": "staticwebassets\\Product\\fonts\\slick.svg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\slick.ttf",
+      "PackagePath": "staticwebassets\\Product\\fonts\\slick.ttf"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\fonts\\slick.woff",
+      "PackagePath": "staticwebassets\\Product\\fonts\\slick.woff"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\deal.jpg",
+      "PackagePath": "staticwebassets\\Product\\img\\deal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\hotdeal.png",
+      "PackagePath": "staticwebassets\\Product\\img\\hotdeal.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\logo.png",
+      "PackagePath": "staticwebassets\\Product\\img\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product01.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product01.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product02.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product02.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product03.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product03.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product04.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product04.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product05.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product05.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product06.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product06.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product07.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product07.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product08.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product08.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\product09.png",
+      "PackagePath": "staticwebassets\\Product\\img\\product09.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\shop01.png",
+      "PackagePath": "staticwebassets\\Product\\img\\shop01.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\shop02.png",
+      "PackagePath": "staticwebassets\\Product\\img\\shop02.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\img\\shop03.png",
+      "PackagePath": "staticwebassets\\Product\\img\\shop03.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\Product\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\Product\\js\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\js\\jquery.zoom.min.js",
+      "PackagePath": "staticwebassets\\Product\\js\\jquery.zoom.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\js\\main.js",
+      "PackagePath": "staticwebassets\\Product\\js\\main.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\js\\nouislider.min.js",
+      "PackagePath": "staticwebassets\\Product\\js\\nouislider.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\js\\slick.min.js",
+      "PackagePath": "staticwebassets\\Product\\js\\slick.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\screenshot\\Checkout.png",
+      "PackagePath": "staticwebassets\\Product\\screenshot\\Checkout.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\screenshot\\Index.png",
+      "PackagePath": "staticwebassets\\Product\\screenshot\\Index.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\screenshot\\Product.png",
+      "PackagePath": "staticwebassets\\Product\\screenshot\\Product.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\screenshot\\Regular.png",
+      "PackagePath": "staticwebassets\\Product\\screenshot\\Regular.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\Product\\screenshot\\Store.png",
+      "PackagePath": "staticwebassets\\Product\\screenshot\\Store.png"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\css\\thickbox.css",
+      "PackagePath": "staticwebassets\\css\\thickbox.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\img\\deal.jpg",
+      "PackagePath": "staticwebassets\\img\\deal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\js\\thickbox.js",
+      "PackagePath": "staticwebassets\\js\\thickbox.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\My Computer\\Source\\Repos\\Laptop\\Laptop\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Laptop.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Laptop.props",
+      "PackagePath": "build\\Laptop.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Laptop.props",
+      "PackagePath": "buildMultiTargeting\\Laptop.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Laptop.props",
+      "PackagePath": "buildTransitive\\Laptop.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
