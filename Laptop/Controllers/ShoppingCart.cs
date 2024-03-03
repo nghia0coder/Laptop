@@ -1,11 +1,12 @@
 ﻿using GiayDep.Models;
 using Microsoft.AspNetCore.Mvc;
 using GiayDep.ViewModels;
-using Microsoft.AspNetCore.Http;
-using System.Text.Json;
 using GiayDep.Repository;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Laptop.Interface;
+using System.Linq;
+using Laptop.Service;
 
 namespace GiayDep.Controllers
 {
@@ -13,15 +14,22 @@ namespace GiayDep.Controllers
     {
         private readonly LaptopContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ShoppingCart (LaptopContext context, IHttpContextAccessor httpContextAccessor)
+        private UserManager<AppUserModel> _userManager;
+        private readonly IEmailSender _emailSender;
+        private readonly SendMailService _sendMailService;
+
+        public ShoppingCart (LaptopContext context, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender, SendMailService sendMailService)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _emailSender = emailSender;
+            _sendMailService = sendMailService;
         }
        
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
+            
             List<CartItemsModel> cartItems = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
             Item cart = new()
             {
@@ -107,9 +115,10 @@ namespace GiayDep.Controllers
         {
             return View();
         }
-        public IActionResult DatHang()
+        public async Task<IActionResult> DatHangAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             // Check if the shopping cart session exists
 
             // Add a new order
@@ -124,6 +133,8 @@ namespace GiayDep.Controllers
             _context.HoaDons.Add(ddh);
             _context.SaveChanges();
 
+            List<string> sanphams = new List<string>();
+
             // Add order details
             List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
             foreach (var item in cart)
@@ -134,9 +145,20 @@ namespace GiayDep.Controllers
                 ctdh.Tensp = item.TenSP;
                 ctdh.Soluong = item.SoLuong;
                 ctdh.Dongia = item.DonGia;
+                string productInfo = $"Name: {ctdh.Tensp}, Quantity: {ctdh.Soluong}, Price: {ctdh.Dongia}";
+                sanphams.Add(productInfo);
                 _context.CtHoaDons.Add(ctdh);
             }
             _context.SaveChanges();
+
+            var mailContent = new MailContent
+            {
+                To = "nghialmao@gmail.com",
+                Subject = "Đơn hàng mới",
+                Body = "Thông tin sản phẩm:\n" + string.Join("\n", sanphams)
+            };
+
+            await _sendMailService.SendMail(mailContent);
             HttpContext.Session.Remove("Cart"); // Clear the shopping cart session
 
             // Redirect to the order success page

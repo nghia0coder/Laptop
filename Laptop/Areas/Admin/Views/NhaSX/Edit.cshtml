@@ -10,38 +10,41 @@
 <h4>NhaSanXuat</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post" class="needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Idnhasx" />
             <div class="form-group">
-                <label asp-for="Tennhasx" class="control-label"></label>
-                <input asp-for="Tennhasx" class="form-control" />
+                <label asp-for="Tennhasx" class="control-label font-weight-bold">Tên NSX</label>
+                <input asp-for="Tennhasx" class="form-control" required />
                 <span asp-validation-for="Tennhasx" class="text-danger"></span>
+                <div class="invalid-feedback">Vui lòng nhập tên nhà sản xuất.</div>
             </div>
             <div class="form-group">
-                <label asp-for="Diachi" class="control-label"></label>
-                <input asp-for="Diachi" class="form-control" />
+                <label asp-for="Diachi" class="control-label font-weight-bold">Địa chỉ</label>
+                <input asp-for="Diachi" class="form-control" required />
                 <span asp-validation-for="Diachi" class="text-danger"></span>
+                <div class="invalid-feedback">Vui lòng nhập địa chỉ của nhà sản xuất.</div>
             </div>
             <div class="form-group">
-                <label asp-for="Sđt" class="control-label"></label>
-                <input asp-for="Sđt" class="form-control" />
+                <label asp-for="Sđt" class="control-label font-weight-bold">Số điện thoại</label>
+                <input asp-for="Sđt" class="form-control" required />
                 <span asp-validation-for="Sđt" class="text-danger"></span>
+                <div class="invalid-feedback">Vui lòng nhập số điện thoại của nhà sản xuất.</div>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="control-label font-weight-bold">Email</label>
+                <input asp-for="Email" class="form-control" required />
                 <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="invalid-feedback">Vui lòng nhập địa chỉ email hợp lệ.</div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary font-weight-bold" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary font-weight-bold">Back to List</a>
 </div>
-

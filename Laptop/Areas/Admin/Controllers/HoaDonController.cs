@@ -24,7 +24,7 @@ namespace GiayDep.Areas.Admin.Controllers
             var lst = _context.HoaDons.Include(n => n.MakhNavigation).Where(n => !n.Dathanhtoan).OrderBy(n => n.Ngaythanhtoan).ToList();
             return View(lst);
         }
-
+         
         public IActionResult ChuaGiao()
         {
             var lstDSDHCG = _context.HoaDons

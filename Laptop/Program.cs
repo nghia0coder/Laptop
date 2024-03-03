@@ -4,6 +4,10 @@ using GiayDep.Areas.Admin.InterfacesRepositories;
 using GiayDep.Areas.Admin.Repositories;
 using System.Configuration;
 using Microsoft.AspNetCore.Identity;
+using Laptop.Interface;
+using Laptop.Repository;
+using Laptop.Models;
+using Laptop.Service;
 
 namespace GiayDep
 {
@@ -37,13 +41,16 @@ namespace GiayDep
                 // User settings.
                 options.User.RequireUniqueEmail = true;
             });
+             
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as needed
                 options.Cookie.IsEssential = true;
             });
-
+            builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<SendMailService>();
+            builder.Services.AddTransient<IEmailSender,EmailSender>();
             builder.Services.AddScoped<INhaSXRepository, NhaSXRepository>();
             builder.Services.AddScoped<INhaCungCapRepositorycs, NhaCCRepository>();
             builder.Services.AddScoped<ILoaiSpRepositorycs, LoaiSpRepository>();
@@ -91,7 +98,7 @@ namespace GiayDep
             using (var scope = app.Services.CreateScope())
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUserModel>>();
-                string email = "admin@gmail.com";
+                string email = "hongdainghiak15@siu.edu.vn";
                 string emailtStaff = "staff@gmail.com";
                 string password = "Test@1234";
                 string address = "SG";
