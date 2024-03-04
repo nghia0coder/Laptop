@@ -5,74 +5,73 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+<h1>Create</h1>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<h2 class="text-center"> Tạo mới </h2>
-
-
+<h4>SanPham</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create" asp-controller="Products" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Tensp" class="control-label">Tên sản phẩm</label>
+                <label asp-for="Tensp" class="control-label"></label>
                 <input asp-for="Tensp" class="form-control" />
                 <span asp-validation-for="Tensp" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Dongia" class="control-label">Đơn giá</label>
+                <label asp-for="Dongia" class="control-label"></label>
                 <input asp-for="Dongia" class="form-control" />
                 <span asp-validation-for="Dongia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Soluong" class="control-label">Số lượng</label>
+                <label asp-for="Soluong" class="control-label"></label>
                 <input asp-for="Soluong" class="form-control" />
                 <span asp-validation-for="Soluong" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Baohanh" class="control-label">Bảo hành</label>
+                <label asp-for="Baohanh" class="control-label"></label>
                 <input asp-for="Baohanh" class="form-control" />
                 <span asp-validation-for="Baohanh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Khuyenmai" class="control-label">Khuyến mãi</label>
+                <label asp-for="Khuyenmai" class="control-label"></label>
                 <input asp-for="Khuyenmai" class="form-control" />
                 <span asp-validation-for="Khuyenmai" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Maloaisp" class="control-label">Mã loại sản phẩm</label>
+                <label asp-for="Maloaisp" class="control-label"></label>
                 <select asp-for="Maloaisp" class="form-control" asp-items="ViewBag.Maloaisp"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Manhacc" class="control-label">Mã nhà cung cấp</label>
+                <label asp-for="Manhacc" class="control-label"></label>
                 <select asp-for="Manhacc" class="form-control" asp-items="ViewBag.Manhacc"></select>
             </div>
-            <!-- Thêm phần tải lên hình ảnh 1 -->
             <div class="form-group">
-                <label for="customFile1">Chọn ảnh 1 để tải lên:</label>
-                <input type="file" class="form-control-file" id="customFile1">
+                <label asp-for="Image1" class="control-label"></label>
+                <input asp-for="Image1" class="form-control-file" />
             </div>
-            <!-- Thêm phần tải lên hình ảnh 2 -->
             <div class="form-group">
-                <label for="customFile2">Chọn ảnh 2 để tải lên:</label>
-                <input type="file" class="form-control-file" id="customFile2">
+                <label asp-for="Image2" class="control-label"></label>
+                <input asp-for="Image2" class="form-control-file" />
             </div>
-            <!-- Thêm phần tải lên hình ảnh 3 -->
             <div class="form-group">
-                <label for="customFile3">Chọn ảnh 3 để tải lên:</label>
-                <input type="file" class="form-control-file" id="customFile3">
+                <label asp-for="Image3" class="control-label"></label>
+                <input asp-for="Image3" class="form-control-file" />
             </div>
-            <!-- Thêm phần tải lên hình ảnh 4 -->
             <div class="form-group">
-                <label for="customFile4">Chọn ảnh 4 để tải lên:</label>
-                <input type="file" class="form-control-file" id="customFile4">
+                <label asp-for="Image4" class="control-label"></label>
+                <input asp-for="Image4" class="form-control-file" />
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
