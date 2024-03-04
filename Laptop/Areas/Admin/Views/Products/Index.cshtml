@@ -5,84 +5,88 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<h2 class="text-center"> Quản lý sản phẩm </h2>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-bordered table-hover">
+<table class="table">
     <thead>
         <tr>
             <th>
-                Tên sản phẩm
+                @Html.DisplayNameFor(model => model.Tensp)
             </th>
             <th>
-                Đơn giá
+                @Html.DisplayNameFor(model => model.Dongia)
             </th>
             <th>
-                Số lượng
+                @Html.DisplayNameFor(model => model.Soluong)
             </th>
             <th>
-                Bảo hành
+                @Html.DisplayNameFor(model => model.Baohanh)
             </th>
             <th>
-                Khuyến mãi
+                @Html.DisplayNameFor(model => model.Khuyenmai)
             </th>
             <th>
-                Hình ảnh
+                @Html.DisplayNameFor(model => model.Hinhanh1)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                Mô tả
+                @Html.DisplayNameFor(model => model.MaloaispNavigation)
             </th>
             <th>
-                Mã loại sản phẩm
+                @Html.DisplayNameFor(model => model.ManhaccNavigation)
             </th>
-            <th>
-                Mã nhà cung cấp
-            </th>
-            
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tensp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dongia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Soluong)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Baohanh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Khuyenmai)
-                </td>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tensp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dongia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baohanh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Khuyenmai)
+           
                 <td>
                     <img class="thumbnail-image" src="~/Contents/img/@item.Hinhanh1" />
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaloaispNavigation.Idloai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManhaccNavigation.Idnhacc)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Idsp" class="btn btn-primary">Chỉnh sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.Idsp" class="btn btn-info">Chi tiết</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Idsp" class="btn btn-danger">Xóa</a>
-                </td>
-            </tr>
-        }
+            
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaloaispNavigation.Idloai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManhaccNavigation.Idnhacc)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idsp">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Idsp">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idsp">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
+
+<style>
+    .thumbnail-image {
+        max-width: 100px; /* Adjust the maximum width as needed */
+        max-height: 100px; /* Adjust the maximum height as needed */
+    }
+</style>
