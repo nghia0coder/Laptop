@@ -11,7 +11,7 @@
 				<li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
 				@foreach (var item in Model)
 				{
-					<li><a asp-action="ProductCate" asp-controller="ProductView" asp-route-id="@item.Idloai">@item.Tenloai.ToUpper()</a></li>
+					<li><a href="/sanpham/@SlugGenerator.SlugGenerator.GenerateSlug(item.Tenloai)- @item.Idloai">@item.Tenloai.ToUpper()</a></li>
 				}
 			</ul>
 			<!-- /NAV -->

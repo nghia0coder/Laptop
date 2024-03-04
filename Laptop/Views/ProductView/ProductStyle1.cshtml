@@ -33,8 +33,9 @@
 								<!-- product -->
 								@foreach (var item in Model.Take(6))
 								{	
-									<div class="product">
-										<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.Idsp })">
+									<div class="product" alt="">
+
+										<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.Hinhanh1)	- @item.Idsp">
 										<div class="product-img">
 											<img src="~/Contents/img/@item.Hinhanh1" alt="">
 											

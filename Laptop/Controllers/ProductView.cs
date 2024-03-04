@@ -26,6 +26,7 @@ namespace GiayDep.Controllers
         {
             return PartialView();
         }
+        [Route("post/{slug}-{id:int}")]
         public async Task<IActionResult> XemChiTiet(int? id)
         {
             if (id == null)
@@ -69,8 +70,8 @@ namespace GiayDep.Controllers
             // Return the view with paginated products
             return View(lstSP);
         }
-
-        public IActionResult ProductCate(int? Id)
+		[Route("sanpham/{slug}-{id:int}")]
+		public IActionResult ProductCate(int? Id)
         {
             // Check if the parameter is null
             if (Id == null)

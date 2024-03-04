@@ -17,17 +17,19 @@ namespace GiayDep.Areas.Admin.Controllers
 			_signInManager = signInManager;
 		}
 		[Authorize(Roles ="Manager, Staff")]
+        [Route("admin/index")]
         public IActionResult Index()
         {
             return View();
         }
+		[Route("admin/login")]
         public async Task<IActionResult> Login()
         {
 
             return View();
         }
         [HttpPost]
-		public async Task<IActionResult> Login(UserModel user)
+        public async Task<IActionResult> Login(UserModel user)
 		{
 			if (user.UserName != "admin@gmail.com" && user.UserName != "staff@gmail.com")
 			{
