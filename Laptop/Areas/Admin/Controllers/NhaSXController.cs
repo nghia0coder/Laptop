@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using GiayDep.Areas.Admin.InterfacesRepositories;
+﻿using GiayDep.Areas.Admin.InterfacesRepositories;
 using GiayDep.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GiayDep.Areas.Admin.Controllers
 {
@@ -57,12 +55,53 @@ namespace GiayDep.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Kiểm tra tên nhà sản xuất có kí tự không
+                if (string.IsNullOrWhiteSpace(nhaSanXuat.Tennhasx))
+                {
+                    ModelState.AddModelError("Tennhasx", "Tên nhà sản xuất không được để trống.");
+                    return View(nhaSanXuat);
+                }
+
+                // Kiểm tra địa chỉ có kí tự không
+                if (string.IsNullOrWhiteSpace(nhaSanXuat.Diachi))
+                {
+                    ModelState.AddModelError("Diachi", "Địa chỉ không được để trống.");
+                    return View(nhaSanXuat);
+                }
+                // Kiểm tra định dạng số điện thoại
+                if (!IsValidPhoneNumber(nhaSanXuat.Sđt))
+                {
+                    ModelState.AddModelError("Sđt", "Số điện thoại không hợp lệ.");
+                    return View(nhaSanXuat);
+                }
+
+                // Kiểm tra định dạng email
+                if (!IsValidEmail(nhaSanXuat.Email))
+                {
+                    ModelState.AddModelError("Email", "Email không hợp lệ.");
+                    return View(nhaSanXuat);
+                }
+
+                // Gọi repository để thêm mới
                 await _nhaSXRepository.Create(nhaSanXuat);
                 return RedirectToAction(nameof(Index));
             }
 
             return View(nhaSanXuat);
         }
+
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            
+            return phoneNumber.Length >= 10;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            
+            return email.Contains("@");
+        }
+
         [Authorize(Roles = "Manager")]
         // GET: Admin/NhaSX/Edit/5
         public async Task<IActionResult> Edit(int? id)

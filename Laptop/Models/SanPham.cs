@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GiayDep.Models
@@ -13,8 +14,14 @@ namespace GiayDep.Models
         }
 
         public int Idsp { get; set; }
-        public string Tensp { get; set; } = null!;
-        public int? Dongia { get; set; }
+
+        [Required(ErrorMessage = "Tên nhà sản phẩm không được để trống.")]
+        public string Tensp { get; set; }
+
+        [Required(ErrorMessage = "Đơn giá không được để trống.")]
+        public int Dongia { get; set; }
+
+        [Required(ErrorMessage = "Số lượng không được để trống.")]
         public int? Soluong { get; set; }
         public string? Baohanh { get; set; }
         public string? Khuyenmai { get; set; }
