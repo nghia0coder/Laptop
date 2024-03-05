@@ -17,7 +17,6 @@ namespace GiayDep.Areas.Admin.Controllers
 			_signInManager = signInManager;
 		}
 		[Authorize(Roles ="Manager, Staff")]
-        [Route("admin/index")]
         public IActionResult Index()
         {
             return View();
