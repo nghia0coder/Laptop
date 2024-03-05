@@ -79,6 +79,11 @@
     </PackageReference>
     <PackageReference Include="MimeKit" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SlugGenerator" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Contents\img\" />
   </ItemGroup>
 
 </Project>
