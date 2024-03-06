@@ -54,6 +54,8 @@ namespace GiayDep.Areas.Admin.Controllers
         {
             ViewData["Maloaisp"] = new SelectList(_context.LoaiSps, "Idloai", "Tenloai");
             ViewData["Manhacc"] = new SelectList(_context.NhaCungCaps, "Idnhacc", "Idnhacc");
+
+            ViewData["Color"] = new SelectList(_context.Color, "IdColor", "ColorHex");
             SanPham sanPham = new SanPham();
             return View(sanPham);
         }

@@ -192,8 +192,8 @@ namespace Laptop.Models
                 entity.ToTable("Color");
 
                 entity.Property(e => e.IdColor)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Color");
+                        .HasColumnName("ID_Color")
+                        .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ColorHex)
                     .HasMaxLength(50)

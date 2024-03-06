@@ -27,9 +27,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ColorName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ColorHex)
-            </td>
+                <td>
+                    <div style="background-color: @item.ColorHex; width: 20px; height: 20px;"></div>
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdColor">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdColor">Details</a> |
