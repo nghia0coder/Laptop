@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Laptop.Models
 {
@@ -31,5 +32,15 @@ namespace Laptop.Models
         public virtual NhaCungCap? ManhaccNavigation { get; set; }
         public virtual ICollection<CtHoaDon> CtHoaDons { get; set; }
         public virtual ICollection<CtPhieuNhap> CtPhieuNhaps { get; set; }
+
+
+        [NotMapped]
+        public IFormFile Image1 { get; set; }
+        [NotMapped]
+        public IFormFile Image2 { get; set; }
+        [NotMapped]
+        public IFormFile Image3 { get; set; }
+        [NotMapped]
+        public IFormFile Image4 { get; set; }
     }
 }
