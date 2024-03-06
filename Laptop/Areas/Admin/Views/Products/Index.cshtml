@@ -5,35 +5,35 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Loại sản phẩm</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
 </p>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>
-                    Product Name
+                    Tên sản phẩm
                 </th>
                 <th>
-                    Unit Price
+                    Giá
                 </th>
                 <th>
-                    Quantity
+                    Số lượng
                 </th>
                 <th>
-                    Warranty
+                    Bảo hành
                 </th>
                 <th>
-                    Discount
+                    Khuyến mãi
                 </th>
                 <th>
-                    Image
+                    Hình ảnh
                 </th>
                 <th>
-                    Description
+                    Mô tả
                 </th>
                 <th>
                     Category
@@ -76,9 +76,9 @@
                         @Html.DisplayFor(modelItem => item.ManhaccNavigation.Idnhacc)
                     </td>
                     <td>
-                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Idsp">Edit</a> |
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Idsp">Details</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Idsp">Delete</a>
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Idsp">Chỉnh sửa</a> |
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Idsp">Chi tiết</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Idsp">Xóa</a>
                     </td>
                 </tr>
             }
