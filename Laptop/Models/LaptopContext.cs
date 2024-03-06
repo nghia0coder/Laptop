@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-//asknfkjsadn
-namespace GiayDep.Models
+
+namespace Laptop.Models
 {
-    public partial class LaptopContext : IdentityDbContext<AppUserModel>
+    public partial class LaptopContext : IdentityDbContext
     {
         public LaptopContext()
         {
@@ -17,17 +17,15 @@ namespace GiayDep.Models
         {
         }
 
+     
         public virtual DbSet<CtHoaDon> CtHoaDons { get; set; } = null!;
         public virtual DbSet<CtPhieuNhap> CtPhieuNhaps { get; set; } = null!;
         public virtual DbSet<HoaDon> HoaDons { get; set; } = null!;
-      
         public virtual DbSet<LoaiSp> LoaiSps { get; set; } = null!;
-
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; } = null!;
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; } = null!;
-      
         public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
-
+        public virtual DbSet<ProductConfiguration> ProductConfigurations { get; set; } = null!;
         public virtual DbSet<SanPham> SanPhams { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,16 +33,12 @@ namespace GiayDep.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
-                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=QLLAPTOP;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-
+                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=Laptop;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
-
        
 
             modelBuilder.Entity<CtHoaDon>(entity =>
@@ -122,7 +116,6 @@ namespace GiayDep.Models
                     .HasConstraintName("FK_HOA_DON_AspNetUsers");
             });
 
-
             modelBuilder.Entity<LoaiSp>(entity =>
             {
                 entity.HasKey(e => e.Idloai);
@@ -131,8 +124,6 @@ namespace GiayDep.Models
 
                 entity.Property(e => e.Tenloai).HasMaxLength(50);
             });
-
-        
 
             modelBuilder.Entity<NhaCungCap>(entity =>
             {
@@ -176,7 +167,6 @@ namespace GiayDep.Models
                 entity.Property(e => e.Tennhasx).HasMaxLength(50);
             });
 
-
             modelBuilder.Entity<PhieuNhap>(entity =>
             {
                 entity.HasKey(e => e.Idphieunhap);
@@ -194,7 +184,12 @@ namespace GiayDep.Models
                     .HasConstraintName("FK_PHIEU_NHAP_NHA_CUNG_CAP");
             });
 
-      
+            modelBuilder.Entity<ProductConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.ConfigId);
+
+                entity.Property(e => e.ConfigId).HasColumnName("Config_ID");
+            });
 
             modelBuilder.Entity<SanPham>(entity =>
             {
@@ -206,11 +201,18 @@ namespace GiayDep.Models
 
                 entity.Property(e => e.Baohanh).HasMaxLength(50);
 
+                entity.Property(e => e.ConfigurationId).HasColumnName("configuration_id");
+
                 entity.Property(e => e.Description).HasMaxLength(100);
 
                 entity.Property(e => e.Khuyenmai).HasMaxLength(50);
 
                 entity.Property(e => e.Tensp).HasMaxLength(50);
+
+                entity.HasOne(d => d.Configuration)
+                    .WithMany(p => p.SanPhams)
+                    .HasForeignKey(d => d.ConfigurationId)
+                    .HasConstraintName("FK_SAN_PHAM_ProductConfigurations");
 
                 entity.HasOne(d => d.MaloaispNavigation)
                     .WithMany(p => p.SanPhams)

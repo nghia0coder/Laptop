@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GiayDep.Models
+namespace Laptop.Models
 {
     public partial class LoaiSp
     {

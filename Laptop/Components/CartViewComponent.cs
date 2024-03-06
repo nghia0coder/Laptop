@@ -1,4 +1,4 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using GiayDep.Repository;
 using GiayDep.ViewModels;
 using Microsoft.AspNetCore.Mvc;

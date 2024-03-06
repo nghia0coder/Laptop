@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.AspNetCore.Hosting;
 
 

@@ -1,5 +1,5 @@
 ﻿using GiayDep.Areas.Admin.InterfacesRepositories;
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
