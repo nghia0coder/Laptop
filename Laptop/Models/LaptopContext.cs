@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Laptop.Models
 {
-    public partial class LaptopContext : IdentityDbContext
+    public partial class LaptopContext : IdentityDbContext<AppUserModel>
     {
         public LaptopContext()
         {
