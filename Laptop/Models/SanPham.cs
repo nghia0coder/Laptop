@@ -25,9 +25,9 @@ namespace Laptop.Models
         public string? Hinhanh2 { get; set; }
         public string? Hinhanh3 { get; set; }
         public string? Hinhanh4 { get; set; }
-        public int? ConfigurationId { get; set; }
+        public int? ColorID { get; set; }
 
-        public virtual ProductConfiguration? Configuration { get; set; }
+        public virtual Color? Color { get; set; }
         public virtual LoaiSp MaloaispNavigation { get; set; } = null!;
         public virtual NhaCungCap? ManhaccNavigation { get; set; }
         public virtual ICollection<CtHoaDon> CtHoaDons { get; set; }

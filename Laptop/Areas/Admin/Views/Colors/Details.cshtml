@@ -1,0 +1,30 @@
+﻿@model Laptop.Models.Color
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Color</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.colorName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.colorName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.colorHex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.colorHex)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ColorID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

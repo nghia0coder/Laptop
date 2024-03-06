@@ -25,7 +25,7 @@ namespace Laptop.Models
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; } = null!;
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; } = null!;
         public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
-        public virtual DbSet<ProductConfiguration> ProductConfigurations { get; set; } = null!;
+        public virtual DbSet<Color> Color { get; set; } = null!;
         public virtual DbSet<SanPham> SanPhams { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -184,11 +184,11 @@ namespace Laptop.Models
                     .HasConstraintName("FK_PHIEU_NHAP_NHA_CUNG_CAP");
             });
 
-            modelBuilder.Entity<ProductConfiguration>(entity =>
+            modelBuilder.Entity<Color>(entity =>
             {
-                entity.HasKey(e => e.ConfigId);
+                entity.HasKey(e => e.ColorID);
 
-                entity.Property(e => e.ConfigId).HasColumnName("Config_ID");
+                entity.Property(e => e.ColorID).HasColumnName("ID_Color");
             });
 
             modelBuilder.Entity<SanPham>(entity =>
@@ -201,7 +201,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Baohanh).HasMaxLength(50);
 
-                entity.Property(e => e.ConfigurationId).HasColumnName("configuration_id");
+                entity.Property(e => e.ColorID).HasColumnName("Color_ID");
 
                 entity.Property(e => e.Description).HasMaxLength(100);
 
@@ -209,10 +209,10 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Tensp).HasMaxLength(50);
 
-                entity.HasOne(d => d.Configuration)
+                entity.HasOne(d => d.Color)
                     .WithMany(p => p.SanPhams)
-                    .HasForeignKey(d => d.ConfigurationId)
-                    .HasConstraintName("FK_SAN_PHAM_ProductConfigurations");
+                    .HasForeignKey(d => d.ColorID)
+                    .HasConstraintName("FK_SAN_PHAM_Color");
 
                 entity.HasOne(d => d.MaloaispNavigation)
                     .WithMany(p => p.SanPhams)

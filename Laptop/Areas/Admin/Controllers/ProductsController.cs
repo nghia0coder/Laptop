@@ -52,7 +52,7 @@ namespace GiayDep.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["Maloaisp"] = new SelectList(_context.LoaiSps, "Idloai", "Idloai");
+            ViewData["Maloaisp"] = new SelectList(_context.LoaiSps, "Idloai", "Tenloai");
             ViewData["Manhacc"] = new SelectList(_context.NhaCungCaps, "Idnhacc", "Idnhacc");
             SanPham sanPham = new SanPham();
             return View(sanPham);
