@@ -6,3 +6,6 @@
 /Laptop/obj
 /Laptop/.vs/Laptop
 /Laptop/.vs/ProjectEvaluation
+/Laptop/wwwroot/Contents/img
+/Laptop/Areas/Admin/Views/Products/Create.cshtml
+/.vs
