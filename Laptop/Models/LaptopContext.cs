@@ -17,7 +17,8 @@ namespace Laptop.Models
         {
         }
 
-     
+   
+        public virtual DbSet<Color> Colors { get; set; } = null!;
         public virtual DbSet<CtHoaDon> CtHoaDons { get; set; } = null!;
         public virtual DbSet<CtPhieuNhap> CtPhieuNhaps { get; set; } = null!;
         public virtual DbSet<HoaDon> HoaDons { get; set; } = null!;
@@ -25,7 +26,6 @@ namespace Laptop.Models
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; } = null!;
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; } = null!;
         public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
-        public virtual DbSet<Color> Color { get; set; } = null!;
         public virtual DbSet<SanPham> SanPhams { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,7 +39,24 @@ namespace Laptop.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-       
+          
+
+            modelBuilder.Entity<Color>(entity =>
+            {
+                entity.HasKey(e => e.IdColor);
+
+                entity.ToTable("Color");
+
+                entity.Property(e => e.IdColor).HasColumnName("ID_Color");
+
+                entity.Property(e => e.ColorHex)
+                    .HasMaxLength(50)
+                    .HasColumnName("Color_Hex");
+
+                entity.Property(e => e.ColorName)
+                    .HasMaxLength(50)
+                    .HasColumnName("Color_Name");
+            });
 
             modelBuilder.Entity<CtHoaDon>(entity =>
             {
@@ -70,7 +87,6 @@ namespace Laptop.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CT_HOA_DON_SAN_PHAM");
             });
-
 
             modelBuilder.Entity<CtPhieuNhap>(entity =>
             {
@@ -185,25 +201,6 @@ namespace Laptop.Models
                     .HasConstraintName("FK_PHIEU_NHAP_NHA_CUNG_CAP");
             });
 
-            modelBuilder.Entity<Color>(entity =>
-            {
-                entity.HasKey(e => e.IdColor);
-
-                entity.ToTable("Color");
-
-                entity.Property(e => e.IdColor)
-                        .HasColumnName("ID_Color")
-                        .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.ColorHex)
-                    .HasMaxLength(50)
-                    .HasColumnName("Color_Hex");
-
-                entity.Property(e => e.ColorName)
-                    .HasMaxLength(50)
-                    .HasColumnName("Color_Name");
-            });
-
             modelBuilder.Entity<SanPham>(entity =>
             {
                 entity.HasKey(e => e.Idsp);
@@ -214,7 +211,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Baohanh).HasMaxLength(50);
 
-                entity.Property(e => e.ColorID).HasColumnName("Color_ID");
+                entity.Property(e => e.ColorId).HasColumnName("Color_ID");
 
                 entity.Property(e => e.Description).HasMaxLength(100);
 
@@ -224,7 +221,7 @@ namespace Laptop.Models
 
                 entity.HasOne(d => d.Color)
                     .WithMany(p => p.SanPhams)
-                    .HasForeignKey(d => d.ColorID)
+                    .HasForeignKey(d => d.ColorId)
                     .HasConstraintName("FK_SAN_PHAM_Color");
 
                 entity.HasOne(d => d.MaloaispNavigation)
@@ -237,6 +234,11 @@ namespace Laptop.Models
                     .WithMany(p => p.SanPhams)
                     .HasForeignKey(d => d.Manhacc)
                     .HasConstraintName("FK_SAN_PHAM_NHA_CUNG_CAP");
+
+                entity.HasOne(d => d.ManhasxNavigation)
+                    .WithMany(p => p.SanPhams)
+                    .HasForeignKey(d => d.Manhasx)
+                    .HasConstraintName("FK_SAN_PHAM_NHA_SAN_XUAT");
             });
 
             base.OnModelCreating(modelBuilder);

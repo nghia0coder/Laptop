@@ -8,6 +8,7 @@ namespace Laptop.Models
         public NhaSanXuat()
         {
             NhaCungCaps = new HashSet<NhaCungCap>();
+            SanPhams = new HashSet<SanPham>();
         }
 
         public int Idnhasx { get; set; }
@@ -17,5 +18,6 @@ namespace Laptop.Models
         public string? Email { get; set; }
 
         public virtual ICollection<NhaCungCap> NhaCungCaps { get; set; }
+        public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }
