@@ -71,6 +71,7 @@ namespace Laptop.Models
                     .HasConstraintName("FK_CT_HOA_DON_SAN_PHAM");
             });
 
+
             modelBuilder.Entity<CtPhieuNhap>(entity =>
             {
                 entity.HasKey(e => e.IdchitietPn)
@@ -186,9 +187,21 @@ namespace Laptop.Models
 
             modelBuilder.Entity<Color>(entity =>
             {
-                entity.HasKey(e => e.ColorID);
+                entity.HasKey(e => e.IdColor);
 
-                entity.Property(e => e.ColorID).HasColumnName("ID_Color");
+                entity.ToTable("Color");
+
+                entity.Property(e => e.IdColor)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID_Color");
+
+                entity.Property(e => e.ColorHex)
+                    .HasMaxLength(50)
+                    .HasColumnName("Color_Hex");
+
+                entity.Property(e => e.ColorName)
+                    .HasMaxLength(50)
+                    .HasColumnName("Color_Name");
             });
 
             modelBuilder.Entity<SanPham>(entity =>
