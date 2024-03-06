@@ -12,16 +12,16 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ColorID" />
+            <input type="hidden" asp-for="IdColor" />
             <div class="form-group">
-                <label asp-for="colorName" class="control-label"></label>
-                <input asp-for="colorName" class="form-control" />
-                <span asp-validation-for="colorName" class="text-danger"></span>
+                <label asp-for="ColorName" class="control-label"></label>
+                <input asp-for="ColorName" class="form-control" />
+                <span asp-validation-for="ColorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="colorHex" class="control-label"></label>
-                <input asp-for="colorHex" class="form-control" />
-                <span asp-validation-for="colorHex" class="text-danger"></span>
+                <label asp-for="ColorHex" class="control-label"></label>
+                <input asp-for="ColorHex" class="form-control" />
+                <span asp-validation-for="ColorHex" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

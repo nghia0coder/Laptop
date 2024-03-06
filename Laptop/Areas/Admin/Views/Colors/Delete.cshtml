@@ -12,21 +12,21 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.colorName)
+            @Html.DisplayNameFor(model => model.ColorName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.colorName)
+            @Html.DisplayFor(model => model.ColorName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.colorHex)
+            @Html.DisplayNameFor(model => model.ColorHex)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.colorHex)
+            @Html.DisplayFor(model => model.ColorHex)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ColorID" />
+        <input type="hidden" asp-for="IdColor" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

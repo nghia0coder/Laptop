@@ -36,7 +36,7 @@ namespace Laptop.Areas.Admin.Controllers
             }
 
             var color = await _context.Color
-                .FirstOrDefaultAsync(m => m.ColorID == id);
+                .FirstOrDefaultAsync(m => m.IdColor == id);
             if (color == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ColorID,colorName,colorHex")] Color color)
+        public async Task<IActionResult> Create([Bind("IdColor,ColorName,ColorHex")] Color color)
         {
             if (ModelState.IsValid)
             {
@@ -88,9 +88,9 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ColorID,colorName,colorHex")] Color color)
+        public async Task<IActionResult> Edit(int id, [Bind("IdColor,ColorName,ColorHex")] Color color)
         {
-            if (id != color.ColorID)
+            if (id != color.IdColor)
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace Laptop.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ColorExists(color.ColorID))
+                    if (!ColorExists(color.IdColor))
                     {
                         return NotFound();
                     }
@@ -127,7 +127,7 @@ namespace Laptop.Areas.Admin.Controllers
             }
 
             var color = await _context.Color
-                .FirstOrDefaultAsync(m => m.ColorID == id);
+                .FirstOrDefaultAsync(m => m.IdColor == id);
             if (color == null)
             {
                 return NotFound();
@@ -157,7 +157,7 @@ namespace Laptop.Areas.Admin.Controllers
 
         private bool ColorExists(int id)
         {
-          return (_context.Color?.Any(e => e.ColorID == id)).GetValueOrDefault();
+          return (_context.Color?.Any(e => e.IdColor == id)).GetValueOrDefault();
         }
     }
 }
