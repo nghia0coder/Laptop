@@ -10,10 +10,9 @@ namespace Laptop.Models
             SanPhams = new HashSet<SanPham>();
         }
 
-        public int ColorID { get; set; }
-        public string? colorName { get; set; }
-        public string? colorHex { get; set; }
-
+        public int IdColor { get; set; }
+        public string? ColorName { get; set; }
+        public string? ColorHex { get; set; }
 
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }
