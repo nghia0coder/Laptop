@@ -22,20 +22,20 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Colors
         public async Task<IActionResult> Index()
         {
-              return _context.Color != null ? 
-                          View(await _context.Color.ToListAsync()) :
+              return _context.Colors != null ? 
+                          View(await _context.Colors.ToListAsync()) :
                           Problem("Entity set 'LaptopContext.Color'  is null.");
         }
 
         // GET: Admin/Colors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Color == null)
+            if (id == null || _context.Colors == null)
             {
                 return NotFound();
             }
 
-            var color = await _context.Color
+            var color = await _context.Colors
                 .FirstOrDefaultAsync(m => m.IdColor == id);
             if (color == null)
             {
@@ -70,12 +70,12 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Colors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Color == null)
+            if (id == null || _context.Colors == null)
             {
                 return NotFound();
             }
 
-            var color = await _context.Color.FindAsync(id);
+            var color = await _context.Colors.FindAsync(id);
             if (color == null)
             {
                 return NotFound();
@@ -121,12 +121,12 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Colors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Color == null)
+            if (id == null || _context.Colors == null)
             {
                 return NotFound();
             }
 
-            var color = await _context.Color
+            var color = await _context.Colors
                 .FirstOrDefaultAsync(m => m.IdColor == id);
             if (color == null)
             {
@@ -141,14 +141,14 @@ namespace Laptop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Color == null)
+            if (_context.Colors == null)
             {
                 return Problem("Entity set 'LaptopContext.Color'  is null.");
             }
-            var color = await _context.Color.FindAsync(id);
+            var color = await _context.Colors.FindAsync(id);
             if (color != null)
             {
-                _context.Color.Remove(color);
+                _context.Colors.Remove(color);
             }
             
             await _context.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace Laptop.Areas.Admin.Controllers
 
         private bool ColorExists(int id)
         {
-          return (_context.Color?.Any(e => e.IdColor == id)).GetValueOrDefault();
+          return (_context.Colors?.Any(e => e.IdColor == id)).GetValueOrDefault();
         }
     }
 }
