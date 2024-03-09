@@ -13,7 +13,7 @@ namespace Laptop.Components
         }
         public IViewComponentResult Invoke()
         {
-            var listCategory = _context.LoaiSps
+            var listCategory = _context.NhaSanXuats
                 .ToList();
             return View(listCategory);
         }

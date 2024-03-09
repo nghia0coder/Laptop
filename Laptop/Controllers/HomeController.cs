@@ -25,14 +25,14 @@ namespace GiayDep.Controllers
             //Lần lượt tạo các viewbag để lấy list sp từ csdl
             //List maloaisp bằng 1
             var lstLTM = _context.SanPhams
-                .Where(n => n.Maloaisp == 1 )
+                .Where(n => n.Manhasx == 6 )
                 .Include(n => n.MaloaispNavigation)
                 .ToList();
             //Gán vào viewbag
             ViewBag.ListLTM = lstLTM;
 
 			var lstSelling = _context.SanPhams
-				.Where(n => n.Maloaisp == 3)
+				.Where(n => n.Manhasx == 5)
 				.Include(n => n.MaloaispNavigation)
 				.ToList();
 			//Gán vào viewbag
@@ -40,7 +40,7 @@ namespace GiayDep.Controllers
 
 			//List maloaisp bằng 3
 			var lstDTM = _context.SanPhams
-                .Where(n => n.Maloaisp == 3)
+                .Where(n => n.Manhasx == 2)
                 .Include(n => n.MaloaispNavigation)
                 .ToList();
             //Gán vào viewbag

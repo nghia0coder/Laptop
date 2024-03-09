@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    IEnumerable<Color> listColors = ViewBag.Color as IEnumerable<Color>;
 }
 
 <h1>Create</h1>
@@ -37,13 +39,12 @@
                 <input asp-for="Baohanh" class="form-control" />
                 <span asp-validation-for="Baohanh" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Khuyenmai" class="control-label"></label>
                 <input asp-for="Khuyenmai" class="form-control" />
                 <span asp-validation-for="Khuyenmai" class="text-danger"></span>
             </div>
-       
+
             <div class="form-group">
                 <label asp-for="Manhacc" class="control-label"></label>
                 <select asp-for="Manhacc" class="form-control" asp-items="ViewBag.Manhacc"></select>
@@ -54,8 +55,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Color" class="control-label"></label>
-                <select asp-for="ColorId" class="form-control" asp-items="ViewBag.Color"></select>
+
+                @foreach (var item in listColors)
+                {
+                    <label style="background-color: @item.ColorHex; padding: 5px; margin-right: 10px;">
+                        <input  type="checkbox" value="@item.ColorHex" onchange="changeColor(this)" />
+                    </label>
+                }
+
             </div>
+
+
             <div class="form-group">
                 <label asp-for="Image1" class="control-label"></label>
                 <input asp-for="Image1" class="form-control-file" />
@@ -83,6 +93,9 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
 
 
 

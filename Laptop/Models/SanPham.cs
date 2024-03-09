@@ -19,7 +19,7 @@ namespace Laptop.Models
         public string? Baohanh { get; set; }
         public string? Khuyenmai { get; set; }
         public int Maloaisp { get; set; }
-        public int? Manhacc { get; set; }
+        public int Manhacc { get; set; }
         public string? Hinhanh1 { get; set; }
         public string? Description { get; set; }
         public string? Hinhanh2 { get; set; }
