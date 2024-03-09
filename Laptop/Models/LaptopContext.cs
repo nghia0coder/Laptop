@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Laptop.Models
 {
-    public partial class LaptopContext : IdentityDbContext<AppUserModel>
+    public partial class LaptopContext : IdentityDbContext
     {
         public LaptopContext()
         {
@@ -26,7 +26,9 @@ namespace Laptop.Models
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; } = null!;
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; } = null!;
         public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
+        public virtual DbSet<Ram> Rams { get; set; } = null!;
         public virtual DbSet<SanPham> SanPhams { get; set; } = null!;
+        public virtual DbSet<Ssd> Ssds { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,7 +41,7 @@ namespace Laptop.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          
+
 
             modelBuilder.Entity<Color>(entity =>
             {
@@ -201,6 +203,15 @@ namespace Laptop.Models
                     .HasConstraintName("FK_PHIEU_NHAP_NHA_CUNG_CAP");
             });
 
+            modelBuilder.Entity<Ram>(entity =>
+            {
+                entity.ToTable("RAM");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<SanPham>(entity =>
             {
                 entity.HasKey(e => e.Idsp);
@@ -216,6 +227,8 @@ namespace Laptop.Models
                 entity.Property(e => e.Description).HasMaxLength(100);
 
                 entity.Property(e => e.Khuyenmai).HasMaxLength(50);
+
+                entity.Property(e => e.Ssd).HasColumnName("SSD");
 
                 entity.Property(e => e.Tensp).HasMaxLength(50);
 
@@ -239,6 +252,27 @@ namespace Laptop.Models
                     .WithMany(p => p.SanPhams)
                     .HasForeignKey(d => d.Manhasx)
                     .HasConstraintName("FK_SAN_PHAM_NHA_SAN_XUAT");
+
+                entity.HasOne(d => d.RamNavigation)
+                    .WithMany(p => p.SanPhams)
+                    .HasForeignKey(d => d.Ram)
+                    .HasConstraintName("FK_SAN_PHAM_RAM");
+
+                entity.HasOne(d => d.SsdNavigation)
+                    .WithMany(p => p.SanPhams)
+                    .HasForeignKey(d => d.Ssd)
+                    .HasConstraintName("FK_SAN_PHAM_SSD");
+            });
+
+            modelBuilder.Entity<Ssd>(entity =>
+            {
+                entity.ToTable("SSD");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.DungLuong).HasMaxLength(50);
             });
 
             base.OnModelCreating(modelBuilder);
