@@ -1,8 +1,10 @@
-﻿@model GiayDep.Models.SanPham
+﻿@model Laptop.Models.SanPham
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    IEnumerable<Color> listColors = ViewBag.Colors as IEnumerable<Color>;
 }
 
 <h1>Create</h1>
@@ -13,6 +15,10 @@
     <div class="col-md-6">
         <form asp-action="Create" asp-controller="Products" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Maloaisp" class="control-label"></label>
+                <select asp-for="Maloaisp" class="form-control" asp-items="ViewBag.Maloaisp"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Tensp" class="control-label"></label>
                 <input asp-for="Tensp" class="form-control" />
@@ -38,14 +44,22 @@
                 <input asp-for="Khuyenmai" class="form-control" />
                 <span asp-validation-for="Khuyenmai" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Maloaisp" class="control-label"></label>
-                <select asp-for="Maloaisp" class="form-control" asp-items="ViewBag.Maloaisp"></select>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Manhacc" class="control-label"></label>
                 <select asp-for="Manhacc" class="form-control" asp-items="ViewBag.Manhacc"></select>
             </div>
+            <div class="form-group">
+                <label asp-for="Manhasx" class="control-label"></label>
+                <select asp-for="Manhasx" class="form-control" asp-items="ViewBag.Manhasx"></select>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="ColorId" class="control-label"></label>
+                <select asp-for="ColorId" class="form-control" asp-items="ViewBag.Color">
+                </select>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Image1" class="control-label"></label>
                 <input asp-for="Image1" class="form-control-file" />
@@ -73,6 +87,9 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
 
 
 

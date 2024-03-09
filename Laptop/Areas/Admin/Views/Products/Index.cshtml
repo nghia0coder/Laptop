@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GiayDep.Models.SanPham>
+﻿@model IEnumerable<Laptop.Models.SanPham>
 
 @{
     ViewData["Title"] = "Index";
@@ -49,7 +49,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Tensp)
+                       @Html.DisplayFor(modelItem => item.MaloaispNavigation.Tenloai) @Html.DisplayFor(modelItem => item.Tensp)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Dongia)
@@ -68,9 +68,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MaloaispNavigation.Idloai)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ManhaccNavigation.Idnhacc)

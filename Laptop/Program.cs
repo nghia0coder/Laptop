@@ -1,4 +1,4 @@
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.EntityFrameworkCore;
 using GiayDep.Areas.Admin.InterfacesRepositories;
 using GiayDep.Areas.Admin.Repositories;

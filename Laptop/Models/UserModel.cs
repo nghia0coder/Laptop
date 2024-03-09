@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 
-namespace GiayDep.Models
+namespace Laptop.Models
 {
     public class UserModel
     {
