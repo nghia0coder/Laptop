@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
-    IEnumerable<Color> listColors = ViewBag.Color as IEnumerable<Color>;
+    IEnumerable<Color> listColors = ViewBag.Colors as IEnumerable<Color>;
 }
 
 <h1>Create</h1>
@@ -53,18 +53,12 @@
                 <label asp-for="Manhasx" class="control-label"></label>
                 <select asp-for="Manhasx" class="form-control" asp-items="ViewBag.Manhasx"></select>
             </div>
+           
             <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-
-                @foreach (var item in listColors)
-                {
-                    <label style="background-color: @item.ColorHex; padding: 5px; margin-right: 10px;">
-                        <input  type="checkbox" value="@item.ColorHex" onchange="changeColor(this)" />
-                    </label>
-                }
-
+                <label asp-for="ColorId" class="control-label"></label>
+                <select asp-for="ColorId" class="form-control" asp-items="ViewBag.Color">
+                </select>
             </div>
-
 
             <div class="form-group">
                 <label asp-for="Image1" class="control-label"></label>

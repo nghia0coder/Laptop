@@ -55,10 +55,10 @@ namespace GiayDep.Areas.Admin.Controllers
             ViewData["Maloaisp"] = new SelectList(_context.LoaiSps, "Idloai", "Tenloai");
             ViewData["Manhasx"] = new SelectList(_context.NhaSanXuats, "Idnhasx", "Tennhasx");
             ViewData["Manhacc"] = new SelectList(_context.NhaCungCaps, "Idnhasx", "Tennhacc");
+            ViewData["Color"] = new SelectList(_context.Colors, "IdColor", "ColorName");
             var listColor = _context.Colors.ToList();
-
-            ViewBag.Color = listColor;
-        
+            ViewBag.Colors = listColor;
+            
             SanPham sanPham = new SanPham();
             return View(sanPham);
         }
