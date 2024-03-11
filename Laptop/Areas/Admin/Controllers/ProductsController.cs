@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GiayDep.Models;
 using Microsoft.AspNetCore.Hosting;
+using Laptop.Models;
 
 
 namespace GiayDep.Areas.Admin.Controllers
@@ -23,10 +24,26 @@ namespace GiayDep.Areas.Admin.Controllers
             _webHost = webHost;
         }
         // GET: Admin/Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg=1 )
         {
-            var LaptopContext = _context.SanPhams.Include(s => s.MaloaispNavigation).Include(s => s.ManhaccNavigation);
-            return View(await LaptopContext.ToListAsync());
+            const int pageSize = 2;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = _context.SanPhams.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = _context.SanPhams.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            //var nhaSanXuats = await _context.SanPhams.GetAll();
+            //return View(nhaSanXuats);
+
+            return View(data);
         }
 
         // GET: Admin/Products/Details/5
