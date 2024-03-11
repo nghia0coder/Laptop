@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace GiayDep.Models
+namespace Laptop.Models
 {
     public class AppUserModel : IdentityUser
     {

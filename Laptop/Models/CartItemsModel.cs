@@ -1,4 +1,4 @@
-﻿namespace GiayDep.Models
+﻿namespace Laptop.Models
 {
     public class CartItemsModel
     {

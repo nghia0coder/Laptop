@@ -1,4 +1,4 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -81,7 +81,7 @@ namespace GiayDep.Controllers
 
             // Load products based on the specified criteria
             var lstSP = _context.SanPhams
-                .Where(n => n.Maloaisp == Id)
+                .Where(n => n.Manhasx == Id)
                 .Include(n => n.MaloaispNavigation);
 
             // Check if there are any products

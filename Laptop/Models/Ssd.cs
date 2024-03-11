@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Laptop.Models
 {
-    public partial class LoaiSp
+    public partial class Ssd
     {
-        public LoaiSp()
+        public Ssd()
         {
             SanPhams = new HashSet<SanPham>();
         }
 
-        public int Idloai { get; set; }
-        public string? Tenloai { get; set; }
+        public int Id { get; set; }
+        public string? DungLuong { get; set; }
 
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }

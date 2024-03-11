@@ -1,5 +1,5 @@
 ﻿using GiayDep.Areas.Admin.InterfacesRepositories;
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GiayDep.Areas.Admin.Repositories

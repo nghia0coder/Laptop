@@ -1,4 +1,4 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 
 namespace GiayDep.ViewModels
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GiayDep.Models
+namespace Laptop.Models
 {
     public partial class HoaDon
     {
@@ -9,7 +9,7 @@ namespace GiayDep.Models
         {
             CtHoaDons = new HashSet<CtHoaDon>();
         }
-        //dsadđa
+
         public int Idhoadon { get; set; }
         public DateTime? Ngaythanhtoan { get; set; }
         public bool Tinhtranggiaohang { get; set; }
