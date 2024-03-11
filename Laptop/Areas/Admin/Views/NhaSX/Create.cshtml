@@ -1,4 +1,4 @@
-﻿@model GiayDep.Models.NhaSanXuat
+﻿@model Laptop.Models.NhaSanXuat
 
 @{
     ViewData["Title"] = "Create";
@@ -17,7 +17,9 @@
                 <div class="col-md-6">
                     <input asp-for="Tennhasx" class="form-control" required />
                     <span asp-validation-for="Tennhasx" class="text-danger"></span>
-                    <div class="invalid-feedback">Vui lòng nhập tên nhà sản xuất.</div>
+                    <div class="invalid-feedback">
+                        Bạn hãy nhập lại.
+                    </div>
                 </div>
             </div>
 
@@ -26,7 +28,9 @@
                 <div class="col-md-6">
                     <input asp-for="Diachi" class="form-control" required />
                     <span asp-validation-for="Diachi" class="text-danger"></span>
-                    <div class="invalid-feedback">Vui lòng nhập địa chỉ của nhà sản xuất.</div>
+                    <div class="invalid-feedback">
+                        Bạn hãy nhập lại.
+                    </div>
                 </div>
             </div>
 
@@ -35,7 +39,9 @@
                 <div class="col-md-6">
                     <input asp-for="Sđt" class="form-control" required />
                     <span asp-validation-for="Sđt" class="text-danger"></span>
-                    <div class="invalid-feedback">Vui lòng nhập số điện thoại của nhà sản xuất.</div>
+                    <div class="invalid-feedback">
+                        Bạn hãy nhập lại.
+                    </div>
                 </div>
             </div>
 
@@ -44,7 +50,9 @@
                 <div class="col-md-6">
                     <input asp-for="Email" class="form-control" required />
                     <span asp-validation-for="Email" class="text-danger"></span>
-                    <div class="invalid-feedback">Vui lòng nhập địa chỉ email hợp lệ.</div>
+                    <div class="invalid-feedback">
+                        Bạn hãy nhập lại.
+                    </div>
                 </div>
             </div>
 

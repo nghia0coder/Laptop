@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace Laptop.Models
 {
-    public partial class LoaiSp
+    public partial class Color
     {
-        public LoaiSp()
+        public Color()
         {
             SanPhams = new HashSet<SanPham>();
         }
 
-        public int Idloai { get; set; }
-        public string? Tenloai { get; set; }
+        public int IdColor { get; set; }
+        public string? ColorName { get; set; }
+        public string? ColorHex { get; set; }
 
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }

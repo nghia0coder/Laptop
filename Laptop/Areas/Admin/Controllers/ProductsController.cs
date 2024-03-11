@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.AspNetCore.Hosting;
 using Laptop.Models;
 
@@ -69,8 +69,15 @@ namespace GiayDep.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["Maloaisp"] = new SelectList(_context.LoaiSps, "Idloai", "Idloai");
-            ViewData["Manhacc"] = new SelectList(_context.NhaCungCaps, "Idnhacc", "Idnhacc");
+            ViewData["Maloaisp"] = new SelectList(_context.LoaiSps, "Idloai", "Tenloai");
+            ViewData["Manhasx"] = new SelectList(_context.NhaSanXuats, "Idnhasx", "Tennhasx");
+            ViewData["Manhacc"] = new SelectList(_context.NhaCungCaps, "Idnhasx", "Tennhacc");
+            ViewData["Ram"] = new SelectList(_context.Rams, "Id", "Name");
+            ViewData["SSD"] = new SelectList(_context.Ssds, "Id", "DungLuong ");
+            ViewData["Color"] = new SelectList(_context.Colors, "IdColor", "ColorName");
+            var listColor = _context.Colors.ToList();
+            ViewBag.Colors = listColor;
+            
             SanPham sanPham = new SanPham();
             return View(sanPham);
         }

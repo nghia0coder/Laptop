@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GiayDep.Models
+namespace Laptop.Models
 {
     public partial class NhaSanXuat
     {
         public NhaSanXuat()
         {
             NhaCungCaps = new HashSet<NhaCungCap>();
+            SanPhams = new HashSet<SanPham>();
         }
 
         public int Idnhasx { get; set; }
@@ -17,5 +18,6 @@ namespace GiayDep.Models
         public string? Email { get; set; }
 
         public virtual ICollection<NhaCungCap> NhaCungCaps { get; set; }
+        public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model GiayDep.Models.SanPham
+﻿@model Laptop.Models.SanPham
 
 @{
     ViewData["Title"] = "Details";
@@ -59,6 +59,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ManhaccNavigation.Idnhacc)
+        </dd>
+        <dt class="col-sm-2">
+            Mã nhà sản xuất
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ManhaccNavigation.Idnhasx)
         </dd>
         <dt class="col-sm-2">
             <img src="~/Contents/img/@Model.Hinhanh1" class="thumbnail-image" />

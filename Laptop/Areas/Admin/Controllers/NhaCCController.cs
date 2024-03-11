@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GiayDep.Areas.Admin.InterfacesRepositories;
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GiayDep.Areas.Admin.Controllers
@@ -55,12 +55,45 @@ namespace GiayDep.Areas.Admin.Controllers
         // POST: Admin/NhaCC/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idnhacc,Tennhacc,Diachi,Sdt,Email,Idnhasx")] NhaCungCap nhaCungCap)
+        public async Task<IActionResult> Create( NhaCungCap nhaCungCap)
         {
-            
-                await _nhaCCRepository.Create(nhaCungCap);
-                return RedirectToAction(nameof(Index));
-          
+           
+                if (string.IsNullOrEmpty(nhaCungCap.Tennhacc) || string.IsNullOrEmpty(nhaCungCap.Diachi))
+                {
+                    // Nếu Tennhacc hoặc Diachi không có kí tự, thêm lỗi vào ModelState
+                    ModelState.AddModelError("Tennhacc", "Tên nhà cung cấp không được trống.");
+                    ModelState.AddModelError("Diachi", "Địa chỉ không được trống.");
+                    return View(nhaCungCap);
+                }
+
+                if (!IsValidPhoneNumber(nhaCungCap.Sdt))
+                {
+                    ModelState.AddModelError("Sdt", "Số điện thoại không hợp lệ.");
+                    return View(nhaCungCap);
+                }
+
+                if (!IsValidEmail(nhaCungCap.Email))
+                {
+                    ModelState.AddModelError("Email", "Email không hợp lệ.");
+                    return View(nhaCungCap);
+                }
+               
+                    // Gọi phương thức Create từ repository để thêm mới NhaCungCap
+                    await _nhaCCRepository.Create(nhaCungCap);
+                    return RedirectToAction(nameof(Index));       
+                
+        
+        }
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+
+            return phoneNumber.Length >= 10;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+
+            return email.Contains("@");
         }
         [Authorize(Roles = "Manager")]
         // GET: Admin/NhaCC/Edit/5
@@ -91,11 +124,10 @@ namespace GiayDep.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
+          
                 await _nhaCCRepository.Update(nhaCungCap);
                 return RedirectToAction(nameof(Index));
-            }
+          
             var sxList = await nhaSXRepository.GetAll();
             ViewData["Idnhasx"] = new SelectList(sxList, "Idnhasx", "Idnhasx");
             return View(nhaCungCap);

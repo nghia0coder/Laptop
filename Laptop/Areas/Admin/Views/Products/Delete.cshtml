@@ -1,4 +1,4 @@
-﻿@model GiayDep.Models.SanPham
+﻿@model Laptop.Models.SanPham
 
 @{
     ViewData["Title"] = "Delete";
@@ -66,6 +66,9 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ManhaccNavigation.Idnhacc)
         </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ManhaccNavigation.Idnhasx)
+        </dd>
     </dl>
 </div>
     <form asp-action="Delete">
@@ -80,3 +83,7 @@
         margin-top: 20px;
     }
 </style>
+
+
+
+
