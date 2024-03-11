@@ -99,7 +99,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 }
 
                 // Gọi repository để thêm mới
-                await _nhaSXRepository.Create(nhaSanXuat);
+                 _context.NhaSanXuats.Add(nhaSanXuat);
                 return RedirectToAction(nameof(Index));
             }
 
