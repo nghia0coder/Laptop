@@ -67,7 +67,7 @@ namespace GiayDep.Areas.Admin.Controllers
         // POST: Admin/NhaSX/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(NhaSanXuat nhaSanXuat)
+        public async Task<IActionResult> Create([Bind("Idnhasx,Tennhasx,Diachi,Sđt,Email")] NhaSanXuat nhaSanXuat)
         {
            
                 // Kiểm tra tên nhà sản xuất có kí tự không
@@ -99,7 +99,8 @@ namespace GiayDep.Areas.Admin.Controllers
 
                 // Gọi repository để thêm mới
                  _context.NhaSanXuats.Add(nhaSanXuat);
-                return RedirectToAction(nameof(Index));
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
             
 
             return View(nhaSanXuat);
