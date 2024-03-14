@@ -99,7 +99,7 @@ namespace GiayDep
             using (var scope = app.Services.CreateScope())
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUserModel>>();
-                string email = "hongdainghiak15@siu.edu.vn";
+                string email = "admin@gmail.com";
                 string emailtStaff = "staff@gmail.com";
                 string password = "Test@1234";
                 string address = "SG";
