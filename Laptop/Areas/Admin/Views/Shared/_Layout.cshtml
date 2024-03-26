@@ -13,6 +13,8 @@
     <link href="/Assets/admin/css/styles.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -52,7 +54,7 @@
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">Admin</div>
-                        <a asp-controller="Memberships" asp-action="Index" class="nav-link"> <i class="fas fa-user-shield"></i>  Thành Viên</a>
+                        <a asp-controller="Memberships" asp-action="Index" class="nav-link"> <i class="fas fa-user-shield"></i>Thành Viên</a>
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -61,9 +63,9 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a asp-controller="HoaDon" asp-action="ChuaThanhToan" class="nav-link">Chưa Thanh Toán</a>
-                                <a asp-controller ="HoaDon" asp-action="ChuaGiao" class="nav-link">Đã Thanh Toán & Chưa Giao</a>
-                                <a asp-controller="HoaDon" asp-action="DaGiaoDaThanhToan" class="nav-link">Đã Thanh Toán & Đã Giao</a>
+                                <a asp-controller="Order" asp-action="Unpaid" class="nav-link">Chưa Thanh Toán</a>
+                                <a asp-controller="Order" asp-action="PaidUndelivered" class="nav-link">Đã Thanh Toán & Chưa Giao</a>
+                                <a asp-controller="Order" asp-action="PaidDelivered" class="nav-link">Đã Thanh Toán & Đã Giao</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -107,34 +109,45 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Tables
                         </a>
-                        <a asp-area="Admin" asp-controller="NhaSX" asp-action="Index" class="nav-link">
+                        <a asp-area="Admin" asp-controller="Brand" asp-action="Index" class="nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Quản Lý Nhà Sản Xuất
+                            Thương Hiệu
                         </a>
-                        <a asp-area="Admin" asp-controller="NhaCC" asp-action="Index" class="nav-link">
+                        <a asp-area="Admin" asp-controller="Suppliers" asp-action="Index" class="nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Quản Lý Nhà Cung Cấp 
+                            Nhà Cung Cấp 
                         </a>
-                        <a asp-area="Admin" asp-controller="LoaiSP" asp-action="Index" class="nav-link">
+                        <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Loại Sản Phẩm
                         </a>
-                        <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsProductManagement" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Quản Lý Sản Phẩm
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a asp-area="Admin" asp-controller="PhieuNhap" asp-action="Create" class="nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Nhập Hàng
+                        <div class="collapse" id="collapseLayoutsProductManagement" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a asp-controller="Products" asp-action="Index" class="nav-link">Mục Sản Phẩm</a>
+                                <a asp-controller="ProductItems" asp-action="Index" class="nav-link">Danh Sách Các Sản Phẩm</a>
+                                <a asp-controller="Invoice" asp-action="DaGiaoStatus" class="nav-link">Đã Thanh Toán & Đã Giao</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsInvoiceManagement" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Quản Lý Phiếu Nhập
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a asp-area="Admin" asp-controller="PhieuNhap" asp-action="Index" class="nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Lịch Sử Nhập Hàng
-                        </a>
-                        <a asp-area="Admin" asp-controller="PhieuNhap" asp-action="DSSPHetHang" class="nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Sản phầm gần hết
-                        </a>
+                        <div class="collapse" id="collapseLayoutsInvoiceManagement" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a asp-controller="Invoice" asp-action="Create" class="nav-link">Nhập Hàng</a>
+                                <a asp-controller="Invoice" asp-action="Index" class="nav-link"> Lịch Sử Nhập Hàng</a>
+                                <a asp-controller="Invoice" asp-action="DSSPHetHang" class="nav-link">Sản phầm gần hết</a>
+                            </nav>
+                        </div>
+
+
+            
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

@@ -1,13 +1,14 @@
-﻿@model SanPham
+﻿@model ProductVariation
 @using Microsoft.AspNetCore.Http.Extensions
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
-	IEnumerable<SanPham> ListSP = ViewBag.ListSP ;
+	IEnumerable<ProductItem> ListSP = ViewBag.ListSP ;
+	IEnumerable<Product> ListSize = ViewBag.ListSizes;
 }
 
 @{
-    ViewData["Title"] = "Chi Tiết Sản Phẩm";
-    Layout = "~/Views/Layout/ProductLayout.cshtml";
+	ViewData["Title"] = "Chi Tiết Sản Phẩm";
+	Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
 <!-- SECTION -->
 <div class="section">
@@ -19,19 +20,19 @@
 			<div class="col-md-5 col-md-push-2">
 				<div id="product-main-img">
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh1" alt="">
+						<img  src="~/Contents/img/@Model.ProductItems.Image1" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh2" alt="">
+						<img  src="~/Contents/img/@Model.ProductItems.Image2" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh3" alt="">
+						<img  src="~/Contents/img/@Model.ProductItems.Image3" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh4" alt="">
+						<img   src="~/Contents/img/@Model.ProductItems.Image4" alt="">
 					</div>
 				</div>
 			</div>
@@ -40,19 +41,19 @@
 			<div class="col-md-2  col-md-pull-5">
 				<div id="product-imgs">
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh1" alt="">
+						<img  src="~/Contents/img/@Model.ProductItems.Image1" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh2" alt="">
+						<img  src="~/Contents/img/@Model.ProductItems.Image2" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh3" alt="">
+						<img   src="~/Contents/img/@Model.ProductItems.Image3" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img src="~/Contents/img/@Model.Hinhanh4" alt="">
+						<img  src="~/Contents/img/@Model.ProductItems.Image4" alt="">
 					</div>
 				</div>
 			</div>
@@ -60,7 +61,7 @@
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<h2 class="product-name">@Model.Tensp.ToUpper()</h2>
+					<h2 class="product-name">@Model.ProductItems.Product.ProductName.ToUpper()</h2>
 					<div>
 						<div class="product-rating">
 							<i class="fa fa-star"></i>
@@ -72,39 +73,41 @@
 						<a class="review-link" href="#">10 Review(s) | Add your review</a>
 					</div>
 					<div>
-						<h3 class="product-price">$@Model.Dongia <del class="product-old-price">$@(Model.Dongia+200)</del></h3>
+						@* <h3 class="product-price">@Model.ProductItems.Product.Price <del class="product-old-price">$@(Model.ProductItems.Product.Price + 200)</del></h3> *@
 						<span class="product-available">In Stock</span>
 					</div>
-					<p >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
 					<div class="product-options">
 						<label>
-							Size
-							<select class="input-select">
-								<option value="0">X</option>
-							</select>
-						</label>
-						<label>
 							Color
-							<select class="input-select">
-								<option value="0">Red</option>
+							<select id="colorId" class="input-select ">
+						
 							</select>
 						</label>
+
+						<label>
+							Size
+							<select id="sizeId" class="input-select" ">
+							
+							</select>
+
+						</label>
+					
 					</div>
 
 					<div class="add-to-cart">
 						<div class="qty-label">
 							Qty
 							<div class="input-number">
-								<input type="number">
+								<input type="number" id="quantityInput" value="1"> 
 								<span class="qty-up">+</span>
 								<span class="qty-down">-</span>
 							</div>
 						</div>
 						<div class="add-to-cart">
-							<a asp-action="ThemGioHang" asp-controller="ShoppingCart" asp-route-masp="@Model.Idsp" asp-route-strURL="@currentUrl">
 								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</a>
+							
 						</div>
 					</div>
 
@@ -146,7 +149,7 @@
 						<div id="tab1" class="tab-pane fade in active">
 							<div class="row">
 								<div class="col-md-12">
-									<p>@Model.Description</p>
+									<p>@Model.ProductItems.Product.Description</p>
 								</div>
 							</div>
 						</div>
@@ -155,7 +158,7 @@
 						<div id="tab2" class="tab-pane fade in">
 							<div class="row">
 								<div class="col-md-12">
-									<p>@Model.Description</p>
+									<p>@Model.ProductItems.Product.Description</p>
 								</div>
 							</div>
 						</div>
@@ -358,36 +361,36 @@
 			</div>
 
 			<!-- product -->
-			@foreach(var item in ListSP.Take(4))
+			@foreach (var item in ListSP.Take(4))
 			{
 				<div class="col-md-3 col-xs-6">
-					<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.Idsp })">
-					<div class="product">
-						<div class="product-img">
-							<img src="~/Contents/img/@item.Hinhanh1" alt="">
-							<div class="product-label">
-								<span class="sale">-30%</span>
+					<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductItemsId} )">
+						<div class="product">
+							<div class="product-img">
+@* 								<img src="~/Contents/img/@item.Hinhanh1" alt=""> *@
+								<div class="product-label">
+									<span class="sale">-30%</span>
+								</div>
+							</div>
+							<div class="product-body">
+								<p class="product-category">@item.Product.Category.CategoryName.ToUpper()</p>
+								<h3 class="product-name"><a href="#">@item.Product.ProductName.ToUpper()</a></h3>
+							@* 	<h4 class="product-price">$@item.Product <del class="product-old-price">$@(item + 200)</del></h4> *@
+								<div class="product-rating">
+								</div>
+								<div class="product-btns">
+									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+								</div>
+							</div>
+							<div class="add-to-cart">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 							</div>
 						</div>
-						<div class="product-body">
-							<p class="product-category">@item.MaloaispNavigation.Tenloai.ToUpper()</p>
-							<h3 class="product-name"><a href="#">@item.Tensp.ToUpper()</a></h3>
-							<h4 class="product-price">$@item.Dongia <del class="product-old-price">$@(item.Dongia+200)</del></h4>
-							<div class="product-rating">
-							</div>
-							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							</div>
-						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-						</div>
-					</div>
 				</div>
 			}
-			
+
 			<!-- /product -->
 
 		</div>
@@ -396,3 +399,160 @@
 	<!-- /container -->
 </div>
 <!-- /Section -->
+
+@section Scripts
+{
+	<script>
+		var productId = '@Model.ProductItems.Product.ProductId';
+
+		$(document).ready(function () {
+			GetColor(productId);
+			GetSize(productId);
+		});
+		// $('#colorId').change(function () {
+		// 	var url = "/post/name-" + $(this).val();
+		// 	window.location.href = url;
+		// });
+
+		$(document).on('change', '#colorId', function () {
+			var colorIds = $(this).val();
+			GetSizeByColor(colorIds);
+			GetImages(colorIds)
+		});
+
+		function GetColor(productId) {
+			var product = productId;
+			$.ajax({
+				url: '@Url.Action("GetColor", "ProductView")',
+				type: 'GET',
+				data: { id: product },
+				success: function (data) {
+
+					$.each(data["$values"], function (index, item) {
+						$('#colorId').append('<option value="' + item.productItemsId + '">' + item.color.colorName + '</option>');
+					});
+			
+				}
+			});
+		}
+		function GetImages(productId) 
+		{
+			$.ajax({
+				url: '@Url.Action("GetImages","ProductView")',
+				type: 'GET',
+				data: { id : productId },
+				success: function (data) {
+
+					
+
+					var images = [
+						data.image1,
+						data.image2,
+						data.image3,
+						data.image4
+					];
+
+
+					var imageNodes = document.querySelectorAll('#product-main-img .product-preview img');
+					console.log("Hello" + imageNodes.length);
+
+					for (var i = 0; i < imageNodes.length; i++) {
+						if (images[i]) {
+							imageNodes[i].src = '/Contents/img/' + images[i].split('/').pop();
+						}
+					}
+					var imageNodes2 = document.querySelectorAll('.zoomImg');
+
+					for (var i = 0; i < imageNodes2.length; i++) {
+						if (images[i]) {
+							imageNodes2[i].src = 'https://localhost:7266/Contents/img/' + images[i];
+						}
+					}
+					var imageNodes3 = document.querySelectorAll('#product-imgs .product-preview img');
+
+					for (var i = 0; i < imageNodes3.length; i++) {
+						if (images[i]) {
+							imageNodes3[i].src = '/Contents/img/' + images[i].split('/').pop();
+						}
+					}
+
+				}
+			})
+		}
+		function GetSize(productId) {
+			var product = productId;
+			$.ajax({
+				url: '@Url.Action("GetSize", "ProductView")',
+				type: 'GET',
+				data: { id: product },
+				success: function (data) {
+
+					$.each(data["$values"], function (index, item) {
+						$('#sizeId').append('<option value="' + item.productVarId + '">' + item.size.size1 + '</option>');
+					});
+				}
+			});
+		}
+
+		
+
+		function GetSizeByColor(colorIds) {
+			var color = colorIds
+			$.ajax({
+				url: '@Url.Action("GetSizeByColor", "ProductView")',
+				type: 'GET',
+				data: { id:  color },
+				success: function (data) {
+					$("#sizeId").empty();
+					$.each(data["$values"], function (index, item) {
+						$('#sizeId').append('<option value="' + item.productVarId + '">' + item.size.size1 + '</option>');
+					});
+				}
+			});
+		}
+
+		$('.add-to-cart-btn').click(function (e) {
+			var productId = $('#sizeId').val();
+			var quanTity = $('#quantityInput').val();
+			console.log(quanTity);
+			var returnUrl = "@currentUrl";
+
+			$.ajax({
+				url: '@Url.Action("ThemGioHang","ShoppingCart")',
+				type: "GET", // Hoặc "POST", tuỳ vào cấu hình của controller
+				data: {
+					masp: productId,
+					quantity: quanTity,
+					strURL: returnUrl
+				},
+				success: function (response) {
+					// Xử lý sau khi gửi thành công
+					alert("Product added to cart successfully!");
+				},
+				error: function () {
+					// Xử lý lỗi
+					alert("Error adding product to cart.");
+				}
+			});
+		});
+
+		$('.qty-up').click(function () {
+
+			var currentValue = parseInt($("#quantityInput").val());
+			var newValue = currentValue++;
+			$('#quantityInput').val(newValue);
+		});
+		$('.qty-down').click(function () {
+
+			var currentValue = parseInt($("#quantityInput").val());
+			var newValue = currentValue--;
+			$('#quantityInput').val(newValue);
+		});
+		
+		
+
+	</script>
+}
+	
+
+

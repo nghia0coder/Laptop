@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Laptop.Models.Brand>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Các Thương Hiệu</h2>
+<div class="card">
+    <div class="card-body">
+        <p>
+            <a asp-action="Create" class="btn btn-sm btn-warning font-weight-bold">Thêm mới</a>
+        </p>
+        @if (Model != null && Model.Any())
+        {
+            <div id="list" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                          
+                            <th>Tên nhà SX</th>
+                            <th>Thông tin</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.BrandName</td>
+                     
+                             
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-info">Chỉnh sửa</a>
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.BrandId" class="btn btn-danger">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p>Hiện không có dữ liệu</p>
+        }
+    </div>
+</div>

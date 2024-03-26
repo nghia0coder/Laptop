@@ -1,4 +1,5 @@
-﻿@using GiayDep.ViewModels
+﻿@using Laptop.ViewModels
+
 @model Item
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
@@ -27,7 +28,7 @@ else
                                     <div class="p-5">
                                         <div class="d-flex justify-content-between align-items-center mb-5" style="margin-top: 40px;">
                                             <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-
+                                        
                                         </div>
 
                                         @foreach (var item in Model.CartItems)
@@ -39,19 +40,21 @@ else
                                                          class="img-fluid rounded-3" style="width: 100px; height: auto;">
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
-                                                    <h6 class="text-muted">Shirt</h6>
-                                                    <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                                                    <h6 class="text-muted">@item.Hang</h6>
+                                                    <h6 class="text-black mb-0">@item.ProductName.ToUpper()</h6>
+                                                    <h6 class="text-black mb-0">Size : @item.Size</h6>
+                                                    <h6 class="text-black mb-0">Color : @item.Color</h6>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                    <a class="btn btn-primary btn-sm" asp-controller="ShoppingCart" asp-action="Decrease" asp-route-id="@item.MaSP"> - </a>
-                                                    <input class="cart_quanity_input text-center" type="text" name="Quantity" value="@item.SoLuong" autocomplete="off" size="2">
-                                                    <a class="btn btn-success btn-sm" asp-controller="ShoppingCart" asp-action="Increase" asp-route-id="@item.MaSP"> + </a>
+                                                    <a class="btn btn-primary btn-sm" asp-controller="ShoppingCart" asp-action="Decrease" asp-route-id="@item.ProductID"> - </a>
+                                                    <input class="cart_quanity_input text-center" type="text" name="Quantity" value="@item.Quanity" autocomplete="off" size="2">
+                                                    <a class="btn btn-success btn-sm" asp-controller="ShoppingCart" asp-action="Increase" asp-route-id="@item.ProductID"> + </a>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 class="mb-0">€ @item.DonGia</h6>
+                                                    <h6 class="mb-0">€ @item.Price</h6>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <a class="btn btn-danger btn-sm" asp-controller="ShoppingCart" asp-action="Removed" asp-route-id="@item.MaSP"> Remove </a>
+                                                    <a class="btn btn-danger btn-sm" asp-controller="ShoppingCart" asp-action="Removed" asp-route-id="@item.ProductID"> Remove </a>
                                                 </div>
                                             </div>
                                             <hr class="my-4 thick-hr">
@@ -84,8 +87,8 @@ else
                                             @foreach (var item in Model.CartItems)
                                             {
                                                 <div class="order-col">
-                                                    @item.SoLuong<span style="margin-right: 0.2em;">x</span>@item.TenSP
-                                                    <div>$@(item.DonGia * item.SoLuong)</div>
+                                                    @item.Quanity<span style="margin-right: 0.2em;">x</span>@item.ProductName
+                                                    <div>$@(item.Price * item.Quanity)</div>
                                                 </div>
                                             }
                                         </div>

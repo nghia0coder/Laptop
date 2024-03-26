@@ -1,0 +1,55 @@
+﻿@model Laptop.Models.Order
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Xóa</h1>
+
+<h3>Bạn có chắc chắn muốn xóa?</h3>
+<div>
+    <h4>Hóa đơn</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Ngày thanh toán 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Tình trạng giao hàng 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Delivered)
+        </dd>
+        <dt class = "col-sm-2">
+            Ngày giao 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Đã thanh toán 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            Đã hủy 
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OrderId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Trở về</a>
+    </form>
+</div>

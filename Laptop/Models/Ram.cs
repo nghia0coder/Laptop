@@ -7,12 +7,12 @@ namespace Laptop.Models
     {
         public Ram()
         {
-            SanPhams = new HashSet<SanPham>();
+            ProductVariations = new HashSet<ProductVariation>();
         }
 
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public int RamId { get; set; }
+        public string? RamName { get; set; }
 
-        public virtual ICollection<SanPham> SanPhams { get; set; }
+        public virtual ICollection<ProductVariation> ProductVariations { get; set; }
     }
 }
