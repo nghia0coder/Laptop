@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GiayDep.Repository
+namespace Laptop.Repository
 {
     public static class SessionExtensions
     {

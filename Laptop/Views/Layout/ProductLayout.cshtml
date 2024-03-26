@@ -12,36 +12,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="New Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- start menu -->
-    <link href="~/Contents/Material/css/memenu.css" rel="stylesheet" type="text/css" media="all">
-    <script type="text/javascript" src="~/Contents/Material/js/memenu.js"></script>
-    <script src="~/js/thickbox.js"></script>
-    <link rel="stylesheet" href="~/css/thickbox.css" type="text/css" media="screen" />
-
-    <script>
-        $(document).ready(function () {
-            $(".memenu").memenu();
-        });
-    </script>
-    <script src="~/Contents/Material/js/simpleCart.min.js"></script>
-    <script src="~/Contents/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <!-- Google font -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="~/Product/css/bootstrap.min.css" />
-
     <!-- Slick -->
     <link type="text/css" rel="stylesheet" href="~/Product/css/slick.css" />
-    <link type="text/css" rel="stylesheet" href="~/Product/css/slick-theme.css" />
 
+    <link type="text/css" rel="stylesheet" href="~/Product/css/slick-theme.css" />
     <!-- nouislider -->
     <link type="text/css" rel="stylesheet" href="~/Product/css/nouislider.min.css" />
-
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="~/Product/css/font-awesome.min.css">
-
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/Product/css/style.css" />
 
@@ -64,6 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
  <div class="footer">
         @Html.Partial("~/Views/Shared/Partial/_FooterPartial.cshtml")
+        @RenderSection("Scripts", required: false)
     </div>
     <!-- jQuery Plugins -->
     <script src="~/Product/js/jquery.min.js"></script>

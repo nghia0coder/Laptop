@@ -1,6 +1,6 @@
 ﻿using Laptop.Models;
 
-namespace GiayDep.ViewModels
+namespace Laptop.ViewModels
 {
     public class Item
     {

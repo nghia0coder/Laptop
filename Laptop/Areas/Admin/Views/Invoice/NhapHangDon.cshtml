@@ -1,0 +1,59 @@
+﻿@using Laptop.ViewModels
+@model InvoiceViewModel
+@{
+    ViewData["Title"] = "NhapHangDon";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ProductVariation product = ViewBag.Product as ProductVariation;
+}
+
+<h1>Nhập hàng</h1>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="imgSP">
+                    <img src="@Url.Content("~/Contents/img/"+ product.ProductItems.Image1)" style="height:150px;width:150px;" />
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="ttSP">
+                    <h3>Sản phẩm: @product.ProductItems.Product.ProductName</h3>
+                    <h3>Hãng sản xuất: @product.ProductItems.Product.Brand</h3>
+                    <h3>Loại sản phẩm: @product.ProductItems.Product.Category</h3>
+                    <h3>Size: @product.ProductItems.Color.ColorName</h3>
+                  @*   <h3>Màu: @product.Size.Size1</h3> *@
+            
+                </div>
+            </div>
+        </div>
+        <br />
+        <hr />
+        <h3>Thông tin nhập hàng</h3>
+        <br />
+    
+  
+        <form asp-controller="Invoice" asp-action="NhapHangDon" method="post">
+            <input type="hidden" asp-for="ProductVarId" value="@product.ProductVarId"/>
+            <div class="row">
+
+                <div class="col-md-4">
+                    Thương Hiệu: <select asp-for="SupplierId" asp-items="ViewBag.Suppliers"></select>
+                </div>
+               <div class="col-md-4">
+                    Số lượng nhập: <input asp-for="Quantity" />
+                </div>
+                <div class="col-md-4">
+                    Đơn giá nhập: <input asp-for="Price" />
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <div class="clear right mr-3" style="text-align:right;">
+                <br />
+                <input type="submit" class="btn btn-primary mr-2" value="Nhập hàng" />
+                <a asp-controller="Invoice" asp-action="DSSPHetHang" class="btn btn-sm btn-secondary font-weight-bold">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>

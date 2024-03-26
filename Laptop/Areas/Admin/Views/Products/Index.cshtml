@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @model IEnumerable<Laptop.Models.SanPham>
+=======
+﻿@model IEnumerable<Laptop.Models.Product>
+>>>>>>> nghia2
 
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +18,7 @@
     }
 }
 
-<h1>Quản lý sản phẩm</h1>
+<h1>Các Mục Sản Phẩm</h1>
 
 <p>
     <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
@@ -24,6 +28,7 @@
         <thead>
             <tr>
                 <th>
+<<<<<<< HEAD
                     Tên sản phẩm
                 </th>
                 <th>
@@ -49,6 +54,19 @@
                 </th>
                 <th>
                     Supplier
+=======
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+           
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Brand)
+>>>>>>> nghia2
                 </th>
                 <th></th>
             </tr>
@@ -58,33 +76,29 @@
             {
                 <tr>
                     <td>
-                       @Html.DisplayFor(modelItem => item.MaloaispNavigation.Tenloai) @Html.DisplayFor(modelItem => item.Tensp)
+                        @Html.DisplayFor(modelItem => item.ProductName)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dongia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Soluong)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Baohanh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Khuyenmai)
-                    </td>
-                    <td>
-                        <img class="thumbnail-image" src="~/Contents/img/@item.Hinhanh1" alt="Product Image" />
-                    </td>
+                 
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ManhaccNavigation.Idnhacc)
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
                     <td>
+<<<<<<< HEAD
                         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Idsp">Chỉnh sửa</a> |
                         <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Idsp">Chi tiết</a> |
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Idsp">Xóa</a>
+=======
+                        @Html.DisplayFor(modelItem => item.BrandNavigation.BrandName)
+                    </td>
+                    <td>
+                        <a class="btn btn-info" asp-controller="ProductItems" asp-action="Create" asp-route-id="@item.ProductId">Tạo Sản Phẩm</a>
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+>>>>>>> nghia2
                     </td>
                 </tr>
             }
@@ -92,6 +106,7 @@
     </table>
 </div>
 
+<<<<<<< HEAD
 <style>
     .thumbnail-image {
         max-width: 100px;
@@ -131,3 +146,5 @@
         </ul>
     }
 </div>
+=======
+>>>>>>> nghia2

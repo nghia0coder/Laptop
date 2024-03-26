@@ -7,13 +7,12 @@ namespace Laptop.Models
     {
         public Color()
         {
-            SanPhams = new HashSet<SanPham>();
+            ProductItems = new HashSet<ProductItem>();
         }
 
-        public int IdColor { get; set; }
+        public int ColorId { get; set; }
         public string? ColorName { get; set; }
-        public string? ColorHex { get; set; }
 
-        public virtual ICollection<SanPham> SanPhams { get; set; }
+        public virtual ICollection<ProductItem> ProductItems { get; set; }
     }
 }

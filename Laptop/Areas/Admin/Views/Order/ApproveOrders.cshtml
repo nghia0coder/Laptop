@@ -1,0 +1,103 @@
+﻿@using Laptop.Models
+@model Order
+@{
+    ViewData["Title"] = "DuyetDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    IEnumerable<OrdersDetail> lstChiTietDH = ViewBag.ListChiTietDH as IEnumerable<OrdersDetail>;
+}
+
+<h1>Duyệt đơn hàng </h1>
+<div class="card">
+    <div class="card-body">
+        <h2 class="col-md-8">Thông tin đơn hàng</h2>
+        <form asp-action="ApproveOrders" method="post">
+            <div class="ChiTietDonHang table">
+                <table class="table table-bordered" id="table">
+                    @* Thông tin đơn hàng *@
+                    <tr>
+                        <td colspan="4">
+                            <table style="width:100%" class="table-borderless">
+                                <tr>
+                                    <input type="hidden" asp-for="OrderId" />
+                                    <td>Mã đơn hàng: <b>@Model.OrderId <input type="hidden" name="MaDDH" value="@Model.OrderId" /></b></td>
+                                    <td>Email Khách Hàng: <b>@Model.Customer.UserName </b></td>
+                                    <td>Ngày đặt: <b>@Model.OrderDate</b></td>
+                                    <td>
+                                        Đã thanh toán:
+                                        <input type="hidden" asp-for="Status" value="false" />
+                                        <input type="checkbox" asp-for="Status" onchange="updateCheckboxValue(this)" />
+                                    </td>
+                                    <td>
+                                        Đã giao:
+                                        <input type="hidden" asp-for="Delivered" value="false" />
+                                        <input type="checkbox" asp-for="Delivered" onchange="updateCheckboxValue(this)" />
+                                    </td>
+
+
+                                </tr>   
+                            </table>
+
+                        </td>
+                    </tr>
+                    @* Thông tin chi tiết đơn hàng *@
+                    <tr>
+                        <td><b>Sản phẩm</b></td>
+                        <td><b>Hình ảnh</b></td>
+                        <td><b>Số lượng đặt</b></td>
+                        <td><b>Đơn giá đặt</b></td>
+                    </tr>
+                    @foreach (var item in lstChiTietDH)
+                    {
+                        
+                        <tr>
+                            <td>@item.ProductVar.ProductItems.Product.ProductName</td>
+                            <td><img width="100" height="100" src="@Url.Content("~/Contents/img/"+item.ProductVar.ProductItems.Image1)" /></td> 
+                            <td>@item.Quanity</td>
+                            <td>@item.Price.Value.ToString("#,##")</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td align="right" colspan="4">
+                            <span class="mr-5">Tổng số lượng: @Model.OrdersDetails.Sum(n => n.Quanity) Sản phẩm</span>
+                         @*    <span>Tổng tiền: @Model.OrdersDetails.Sum(n => n.ProductVar.ProductItems.Product.Price).Value.ToString("#,##") VNĐ</span> *@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-sm-6">
+                    <input type="button" value="In đơn hàng" class="btn btn-sm btn-success font-weight-bold" id="btnInDonHang" />
+                    <input type="submit" value="Lưu đơn hàng" class="btn btn-sm btn-primary font-weight-bold" id="btnLuuDonHang" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $('#btnInDonHang').click(function () {
+        var content = "<table>" + $("#table").html() + "</table>";
+        InDonHang(content);
+    });
+
+    function InDonHang(content) {
+        var printWindow = window.open('', '', 'height=50%,width=100%');
+        printWindow.document.write('<html><head><title>DIV contents</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(content);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+    <script>
+        function updateCheckboxValue(checkbox) {
+            if (checkbox.checked) {
+                checkbox.previousElementSibling.value = "true"; // Nếu được chọn, đặt giá trị của hidden input thành "true"
+            } else {
+                checkbox.previousElementSibling.value = "false"; // Nếu không được chọn, đặt giá trị của hidden input thành "false"
+            }
+        }
+</script>
+
+</script>

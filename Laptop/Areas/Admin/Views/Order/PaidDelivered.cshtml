@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "DaGiaoStatus";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Đã giao đã thanh toán</h1>
+<div class="card">
+    <div class="card-body">
+        <h2 class="col-md-8">Quản lí đơn hàng (Đã thanh toán & đã giao )</h2>
+        @if (Model != null)
+        {
+            <div id="list" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                        
+                            <th>Họ tên KH</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng giao hàng</th>
+                            <th>Ngày giao</th>
+                            <th>Đã thanh toán</th>
+                            <th>Ưu đãi</th>
+                            <th>Đã hủy</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Customer?.UserName</td>
+                                <td>@item.OrderDate</td>
+                                <td>@item.Delivered</td>
+                                <td>@item.DeliveryDate</td>
+                                <td>@item.Status</td>
+                  
+                                <td>
+                                    @if (item.OrderId != null)
+                                    {
+                                        <a href="@Url.Action("DuyetDonHang", "Invoice", new { id = item.OrderId })" target="_blank">Duyệt đơn</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
