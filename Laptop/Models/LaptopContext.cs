@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-//asknfkjsadn
-namespace GiayDep.Models
+
+namespace Laptop.Models
 {
     public partial class LaptopContext : IdentityDbContext<AppUserModel>
     {
@@ -17,215 +17,282 @@ namespace GiayDep.Models
         {
         }
 
-        public virtual DbSet<CtHoaDon> CtHoaDons { get; set; } = null!;
-        public virtual DbSet<CtPhieuNhap> CtPhieuNhaps { get; set; } = null!;
-        public virtual DbSet<HoaDon> HoaDons { get; set; } = null!;
-      
-        public virtual DbSet<LoaiSp> LoaiSps { get; set; } = null!;
-
-        public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; } = null!;
-        public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; } = null!;
-      
-        public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
-
-        public virtual DbSet<SanPham> SanPhams { get; set; } = null!;
+ 
+        public virtual DbSet<Brand> Brands { get; set; } = null!;
+        public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<Color> Colors { get; set; } = null!;
+        public virtual DbSet<Invoice> Invoices { get; set; } = null!;
+        public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; } = null!;
+        public virtual DbSet<Order> Orders { get; set; } = null!;
+        public virtual DbSet<OrdersDetail> OrdersDetails { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductItem> ProductItems { get; set; } = null!;
+        public virtual DbSet<ProductVariation> ProductVariations { get; set; } = null!;
+        public virtual DbSet<Ram> Rams { get; set; } = null!;
+        public virtual DbSet<Ssd> Ssds { get; set; } = null!;
+        public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
-                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=QLLAPTOP;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-
+                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=LAPTOP;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+ 
 
-       
-
-            modelBuilder.Entity<CtHoaDon>(entity =>
+            modelBuilder.Entity<Brand>(entity =>
             {
-                entity.HasKey(e => e.IdchitietDdh)
-                    .HasName("PK_CT_HOA_DON_1");
+                entity.ToTable("Brand");
 
-                entity.ToTable("CT_HOA_DON");
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
 
-                entity.Property(e => e.IdchitietDdh).HasColumnName("IDchitietDDH");
-
-                entity.Property(e => e.Dongia).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.Idhoadon).HasColumnName("IDhoadon");
-
-                entity.Property(e => e.Idsp).HasColumnName("IDsp");
-
-                entity.Property(e => e.Tensp).HasMaxLength(50);
-
-                entity.HasOne(d => d.IdhoadonNavigation)
-                    .WithMany(p => p.CtHoaDons)
-                    .HasForeignKey(d => d.Idhoadon)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CT_HOA_DON_HOA_DON");
-
-                entity.HasOne(d => d.IdspNavigation)
-                    .WithMany(p => p.CtHoaDons)
-                    .HasForeignKey(d => d.Idsp)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CT_HOA_DON_SAN_PHAM");
+                entity.Property(e => e.BrandName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<CtPhieuNhap>(entity =>
+            modelBuilder.Entity<Category>(entity =>
             {
-                entity.HasKey(e => e.IdchitietPn)
-                    .HasName("PK_CT_PHIEU_NHAP_1");
+                entity.ToTable("Category");
 
-                entity.ToTable("CT_PHIEU_NHAP");
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.IdchitietPn).HasColumnName("IDChitietPN");
-
-                entity.Property(e => e.Gia).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.Idphieunhap).HasColumnName("IDphieunhap");
-
-                entity.Property(e => e.Idsp).HasColumnName("IDSP");
-
-                entity.HasOne(d => d.IdphieunhapNavigation)
-                    .WithMany(p => p.CtPhieuNhaps)
-                    .HasForeignKey(d => d.Idphieunhap)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CT_PHIEU_NHAP_PHIEU_NHAP");
-
-                entity.HasOne(d => d.IdspNavigation)
-                    .WithMany(p => p.CtPhieuNhaps)
-                    .HasForeignKey(d => d.Idsp)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CT_PHIEU_NHAP_SAN_PHAM1");
+                entity.Property(e => e.CategoryName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<HoaDon>(entity =>
+            modelBuilder.Entity<Color>(entity =>
             {
-                entity.HasKey(e => e.Idhoadon);
+                entity.ToTable("Color");
 
-                entity.ToTable("HOA_DON");
+                entity.Property(e => e.ColorId).HasColumnName("ColorID");
 
-                entity.Property(e => e.Idhoadon).HasColumnName("IDhoadon");
+                entity.Property(e => e.ColorName).HasMaxLength(50);
+            });
 
-                entity.Property(e => e.Makh).HasMaxLength(450);
+            modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.ToTable("Invoice");
 
-                entity.HasOne(d => d.MakhNavigation)
-                    .WithMany(p => p.HoaDons)
-                    .HasForeignKey(d => d.Makh)
+                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+
+                entity.Property(e => e.CreateDate).HasColumnType("date");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Invoices)
+                    .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HOA_DON_AspNetUsers");
+                    .HasConstraintName("FK_Import_Note_Suppiler");
             });
 
-
-            modelBuilder.Entity<LoaiSp>(entity =>
+            modelBuilder.Entity<InvoiceDetail>(entity =>
             {
-                entity.HasKey(e => e.Idloai);
+                entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
 
-                entity.ToTable("LoaiSp");
+                entity.HasIndex(e => e.ProductVarId, "IX_InvoiceDetails")
+                    .IsUnique();
 
-                entity.Property(e => e.Tenloai).HasMaxLength(50);
+                entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
+
+                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+
+                entity.HasOne(d => d.Invoice)
+                    .WithMany(p => p.InvoiceDetails)
+                    .HasForeignKey(d => d.InvoiceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_InvoiceDetails_Invoice1");
+
+                entity.HasOne(d => d.ProductVar)
+                    .WithOne(p => p.InvoiceDetail)
+                    .HasPrincipalKey<ProductVariation>(p => p.ProductVarId)
+                    .HasForeignKey<InvoiceDetail>(d => d.ProductVarId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_InvoiceDetails_ProductVariation");
             });
 
-        
-
-            modelBuilder.Entity<NhaCungCap>(entity =>
+            modelBuilder.Entity<Order>(entity =>
             {
-                entity.HasKey(e => e.Idnhacc);
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
-                entity.ToTable("NHA_CUNG_CAP");
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(450)
+                    .HasColumnName("CustomerID");
 
-                entity.Property(e => e.Idnhacc).HasColumnName("IDnhacc");
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Invoice_AspNetUsers");
+            });
 
-                entity.Property(e => e.Diachi).HasMaxLength(50);
+            modelBuilder.Entity<OrdersDetail>(entity =>
+            {
+                entity.HasKey(e => new { e.OrderId, e.ProductVarId })
+                    .HasName("PK_OrdersDetails_1");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrdersDetails)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Invoice_Details_Invoice");
+
+                entity.HasOne(d => d.ProductVar)
+                    .WithMany(p => p.OrdersDetails)
+                    .HasPrincipalKey(p => p.ProductVarId)
+                    .HasForeignKey(d => d.ProductVarId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrdersDetails_ProductVariation");
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("Product");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+
+                entity.Property(e => e.ProductName).HasMaxLength(50);
+
+                entity.HasOne(d => d.BrandNavigation)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.Brand)
+                    .HasConstraintName("FK_Product_Brand");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_Product_Category");
+            });
+
+            modelBuilder.Entity<ProductItem>(entity =>
+            {
+                entity.HasKey(e => new { e.ProductId, e.ColorId })
+                    .HasName("PK_ProductItems_1");
+
+                entity.HasIndex(e => e.ProductItemsId, "IX_ProductItems")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.ProductCode, "ProductCode")
+                    .IsUnique();
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.ColorId).HasColumnName("ColorID");
+
+                entity.Property(e => e.ProductCode).HasMaxLength(50);
+
+                entity.Property(e => e.ProductItemsId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ProductItemsID");
+
+                entity.HasOne(d => d.Color)
+                    .WithMany(p => p.ProductItems)
+                    .HasForeignKey(d => d.ColorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductItems_Color");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductItems)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductItems_Product");
+            });
+
+            modelBuilder.Entity<ProductVariation>(entity =>
+            {
+                entity.HasKey(e => new { e.ProductItemsId, e.RamId, e.Ssdid })
+                    .HasName("PK_ProductVariation_1");
+
+                entity.ToTable("ProductVariation");
+
+                entity.HasIndex(e => e.ProductVarId, "IX_ProductVariation")
+                    .IsUnique();
+
+                entity.Property(e => e.ProductItemsId).HasColumnName("ProductItemsID");
+
+                entity.Property(e => e.RamId)
+                    .HasColumnName("RamID");
+
+                entity.Property(e => e.Ssdid).HasColumnName("SSDID");
+
+                entity.Property(e => e.Price)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.ProductVarId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ProductVarID");
+
+                entity.HasOne(d => d.ProductItems)
+                    .WithMany(p => p.ProductVariations)
+                    .HasPrincipalKey(p => p.ProductItemsId)
+                    .HasForeignKey(d => d.ProductItemsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductVariation_ProductItems");
+
+                entity.HasOne(d => d.Ram)
+                    .WithMany(p => p.ProductVariations)
+                    .HasForeignKey(d => d.RamId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductVariation_Size");
+
+                entity.HasOne(d => d.Ssd)
+                    .WithMany(p => p.ProductVariations)
+                    .HasForeignKey(d => d.Ssdid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductVariation_SSD");
+            });
+
+            modelBuilder.Entity<Ram>(entity =>
+            {
+                entity.ToTable("Ram");
+
+                entity.Property(e => e.RamId)
+                    .HasColumnName("RamID");
+
+                entity.Property(e => e.RamName).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Ssd>(entity =>
+            {
+                entity.ToTable("SSD");
+
+                entity.Property(e => e.SsdId)
+                    .HasColumnName("SsdID");
+
+                entity.Property(e => e.Ssdname)
+                    .HasMaxLength(50)
+                    .HasColumnName("SSDName");
+            });
+
+            modelBuilder.Entity<Supplier>(entity =>
+            {
+                entity.ToTable("Supplier");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
+                entity.Property(e => e.Address).HasMaxLength(50);
 
                 entity.Property(e => e.Email).HasMaxLength(50);
 
-                entity.Property(e => e.Idnhasx).HasColumnName("IDnhasx");
+                entity.Property(e => e.Phone).HasMaxLength(30);
 
-                entity.Property(e => e.Sdt).HasMaxLength(30);
-
-                entity.Property(e => e.Tennhacc).HasMaxLength(50);
-
-                entity.HasOne(d => d.IdnhasxNavigation)
-                    .WithMany(p => p.NhaCungCaps)
-                    .HasForeignKey(d => d.Idnhasx)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_NHA_CUNG_CAP_NHA_SAN_XUAT");
-            });
-
-            modelBuilder.Entity<NhaSanXuat>(entity =>
-            {
-                entity.HasKey(e => e.Idnhasx);
-
-                entity.ToTable("NHA_SAN_XUAT");
-
-                entity.Property(e => e.Idnhasx).HasColumnName("IDnhasx");
-
-                entity.Property(e => e.Diachi).HasMaxLength(50);
-
-                entity.Property(e => e.Email).HasMaxLength(50);
-
-                entity.Property(e => e.Sđt).HasMaxLength(30);
-
-                entity.Property(e => e.Tennhasx).HasMaxLength(50);
-            });
-
-
-            modelBuilder.Entity<PhieuNhap>(entity =>
-            {
-                entity.HasKey(e => e.Idphieunhap);
-
-                entity.ToTable("PHIEU_NHAP");
-
-                entity.Property(e => e.Idphieunhap).HasColumnName("IDphieunhap");
-
-                entity.Property(e => e.Idnhacc).HasColumnName("IDnhacc");
-
-                entity.HasOne(d => d.IdnhaccNavigation)
-                    .WithMany(p => p.PhieuNhaps)
-                    .HasForeignKey(d => d.Idnhacc)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PHIEU_NHAP_NHA_CUNG_CAP");
-            });
-
-      
-
-            modelBuilder.Entity<SanPham>(entity =>
-            {
-                entity.HasKey(e => e.Idsp);
-
-                entity.ToTable("SAN_PHAM");
-
-                entity.Property(e => e.Idsp).HasColumnName("IDSP");
-
-                entity.Property(e => e.Baohanh).HasMaxLength(50);
-
-                entity.Property(e => e.Description).HasMaxLength(100);
-
-                entity.Property(e => e.Khuyenmai).HasMaxLength(50);
-
-                entity.Property(e => e.Tensp).HasMaxLength(50);
-
-                entity.HasOne(d => d.MaloaispNavigation)
-                    .WithMany(p => p.SanPhams)
-                    .HasForeignKey(d => d.Maloaisp)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SAN_PHAM_LoaiSp");
-
-                entity.HasOne(d => d.ManhaccNavigation)
-                    .WithMany(p => p.SanPhams)
-                    .HasForeignKey(d => d.Manhacc)
-                    .HasConstraintName("FK_SAN_PHAM_NHA_CUNG_CAP");
+                entity.Property(e => e.SupplierName).HasMaxLength(50);
             });
 
             base.OnModelCreating(modelBuilder);
         }
+
+     
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

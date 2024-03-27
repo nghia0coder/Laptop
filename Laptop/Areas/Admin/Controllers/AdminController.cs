@@ -1,10 +1,10 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace GiayDep.Areas.Admin.Controllers
+namespace Laptop.Areas.Admin.Controllers
 {
 	[Area("Admin")]
 	public class AdminController : Controller
@@ -21,14 +21,13 @@ namespace GiayDep.Areas.Admin.Controllers
         {
             return View();
         }
-		[Route("admin/login")]
         public async Task<IActionResult> Login()
         {
 
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(UserModel user)
+		public async Task<IActionResult> Login(UserModel user)
 		{
 			if (user.UserName != "admin@gmail.com" && user.UserName != "staff@gmail.com")
 			{

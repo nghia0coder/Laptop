@@ -1,21 +1,22 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Laptop.Components
 {
-    public class NavViewComponent : ViewComponent
+    public class MenuViewComponent : ViewComponent
     {
-        private LaptopContext _context;
-        public NavViewComponent(LaptopContext context)
+        private readonly LaptopContext _context;
+        public MenuViewComponent(LaptopContext context)
         {
             _context = context;
         }
         public IViewComponentResult Invoke()
         {
-            var listCategory = _context.LoaiSps
-                .ToList();
-            return View(listCategory);
+            var lstSP = _context.Products
+               .Include(n => n.BrandNavigation)
+               .Include(n => n.Category);
+            return View(lstSP);
         }
     }
 }

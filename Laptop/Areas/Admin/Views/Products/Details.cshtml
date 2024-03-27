@@ -1,4 +1,4 @@
-﻿@model GiayDep.Models.SanPham
+﻿@model Laptop.Models.Product
 
 @{
     ViewData["Title"] = "Details";
@@ -10,74 +10,44 @@
 <h2 class="text-center"> Chi tiết </h2>
 
 <div>
-    
+
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
             Tên sản phẩm:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tensp)
+            @Html.DisplayFor(model => model.ProductName)
         </dd>
         <dt class="col-sm-2">
             Đơn giá:
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dongia)
-        </dd>
+       
+      
         <dt class="col-sm-2">
-            Số lượng:
+            Loại Sản Phẩm
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Soluong)
+            @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
         <dt class="col-sm-2">
-            Bảo hành:
+            Thương Hiệu
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Baohanh)
+            @Html.DisplayFor(model => model.BrandNavigation.BrandName)
         </dd>
         <dt class="col-sm-2">
-            Khuyến mãi:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Khuyenmai)
-        <dt class="col-sm-2">
-            Mô tả:
+            Mô Tả
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class="col-sm-2">
-           Mã loại sản phẩm:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaloaispNavigation.Idloai)
-        </dd>
-        <dt class="col-sm-2">
-            Mã nhà cung cấp:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ManhaccNavigation.Idnhacc)
-        </dd>
-        <dt class="col-sm-2">
-            <img src="~/Contents/img/@Model.Hinhanh1" class="thumbnail-image" />
-        </dt>
-        <dt class="col-sm-2">
-            <img src="~/Contents/img/@Model.Hinhanh2" class="thumbnail-image" />
-        </dt>
-        <dt class="col-sm-2">
-            <img src="~/Contents/img/@Model.Hinhanh3" class="thumbnail-image" />
-        </dt>
-        <dt class="col-sm-2">
-            <img src="~/Contents/img/@Model.Hinhanh4" class="thumbnail-image" />
-        </dt>
-        <dt class="col-sm-2">
     </dl>
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Idsp" class="btn btn-primary">Chỉnh sửa</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-primary">Chỉnh sửa</a> |
     <a asp-action="Index" class="btn btn-secondary">Trở về</a>
 </div>
 

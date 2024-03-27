@@ -1,29 +1,38 @@
-﻿namespace GiayDep.Models
+﻿using Laptop.Models;
+
+namespace Laptop.Models
 {
-    public class CartItemsModel
-    {
-        public int MaSP { get; set; }
-        public string TenSP { get; set; }
-        public int? SoLuong { get; set; }
-        public int? DonGia { get; set; }
-        public int? ThanhTien
-        {
-            get { return DonGia * SoLuong; }
-        }
-        
-        public string HinhAnh { get; set; }
+	public class CartItemsModel
+	{
+		public int ProductID { get; set; }
+		public string ProductName { get; set; }
+		public int? Quanity { get; set; }
+		public int? Price { get; set; }
+		public int? Total
+		{
+			get { return Price * Quanity; }
+		}
+		public int? Size { get; set; }
 
-        public CartItemsModel() { }
+		public string Color { get; set; }
 
-        // Constructor theo id (dùng cho trường hợp chỉ có sl=1)
-        public CartItemsModel(SanPham sanPham)
-        {
-            MaSP = sanPham.Idsp;
-            TenSP = sanPham.Tensp;
-            SoLuong = sanPham.Soluong;
-            DonGia = sanPham.Dongia;
-            SoLuong = 1;
-            HinhAnh = sanPham.Hinhanh1;
-        }
-    }
+		public string HinhAnh { get; set; }
+
+		public string Hang { get; set; }
+
+		public CartItemsModel() { }
+
+		// Constructor theo id (dùng cho trường hợp chỉ có sl=1)
+		public CartItemsModel(ProductVariation Product, int quantity)
+		{
+			ProductID = Product.ProductVarId;
+			ProductName = Product.ProductItems.Product.ProductName;
+			Quanity = Product.QtyinStock;
+			HinhAnh = Product.ProductItems.Image1;
+			//Size = Product.
+            //Ssd = Product.ProductItems.Color.ColorName;
+            //Quanity = quantity;
+			//HinhAnh = Product.Hinhanh1;
+		}
+	}
 }

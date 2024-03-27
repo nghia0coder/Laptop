@@ -21,7 +21,82 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Admin\Login.cshtml" />
+    <None Include="Areas\Admin\Views\Brand\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Brand\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Brand\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Brand\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Brand\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\DSSPHetHang.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Invoice\NhapHangDon.cshtml" />
+    <None Include="Areas\Admin\Views\Order\ApproveOrders.cshtml" />
+    <None Include="Areas\Admin\Views\Order\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Order\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Order\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Order\PaidDelivered.cshtml" />
+    <None Include="Areas\Admin\Views\Order\PaidUndelivered.cshtml" />
+    <None Include="Areas\Admin\Views\Order\Unpaid.cshtml" />
+    <None Include="Areas\Admin\Views\ProductItems\Create.cshtml" />
+    <None Include="Areas\Admin\Views\ProductItems\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\ProductItems\Details.cshtml" />
+    <None Include="Areas\Admin\Views\ProductItems\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\ProductItems\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Products\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Products\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Products\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Products\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
+    <None Include="Areas\Admin\Views\Suppliers\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Suppliers\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Suppliers\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Suppliers\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Suppliers\Index.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Properties\serviceDependencies.local.json.user" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Layout\HeaderTopPartial.cshtml" />
+    <None Include="Views\Layout\HomeLayout.cshtml" />
+    <None Include="Views\Layout\ProductLayout.cshtml" />
+    <None Include="Views\Layout\_CategoryLayout.cshtml" />
+    <None Include="Views\Layout\_RegisterLayout.cshtml" />
+    <None Include="Views\Login\DangNhap.cshtml" />
+    <None Include="Views\ProductView\ProductCate.cshtml" />
+    <None Include="Views\ProductView\ProductStyle1.cshtml" />
+    <None Include="Views\ProductView\ProductStyle2.cshtml" />
+    <None Include="Views\ProductView\XemChiTiet.cshtml" />
+    <None Include="Views\Shared\Components\Cart\Default.cshtml" />
+    <None Include="Views\Shared\Components\Menu\Default.cshtml" />
+    <None Include="Views\Shared\Components\Nav\Default.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\Partial\_FooterPartial.cshtml" />
+    <None Include="Views\Shared\Partial\_HeaderTopPartial.cshtml" />
+    <None Include="Views\Shared\Partial\_NavbarHeader.cshtml" />
+    <None Include="Views\Shared\Partial\_TopBarPartial.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_NotificationPartial.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\ShoppingCart\Index.cshtml" />
+    <None Include="Views\ShoppingCart\Notification.cshtml" />
+    <None Include="Views\ShoppingCart\Success.cshtml" />
+    <None Include="Views\ShoppingCart\_CartPartial.cshtml" />
+    <None Include="Views\ShoppingCart\_ShoppingCartPartial.cshtml" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
@@ -67,19 +142,27 @@
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.27">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="MimeKit" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.Core" Version="1.17.4" />
+    <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="SlugGenerator" Version="2.0.2" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
   </ItemGroup>
 
   <ItemGroup>

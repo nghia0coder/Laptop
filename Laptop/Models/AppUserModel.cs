@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace GiayDep.Models
+namespace Laptop.Models
 {
     public class AppUserModel : IdentityUser
     {
         public string Address { get; set; }
 
-        public virtual ICollection<HoaDon> HoaDons { get; } = new List<HoaDon>();
-    }
+		public virtual ICollection<Order> Orders { get; } = new List<Order>();
+	}
 }

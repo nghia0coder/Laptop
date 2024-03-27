@@ -1,6 +1,6 @@
-﻿using GiayDep.Models;
-using GiayDep.Repository;
-using GiayDep.ViewModels;
+﻿using Laptop.Models;
+using Laptop.Repository;
+using Laptop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laptop.Components
@@ -20,7 +20,7 @@ namespace Laptop.Components
             {
                 CartItems = cartItems,
                 Quanity = cartItems.Count(),
-                Total = cartItems.Sum(x => (x.SoLuong ?? 0) * (x.DonGia ?? 0))
+                Total = cartItems.Sum(x => (x.Quanity ?? 0) * (x.Price ?? 0))
             };
             ViewBag.TongTien = cart.Total;
             ViewBag.TongSoLuong = cart.Quanity;

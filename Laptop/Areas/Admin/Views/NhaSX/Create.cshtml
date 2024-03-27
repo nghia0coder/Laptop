@@ -1,16 +1,15 @@
-﻿@model GiayDep.Models.NhaSanXuat
+﻿@model Laptop.Models.NhaSanXuat
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
-<h1>Thêm Nhà Sản Xuất</h1>
+<h2 class="text-center"> Thêm Nhà Sản Xuất</h2>
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Tạo mới nhà sản xuất</h4>
+        
         <form asp-action="Create" asp-controller="NhaSX" method="post" class="needs-validation" novalidate>
             @Html.AntiForgeryToken()
             <div class="form-group row">
@@ -61,13 +60,10 @@
                 <div class="col-sm-8 mt-3">
                     <button type="submit" class="btn btn-primary font-weight-bold">Thêm mới</button>
                     <a asp-action="Index" class="btn btn-secondary font-weight-bold">Trở về</a>
-
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-
-
-<div>
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
 </div>
+
+

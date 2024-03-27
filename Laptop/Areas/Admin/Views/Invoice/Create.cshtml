@@ -1,0 +1,286 @@
+﻿@model Invoice
+@{
+    ViewData["Title"] = "Quản lý phiếu nhập";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    IEnumerable<ProductItem> lstProduct = ViewBag.ListProduct as IEnumerable<ProductItem>;
+}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker();
+    });
+</script>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group row pb-2">
+                <div class=" col-md-6">
+                    <label class="col-form-label font-weight-bold" asp-for="SupplierId">Nhà cung cấp</label>
+                    <select  asp-for="SupplierId" class="form-control" asp-items="@ViewBag.Supplier"></select>
+                </div>
+                <div class="col-md-6">
+                    <label class="col-form-label font-weight-bold">Ngày nhập</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                        <input type="datetime-local" asp-for="CreateDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            @*Phần chi tiết nhập hàng *@
+            <table class="tblInvoiceDetail table  table-hover">
+                @* tạo 1 tr với nd nhập hàng của 1 sp *@
+                <tr class="trAppend table-borderless">
+                    <td>
+                        <select class="ddlProductItemsId productList" id="productList" asp-items="ViewBag.Product">
+                        </select>
+                        
+                    </td>
+                    <td>
+                        <select name="" class="ddlColors colorId" id="colorId"></select>
+                    </td>
+                    <td>
+                        <select name="" class="ddlSizes sizeId" id="sizeId">
+                        </select>
+                    </td>
+
+                    <td>
+                        <input name="" class="txtPrice" value="0" />
+                    </td>
+                    <td>
+                        <input name="" class="txtQuantity" value="0"/>
+                    </td>
+                    <td>
+                        <input type="button" class="btnDelete btn btn-danger" style="width: 2em; height:2em;" value="-" />
+                    </td>
+                   
+                </tr>
+        
+                <tr class="trFirstChild" data-id="-1">
+                    <td class="col-form-label font-weight-bold">Product</td>
+                    <td class="col-form-label font-weight-bold">Color</td>
+                    <td class="col-form-label font-weight-bold">Size</td>
+                    <td class="col-form-label font-weight-bold">Price</td>
+                    <td class="col-form-label font-weight-bold">Quantity</td>
+                    <td></td>
+                </tr>
+               
+            </table>
+   
+           
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-sm-6">
+                    <input type="button" value="+" class="btn btn-sm btn-success font-weight-bold mr-2" style="width: 3em; height:2em;" id="btnAdd" />
+                    <input type="submit" value="Submit" class="btn btn-sm btn-primary font-weight-bold " id="btnConfirm" />
+                </div>
+            </div>
+        }
+      
+    </div>
+</div>
+<style>
+    .trAppend {
+        display: none;
+    }
+</style>
+
+@section Scripts
+{
+    <script>
+
+        $(document).on('change', '.ddlProductItemsId', function () {
+            GetProductByColor($(this));
+            GetProduct($(this));
+        });
+
+
+        function GetProductByColor(selectedProductDropdown, callback) {
+            var productId = $(selectedProductDropdown).val(); 
+            var colorDropdown = $(selectedProductDropdown).closest('tr').find('select[id="colorId"]'); 
+
+            $.ajax({
+                url: '@Url.Action("GetProductByColor", "Invoice")',
+                type: 'GET',
+                data: { id: productId },
+                success: function (data) {
+                    $(colorDropdown).empty(); 
+                    $.each(data["$values"], function (index, item) {
+                        
+                        $(colorDropdown).append('<option value="' + item.productItemsId + '">' + item.color.colorName + '</option>');
+                    });
+                    if (callback && typeof (callback) === "function") {
+                        callback();
+                    }
+                }
+            });
+        }
+        function GetProduct(selectedProductDropdown) {
+            var productId = $(selectedProductDropdown).val();
+            var colorDropdown = $(selectedProductDropdown).closest('tr').find('select[id="sizeId"]');
+
+            $.ajax({
+                url: '@Url.Action("GetProduct", "Invoice")',
+                type: 'GET',
+                data: { id: productId },
+                success: function (data) {
+                    $(colorDropdown).empty();
+                    $.each(data["$values"], function (index, item) {
+
+                        $(colorDropdown).append('<option value="' + item.productVarId + '">' + item.size.size1 + '</option>');
+                    });
+                }
+            });
+        }
+
+        $(document).on('change', '.ddlColors', function () {
+            GetProductBySize($(this));
+        });
+        function GetProductBySize(selectedSizeDropdown) {
+            var productItemsId = $(selectedSizeDropdown).val();
+            var sizeDropdown = $(selectedSizeDropdown).closest('tr').find('select[id="sizeId"]');
+
+            $.ajax({
+                url: '@Url.Action("GetProductBySize", "Invoice")',
+                type: 'GET',
+                data: { id: productItemsId },
+                success: function (data) {
+                    $(sizeDropdown).empty(); 
+                    $.each(data["$values"], function (index, item) {
+                       
+                        $(sizeDropdown).append('<option value="' + item.productVarId + '">' + item.size.size1 + '</option>');
+                    });
+                }
+            });
+        }
+    </script>
+<script>
+        $('#btnAdd').click(function () {
+            var id_last = $(".tblInvoiceDetail").find("tr:last-child").attr("data-id");
+            i = parseInt(id_last) + 1;     
+
+            var tdcontent = $(".trAppend").html();
+            var trcontent = "<tr class=\"trAppended\" data-id=\"" + i + "\">" + tdcontent + "<\tr>";
+            $(".tblInvoiceDetail").append(trcontent);
+            loadIDCard();
+
+            var newProductDropdown = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlProductItemsId");
+            GetProductByColor(newProductDropdown, function () {
+                var newProductDropdown1 = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlColors");
+                GetProductBySize(newProductDropdown1);
+            });
+         
+        });
+
+        $("body").delegate(".btnDelete", "click", function () {
+            $(this).closest(".trAppended").remove();
+            UpdateID();
+        });
+
+        $("#btnConfirm").click(function () {
+            if (checkPrice() == false) {
+                return false;
+            }
+
+            if (checkQuantity() == false) {
+                return false;
+            }
+
+            var totalPrice = 0;
+            var totalQuanity = 0;
+
+            $(".tblInvoiceDetail .trAppended").each(function () {
+
+
+                var Price = parseFloat($(this).find(".txtPrice").val()) || 0;
+                var Quanity = parseInt($(this).find(".txtQuantity").val()) || 0;
+
+
+                totalPrice += Price;
+                totalQuanity += Quanity;
+            });
+
+            if (totalPrice <= 0 && totalQuanity <= 0) {
+                alert("Vui lòng nhập số lượng và đơn giá !");
+                return false;
+            }
+        });
+
+        function loadIDCard() {
+            $(".trAppended").each(function () {
+                var id = $(this).attr("data-id");
+
+               
+                var nameIdProduct = "[" + id + "].ProductVarId";
+                var namePriceImport = "[" + id + "].Price";
+                var nameQuanityImport = "[" + id + "].Quanity";
+
+
+                $(this).find(".ddlSizes").attr("name", nameIdProduct);
+                $(this).find(".txtPrice").attr("name", namePriceImport);
+                $(this).find(".txtQuantity").attr("name", nameQuanityImport);
+            })
+        };
+
+        function UpdateID() {
+            var id_last = $(".tblInvoiceDetail").find("trFirstChild").attr("data-id");
+            i = parseInt(id_last) + 1;
+
+            $(".trAppended").each(function () {
+                var id = i = $(this).attr("data-id");
+
+
+                var nameIdProduct = "[" + id + "].ProductVarId";
+                var namePriceImport = "[" + id + "].Price";
+                var nameQuanityImport = "[" + id + "].Quantity";
+
+
+                $(this).find(".ddlSizes").attr("name", nameIdProduct);
+                $(this).find(".txtPrice").attr("name", namePriceImport);
+                $(this).find(".txtQuantity").attr("name", nameQuanityImport);
+            });
+        }
+
+        function checkPrice() {
+            var bl = true;
+
+            $(".txtPrice").each(function () {
+                var giatri = $(this).val();
+                if (isNaN(giatri) == true) {
+                    alert("Đơn giá ko hợp lệ!");
+                    bl = false;
+                    return bl;
+                }
+            });
+
+            return bl;
+        }
+
+        function checkQuantity() {
+            var bl = true;
+
+            $(".txtQuantity").each(function () {
+                var giatri = $(this).val();
+                if (isNaN(giatri) == true) {
+                    alert("Số lượng ko hợp lệ!");
+                    bl = false;
+                    return bl;
+                }
+            });
+
+            return bl;
+        }
+
+  
+</script>
+}

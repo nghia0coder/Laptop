@@ -1,15 +1,14 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GiayDep.Controllers
-{   
-    //hjhjhjhjh
+namespace Laptop.Controllers
+{
     public class AccountController : Controller
     {
         private UserManager<AppUserModel> _userManager;
         private SignInManager<AppUserModel> _signInManager;
-        public AccountController(UserManager<AppUserModel> userManager, SignInManager<AppUserModel> signInManager)
+        public AccountController(UserManager<AppUserModel> userManager, SignInManager<AppUserModel> signInManager) 
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -26,7 +25,7 @@ namespace GiayDep.Controllers
             {
                 ModelState.AddModelError(string.Empty, "");
                 return View("Login");
-            }
+            }    
             var result = await _signInManager.PasswordSignInAsync(user.UserName, user.Password, false, false);
             if (result.Succeeded)
             {
@@ -35,7 +34,7 @@ namespace GiayDep.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
-                return View("Login");
+                return View("Login"); 
             }
         }
         [HttpGet]
@@ -47,29 +46,29 @@ namespace GiayDep.Controllers
         public async Task<IActionResult> Register(UserModel user)
         {
 
-            if (user == null || string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Address) || string.IsNullOrEmpty(user.Password))
-            {
-                ModelState.AddModelError(string.Empty, "");
-                return View("Register");
-            }
-            AppUserModel newUser = new AppUserModel { UserName = user.UserName, Email = user.Email, Address = user.Address };
-            IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
-
-
-            if (result.Succeeded)
-            {
-                IdentityResult addToRoleResult = await _userManager.AddToRoleAsync(newUser, "User");
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                foreach (IdentityError error in result.Errors)
+                if (user == null || string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Address) || string.IsNullOrEmpty(user.Password))
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError(string.Empty, "");
+                    return View("Register");
                 }
+                AppUserModel newUser = new AppUserModel { UserName = user.UserName, Email = user.Email , Address = user.Address};
+				IdentityResult result = await _userManager.CreateAsync(newUser,user.Password);
+				
+                
+				if (result.Succeeded)
+                {
+                    IdentityResult addToRoleResult = await _userManager.AddToRoleAsync(newUser, "User");
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                 return View("Register");
-            }
-
+            }    
+        
         }
         public async Task<IActionResult> Logout()
         {

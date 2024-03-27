@@ -1,5 +1,5 @@
 ﻿using GiayDep.Areas.Admin.InterfacesRepositories;
-using GiayDep.Models;
+using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,19 +9,35 @@ namespace GiayDep.Areas.Admin.Controllers
   
     public class NhaSXController : Controller
     {
-        private readonly INhaSXRepository _nhaSXRepository;
+        private readonly LaptopContext _context;
 
-        public NhaSXController(INhaSXRepository nhaSXRepository)
+        public NhaSXController(LaptopContext context)
         {
-            _nhaSXRepository = nhaSXRepository;
+            _context = context;
         }
 
         // GET: Admin/NhaSX
         [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(List<NhaSanXuat>? nhaSanXuats, int pg=1)
         {
-            var nhaSanXuats = await _nhaSXRepository.GetAll();
-            return View(nhaSanXuats);
+            const int pageSize = 2;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = _context.NhaSanXuats.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = _context.NhaSanXuats.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            //var nhaSanXuats = await _context.NhaSanXuats.GetAll();
+            //return View(nhaSanXuats);
+
+            return View(data);
         }
 
         // GET: Admin/NhaSX/Details/5
@@ -32,7 +48,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nhaSanXuat = await _nhaSXRepository.GetById(id.Value);
+            var nhaSanXuat = await _context.NhaSanXuats.FindAsync(id.Value);
 
             if (nhaSanXuat == null)
             {
@@ -83,7 +99,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 }
 
                 // Gọi repository để thêm mới
-                await _nhaSXRepository.Create(nhaSanXuat);
+                 _context.NhaSanXuats.Add(nhaSanXuat);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -111,7 +127,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nhaSanXuat = await _nhaSXRepository.GetById(id.Value);
+            var nhaSanXuat = await _context.NhaSanXuats.FindAsync(id.Value);
 
             if (nhaSanXuat == null)
             {
@@ -133,8 +149,8 @@ namespace GiayDep.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                await _nhaSXRepository.Update(nhaSanXuat);
-                return RedirectToAction(nameof(Index));
+               _context.NhaSanXuats.Update(nhaSanXuat);
+                return RedirectToAction(nameof( Index));
             }
 
             return View(nhaSanXuat);
@@ -148,7 +164,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nhaSanXuat = await _nhaSXRepository.GetById(id.Value);
+            var nhaSanXuat = await _context.NhaSanXuats.FindAsync(id.Value);
 
             if (nhaSanXuat == null)
             {
@@ -163,13 +179,17 @@ namespace GiayDep.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _nhaSXRepository.Delete(id);
+            var nhaSanXuat = await _context.NhaSanXuats.FindAsync(id);
+            if (nhaSanXuat == null)
+            {
+                return NotFound();
+            }
+
+            _context.NhaSanXuats.Remove(nhaSanXuat);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NhaSanXuatExists(int id)
-        {
-            return _nhaSXRepository.NhaSanXuatExists(id);
-        }
     }
 }

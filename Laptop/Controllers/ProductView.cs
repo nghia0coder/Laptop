@@ -1,98 +1,111 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace GiayDep.Controllers
+namespace Laptop.Controllers
 {
-    public class ProductView : Controller
-    {
-        private readonly LaptopContext _context;
+	public class ProductView : Controller
+	{
+		private readonly LaptopContext _context;
 
-        public ProductView (LaptopContext context)
-        {
-            _context = context;
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
-   
-        public ActionResult SanPhamStyle1Partial()
-        {
-            return PartialView();
-        }
-        public ActionResult SanPhamStyle2Partial()
-        {
-            return PartialView();
-        }
-        [Route("post/{slug}-{id:int}")]
-        public async Task<IActionResult> XemChiTiet(int? id)
-        {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            var sp = await _context.SanPhams
-                .Include(n => n.MaloaispNavigation)
-                .SingleOrDefaultAsync(n => n.Idsp == id);
-            ViewBag.ListSP = _context.SanPhams
-                .Where(n => n.Maloaisp == sp.Maloaisp);
-            if (sp == null)
-            {
-                return NotFound();
-            }
+		public ProductView(LaptopContext context)
+		{
+			_context = context;
+		}
+		public IActionResult Index()
+		{
+			return View();
+		}
 
-            return View(sp);
-        }
-        public IActionResult ThuongHieu(int? MaLoaiSP, int? MaNSX)
-        {
-            // Check if the parameters are null
-            if (MaLoaiSP == null || MaNSX == null)
-            {
-                return BadRequest();
-            }
+		public ActionResult Productstyle1Partial()
+		{
+			return PartialView();
+		}
+		public ActionResult Productstyle2Partial()
+		{
+			return PartialView();
+		}
+		[Route("post/{slug}-{id:int}")]
+		public async Task<IActionResult> XemChiTiet(int? id)
+		{
+			if (id == null)
+			{
+				return BadRequest();
+			}
+			var sp = await _context.ProductVariations
+				.Include(n => n.ProductItems.Product)
+				.FirstOrDefaultAsync(n => n.ProductItemsId == id);
 
-            // Load products based on the specified criteria
-            var lstSP = _context.SanPhams.Where(n => n.Maloaisp == MaLoaiSP && n.Manhacc == MaNSX)
-                .Include(n => n.MaloaispNavigation)
-                .Include(n => n.ManhaccNavigation);
+			ViewBag.ListSP = _context.ProductItems
+				.Include(n => n.Product.Category)
+				.Where(n => n.Product.CategoryId == sp.ProductItems.Product.CategoryId);
 
-            // Check if there are any products
-            if (lstSP.Count() == 0)
-            {
-                return NotFound();
-            }
+			if (sp == null)
+			{
+				return NotFound();
+			}
 
-            ViewBag.MaLoaiSP = MaLoaiSP;
-            ViewBag.MaNSX = MaNSX;
+			return View(sp);
+		}
 
-            // Return the view with paginated products
-            return View(lstSP);
-        }
-		[Route("sanpham/{slug}-{id:int}")]
+		[Route("Product/{slug}-{id:int}")]
 		public IActionResult ProductCate(int? Id)
-        {
-            // Check if the parameter is null
-            if (Id == null)
-            {
-                return BadRequest();
-            }
+		{
+			// Check if the parameter is null
+			if (Id == null)
+			{
+				return BadRequest();
+			}
 
-            // Load products based on the specified criteria
-            var lstSP = _context.SanPhams
-                .Where(n => n.Maloaisp == Id)
-                .Include(n => n.MaloaispNavigation);
+			// Load products based on the specified criteria
+			var lstSP = _context.Products
+				.Where(n => n.BrandNavigation.BrandId == Id)
+				.Include(n => n.Category)
+				.GroupBy(n => n.ProductName)
+				.Select(n => n.FirstOrDefault())
+				.ToList();
 
-            // Check if there are any products
-            if (lstSP.Count() == 0)
-            {
-                return NotFound();
-            }
-            ViewBag.MaLoaiSP = Id;
+			// Check if there are any products
+			if (lstSP.Count() == 0)
+			{
+				return NotFound();
+			}
+			ViewBag.CategoryId = Id;
 
-            // Return the view with paginated products
-            return View(lstSP.OrderBy(n => n.Idsp));
-        }
-    }
+			// Return the view with paginated products
+			return View(lstSP.OrderBy(n => n.ProductId));
+		}
+
+		public async Task<JsonResult> GetColorAsync(int id)
+		{
+			var list = await _context.ProductItems
+				.Where(n => n.ProductId == id)
+				.Include(n => n.Color)
+				.ToListAsync();
+			return Json(list);
+		}
+		public async Task<JsonResult> GetImages(int id)
+		{
+			var img = await _context.ProductItems.Where(n => n.ProductItemsId == id).FirstOrDefaultAsync();
+
+			return Json(img);
+		}
+		public async Task<JsonResult> GetSizeAsync(int id)
+		{
+			var list = await _context.ProductVariations
+				.Where(n => n.ProductItems.Product.ProductId == id)
+				////.Include(n => n.Size)
+				.ToListAsync();
+			return Json(list);
+		}
+		public async Task<JsonResult> GetSizeByColorAsync(int id)
+		{
+			var list = await _context.ProductVariations
+				.Where(n => n.ProductItemsId == id)
+				////.Include(n => n.Size)
+				.ToListAsync();
+			return Json(list);
+		}
+	}
 }

@@ -1,13 +1,13 @@
-﻿using GiayDep.Models;
+﻿using Laptop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace GiayDep.Controllers
-{	
 
-//Day la master
+namespace Laptop.Controllers
+{	
+	
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,36 +20,37 @@ namespace GiayDep.Controllers
             _context = context;
         }
 
-        public ActionResult Index()
-        {
-            //Lần lượt tạo các viewbag để lấy list sp từ csdl
-            //List maloaisp bằng 1
-            var lstLTM = _context.SanPhams
-                .Where(n => n.Maloaisp == 1 )
-                .Include(n => n.MaloaispNavigation)
+		public ActionResult Index()
+		{
+			//Lần lượt tạo các viewbag để lấy list sp từ csdl
+			//List CategoryId bằng 1
+			var lstLTM = _context.Products
+				.Where(n => n.ProductId == 5)
+				.Include (n => n.ProductItems)
+				.ThenInclude(n => n.ProductVariations)
                 .ToList();
-            //Gán vào viewbag
-            ViewBag.ListLTM = lstLTM;
+			//Gán vào viewbag
+			ViewBag.ListLTM = lstLTM;
 
-			var lstSelling = _context.SanPhams
-				.Where(n => n.Maloaisp == 3)
-				.Include(n => n.MaloaispNavigation)
+			var lstSelling = _context.Products
+				.Where(n => n.ProductId == 5)
+				.Include(n => n.ProductItems)
 				.ToList();
 			//Gán vào viewbag
 			ViewBag.ListSelling = lstSelling;
 
-			//List maloaisp bằng 3
-			var lstDTM = _context.SanPhams
-                .Where(n => n.Maloaisp == 3)
-                .Include(n => n.MaloaispNavigation)
-                .ToList();
-            //Gán vào viewbag
-            ViewBag.ListDTM = lstDTM;
+			//List CategoryId bằng 3
+			var lstDTM = _context.Products
+				.Where(n => n.ProductId == 5)
+				.Include(n => n.ProductItems)
+				.ToList();
+			//Gán vào viewbag
+			ViewBag.ListDTM = lstDTM;
 
 
-            return View();
-        }
-        public IActionResult Privacy()
+			return View();
+		}
+		public IActionResult Privacy()
         {
             return View();
         }

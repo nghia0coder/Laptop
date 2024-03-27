@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Supplier>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Nhà Cung Cấp</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên nhà cung cấp</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.SupplierName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.SupplierId">Chỉnh sửa</a>
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.SupplierId">Chi tiết</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SupplierId">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -5,26 +5,44 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GiayDep.Models;
+using Laptop.Models;
 using GiayDep.Areas.Admin.InterfacesRepositories;
+using Laptop.Models;
 
 namespace GiayDep.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class LoaiSPController : Controller
     {
-        private readonly ILoaiSpRepositorycs _repository;
+        private readonly LaptopContext _context;
 
-        public LoaiSPController(ILoaiSpRepositorycs repository)
+        public LoaiSPController(LaptopContext context)
         {
-            _repository = repository;
+            _context = context;
+            
         }
 
         // GET: Admin/LoaiSP
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(List<LoaiSp>? loaiSps, int pg=1 )
         {
-            var loaiSps = await _repository.GetAllAsync();
-            return View(loaiSps);
+            const int pageSize = 2;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = _context.LoaiSps.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = _context.LoaiSps.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            //var nhaSanXuats = await _context.NhaSanXuats.GetAll();
+            //return View(nhaSanXuats);
+
+            return View(data);
         }
 
         // GET: Admin/LoaiSP/Details/5
@@ -35,7 +53,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSp = await _repository.GetByIdAsync(id);
+            var loaiSp = await _context.LoaiSps.FindAsync(id);
             if (loaiSp == null)
             {
                 return NotFound();
@@ -56,7 +74,7 @@ namespace GiayDep.Areas.Admin.Controllers
         public async Task<IActionResult> Create([Bind("Id, Tenloai")] LoaiSp loaiSp)
         {
             
-                await _repository.CreateAsync(loaiSp);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
            
         }
@@ -68,7 +86,7 @@ namespace GiayDep.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var loaiSp = await _repository.GetByIdAsync(id);
+            var loaiSp = await _context.LoaiSps.FindAsync(id);
             if (loaiSp == null)
             {
                 return NotFound();
@@ -87,12 +105,12 @@ namespace GiayDep.Areas.Admin.Controllers
             }
                 try
                 {
-                    await _repository.UpdateAsync(loaiSp);
+                    _context.LoaiSps.Update(loaiSp);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_repository.ExistsAsync(loaiSp.Idloai).Result)
-                    {
+                    if (!LoaiSpExists(loaiSp.Idloai))
+                {
                         return NotFound();
                     }
                     else
@@ -113,7 +131,7 @@ namespace GiayDep.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSp = await _repository.GetByIdAsync(id);
+            var loaiSp = await _context.LoaiSps.FindAsync(id);
             if (loaiSp == null)
             {
                 return NotFound();
@@ -127,13 +145,22 @@ namespace GiayDep.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _repository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            var loaiSp = await _context.LoaiSps.FindAsync(id);
+            if (loaiSp == null)
+            {
+                return NotFound(); // Return 404 if the record doesn't exist
+            }
+
+            _context.LoaiSps.Remove(loaiSp); // Remove the record
+            await _context.SaveChangesAsync(); // Save changes to the database
+
+            return RedirectToAction(nameof(Index)); // Redirect to the index action
         }
+
 
         private bool LoaiSpExists(int id)
         {
-            return _repository.ExistsAsync(id).Result;
+            return (_context.LoaiSps?.Any(e => e.Idloai == id)).GetValueOrDefault();
         }
     }
 }
