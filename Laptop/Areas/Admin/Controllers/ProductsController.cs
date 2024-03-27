@@ -26,32 +26,12 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index(int pg=1 )
         {
-<<<<<<< HEAD
-            const int pageSize = 2;
-            if (pg < 1)
-                pg = 1;
 
-            int recsCount = _context.SanPhams.Count();
-
-            var pager = new Pager(recsCount, pg, pageSize);
-
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = _context.SanPhams.Skip(recSkip).Take(pager.PageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            //var nhaSanXuats = await _context.SanPhams.GetAll();
-            //return View(nhaSanXuats);
-
-            return View(data);
-=======
             var LaptopContext = _context.Products
                 .Include(n => n.Category)
                 .Include(n => n.BrandNavigation)
                 .ToList();
             return View(LaptopContext);
->>>>>>> nghia2
         }
 
         // GET: Admin/Products/Details/5

@@ -1,63 +1,23 @@
-<<<<<<< HEAD
-@model IEnumerable<Laptop.Models.SanPham>
-=======
-﻿@model IEnumerable<Laptop.Models.Product>
->>>>>>> nghia2
+@model IEnumerable<Laptop.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    Pager pager = new Pager();
-
-    int pageNo = 0;
-
-    if (ViewBag.Pager != null)
-    {
-        pager = ViewBag.Pager;
-        pageNo = pager.CurrentPage;
-    }
 }
 
 <h1>Các Mục Sản Phẩm</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>
-<<<<<<< HEAD
-                    Tên sản phẩm
-                </th>
-                <th>
-                    Giá
-                </th>
-                <th>
-                    Số lượng
-                </th>
-                <th>
-                    Bảo hành
-                </th>
-                <th>
-                    Khuyến mãi
-                </th>
-                <th>
-                    Hình ảnh
-                </th>
-                <th>
-                    Mô tả
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Supplier
-=======
                     @Html.DisplayNameFor(model => model.ProductName)
                 </th>
-           
+          
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
@@ -66,7 +26,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Brand)
->>>>>>> nghia2
                 </th>
                 <th></th>
             </tr>
@@ -78,7 +37,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductName)
                     </td>
-                 
+            
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
@@ -86,11 +45,6 @@
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
                     <td>
-<<<<<<< HEAD
-                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Idsp">Chỉnh sửa</a> |
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Idsp">Chi tiết</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Idsp">Xóa</a>
-=======
                         @Html.DisplayFor(modelItem => item.BrandNavigation.BrandName)
                     </td>
                     <td>
@@ -98,7 +52,6 @@
                         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
                         <a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProductId">Details</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
->>>>>>> nghia2
                     </td>
                 </tr>
             }
@@ -106,45 +59,3 @@
     </table>
 </div>
 
-<<<<<<< HEAD
-<style>
-    .thumbnail-image {
-        max-width: 100px;
-        max-height: 100px;
-    }
-</style>
-<div class="container">
-    @if (pager.TotalPage > 0)
-    {
-        <ul class="pagination justify-content-end">
-            @if (pager.CurrentPage > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="1">First</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Products" asp-action="Index"
-                       asp-route-pg="@(pager.CurrentPage-1)">Previous</a>
-                </li>
-            }
-            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
-            {
-                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@pge">@pge</a>
-                </li>
-            }
-            @if (pager.CurrentPage < pager.TotalPage)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Products" asp-action="Index" asp-route-pg="@pager.TotalPage">Last</a>
-                </li>
-            }
-
-        </ul>
-    }
-</div>
-=======
->>>>>>> nghia2

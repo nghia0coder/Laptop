@@ -15,13 +15,6 @@ namespace Laptop
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-<<<<<<< HEAD
-            // Add services to the container.
-            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            builder.Services.AddDbContext<LaptopContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
-=======
 			// Add services to the container.
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
@@ -30,7 +23,6 @@ namespace Laptop
 			builder.Services.AddDbContext<LaptopContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
->>>>>>> nghia2
 
 			});
 			builder.Services.AddIdentity<AppUserModel, IdentityRole>()
