@@ -19,7 +19,8 @@ namespace Laptop
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-			});
+                options.JsonSerializerOptions.MaxDepth = 64;
+            });
 			builder.Services.AddDbContext<LaptopContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));

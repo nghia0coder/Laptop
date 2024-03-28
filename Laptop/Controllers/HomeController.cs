@@ -20,37 +20,41 @@ namespace Laptop.Controllers
             _context = context;
         }
 
-		public ActionResult Index()
-		{
+        public ActionResult Index()
+        {
 			//Lần lượt tạo các viewbag để lấy list sp từ csdl
 			//List CategoryId bằng 1
-			var lstLTM = _context.Products
-				.Where(n => n.ProductId == 5)
-				.Include (n => n.ProductItems)
-				.ThenInclude(n => n.ProductVariations)
-                .ToList();
+			var lstLTM = _context.ProductItems
+				 .Include(n => n.Product.Category)
+				 .Include(n => n.ProductVariations)
+				 .OrderBy(n => Guid.NewGuid())
+				 .ToList();
+
 			//Gán vào viewbag
 			ViewBag.ListLTM = lstLTM;
 
-			var lstSelling = _context.Products
-				.Where(n => n.ProductId == 5)
-				.Include(n => n.ProductItems)
-				.ToList();
-			//Gán vào viewbag
-			ViewBag.ListSelling = lstSelling;
+            var lstSelling = _context.ProductItems
+                .Where(n => n.ProductId == 2)
+                .Include(n => n.Product.Category)
+                .Include(n => n.ProductVariations)
+                .ToList();
+            //Gán vào viewbag
+            ViewBag.ListSelling = lstSelling;
 
-			//List CategoryId bằng 3
-			var lstDTM = _context.Products
-				.Where(n => n.ProductId == 5)
-				.Include(n => n.ProductItems)
-				.ToList();
-			//Gán vào viewbag
-			ViewBag.ListDTM = lstDTM;
+            //List CategoryId bằng 3
+            var lstDTM = _context.ProductItems
+                .Include(n => n.Product.Category)
+                .Include(n => n.ProductVariations)
+                .Include(n => n.Product.BrandNavigation)
+                .OrderBy(n => Guid.NewGuid())
+                .ToList();
+            //Gán vào viewbag
+            ViewBag.ListDTM = lstDTM;
 
 
-			return View();
-		}
-		public IActionResult Privacy()
+            return View();
+        }
+        public IActionResult Privacy()
         {
             return View();
         }

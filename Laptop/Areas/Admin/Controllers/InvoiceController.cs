@@ -216,6 +216,8 @@ namespace Laptop.Areas.Admin.Controllers
             ViewBag.Product = _context.ProductVariations
                 .Include(n => n.ProductItems.Product)
                 .Include (n => n.ProductItems.Color)
+                .Include(n => n.Ram)
+                .Include(n => n.Ssd)
                 ////.Include(n => n.Size)
                 .SingleOrDefault(n => n.ProductVarId == id);
 
@@ -223,7 +225,7 @@ namespace Laptop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult NhapHangDon(InvoiceViewModel model)
+        public async Task<ActionResult> NhapHangDon(InvoiceViewModel model)
         {
 
 
@@ -244,15 +246,19 @@ namespace Laptop.Areas.Admin.Controllers
                 Quanity = model.Quantity,
                 Price = model.Price,
             };
+            var product = _context.ProductVariations.Where(n => n.ProductVarId == model.ProductVarId).FirstOrDefault();
+            await _context.InvoiceDetails.AddAsync(invoiceDetail);
+            product.QtyinStock += invoiceDetail.Quanity;
+            await _context.SaveChangesAsync();
+          
+         
 
-            _context.InvoiceDetails.Add(invoiceDetail);
-            _context.SaveChanges();
 
             return RedirectToAction("Index","Invoice");
         }
 
      
-        public async Task<JsonResult> GetProductByColorAsync (int id)
+        public async Task<JsonResult> GetProductByColorAsync(int id)
         {   
             var list = _context.ProductItems.Where(n => n.ProductId == id)
            
@@ -260,24 +266,29 @@ namespace Laptop.Areas.Admin.Controllers
                 .ToList();
             return Json(list);    
         }
-        public async Task<JsonResult> GetProduct(int id)
+        public async Task<JsonResult> GetRam(int id)
         {
             var productVariations = await _context.ProductVariations
-                                .Where(pv => pv.ProductItems.ProductId == id)
-                                .Include(pv => pv.ProductItems) 
+                                .Where(pv => pv.ProductItems.ProductItemsId == id)
+                                .Include(p => p.Ram)
                                 .Include(p => p.Ssd)
                                 .ToListAsync();
-
             return Json(productVariations);
         }
-        public async Task<JsonResult> GetProductBySizeAsync(int id)
-        {   
-               
-            var list = _context.ProductVariations.Where(n => n.ProductItemsId == id)
-                .Include(n => n.Ram)
-                .ToList();
+        public async Task<JsonResult> GetProductByRamAsync(int id)
+        {
+            var list = await _context.ProductVariations
+                .Where(n => n.ProductItemsId == id)
+                .Select(n => new {
+                    ProductVarId = n.ProductVarId,
+                    Ram = new { n.RamId, n.Ram.RamName }, // Chọn các thuộc tính cần thiết của Ram
+                    Ssd = new { n.Ssdid, n.Ssd.Ssdname }  // Chọn các thuộc tính cần thiết của Ssd
+                })
+                .ToListAsync();
             return Json(list);
         }
+
+
         private bool InvoiceExists(int id)
         {
           return (_context.Invoices?.Any(e => e.InvoiceId == id)).GetValueOrDefault();

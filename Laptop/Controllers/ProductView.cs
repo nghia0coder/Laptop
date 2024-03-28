@@ -36,10 +36,42 @@ namespace Laptop.Controllers
 			var sp = await _context.ProductVariations
 				.Include(n => n.ProductItems.Product)
 				.FirstOrDefaultAsync(n => n.ProductItemsId == id);
+		
 
 			ViewBag.ListSP = _context.ProductItems
 				.Include(n => n.Product.Category)
 				.Where(n => n.Product.CategoryId == sp.ProductItems.Product.CategoryId);
+
+
+
+			if (sp == null)
+			{
+				return NotFound();
+			}
+
+			return View(sp);
+		}
+		public async Task<IActionResult> XemChiTiet(int? id, int ramId, int ssdId)
+		{
+			if (id == null)
+			{
+				return BadRequest();
+			}
+			var sp = await _context.ProductVariations
+				.Include(n => n.ProductItems.Product)
+				.Where(n => n.ProductItemsId == id && n.RamId == ramId && n.Ssdid == ssdId)
+				.FirstOrDefaultAsync();
+
+
+			ViewBag.ListSP = _context.ProductItems
+				.Include(n => n.Product.Category)
+				.Where(n => n.Product.CategoryId == sp.ProductItems.Product.CategoryId);
+
+			ViewBag.Color = await _context.ProductItems
+				.Where(n => n.ProductId == sp.ProductItems.ProductId)
+				.Include(n => n.Color)
+				.ToListAsync();
+
 
 			if (sp == null)
 			{
@@ -85,12 +117,6 @@ namespace Laptop.Controllers
 				.ToListAsync();
 			return Json(list);
 		}
-		public async Task<JsonResult> GetImages(int id)
-		{
-			var img = await _context.ProductItems.Where(n => n.ProductItemsId == id).FirstOrDefaultAsync();
-
-			return Json(img);
-		}
 		public async Task<JsonResult> GetSizeAsync(int id)
 		{
 			var list = await _context.ProductVariations
@@ -98,6 +124,12 @@ namespace Laptop.Controllers
 				////.Include(n => n.Size)
 				.ToListAsync();
 			return Json(list);
+		}
+		public async Task<JsonResult> GetImages(int id)
+		{
+			var img = await _context.ProductItems.Where(n => n.ProductItemsId == id).FirstOrDefaultAsync();
+
+			return Json(img);
 		}
 		public async Task<JsonResult> GetSizeByColorAsync(int id)
 		{

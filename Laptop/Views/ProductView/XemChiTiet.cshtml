@@ -2,7 +2,8 @@
 @using Microsoft.AspNetCore.Http.Extensions
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
-	IEnumerable<ProductItem> ListSP = ViewBag.ListSP ;
+	IEnumerable<ProductItem> ListColor = ViewBag.Color ;
+	IEnumerable<ProductItem> ListSP = ViewBag.ListSP;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
 }
 
@@ -82,18 +83,8 @@
 						<label>
 							Color
 							<select id="colorId" class="input-select ">
-						
 							</select>
-						</label>
-
-						<label>
-							Size
-							<select id="sizeId" class="input-select" ">
-							
-							</select>
-
-						</label>
-					
+						</label>				
 					</div>
 
 					<div class="add-to-cart">
@@ -105,6 +96,7 @@
 								<span class="qty-down">-</span>
 							</div>
 						</div>
+
 						<div class="add-to-cart">
 								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 							
@@ -407,7 +399,6 @@
 
 		$(document).ready(function () {
 			GetColor(productId);
-			GetSize(productId);
 		});
 		// $('#colorId').change(function () {
 		// 	var url = "/post/name-" + $(this).val();
@@ -415,10 +406,22 @@
 		// });
 
 		$(document).on('change', '#colorId', function () {
+
 			var colorIds = $(this).val();
-			GetSizeByColor(colorIds);
 			GetImages(colorIds)
+			// var selectedRam = @Model.RamId;
+			// var selectedSSD = @Model.Ssdid;
+			// var selectedColor = $(this).val();
+			
+			// var url = '@Url.Action("XemChiTiet", "ProductView")'
+			// 	+ `?id=${selectedColor}&ramId=${selectedRam}&ssdId=${selectedSSD}`;
+
+			// window.location.href = url;
 		});
+
+
+
+
 
 		function GetColor(productId) {
 			var product = productId;
@@ -427,23 +430,31 @@
 				type: 'GET',
 				data: { id: product },
 				success: function (data) {
-
+					var addedValues = {};
+					var currentSelection = $('#colorId').val();
+					$('#colorId').empty(); // Xóa tất cả các tùy chọn hiện có trước khi thêm mới
 					$.each(data["$values"], function (index, item) {
-						$('#colorId').append('<option value="' + item.productItemsId + '">' + item.color.colorName + '</option>');
+						if (!addedValues[item.color.colorName]) {
+							$('#colorId').append('<option value="' + item.productItemsId + '">' + item.color.colorName + '</option>');
+							addedValues[item.color.colorName] = true;
+						}
 					});
+					if (currentSelection && addedValues[currentSelection]) {
+						$('#colorId').val(currentSelection);
+					}
 			
 				}
 			});
 		}
-		function GetImages(productId) 
-		{
+
+		function GetImages(productId) {
 			$.ajax({
-				url: '@Url.Action("GetImages","ProductView")',
+				url: '@Url.Action("GetImages", "ProductView")',
 				type: 'GET',
-				data: { id : productId },
+				data: { id: productId },
 				success: function (data) {
 
-					
+
 
 					var images = [
 						data.image1,
@@ -479,37 +490,8 @@
 				}
 			})
 		}
-		function GetSize(productId) {
-			var product = productId;
-			$.ajax({
-				url: '@Url.Action("GetSize", "ProductView")',
-				type: 'GET',
-				data: { id: product },
-				success: function (data) {
 
-					$.each(data["$values"], function (index, item) {
-						$('#sizeId').append('<option value="' + item.productVarId + '">' + item.size.size1 + '</option>');
-					});
-				}
-			});
-		}
-
-		
-
-		function GetSizeByColor(colorIds) {
-			var color = colorIds
-			$.ajax({
-				url: '@Url.Action("GetSizeByColor", "ProductView")',
-				type: 'GET',
-				data: { id:  color },
-				success: function (data) {
-					$("#sizeId").empty();
-					$.each(data["$values"], function (index, item) {
-						$('#sizeId').append('<option value="' + item.productVarId + '">' + item.size.size1 + '</option>');
-					});
-				}
-			});
-		}
+	
 
 		$('.add-to-cart-btn').click(function (e) {
 			var productId = $('#sizeId').val();

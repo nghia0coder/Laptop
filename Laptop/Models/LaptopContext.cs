@@ -92,9 +92,7 @@ namespace Laptop.Models
             modelBuilder.Entity<InvoiceDetail>(entity =>
             {
                 entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
-
-                entity.HasIndex(e => e.ProductVarId, "IX_InvoiceDetails")
-                    .IsUnique();
+                  
 
                 entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 
