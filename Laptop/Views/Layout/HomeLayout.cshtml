@@ -55,13 +55,18 @@
     <!--header-->
 
     @RenderBody()
-
+    <div>
+        @await Html.PartialAsync("~/Views/Shared/Partial/_Plugin.cshtml")
+    </div>
     
     <!-- #region Phần footer -->
     <div class="footer">
         @await Component.InvokeAsync("Footer")
     </div>
     @RenderSection("scripts", required: false)
+
+
+
     <!-- #endregion -->
     <!-- jQuery Plugins -->
     <script src="~/Product/js/jquery.min.js"></script>
