@@ -24,7 +24,7 @@
 						<ul class="footer-links">
 							@foreach (var item in Model)
 							{
-								<li><a href="#">@item.CategoryName</a></li>
+								<li><a href="/category/@SlugGenerator.SlugGenerator.GenerateSlug(item.CategoryName)-@item.CategoryId">@item.CategoryName.ToUpper()</a></li>
 							}
 						</ul>
 

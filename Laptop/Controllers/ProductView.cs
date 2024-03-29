@@ -61,7 +61,7 @@ namespace Laptop.Controllers
 
 
 		[Route("Product/{slug}-{id:int}")]
-		public IActionResult ProductCate(int? Id)
+		public IActionResult ProductBrand(int? Id)
 		{
 			// Check if the parameter is null
 			if (Id == null)
@@ -72,6 +72,35 @@ namespace Laptop.Controllers
 			// Load products based on the specified criteria
 			var lstSP = _context.ProductVariations
 				.Where(n => n.ProductItems.Product.BrandNavigation.BrandId == Id)
+				.Include(n => n.ProductItems.Product.Category)
+				.Include(n => n.ProductItems.Product.BrandNavigation)
+				.GroupBy(n => n.ProductItems.Product.ProductName)
+				.Select(group => group.First())
+				.ToList();
+
+
+			// Check if there are any products
+			if (lstSP.Count() == 0)
+			{
+				return NotFound();
+			}
+			ViewBag.CategoryId = Id;
+
+			// Return the view with paginated products
+			return View(lstSP.OrderBy(n => n.ProductVarId));
+		}
+		[Route("category/{slug}-{id:int}")]
+		public IActionResult ProductCate(int? Id)
+		{
+			// Check if the parameter is null
+			if (Id == null)
+			{
+				return BadRequest();
+			}
+
+			// Load products based on the specified criteria
+			var lstSP = _context.ProductVariations
+				.Where(n => n.ProductItems.Product.Category.CategoryId == Id)
 				.Include(n => n.ProductItems.Product.Category)
 				.Include(n => n.ProductItems.Product.BrandNavigation)
 				.GroupBy(n => n.ProductItems.Product.ProductName)
