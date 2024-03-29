@@ -62,7 +62,7 @@ namespace Laptop.Controllers
 				.FirstOrDefaultAsync(n => n.ProductItems.ProductItemsId == masp && n.RamId == ramId && n.Ssdid == ssdId);
 
 
-            if (quantity == null)
+            if (quantity == null || quantity == 0)
 			{
 				quantity = 1;
 			}
