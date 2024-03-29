@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http.Extensions
-@model IEnumerable<Product>
+@model IEnumerable<ProductVariation>
 
 @{
 	ViewData["Title"] = "LoaiProduct";
@@ -85,14 +85,14 @@
 						<div id="price-slider"></div>
 						<div class="input-number price-min">
 							<input id="price-min" type="number">
-							<span class="qty-up">+</span>
+							<span class="">+</span>
 							<span class="qty-down">-</span>
 						</div>
 						<span>-</span>
 						<div class="input-number price-max">
 							<input id="price-max" type="number">
-							<span class="qty-up">+</span>
-							<span class="qty-down">-</span>
+							<span class="qty-up-sd">+</span>
+							<span class="qty-down-sd">-</span>
 						</div>
 					</div>
 				</div>
@@ -225,36 +225,36 @@
 					{
 						<div class="col-md-4 col-xs-6">
 							<div class="product">
-@* 								<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.Hinhanh1)	- @item.ProductId"> *@
-									<div class="product-img">
-									@* 	<img src="~/Contents/img/@item.Hinhanh1" alt=""> *@
-										<div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
-										</div>
+								<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductItems.Product.ProductName)-@item.ProductVarId" />
+								<div class="product-img">
+									<img src="~/Contents/img/@item.ProductItems.Image1" alt="">
+									<div class="product-label">
+										<span class="sale">-30%</span>
+										<span class="new">NEW</span>
 									</div>
-									<div class="product-body">
-										<p class="product-category">@item.Category.CategoryName.ToUpper()</p>
-										<h3 class="product-name"><a href="#">@item.ProductName.ToUpper()</a></h3>
-										@* <h4 class="product-price">$@item.Price<del class="product-old-price">$@(item.Price + 200)</del></h4> *@
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
+									<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()</a></h3>
+							@* 		<h4 class="product-price">$@item.Product.Price<del class="product-old-price">$@(item.Product.Price + 200)</del></h4> *@
+									<div class="product-rating">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
 									</div>
-									<div class="add-to-cart">
-										<a asp-action="ThemGioHang" asp-controller="ShoppingCart" asp-route-masp="@item.ProductId" asp-route-strURL="@currentUrl">
-											<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-										</a>
+									<div class="product-btns">
+										<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+										<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+										<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 									</div>
+								</div>
+								<div class="add-to-cart">
+									<a asp-action="ThemGioHang" asp-controller="ShoppingCart" asp-route-masp="@item.ProductVarId" asp-route-strURL="@currentUrl">
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+									</a>
+								</div>
 							</div>
 						</div>
 					}

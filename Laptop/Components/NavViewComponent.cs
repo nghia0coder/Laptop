@@ -4,19 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Laptop.Components
 {
-    public class MenuViewComponent : ViewComponent
-    {
-        private readonly LaptopContext _context;
-        public MenuViewComponent(LaptopContext context)
-        {
-            _context = context;
-        }
-        public IViewComponentResult Invoke()
-        {
-            var lstSP = _context.Products
-               .Include(n => n.BrandNavigation)
-               .Include(n => n.Category);
-            return View(lstSP);
-        }
-    }
+	public class NavViewComponent : ViewComponent
+	{
+		private LaptopContext _context;
+		public NavViewComponent(LaptopContext context)
+		{
+			_context = context;
+		}
+		public IViewComponentResult Invoke()
+		{
+			var listCategory = _context.Brands
+				.ToList();
+			return View(listCategory);
+		}
+	}
 }

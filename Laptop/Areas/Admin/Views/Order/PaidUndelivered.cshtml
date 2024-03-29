@@ -36,7 +36,7 @@
                                 <td>
                                     @if (item.OrderId != null)
                                     {
-                                        <a href="@Url.Action("DuyetDonHang", "Invoice", new { id = item.OrderId })" target="_blank">Duyệt đơn</a>
+                                        <a href="@Url.Action("ApproveOrders", "Order", new { id = item.OrderId })" target="_blank">Duyệt đơn</a>
                                     }
                                 </td>
                             </tr>

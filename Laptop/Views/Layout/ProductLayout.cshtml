@@ -43,10 +43,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--header-->
    
         @RenderBody()
-   
 
+    
  <div class="footer">
-        @Html.Partial("~/Views/Shared/Partial/_FooterPartial.cshtml")
+        @await Component.InvokeAsync("Footer")
         @RenderSection("Scripts", required: false)
     </div>
     <!-- jQuery Plugins -->

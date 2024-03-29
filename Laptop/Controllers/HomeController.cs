@@ -22,13 +22,16 @@ namespace Laptop.Controllers
 
         public ActionResult Index()
         {
-			//Lần lượt tạo các viewbag để lấy list sp từ csdl
-			//List CategoryId bằng 1
-			var lstLTM = _context.ProductItems
-				 .Include(n => n.Product.Category)
-				 .Include(n => n.ProductVariations)
+	
+			var lstLTM = _context.ProductVariations
+				 .Include(n => n.ProductItems.Product.Category)
+                 .Include(n => n.Ram)
+			     .Include(n => n.Ssd)
 				 .OrderBy(n => Guid.NewGuid())
-				 .ToList();
+				 .ToList()
+                 .GroupBy(n => n.ProductItems.Product.ProductName) 
+	             .Select(group => group.First()) 
+	              .ToList();
 
 			//Gán vào viewbag
 			ViewBag.ListLTM = lstLTM;
@@ -42,18 +45,30 @@ namespace Laptop.Controllers
             ViewBag.ListSelling = lstSelling;
 
             //List CategoryId bằng 3
-            var lstDTM = _context.ProductItems
-                .Include(n => n.Product.Category)
-                .Include(n => n.ProductVariations)
-                .Include(n => n.Product.BrandNavigation)
+            var lstDTM = _context.ProductVariations
+                .Include(n => n.ProductItems.Product.Category)
+				 .Include(n => n.Ram)
+				 .Include(n => n.Ssd)
+				.Include(n => n.ProductItems.Product.BrandNavigation)
                 .OrderBy(n => Guid.NewGuid())
-                .ToList();
-            //Gán vào viewbag
-            ViewBag.ListDTM = lstDTM;
+                .ToList()
+                .GroupBy(n => n.ProductItems.Product.ProductName)
+				 .Select(group => group.First())
+				  .ToList();
+			//Gán vào viewbag
+			ViewBag.ListDTM = lstDTM;
+
+            
 
 
             return View();
         }
+        public IActionResult Footer ()
+        {
+			var listCate = _context.Categories.ToList();
+
+			return View("~/Shared/Partial/_FooterPartial.cshtml", listCate);
+		}
         public IActionResult Privacy()
         {
             return View();

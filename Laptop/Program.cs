@@ -6,6 +6,9 @@ using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json.Serialization;
 using Laptop.Models;
+using Laptop.Interface;
+using Laptop.Repository;
+using Laptop.Service;
 
 namespace Laptop
 {
@@ -26,7 +29,10 @@ namespace Laptop
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
 
 			});
-			builder.Services.AddIdentity<AppUserModel, IdentityRole>()
+            builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<SendMailService>();
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.AddIdentity<AppUserModel, IdentityRole>()
 	.AddEntityFrameworkStores<LaptopContext>().AddDefaultTokenProviders();
 			builder.Services.Configure<IdentityOptions>(options =>
 			{

@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home";
+ 
 }
 
 <!DOCTYPE html>
@@ -18,11 +19,6 @@
     <script src="~/js/thickbox.js"></script>
     <link rel="stylesheet" href="~/css/thickbox.css" type="text/css" media="screen" />
 
-    <script>
-        $(document).ready(function () {
-            $(".memenu").memenu();
-        });
-    </script>
     <script src="~/Contents/Material/js/simpleCart.min.js"></script>
     <script src="~/Contents/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
@@ -65,7 +61,7 @@
     
     <!-- #region Phần footer -->
     <div class="footer">
-        @Html.Partial("~/Views/Shared/Partial/_FooterPartial.cshtml")
+        @await Component.InvokeAsync("Footer")
     </div>
     <!-- #endregion -->
     <!-- jQuery Plugins -->

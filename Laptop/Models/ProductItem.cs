@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Laptop.Models
 {
@@ -22,5 +23,16 @@ namespace Laptop.Models
         public virtual Color Color { get; set; } = null!;
         public virtual Product Product { get; set; } = null!;
         public virtual ICollection<ProductVariation> ProductVariations { get; set; }
+
+
+
+        [NotMapped]
+        public IFormFile Img1 { get; set; }
+        [NotMapped]
+        public IFormFile Img2 { get; set; }
+        [NotMapped]
+        public IFormFile Img3 { get; set; }
+        [NotMapped]
+        public IFormFile Img4 { get; set; }
     }
 }

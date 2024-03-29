@@ -33,15 +33,22 @@ namespace Laptop.Controllers
 			{
 				return BadRequest();
 			}
+
 			var sp = await _context.ProductVariations
 				.Include(n => n.ProductItems.Product)
-				.FirstOrDefaultAsync(n => n.ProductItemsId == id);
-		
+				.Include(n => n.ProductItems.Product.Category)
+				.Include(n => n.Ram)
+				.Include(n => n.Ssd)
+				.FirstOrDefaultAsync(n => n.ProductVarId == id);
 
-			ViewBag.ListSP = _context.ProductItems
-				.Include(n => n.Product.Category)
-				.Where(n => n.Product.CategoryId == sp.ProductItems.Product.CategoryId);
 
+			ViewBag.ListSP = _context.ProductVariations
+				.Where(n => n.ProductItemsId == sp.ProductItemsId && n.ProductVarId != id)
+				.Include(n => n.ProductItems)
+				.Include(n => n.Ram)
+				.Include(n => n.Ssd)
+				.Include(n => n.ProductItems.Product.Category)
+				.ToList();
 
 
 			if (sp == null)
@@ -51,35 +58,7 @@ namespace Laptop.Controllers
 
 			return View(sp);
 		}
-		public async Task<IActionResult> XemChiTiet(int? id, int ramId, int ssdId)
-		{
-			if (id == null)
-			{
-				return BadRequest();
-			}
-			var sp = await _context.ProductVariations
-				.Include(n => n.ProductItems.Product)
-				.Where(n => n.ProductItemsId == id && n.RamId == ramId && n.Ssdid == ssdId)
-				.FirstOrDefaultAsync();
 
-
-			ViewBag.ListSP = _context.ProductItems
-				.Include(n => n.Product.Category)
-				.Where(n => n.Product.CategoryId == sp.ProductItems.Product.CategoryId);
-
-			ViewBag.Color = await _context.ProductItems
-				.Where(n => n.ProductId == sp.ProductItems.ProductId)
-				.Include(n => n.Color)
-				.ToListAsync();
-
-
-			if (sp == null)
-			{
-				return NotFound();
-			}
-
-			return View(sp);
-		}
 
 		[Route("Product/{slug}-{id:int}")]
 		public IActionResult ProductCate(int? Id)
@@ -91,12 +70,14 @@ namespace Laptop.Controllers
 			}
 
 			// Load products based on the specified criteria
-			var lstSP = _context.Products
-				.Where(n => n.BrandNavigation.BrandId == Id)
-				.Include(n => n.Category)
-				.GroupBy(n => n.ProductName)
-				.Select(n => n.FirstOrDefault())
+			var lstSP = _context.ProductVariations
+				.Where(n => n.ProductItems.Product.BrandNavigation.BrandId == Id)
+				.Include(n => n.ProductItems.Product.Category)
+				.Include(n => n.ProductItems.Product.BrandNavigation)
+				.GroupBy(n => n.ProductItems.Product.ProductName)
+				.Select(group => group.First())
 				.ToList();
+
 
 			// Check if there are any products
 			if (lstSP.Count() == 0)
@@ -106,7 +87,7 @@ namespace Laptop.Controllers
 			ViewBag.CategoryId = Id;
 
 			// Return the view with paginated products
-			return View(lstSP.OrderBy(n => n.ProductId));
+			return View(lstSP.OrderBy(n => n.ProductVarId));
 		}
 
 		public async Task<JsonResult> GetColorAsync(int id)

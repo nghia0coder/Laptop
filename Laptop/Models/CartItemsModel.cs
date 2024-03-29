@@ -12,7 +12,8 @@ namespace Laptop.Models
 		{
 			get { return Price * Quanity; }
 		}
-		public int? Size { get; set; }
+		public string? ram { get; set; }
+		public string? SSD { get; set; }
 
 		public string Color { get; set; }
 
@@ -28,11 +29,13 @@ namespace Laptop.Models
 			ProductID = Product.ProductVarId;
 			ProductName = Product.ProductItems.Product.ProductName;
 			Quanity = Product.QtyinStock;
+			Price = Product.Price;
 			HinhAnh = Product.ProductItems.Image1;
-			//Size = Product.
-            //Ssd = Product.ProductItems.Color.ColorName;
-            //Quanity = quantity;
-			//HinhAnh = Product.Hinhanh1;
+			Color = Product.ProductItems.Color.ColorName;
+			ram = Product.Ram.RamName;
+			SSD = Product.Ssd.Ssdname;
+			Quanity = quantity;
+			//HinhAnh = Product.ProductItems.Image1;
 		}
 	}
 }

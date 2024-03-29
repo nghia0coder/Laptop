@@ -121,7 +121,7 @@ namespace Laptop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var productItem = await _context.ProductItems.FindAsync(id);
+            var productItem = await _context.ProductItems.Where(n=>n.ProductItemsId == id).FirstOrDefaultAsync();
             if (productItem == null)
             {
                 return NotFound();
@@ -136,35 +136,28 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductItemsId,ProductId,ColorId,ProductCode")] ProductItem productItem)
+        public async Task<IActionResult> Edit(int id, ProductItem productItem)
         {
             if (id != productItem.ProductItemsId)
             {
                 return NotFound();
             }
+            string uniqueFileName1 = GetProfilePhotoFileName1(productItem);
+            string uniqueFileName2 = GetProfilePhotoFileName2(productItem);
+            string uniqueFileName3 = GetProfilePhotoFileName3(productItem);
+            string uniqueFileName4 = GetProfilePhotoFileName4(productItem);
+            productItem.Image1 = uniqueFileName1;
+            productItem.Image2 = uniqueFileName2;
+            productItem.Image3 = uniqueFileName3;
+            productItem.Image4 = uniqueFileName4;
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(productItem);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductItemExists(productItem.ProductItemsId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+             _context.Update(productItem);
+             await _context.SaveChangesAsync();
+             
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["ColorId"] = new SelectList(_context.Colors, "ColorId", "ColorId", productItem.ColorId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productItem.ProductId);
+            
+     
             return View(productItem);
         }
 
@@ -260,6 +253,71 @@ namespace Laptop.Areas.Admin.Controllers
             return uniqueFileName;
         }
         private string GetProfilePhotoFileName4(ProductItemViewModel Product)
+        {
+            string uniqueFileName = null;
+
+            if (Product.Img4 != null)
+            {
+                string uploadsFolder = Path.Combine(_webHost.WebRootPath, "Contents/img/");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Product.Img4.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    Product.Img4.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
+        private string GetProfilePhotoFileName1(ProductItem Product)
+        {
+            string uniqueFileName = null;
+
+            if (Product.Img1 != null)
+            {
+                string uploadsFolder = Path.Combine(_webHost.WebRootPath, "Contents/img/");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Product.Img1.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    Product.Img1.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+        private string GetProfilePhotoFileName2(ProductItem Product)
+        {
+            string uniqueFileName = null;
+
+            if (Product.Img2 != null)
+            {
+                string uploadsFolder = Path.Combine(_webHost.WebRootPath, "Contents/img/");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Product.Img2.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    Product.Img2.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+        private string GetProfilePhotoFileName3(ProductItem Product)
+        {
+            string uniqueFileName = null;
+
+            if (Product.Img3 != null)
+            {
+                string uploadsFolder = Path.Combine(_webHost.WebRootPath, "Contents/img/");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Product.Img3.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    Product.Img3.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+        private string GetProfilePhotoFileName4(ProductItem Product)
         {
             string uniqueFileName = null;
 

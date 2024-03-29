@@ -3,7 +3,7 @@
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
 	IEnumerable<ProductItem> ListColor = ViewBag.Color ;
-	IEnumerable<ProductItem> ListSP = ViewBag.ListSP;
+	IEnumerable<ProductVariation> ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
 }
 
@@ -62,7 +62,7 @@
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<h2 class="product-name">@Model.ProductItems.Product.ProductName.ToUpper()</h2>
+					<h2 class="product-name">@Model.ProductItems.Product.ProductName.ToUpper() @Model.Ram.RamName.ToUpper() @Model.Ssd.Ssdname</h2>
 					<div>
 						<div class="product-rating">
 							<i class="fa fa-star"></i>
@@ -74,17 +74,31 @@
 						<a class="review-link" href="#">10 Review(s) | Add your review</a>
 					</div>
 					<div>
-						@* <h3 class="product-price">@Model.ProductItems.Product.Price <del class="product-old-price">$@(Model.ProductItems.Product.Price + 200)</del></h3> *@
-						<span class="product-available">In Stock</span>
+						 <h3 class="product-price">@Model.Price <del class="product-old-price">$@(Model.Price)</del></h3>
+						@if (Model.QtyinStock <= 0 || Model.QtyinStock == null)
+						{
+							<span class="product-available">Out Of Stock</span>
+						}
+						else
+						{
+							<span class="product-available">In Stock</span>
+						}
+
 					</div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p>@Model.ProductItems.Product.Description</p>
 
 					<div class="product-options">
 						<label>
 							Color
-							<select id="colorId" class="input-select ">
+							<select id="colorId" class="input-select">
 							</select>
 						</label>				
+					</div>
+					<div class="product-options">
+						<label>
+							Quantity In Stock
+							<span class="input">@Model.QtyinStock</span>
+						</label>
 					</div>
 
 					<div class="add-to-cart">
@@ -92,15 +106,23 @@
 							Qty
 							<div class="input-number">
 								<input type="number" id="quantityInput" value="1"> 
-								<span class="qty-up">+</span>
+								<button  id="unique-item-qty-up">+</button>
 								<span class="qty-down">-</span>
 							</div>
 						</div>
-
-						<div class="add-to-cart">
+						@if(Model.QtyinStock > 0)
+						{
+							<div class="add-to-cart">
 								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							
-						</div>
+							</div>
+						}
+						else
+						{
+							<div class="add-to-cart" style="display: none;">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></button>
+							</div>
+						}
+
 					</div>
 
 					<ul class="product-btns">
@@ -110,8 +132,7 @@
 
 					<ul class="product-links">
 						<li>Category:</li>
-						<li><a href="#">Headphones</a></li>
-						<li><a href="#">Accessories</a></li>
+						<li><a href="#">@Model.ProductItems.Product.Category.CategoryName</a></li>
 					</ul>
 
 					<ul class="product-links">
@@ -348,26 +369,26 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-title text-center">
-					<h3 class="title">Related Products</h3>
+					<h3 class="title">CÁC CẤU HÌNH KHÁC</h3>
 				</div>
 			</div>
 
 			<!-- product -->
-			@foreach (var item in ListSP.Take(4))
+			@foreach (var item in ListSP)
 			{
 				<div class="col-md-3 col-xs-6">
-					<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductItemsId} )">
+					<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductVarId} )">
 						<div class="product">
 							<div class="product-img">
-@* 								<img src="~/Contents/img/@item.Hinhanh1" alt=""> *@
+								<img src="~/Contents/img/@item.ProductItems.Image1" alt="">
 								<div class="product-label">
 									<span class="sale">-30%</span>
 								</div>
 							</div>
 							<div class="product-body">
-								<p class="product-category">@item.Product.Category.CategoryName.ToUpper()</p>
-								<h3 class="product-name"><a href="#">@item.Product.ProductName.ToUpper()</a></h3>
-							@* 	<h4 class="product-price">$@item.Product <del class="product-old-price">$@(item + 200)</del></h4> *@
+								<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
+								<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()  @item.Ram.RamName.ToUpper() @item.Ssd.Ssdname</a></h3>
+								<h4 class="product-price">$@item.Price <del class="product-old-price">$@(item.Price + 200)</del></h4>
 								<div class="product-rating">
 								</div>
 								<div class="product-btns">
@@ -494,9 +515,10 @@
 	
 
 		$('.add-to-cart-btn').click(function (e) {
-			var productId = $('#sizeId').val();
+			var productId = $('#colorId').val();
 			var quanTity = $('#quantityInput').val();
-			console.log(quanTity);
+			var ram = @Model.RamId;
+			var ssd = @Model.Ssdid;
 			var returnUrl = "@currentUrl";
 
 			$.ajax({
@@ -504,6 +526,8 @@
 				type: "GET", // Hoặc "POST", tuỳ vào cấu hình của controller
 				data: {
 					masp: productId,
+					ramId: ram,
+					ssdId : ssd,
 					quantity: quanTity,
 					strURL: returnUrl
 				},
@@ -513,17 +537,25 @@
 				},
 				error: function () {
 					// Xử lý lỗi
-					alert("Error adding product to cart.");
+					alert("Vượt quá số lượng tồn!");
 				}
 			});
 		});
 
-		$('.qty-up').click(function () {
+		$('#unique-item-qty-up').click(function () {
 
 			var currentValue = parseInt($("#quantityInput").val());
-			var newValue = currentValue++;
-			$('#quantityInput').val(newValue);
+			var qtyInStock = parseInt($(".product-options .input").text());
+
+			if (currentValue < qtyInStock) {
+				currentValue = currentValue + 1;
+				$('#quantityInput').val(currentValue);
+			} 
+			else {
+				alert("Số lượng vượt quá số lượng trong kho!");
+			}
 		});
+
 		$('.qty-down').click(function () {
 
 			var currentValue = parseInt($("#quantityInput").val());

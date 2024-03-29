@@ -49,7 +49,7 @@
 	<!--header-->
 	@RenderBody()
 	<div class="footer">
-		@Html.Partial("~/Views/Shared/Partial/_FooterPartial.cshtml")
+		@await Component.InvokeAsync("Footer")
 	</div>
 
 	<!-- jQuery Plugins -->

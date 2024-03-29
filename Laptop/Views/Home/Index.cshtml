@@ -5,9 +5,10 @@
 	Layout = "~/Views/Layout/HomeLayout.cshtml";
 
 	// Định nghĩa các viewbag để truyền vào partial view
-	IEnumerable<ProductItem> lstLTM = ViewBag.ListLTM as IEnumerable<ProductItem>; // Cách ép kiểu 1
-	IEnumerable<ProductItem> lstSelling = ViewBag.ListSelling as IEnumerable<ProductItem>;
-	IEnumerable<ProductItem> lstDTM = ViewBag.ListDTM as IEnumerable<ProductItem>;
+	IEnumerable<ProductVariation> lstLTM = ViewBag.ListLTM as IEnumerable<ProductVariation>; // Cách ép kiểu 1
+	IEnumerable<ProductVariation> lstSelling = ViewBag.ListSelling as IEnumerable<ProductVariation>;
+	IEnumerable<ProductVariation> lstDTM = ViewBag.ListDTM as IEnumerable<ProductVariation>;
+	IEnumerable<Category> listCate = ViewBag.ListCate as IEnumerable<Category>;
 }
 
 <!-- SECTION -->
@@ -223,3 +224,8 @@
 	<!-- /container -->
 </div>
 <!-- /SECTION -->
+
+@* <div class="container">
+	@await Html.PartialAsync("~/Views/Shared/Partial/_FooterPartial.cshtml", listCate)
+</div>
+ *@

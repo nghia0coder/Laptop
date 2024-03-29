@@ -71,11 +71,9 @@
     <None Include="Views\Account\Register.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
-    <None Include="Views\Layout\HeaderTopPartial.cshtml" />
     <None Include="Views\Layout\HomeLayout.cshtml" />
     <None Include="Views\Layout\ProductLayout.cshtml" />
     <None Include="Views\Layout\_CategoryLayout.cshtml" />
-    <None Include="Views\Layout\_RegisterLayout.cshtml" />
     <None Include="Views\Login\DangNhap.cshtml" />
     <None Include="Views\ProductView\ProductCate.cshtml" />
     <None Include="Views\ProductView\ProductStyle1.cshtml" />
@@ -163,10 +161,6 @@
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="SlugGenerator" Version="2.0.2" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Contents\img\" />
   </ItemGroup>
 
 </Project>
