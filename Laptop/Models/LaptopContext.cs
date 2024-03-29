@@ -17,7 +17,6 @@ namespace Laptop.Models
         {
         }
 
- 
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
@@ -31,6 +30,7 @@ namespace Laptop.Models
         public virtual DbSet<Ram> Rams { get; set; } = null!;
         public virtual DbSet<Ssd> Ssds { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
+        public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,7 +43,7 @@ namespace Laptop.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
- 
+            
 
             modelBuilder.Entity<Brand>(entity =>
             {
@@ -92,7 +92,9 @@ namespace Laptop.Models
             modelBuilder.Entity<InvoiceDetail>(entity =>
             {
                 entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
-                  
+
+                entity.HasIndex(e => e.ProductVarId, "IX_InvoiceDetails")
+                    .IsUnique();
 
                 entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 
@@ -125,6 +127,11 @@ namespace Laptop.Models
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Invoice_AspNetUsers");
+
+                entity.HasOne(d => d.VoucherNavigation)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.Voucher)
+                    .HasConstraintName("FK_Orders_Voucher");
             });
 
             modelBuilder.Entity<OrdersDetail>(entity =>
@@ -217,13 +224,13 @@ namespace Laptop.Models
 
                 entity.Property(e => e.ProductItemsId).HasColumnName("ProductItemsID");
 
-                entity.Property(e => e.RamId)
-                    .HasColumnName("RamID");
+                entity.Property(e => e.RamId).HasColumnName("RamID");
 
                 entity.Property(e => e.Ssdid).HasColumnName("SSDID");
 
-                entity.Property(e => e.Price).HasColumnName("Price");
-                   
+                entity.Property(e => e.OriginPrice)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
                 entity.Property(e => e.ProductVarId)
                     .ValueGeneratedOnAdd()
@@ -253,8 +260,7 @@ namespace Laptop.Models
             {
                 entity.ToTable("Ram");
 
-                entity.Property(e => e.RamId)
-                    .HasColumnName("RamID");
+                entity.Property(e => e.RamId).HasColumnName("RamID");
 
                 entity.Property(e => e.RamName).HasMaxLength(50);
             });
@@ -263,8 +269,7 @@ namespace Laptop.Models
             {
                 entity.ToTable("SSD");
 
-                entity.Property(e => e.SsdId)
-                    .HasColumnName("SsdID");
+                entity.Property(e => e.SsdId).HasColumnName("SsdID");
 
                 entity.Property(e => e.Ssdname)
                     .HasMaxLength(50)
@@ -286,10 +291,22 @@ namespace Laptop.Models
                 entity.Property(e => e.SupplierName).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Voucher>(entity =>
+            {
+                entity.ToTable("Voucher");
+
+                entity.Property(e => e.VoucherCode)
+                .HasColumnName("VoucherCode")
+                .HasMaxLength(50);
+            
+                entity.Property(e => e.EndDate).HasColumnType("date");
+
+                entity.Property(e => e.StartDate).HasColumnType("date");
+
+            });
+
             base.OnModelCreating(modelBuilder);
         }
-
-     
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
