@@ -14,8 +14,6 @@
     <meta name="keywords" content="New Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design">
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- start menu -->
-    <link href="~/Contents/Material/css/memenu.css" rel="stylesheet" type="text/css" media="all">
-    <script type="text/javascript" src="~/Contents/Material/js/memenu.js"></script>
     <script src="~/js/thickbox.js"></script>
     <link rel="stylesheet" href="~/css/thickbox.css" type="text/css" media="screen" />
 
@@ -63,6 +61,7 @@
     <div class="footer">
         @await Component.InvokeAsync("Footer")
     </div>
+    @RenderSection("scripts", required: false)
     <!-- #endregion -->
     <!-- jQuery Plugins -->
     <script src="~/Product/js/jquery.min.js"></script>
