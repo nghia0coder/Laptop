@@ -17,7 +17,7 @@ namespace Laptop.Models
         {
         }
 
-       
+       //dddd
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
