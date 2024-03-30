@@ -4,12 +4,10 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Xóa nhà cung cấp</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn có chắc chắn muốn xóa?</h3>
 <div>
-    <h4>Suppiler</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.SupplierName)
@@ -39,7 +37,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="SupplierId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a class="btn btn-dark" asp-action="Index">Trở về</a>
     </form>
 </div>
