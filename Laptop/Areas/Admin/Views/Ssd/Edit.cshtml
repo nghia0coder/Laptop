@@ -4,9 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <h2>Edit</h2>
 
-<h4>Ssd</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,21 +16,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="SsdId" />
             <div class="form-group">
-                <label asp-for="Ssdname" class="control-label"></label>
+                <label asp-for="Ssdname" class="control-label">SSD name</label>
                 <input asp-for="Ssdname" class="form-control" />
                 <span asp-validation-for="Ssdname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" /> <!-- Changed class to btn-primary for Bootstrap styling -->
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a> <!-- Added Bootstrap button styling -->
 </div>
 
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
