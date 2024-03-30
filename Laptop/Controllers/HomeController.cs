@@ -36,7 +36,7 @@ namespace Laptop.Controllers
                  .Select(group => group.First())
                  .ToList();
 
-			//Gán vào viewbag
+ 			//Gán vào viewbag
 			ViewBag.ListLTM = lstLTM;
 
             var lstSelling = _context.ProductItems
