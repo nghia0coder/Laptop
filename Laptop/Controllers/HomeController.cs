@@ -24,6 +24,7 @@ namespace Laptop.Controllers
         {
 
             var lstLTM = _context.Products
+                 .Where(n => n.New)
                  .Include(p => p.ProductItems)
                     .ThenInclude(pi => pi.ProductVariations)
                         .ThenInclude(pv => pv.Ram)
@@ -31,7 +32,6 @@ namespace Laptop.Controllers
                     .ThenInclude(pi => pi.ProductVariations)
                         .ThenInclude(pv => pv.Ssd)
                  .Include(n => n.Category)
-                 .ToList()
                  .GroupBy(p => p.ProductName)
                  .Select(group => group.First())
                  .ToList();
@@ -39,17 +39,28 @@ namespace Laptop.Controllers
  			//Gán vào viewbag
 			ViewBag.ListLTM = lstLTM;
 
-            var lstSelling = _context.ProductItems
-                .Where(n => n.ProductId == 2)
-                .Include(n => n.Product.Category)
-                .Include(n => n.ProductVariations)
-                .ToList();
+            var lstSelling = _context.Products
+                 .Where(n => n.TopSelling)
+                 .Include(p => p.ProductItems)
+                    .ThenInclude(pi => pi.ProductVariations)
+                        .ThenInclude(pv => pv.Ram)
+                 .Include(p => p.ProductItems)
+                    .ThenInclude(pi => pi.ProductVariations)
+                        .ThenInclude(pv => pv.Ssd)
+                .Include(n => n.Category)
+                .Include (p => p.BrandNavigation)
+                .ToList()
+                  .GroupBy(p => p.ProductName)
+                 .Select(group => group.First())
+                 .ToList();
+
             //Gán vào viewbag
             ViewBag.ListSelling = lstSelling;
 
             //List CategoryId bằng 3
             var lstDTM = _context.Products
-				 .Include(p => p.ProductItems)
+                 .Where(n => n.Hot)
+                 .Include(p => p.ProductItems)
 					.ThenInclude(pi => pi.ProductVariations)
 						.ThenInclude(pv => pv.Ram)
 				 .Include(p => p.ProductItems)
