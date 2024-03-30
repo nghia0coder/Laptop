@@ -19,10 +19,26 @@ namespace Laptop.Areas.Admin.Controllers
             _context = context;
         }
 
-        public IActionResult Unpaid()
+        public IActionResult Unpaid(int pg = 1)
         {
             var lst = _context.Orders.Include(n => n.Customer).Where(n => !n.Status).OrderBy(n => n.OrderDate).ToList();
-            return View(lst);
+
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = lst.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = lst.Skip(recSkip).Take(pageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            //return View(lst);
+
+            return View(data);
         }
         [HttpGet]
         public IActionResult PaidUndelivered()

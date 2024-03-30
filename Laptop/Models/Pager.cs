@@ -6,7 +6,7 @@
         public int CurrentPage { get; private set; }
         public int PageSize { get; private set; }
 
-        public int TotalPage { get; private set; }
+        public int TotalPages { get; private set; }
         public int StartPage { get; private set; }
         public int EndPage { get; private set; }
 
@@ -36,10 +36,10 @@
                 }
             }
 
-            TotalItems = totalPages;
+            TotalItems = totalItems;
             CurrentPage = currentPage;
             PageSize = pageSize;
-            TotalPage = totalPages;
+            TotalPages = totalPages;
             StartPage = startPage;
             EndPage = endPage;
         }
