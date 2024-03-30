@@ -5,21 +5,20 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Thêm Nhà sản xuất</h1>
+<h1>THÊM THƯƠNG HIỆU</h1>
 
-<h4>Nhà sản xuất</h4>
 <hr />
-<h4>@Html.ActionLink("Quản lý NSX", "Index") > Tạo mới</h4>
+@* <h4>@Html.ActionLink("Quản lý NSX", "Index") > Tạo mới</h4> *@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Tạo mới nhà sản xuất</h4>
-        <form asp-action="Create" asp-controller="NhaSX" method="post">
+        <h4 class="card-title">Tạo mới thương hiệu</h4>
+        <form asp-action="Create" asp-controller="Brand" method="post">
             @Html.AntiForgeryToken()
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group row">
-                    <label asp-for="BrandName" class="col-form-label font-weight-bold col-sm-2">Tên nhà sản xuất</label>
+                    <label asp-for="BrandName" class="col-form-label font-weight-bold col-sm-2">Tên thương hiệu</label>
                     <div class="col-md-6">
                         <input asp-for="BrandName" class="form-control" />
                         <span asp-validation-for="BrandName" class="text-danger"></span>
@@ -30,7 +29,7 @@
                 <div class="form-group row ">
                     <div class="col-sm-4 mt-3">
                         <button type="submit" class="btn btn-sm btn-primary font-weight-bold w-25">Thêm mới</button>
-                        <a asp-action="Index" class="btn btn-sm btn-secondary font-weight-bold w-25">Trở về</a>
+                        
                     </div>
                 </div>
             </div>
@@ -39,6 +38,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Trở về</a>
 </div>
 

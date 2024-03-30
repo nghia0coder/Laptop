@@ -15,8 +15,12 @@
 
 <h2>Danh Sách Sản Phẩm</h2>
 
+<form class="d-flex" role="search">
+    <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 
-<div class="table-responsive">
+<div class="table-responsive" id="tbl">
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -49,13 +53,14 @@
                         <a asp-action="Edit" asp-route-id="@item.ProductItemsId" class="btn btn-primary">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.ProductItemsId" class="btn btn-info">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ProductItemsId" class="btn btn-danger">Delete</a>
-                        <a asp-action="Create" asp-controller="ProductVariations" asp-route-id="@item.ProductItemsId" class="btn btn-danger">Thêm Cấu Hình</a>
+                        <a asp-action="Create" asp-controller="ProductVariations" asp-route-id="@item.ProductItemsId" class="btn btn-success">Thêm Cấu Hình</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+   
 <div class=" container">
     @if (pager.TotalItems > 0)
     {
@@ -98,3 +103,25 @@
 <!-- Include Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.search').on("keyup", function () {
+            var myvalue = $(this).val().toLowerCase();
+
+            $('#tbl tbody tr').each(function () {
+
+                var data = $(this).text().toLowerCase();
+
+                if (data.indexOf(myvalue) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show()
+                }
+            })
+        })
+    })
+</script>

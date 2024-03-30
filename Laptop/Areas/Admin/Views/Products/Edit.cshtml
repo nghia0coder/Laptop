@@ -5,9 +5,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>CHỈNH SỬA MỤC SẢN PHẨM</h1>
 
-<h4>Product</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,39 +15,42 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductId" />
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
+                <label asp-for="ProductName" class="control-label">Tên mục</label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
  
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <label asp-for="CategoryId" class="control-label">Loại</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
        
    
             <div class="form-group">
-                <label asp-for="Brand" class="control-label" ></label>
-                <select asp-for="Brand" class="form-control" asp-items="ViewBag.Brand"></select>
+                <label asp-for="Brand" class="control-label" >Hãng</label>
+                <select asp-for="Brand" class="form-control" asp-items="ViewBag.Brands"></select>
                 <span asp-validation-for="Brand" class="text-danger"></span>
             </div>
-        @*     <div class="form-group">
-                <label asp-for="Image1"  class="control-label">Hình ảnh 1</label>
-                <input asp-for="Image1"  class="form-control-file" id="customFile">
+
+            <div class="form-check">
+                <label class="form-check-label" asp-for="New">
+                    Sản Phẩm Mới
+                </label>
+                <input class="form-check-input" type="checkbox" asp-for="New" />
             </div>
-            <div class="form-group">
-                <label asp-for="Image2" class="control-label">Hình ảnh 2</label>
-                <input asp-for="Image2" class="form-control-file" id="customFile">
+            <div class="form-check">
+                <label class="form-check-label" asp-for="Hot">
+                    Sản Phẩm Hot
+                </label>
+                <input class="form-check-input" type="checkbox" asp-for="Hot" />
             </div>
-            <div class="form-group">
-                <label asp-for="Image3" class="control-label">Hình ảnh 3</label>
-                <input asp-for="Image3" class="form-control-file" id="customFile">
+            <div class="form-check">
+                <label class="form-check-label" asp-for="TopSelling">
+                    Sản Phẩm Bán Chạy
+                </label>
+                <input class="form-check-input" type="checkbox" asp-for="TopSelling" />
             </div>
-            <div class="form-group">
-                <label asp-for="Image4" class="control-label">Hình ảnh 3</label>
-                <input asp-for="Image4" class="form-control-file" id="customFile">
-            </div> *@
 
             <div class="form-group">
                 <label asp-for="Description" class="control-label">Mô tả</label>
@@ -55,7 +58,7 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
        
@@ -63,7 +66,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Trở về</a>
 </div>
         
 

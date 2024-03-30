@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Laptop.Areas.Admin.InterfacesRepositories;
 using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Laptop.Areas.Admin.Controllers
 {
@@ -12,10 +13,12 @@ namespace Laptop.Areas.Admin.Controllers
     public class BrandController : Controller
     {
         private readonly IBrandRepository _nhaSXRepository;
+        private readonly LaptopContext _context;
 
-        public BrandController(IBrandRepository nhaSXRepository)
+        public BrandController(IBrandRepository nhaSXRepository, LaptopContext context)
         {
             _nhaSXRepository = nhaSXRepository;
+            _context = context;
         }
 
         // GET: Admin/NhaSX
@@ -53,16 +56,33 @@ namespace Laptop.Areas.Admin.Controllers
         // POST: Admin/NhaSX/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BrandId,BrandName,Address,Email")] Brand _Brand)
+        public async Task<IActionResult> Create([Bind("BrandId,BrandName")] Brand brand)
         {
             if (ModelState.IsValid)
             {
-                await _nhaSXRepository.Create(_Brand);
+                // Kiểm tra trường trống
+                if (string.IsNullOrWhiteSpace(brand.BrandName))
+                {
+                    ModelState.AddModelError("BrandName", "Brand name is required.");
+                    return View(brand);
+                }
+
+                // Kiểm tra trùng lặp BrandName
+                var existingBrand = await _context.Brands.FirstOrDefaultAsync(b => b.BrandName == brand.BrandName);
+                if (existingBrand != null)
+                {
+                    ModelState.AddModelError("BrandName", "Brand name already exists.");
+                    return View(brand);
+                }
+
+                // Thêm Brand vào cơ sở dữ liệu nếu không có lỗi
+                await _nhaSXRepository.Create(brand);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(_Brand);
+            return View(brand);
         }
+
         [Authorize(Roles = "Manager")]
         // GET: Admin/NhaSX/Edit/5
         public async Task<IActionResult> Edit(int? id)

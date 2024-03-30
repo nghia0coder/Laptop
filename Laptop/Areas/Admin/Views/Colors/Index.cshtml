@@ -4,17 +4,17 @@
     ViewData["Title"] = "Index";
 } 
 
-<h2>COLOR</h2>
+<h2>DANH SÁCH MÀU SẢN PHẨM</h2>
 
 <p>
-    <a class="btn btn-info" asp-action="Create">Create New</a>
+    <a class="btn btn-info" asp-action="Create">Tạo mới</a>
 </p>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ColorName)
+                    Tên màu
                 </th>
              <th></th>
             </tr>
@@ -26,9 +26,9 @@
                     @Html.DisplayFor(modelItem => item.ColorName)
                 </td>
                 <td>
-                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ColorId">Edit</a> |
-                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.ColorId">Details</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ColorId">Delete</a>
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ColorId">Sửa</a> |
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.ColorId">Chi tiết</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ColorId">Xóa</a>
                 </td>
             </tr>
     }

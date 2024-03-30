@@ -60,12 +60,33 @@ namespace Laptop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(voucher);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Kiểm tra xem tất cả các trường không được để trống
+                if (string.IsNullOrEmpty(voucher.VoucherCode) || voucher.Discount == null || voucher.VoucherQuantity == null || voucher.StartDate == null || voucher.EndDate == null)
+                {
+                    ModelState.AddModelError("", "All fields are required.");
+                    return View(voucher);
+                }
+
+                // Kiểm tra xem VoucherCode đã tồn tại trong cơ sở dữ liệu hay không
+                var existingVoucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.VoucherCode == voucher.VoucherCode);
+
+                if (existingVoucher != null)
+                {
+                    // Nếu VoucherCode đã tồn tại, hiển thị thông báo lỗi
+                    ModelState.AddModelError("VoucherCode", "VoucherCode already exists.");
+                    return View(voucher);
+                }
+                else
+                {
+                    // Nếu VoucherCode chưa tồn tại, thêm mới Voucher
+                    _context.Add(voucher);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(voucher);
         }
+
 
         // GET: Admin/Vouchers/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -83,6 +104,7 @@ namespace Laptop.Areas.Admin.Controllers
             return View(voucher);
         }
 
+
         // POST: Admin/Vouchers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -97,6 +119,16 @@ namespace Laptop.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem VoucherCode đã tồn tại trong cơ sở dữ liệu hay chưa
+                var existingVoucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.VoucherCode == voucher.VoucherCode && v.VoucherCode != id);
+
+                if (existingVoucher != null)
+                {
+                    // Nếu VoucherCode đã tồn tại và không phải là voucher đang chỉnh sửa, hiển thị thông báo lỗi
+                    ModelState.AddModelError("VoucherCode", "Voucher code already exists.");
+                    return View(voucher);
+                }
+
                 try
                 {
                     _context.Update(voucher);

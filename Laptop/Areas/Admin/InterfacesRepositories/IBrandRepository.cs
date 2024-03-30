@@ -11,6 +11,6 @@ namespace Laptop.Areas.Admin.InterfacesRepositories
         Task Delete(int id);
 
         bool BrandExists(int id);
-
+       
     }
 }

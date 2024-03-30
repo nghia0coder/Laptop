@@ -22,9 +22,9 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Ssd
         public async Task<IActionResult> Index()
         {
-              return _context.Ssds != null ? 
-                          View(await _context.Ssds.ToListAsync()) :
-                          Problem("Entity set 'LaptopContext.Ssds'  is null.");
+            return _context.Ssds != null ?
+                        View(await _context.Ssds.ToListAsync()) :
+                        Problem("Entity set 'LaptopContext.Ssds'  is null.");
         }
 
         // GET: Admin/Ssd/Details/5
@@ -186,14 +186,14 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 _context.Ssds.Remove(ssd);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SsdExists(int id)
         {
-          return (_context.Ssds?.Any(e => e.SsdId == id)).GetValueOrDefault();
+            return (_context.Ssds?.Any(e => e.SsdId == id)).GetValueOrDefault();
         }
     }
 }
