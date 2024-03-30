@@ -4,14 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <h2>Details</h2>
 
 <div>
-    <h4>Ssd</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Ssdname)
+            @Html.DisplayName("SSD name")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Ssdname)
@@ -19,6 +21,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.SsdId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.SsdId" class="btn btn-primary">Edit</a> <!-- Added Bootstrap button styling -->
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a> <!-- Added Bootstrap button styling -->
 </div>
+
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

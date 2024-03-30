@@ -4,24 +4,29 @@
     ViewData["Title"] = "Delete";
 }
 
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Ssd</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Ssdname)
+            @Html.DisplayName("SSD name")           
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Ssdname)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="SsdId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> <!-- Changed class to btn-danger for Bootstrap styling -->
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a> <!-- Added Bootstrap button styling -->
     </form>
 </div>
+
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
