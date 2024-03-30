@@ -4,32 +4,31 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>CHI TIẾT MÃ KHUYẾN MÃI</h2>
 
 <div>
-    <h4>Voucher</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Discount)
+            Khuyễn mãi
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Discount)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.VoucherQuantity)
+            Số lượng
         </dt>
         <dd>
             @Html.DisplayFor(model => model.VoucherQuantity)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
+            Ngày bắt đầu
         </dt>
         <dd>
             @Html.DisplayFor(model => model.StartDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
+            Ngày kết thúc
         </dt>
         <dd>
             @Html.DisplayFor(model => model.EndDate)
@@ -37,6 +36,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.VoucherCode">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.VoucherCode">Sửa</a> |
+    <a class="btn btn-dark" asp-action="Index">Trở về</a>
 </div>

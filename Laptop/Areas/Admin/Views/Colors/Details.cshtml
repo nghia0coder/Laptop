@@ -4,13 +4,13 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>COLOR DETAIL</h2>
+<h2>THÔNG TIN CỦA MÀU SẢN PHẨM</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ColorName)
+            Tên màu
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ColorName)
@@ -18,7 +18,7 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ColorId">Edit</a> 
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ColorId">Sửa</a> 
     <br>
-    <a class="btn btn-dark" asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Trở về</a>
 </div>
