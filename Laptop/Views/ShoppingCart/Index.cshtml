@@ -99,7 +99,7 @@ else
                                         </div>
                                         <div class="order-col">
                                             <div><strong>TOTAL</strong></div>
-                                            <div><strong class="order-total">$@Model.Total</strong></div>
+                                            <div><strong id="total" class="order-total">$@Model.Total</strong></div>
                                         </div>
                                     </div>
                                     <div class="payment-method">
@@ -134,6 +134,10 @@ else
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Your Voucher Code" aria-label="Nhập mã giảm giá" aria-describedby="button-addon2" id="voucher-input">
+                                        <button class="btn btn-outline-secondary margin-bottom-20" type="button" id="apply-voucher-btn">Apply</button>
+                                    </div>
                                     <div class="input-checkbox">
                                         <input type="checkbox" id="terms">
                                         <label for="terms">
@@ -158,6 +162,48 @@ else
             </div>
         </div>
     </section>
+}
+
+
+@section scripts
+{
+    <script>
+        var voucherApplied = false;
+        document.getElementById("apply-voucher-btn").addEventListener("click", function () {
+            if (!voucherApplied) {
+                // Nếu voucher chưa được áp dụng trước đó, tiếp tục thực hiện hành động
+                var Code = document.getElementById("voucher-input").value;
+                var totalText = document.getElementById("total").innerText;
+                var totalInt = parseInt(totalText.replace('$', '').trim());
+
+                $.ajax({
+                    url: '/ShoppingCart/ApplyVoucher',
+                    type: 'POST',
+                    data: {
+                        voucherCode: Code,
+                        total: totalInt
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $('.order-total').text('$' + response.newTotal);
+                            alert(response.message);
+                            voucherApplied = true; // Đặt biến cờ thành true để chỉ ra rằng voucher đã được áp dụng
+                        } else {
+                            alert("Lỗi: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                // Nếu voucher đã được áp dụng trước đó, bạn có thể thông báo cho người dùng hoặc bỏ qua hành động
+                alert("Voucher đã được áp dụng trước đó.");
+            }
+        });
+
+    </script>
+
 }
 
 

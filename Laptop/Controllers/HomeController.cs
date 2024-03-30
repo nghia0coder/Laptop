@@ -22,16 +22,19 @@ namespace Laptop.Controllers
 
         public ActionResult Index()
         {
-	
-			var lstLTM = _context.ProductVariations
-				 .Include(n => n.ProductItems.Product.Category)
-                 .Include(n => n.Ram)
-			     .Include(n => n.Ssd)
-				 .OrderBy(n => Guid.NewGuid())
-				 .ToList()
-                 .GroupBy(n => n.ProductItems.Product.ProductName) 
-	             .Select(group => group.First()) 
-	              .ToList();
+
+            var lstLTM = _context.Products
+                 .Include(p => p.ProductItems)
+                    .ThenInclude(pi => pi.ProductVariations)
+                        .ThenInclude(pv => pv.Ram)
+                 .Include(p => p.ProductItems)
+                    .ThenInclude(pi => pi.ProductVariations)
+                        .ThenInclude(pv => pv.Ssd)
+                 .Include(n => n.Category)
+                 .ToList()
+                 .GroupBy(p => p.ProductName)
+                 .Select(group => group.First())
+                 .ToList();
 
 			//Gán vào viewbag
 			ViewBag.ListLTM = lstLTM;
@@ -45,16 +48,19 @@ namespace Laptop.Controllers
             ViewBag.ListSelling = lstSelling;
 
             //List CategoryId bằng 3
-            var lstDTM = _context.ProductVariations
-                .Include(n => n.ProductItems.Product.Category)
-				 .Include(n => n.Ram)
-				 .Include(n => n.Ssd)
-				.Include(n => n.ProductItems.Product.BrandNavigation)
-                .OrderBy(n => Guid.NewGuid())
+            var lstDTM = _context.Products
+				 .Include(p => p.ProductItems)
+					.ThenInclude(pi => pi.ProductVariations)
+						.ThenInclude(pv => pv.Ram)
+				 .Include(p => p.ProductItems)
+					.ThenInclude(pi => pi.ProductVariations)
+						.ThenInclude(pv => pv.Ssd)
+				.Include(n => n.Category)
                 .ToList()
-                .GroupBy(n => n.ProductItems.Product.ProductName)
+				  .GroupBy(p => p.ProductName)
 				 .Select(group => group.First())
-				  .ToList();
+				 .ToList();
+
 			//Gán vào viewbag
 			ViewBag.ListDTM = lstDTM;
 

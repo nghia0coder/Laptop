@@ -75,7 +75,7 @@
     <None Include="Views\Layout\ProductLayout.cshtml" />
     <None Include="Views\Layout\_CategoryLayout.cshtml" />
     <None Include="Views\Login\DangNhap.cshtml" />
-    <None Include="Views\ProductView\ProductCate.cshtml" />
+    <None Include="Views\ProductView\ProductBrand.cshtml" />
     <None Include="Views\ProductView\ProductStyle1.cshtml" />
     <None Include="Views\ProductView\ProductStyle2.cshtml" />
     <None Include="Views\ProductView\XemChiTiet.cshtml" />

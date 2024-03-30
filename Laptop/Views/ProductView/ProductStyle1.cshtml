@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http.Extensions
-@model IEnumerable<ProductVariation>
+@model IEnumerable<Product>
 
 <style>
 	.col-md-4 .grid-top .nameSP a:hover {
@@ -34,9 +34,9 @@
 								@foreach (var item in Model)
 								{
 									<div class="product" alt="">
-										<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductItems.Product.ProductName)-@item.ProductVarId" />
+										<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductName)-@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().ProductVarId" />
 										<div class="product-img">
-											<img src="~/Contents/img/@item.ProductItems.Image1" alt="">
+											<img src="~/Contents/img/@item.ProductItems.FirstOrDefault().Image1" alt="">
 
 											<div class="product-label">
 												<span class="sale">-10%</span>
@@ -44,9 +44,9 @@
 											</div>
 										</div>
 										<div class="product-body">
-											<p class="product-category">@item.ProductItems.Product.Category.CategoryName</p>
-											<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName @item.Ram.RamName.ToUpper() @item.Ssd.Ssdname</a></h3>
-											<h4 class="product-price">@item.ProductItems.Product.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().Price <del class="product-old-price">@(item.Price + 200)</del></h4>
+											<p class="product-category">@item.Category.CategoryName</p>
+											<h3 class="product-name"><a href="#">@item.ProductName @item.ProductItems.First().ProductVariations.First().Ram.RamName.ToUpper() @item.ProductItems.First().ProductVariations.First().Ssd.Ssdname</a></h3>
+											<h4 class="product-price">@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().Price <del class="product-old-price">@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().OriginPrice</del></h4>
 											<div class="product-rating">
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
@@ -59,12 +59,6 @@
 												<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
 												<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 											</div>
-										</div>
-										<div class="add-to-cart">
-											<a asp-action="ThemGioHang" asp-controller="ShoppingCart" asp-route-masp="@item.ProductVarId" asp-route-strURL="@currentUrl">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart<button>
-
-											</a>
 										</div>
 									</div>
 								}

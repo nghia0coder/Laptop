@@ -4,11 +4,10 @@
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Layout/HomeLayout.cshtml";
 
-	// Định nghĩa các viewbag để truyền vào partial view
-	IEnumerable<ProductVariation> lstLTM = ViewBag.ListLTM as IEnumerable<ProductVariation>; // Cách ép kiểu 1
-	IEnumerable<ProductVariation> lstSelling = ViewBag.ListSelling as IEnumerable<ProductVariation>;
-	IEnumerable<ProductVariation> lstDTM = ViewBag.ListDTM as IEnumerable<ProductVariation>;
-	IEnumerable<Category> listCate = ViewBag.ListCate as IEnumerable<Category>;
+	// Định nghĩa các viewbag để truyền vào partial Product
+	IEnumerable<Product> lstLTM = ViewBag.ListLTM as IEnumerable<Product>; // Cách ép kiểu 1
+	IEnumerable<Product> lstSelling = ViewBag.ListSelling as IEnumerable<Product>;
+	IEnumerable<Product> lstDTM = ViewBag.ListDTM as IEnumerable<Product>;
 }
 
 <!-- SECTION -->
@@ -229,3 +228,4 @@
 	@await Html.PartialAsync("~/Views/Shared/Partial/_FooterPartial.cshtml", listCate)
 </div>
  *@
+

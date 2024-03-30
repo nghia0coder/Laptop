@@ -62,7 +62,7 @@ namespace Laptop.Controllers
 				.FirstOrDefaultAsync(n => n.ProductItems.ProductItemsId == masp && n.RamId == ramId && n.Ssdid == ssdId);
 
 
-            if (quantity == null)
+            if (quantity == null || quantity == 0)
 			{
 				quantity = 1;
 			}
@@ -203,7 +203,21 @@ namespace Laptop.Controllers
 			// Redirect to the order success page
 			return RedirectToAction("Success");
 		}
-		public int? TinhTongTien()
+        public JsonResult ApplyVoucher(string voucherCode,long total)
+        {
+			var voucher = _context.Vouchers.Find(voucherCode);
+
+			if (voucher == null)
+			{
+				return Json(new { success = false, message = "Mã giảm giá không hợp lệ." });
+			}
+            long? dicount = (total * voucher.Discount) / 100;
+
+            long? newtotal = total - dicount;
+            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal });
+        }
+
+        public int? TinhTongTien()
 		{
 			List<Item> cart = HttpContext.Session.GetJson<List<Item>>("Cart");
 			if (cart == null)
