@@ -60,6 +60,11 @@ namespace Laptop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (string.IsNullOrEmpty(category.CategoryName))
+                {
+                    ModelState.AddModelError("CategoryName", "CategoryName fields are required.");
+                    return View(category);
+                }
                 // Kiểm tra xem tên loại sản phẩm đã tồn tại trong cơ sở dữ liệu hay chưa
                 var existingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryName == category.CategoryName);
 
@@ -98,9 +103,10 @@ namespace Laptop.Areas.Admin.Controllers
         // POST: Admin/Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName")] Category category)
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId, CategoryName")] Category category)
         {
             if (id != category.CategoryId)
             {
@@ -109,6 +115,23 @@ namespace Laptop.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem CategoryName không được để trống
+                if (string.IsNullOrEmpty(category.CategoryName))
+                {
+                    ModelState.AddModelError("CategoryName", "Category name cannot be empty.");
+                    return View(category);
+                }
+
+                // Kiểm tra xem CategoryName đã tồn tại trong cơ sở dữ liệu hay chưa (trừ chính Category hiện tại)
+                var existingCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryName == category.CategoryName && c.CategoryId != id);
+
+                if (existingCategory != null)
+                {
+                    // Nếu CategoryName đã tồn tại, hiển thị thông báo lỗi
+                    ModelState.AddModelError("CategoryName", "Category name already exists.");
+                    return View(category);
+                }
+
                 try
                 {
                     _context.Update(category);
@@ -129,8 +152,6 @@ namespace Laptop.Areas.Admin.Controllers
             }
             return View(category);
         }
-
-        // GET: Admin/Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -147,7 +168,6 @@ namespace Laptop.Areas.Admin.Controllers
 
             return View(category);
         }
-
         // POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
