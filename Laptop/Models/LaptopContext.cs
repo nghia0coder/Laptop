@@ -17,6 +17,7 @@ namespace Laptop.Models
         {
         }
 
+       
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
@@ -122,6 +123,8 @@ namespace Laptop.Models
                     .HasMaxLength(450)
                     .HasColumnName("CustomerID");
 
+                entity.Property(e => e.Voucher).HasMaxLength(50);
+
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
@@ -131,7 +134,7 @@ namespace Laptop.Models
                 entity.HasOne(d => d.VoucherNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.Voucher)
-                    .HasConstraintName("FK_Orders_Voucher");
+                    .HasConstraintName("FK_Orders_Voucher1");
             });
 
             modelBuilder.Entity<OrdersDetail>(entity =>
@@ -228,10 +231,6 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Ssdid).HasColumnName("SSDID");
 
-                entity.Property(e => e.OriginPrice)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
                 entity.Property(e => e.ProductVarId)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("ProductVarID");
@@ -293,16 +292,15 @@ namespace Laptop.Models
 
             modelBuilder.Entity<Voucher>(entity =>
             {
+                entity.HasKey(e => e.VoucherCode);
+
                 entity.ToTable("Voucher");
 
-                entity.Property(e => e.VoucherCode)
-                .HasColumnName("VoucherCode")
-                .HasMaxLength(50);
-            
+                entity.Property(e => e.VoucherCode).HasMaxLength(50);
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
-
             });
 
             base.OnModelCreating(modelBuilder);
