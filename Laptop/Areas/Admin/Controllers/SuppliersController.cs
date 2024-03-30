@@ -50,16 +50,36 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName,Address,Phone,Email")] Supplier suppiler)
+        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName,Address,Phone,Email")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(suppiler);
+                // Kiểm tra trường trống
+                if (string.IsNullOrWhiteSpace(supplier.SupplierName) ||
+                    string.IsNullOrWhiteSpace(supplier.Address) ||
+                    string.IsNullOrWhiteSpace(supplier.Phone) ||
+                    string.IsNullOrWhiteSpace(supplier.Email))
+                {
+                    ModelState.AddModelError("", "All fields are required.");
+                    return View(supplier);
+                }
+
+                // Kiểm tra trùng lặp SupplierName
+                var existingSupplier = await _context.Suppliers.FirstOrDefaultAsync(s => s.SupplierName == supplier.SupplierName);
+                if (existingSupplier != null)
+                {
+                    ModelState.AddModelError("SupplierName", "Supplier with this name already exists.");
+                    return View(supplier);
+                }
+
+                // Thêm Supplier vào cơ sở dữ liệu nếu không có lỗi
+                _context.Add(supplier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(suppiler);
+            return View(supplier);
         }
+
 
         // GET: Admin/Suppliers/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -50,7 +50,11 @@ namespace Laptop.Areas.Admin.Repositories
         {
             return _context.Brands.Any(e => e.BrandId == id);
         }
-     
+
+        public async Task<Brand> GetBrandByNameAsync(string brandName)
+        {
+            return await _context.Brands.FirstOrDefaultAsync(b => b.BrandName == brandName);
+        }
 
     }
 }
