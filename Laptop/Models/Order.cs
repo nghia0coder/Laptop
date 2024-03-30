@@ -15,7 +15,6 @@ namespace Laptop.Models
         public bool Delivered { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public string CustomerId { get; set; } = null!;
-        public int? Discount { get; set; }
         public bool Status { get; set; }
         public string? Voucher { get; set; }
 

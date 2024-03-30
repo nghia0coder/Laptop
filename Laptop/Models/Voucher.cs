@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Laptop.Models
 {
@@ -11,8 +10,7 @@ namespace Laptop.Models
             Orders = new HashSet<Order>();
         }
 
-        [Key]
-        public string? VoucherCode { get; set; }
+        public string VoucherCode { get; set; } = null!;
         public int? Discount { get; set; }
         public int? VoucherQuantity { get; set; }
         public DateTime? StartDate { get; set; }
