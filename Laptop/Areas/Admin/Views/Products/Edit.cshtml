@@ -22,14 +22,14 @@
  
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label">Loại</label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
        
    
             <div class="form-group">
                 <label asp-for="Brand" class="control-label" >Hãng</label>
-                <select asp-for="Brand" class="form-control" asp-items="ViewBag.Brand"></select>
+                <select asp-for="Brand" class="form-control" asp-items="ViewBag.Brands"></select>
                 <span asp-validation-for="Brand" class="text-danger"></span>
             </div>
         @*     <div class="form-group">

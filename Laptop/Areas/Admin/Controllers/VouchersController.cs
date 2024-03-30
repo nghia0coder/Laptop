@@ -60,6 +60,13 @@ namespace Laptop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem tất cả các trường không được để trống
+                if (string.IsNullOrEmpty(voucher.VoucherCode) || voucher.Discount == null || voucher.VoucherQuantity == null || voucher.StartDate == null || voucher.EndDate == null)
+                {
+                    ModelState.AddModelError("", "All fields are required.");
+                    return View(voucher);
+                }
+
                 // Kiểm tra xem VoucherCode đã tồn tại trong cơ sở dữ liệu hay không
                 var existingVoucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.VoucherCode == voucher.VoucherCode);
 
@@ -79,7 +86,6 @@ namespace Laptop.Areas.Admin.Controllers
             }
             return View(voucher);
         }
-
 
 
         // GET: Admin/Vouchers/Edit/5
@@ -113,6 +119,16 @@ namespace Laptop.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem VoucherCode đã tồn tại trong cơ sở dữ liệu hay chưa
+                var existingVoucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.VoucherCode == voucher.VoucherCode && v.VoucherCode != id);
+
+                if (existingVoucher != null)
+                {
+                    // Nếu VoucherCode đã tồn tại và không phải là voucher đang chỉnh sửa, hiển thị thông báo lỗi
+                    ModelState.AddModelError("VoucherCode", "Voucher code already exists.");
+                    return View(voucher);
+                }
+
                 try
                 {
                     _context.Update(voucher);
