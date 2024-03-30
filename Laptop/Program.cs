@@ -18,8 +18,9 @@ namespace Laptop
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			// Add services to the container.
-			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+            // Add services to the container.
+            builder.Services.AddMvc().AddRazorRuntimeCompilation();
+            builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.MaxDepth = 64;
