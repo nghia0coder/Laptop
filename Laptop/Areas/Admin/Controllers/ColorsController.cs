@@ -117,6 +117,23 @@ namespace Laptop.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem ColorName đã được cung cấp hay không
+                if (string.IsNullOrEmpty(color.ColorName))
+                {
+                    ModelState.AddModelError("ColorName", "Color name is required.");
+                    return View(color);
+                }
+
+                // Kiểm tra xem ColorName đã tồn tại trong cơ sở dữ liệu chưa
+                var existingColor = await _context.Colors.FirstOrDefaultAsync(c => c.ColorName == color.ColorName && c.ColorId != color.ColorId);
+
+                if (existingColor != null)
+                {
+                    // Nếu ColorName đã tồn tại, hiển thị thông báo lỗi
+                    ModelState.AddModelError("ColorName", "Color already exists.");
+                    return View(color);
+                }
+
                 try
                 {
                     _context.Update(color);
@@ -137,6 +154,7 @@ namespace Laptop.Areas.Admin.Controllers
             }
             return View(color);
         }
+
 
         // GET: Admin/Colors/Delete/5
         public async Task<IActionResult> Delete(int? id)
