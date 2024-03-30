@@ -7,6 +7,7 @@ namespace Laptop.Models
     {
         public Color()
         {
+            //uhuhuhu
             ProductItems = new HashSet<ProductItem>();
         }
 
