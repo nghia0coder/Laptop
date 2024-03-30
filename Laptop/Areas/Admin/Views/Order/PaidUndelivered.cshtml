@@ -4,23 +4,22 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Chưa giao</h1>
+<h1>CHƯA GIAO HÀNG</h1>
 <div class="card">
     <div class="card-body">
         <h2>Quản lí đơn hàng (Đã thanh toán & chưa giao )</h2>
-        @if (Model != null)
+        @if (Model != null && Model.Any())
         {
             <div id="list" class="table-responsive">
                 <table class="table table-bordered table-hover">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Họ tên KH</th>
-                            <th>Ngày đặt</th>
-                            <th>Tình trạng giao hàng</th>
-                            <th>Ngày giao</th>
-                            <th>Đã thanh toán</th>
-                            <th>Xác nhận</th>
-                          
+                            <th scope="col">Họ tên KH</th>
+                            <th scope="col">Ngày đặt</th>
+                            <th scope="col">Tình trạng giao hàng</th>
+                            <th scope="col">Ngày giao</th>
+                            <th scope="col">Đã thanh toán</th>
+                            <th scope="col">Xác nhận</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,11 +31,10 @@
                                 <td>@item.Delivered</td>
                                 <td>@item.DeliveryDate</td>
                                 <td>@item.Status</td>
-                          
                                 <td>
                                     @if (item.OrderId != null)
                                     {
-                                        <a href="@Url.Action("ApproveOrders", "Order", new { id = item.OrderId })" target="_blank">Duyệt đơn</a>
+                                        <a href="@Url.Action("ApproveOrders", "Order", new { id = item.OrderId })" target="_blank" class="btn btn-primary">Duyệt đơn</a>
                                     }
                                 </td>
                             </tr>
@@ -45,5 +43,12 @@
                 </table>
             </div>
         }
+        else
+        {
+            <p>Không có đơn hàng nào để hiển thị.</p>
+        }
     </div>
 </div>
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
