@@ -10,8 +10,13 @@
 <p>
     <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
+
 <div class="table-responsive">
-    <table class="table table-striped">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <table class="table table-striped" id="tbl">
         <thead>
             <tr>
                 <th>
@@ -59,3 +64,23 @@
     </table>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.search').on("keyup", function () {
+            var myvalue = $(this).val().toLowerCase();
+
+            $('#tbl tbody tr').each(function () {
+
+                var data = $(this).text().toLowerCase();
+
+                if (data.indexOf(myvalue) === -1) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show()
+                }
+            })
+        })
+    })
+</script>

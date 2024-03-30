@@ -116,113 +116,12 @@
 	@await Html.PartialAsync("~/Views/ProductView/ProductStyle2.cshtml", lstDTM)
 </div>
 
-
-<!-- SECTION -->
-<div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			<div class="col-md-4 col-xs-6">
-				<div class="section-title">
-					<h4 class="title">Top selling</h4>
-					<div class="section-nav">
-						<div id="slick-nav-3" class="products-slick-nav"></div>
-						=
-					</div>
-				</div>
-
-				<div class="products-widget-slick" data-nav="#slick-nav-3">
-					<div>
-						<!-- product widget -->
-					@* 	@foreach (var item in lstDTM.Take(3))
-						{
-							<div class="product-widget">
-								<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductId })">
-									<div class="product-img">
-									<img src="~/Contents/img/@item.ProductItems.Image1" alt=""> 
-									</div>
-									<div class="product-body">
-										<p class="product-category">@item.Product.BrandNavigation.BrandName.ToUpper()</p>
-										<h3 class="product-name"><a href="#">@item.Product.ProductName.ToUpper()</a></h3>
-										<h4 class="product-price">$@item.Product.Price <del class="product-old-price">$@(item.Product.Price + 200)</del></h4>
-									</div>
-							</div>
-						} *@
-						<!-- /product widget -->
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 col-xs-6">
-				<div class="section-title">
-					<h4 class="title">Top selling</h4>
-					<div class="section-nav">
-						<div id="slick-nav-4" class="products-slick-nav"></div>
-					</div>
-				</div>
-
-				<div class="products-widget-slick" data-nav="#slick-nav-4">
-					<div>
-						<!-- product widget -->
-					@* 	@foreach (var item in lstSelling.Take(3))
-						{
-							<div class="product-widget">
-								<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductId })">
-									<div class="product-img">
-										<img src="~/Contents/img/@item.Image1" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">@item.Product.BrandNavigation.BrandName.ToUpper()</p>
-										<h3 class="product-name"><a href="#">@item.Product.ProductName.ToUpper()</a></h3>
-										<h4 class="product-price">$@item.Product.Price <del class="product-old-price">$@(item.Product.Price + 200)</del></h4>
-									</div>
-							</div>
-						} *@
-						<!-- /product widget -->
-					</div>
-				</div>
-			</div>
-
-			<div class="clearfix visible-sm visible-xs"></div>
-
-			<div class="col-md-4 col-xs-6">
-				<div class="section-title">
-					<h4 class="title">Top selling</h4>
-					<div class="section-nav">
-						<div id="slick-nav-5" class="products-slick-nav"></div>
-					</div>
-				</div>
-
-				<div class="products-widget-slick" data-nav="#slick-nav-5">
-					<div>
-						<!-- product widget -->
-						@* @foreach (var item in lstLTM.Take(3))
-						{
-							<div class="product-widget">
-								<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductId })">
-									<div class="product-img">
-										<img src="~/Contents/img/@item.Image1" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">@item.Product.BrandNavigation.BrandName.ToUpper()</p>
-										<h3 class="product-name"><a href="#">@item.Product.ProductName.ToUpper()</a></h3>
-										<h4 class="product-price">$@item.Product.Price <del class="product-old-price">$@(item.Product.Price + 200)</del></h4>
-									</div>
-							</div>
-						} *@
-
-						<!-- /product widget -->
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
+<div class="container">
+	@await Html.PartialAsync("~/Views/ProductView/ProductStyle3.cshtml", lstSelling)
 </div>
-<!-- /SECTION -->
+
+
+
 
 @* <div class="container">
 	@await Html.PartialAsync("~/Views/Shared/Partial/_FooterPartial.cshtml", listCate)

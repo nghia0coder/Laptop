@@ -59,7 +59,10 @@ namespace Laptop.Areas.Admin.Controllers
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
             ViewData["Brand"] = new SelectList(_context.Brands, "BrandId", "BrandName");
-            Product Product = new Product();
+            Product Product = new Product()
+            {
+                New = false
+            };
             return View(Product);
         }
 
