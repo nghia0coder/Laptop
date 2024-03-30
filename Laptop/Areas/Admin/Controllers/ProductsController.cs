@@ -24,7 +24,7 @@ namespace Laptop.Areas.Admin.Controllers
             _webHost = webHost;
         }
         // GET: Admin/Products
-        public async Task<IActionResult> Index(int pg=1 )
+        public async Task<IActionResult> Index(/*int pg=1*/)
         {
             const int pageSize = 5;
 
@@ -34,20 +34,20 @@ namespace Laptop.Areas.Admin.Controllers
                 .ToList(); // Retrieve all products
 
             // Perform pagination logic
-            if (pg < 1)
-                pg = 1;
+            //if (pg < 1)
+            //    pg = 1;
 
-            int recsCount = laptopContext.Count();
+            //int recsCount = laptopContext.Count();
 
-            var pager = new Pager(recsCount, pg, pageSize);
+            //var pager = new Pager(recsCount, pg, pageSize);
 
-            int recSkip = (pg - 1) * pageSize;
+            //int recSkip = (pg - 1) * pageSize;
 
-            var data = laptopContext.Skip(recSkip).Take(pageSize).ToList();
+            //var data = laptopContext.Skip(recSkip).Take(pageSize).ToList();
 
-            ViewBag.Pager = pager;
+            //ViewBag.Pager = pager;
 
-            return View(data); // Pass the paged data to the view
+            return View(laptopContext); // Pass the paged data to the view
         }
         // GET: Admin/Products/Details/5
         public async Task<IActionResult> Details(int? id)

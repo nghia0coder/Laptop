@@ -32,14 +32,14 @@ namespace Laptop.Areas.Admin.Controllers
                 .Include(p => p.Color)
                 .Include(p => p.Product)
                 .OrderBy(p => p.ProductItemsId)
-                .Skip((pg - 1) * pageSize)
-                .Take(pageSize)
+                //.Skip((pg - 1) * pageSize)
+                //.Take(pageSize)
                 .ToListAsync();
 
-            var totalProductItems = await _context.ProductItems.CountAsync();
-            var pager = new Pager(totalProductItems, pg, pageSize);
+            //var totalProductItems = await _context.ProductItems.CountAsync();
+            //var pager = new Pager(totalProductItems, pg, pageSize);
 
-            ViewBag.Pager = pager;
+            //ViewBag.Pager = pager;
 
             return View(productItems);
         }
