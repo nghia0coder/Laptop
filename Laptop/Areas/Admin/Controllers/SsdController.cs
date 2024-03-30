@@ -58,6 +58,23 @@ namespace Laptop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SsdId,Ssdname")] Ssd ssd)
         {
+            // Kiểm tra xem SsdName đã được cung cấp hay không
+            if (string.IsNullOrEmpty(ssd.Ssdname))
+            {
+                ModelState.AddModelError("Ssdname", "SSD name is required.");
+                return View(ssd);
+            }
+
+            // Kiểm tra xem SsdName đã tồn tại trong cơ sở dữ liệu chưa
+            var existingSsd = await _context.Ssds.FirstOrDefaultAsync(s => s.Ssdname == ssd.Ssdname);
+
+            if (existingSsd != null)
+            {
+                // Nếu SsdName đã tồn tại, hiển thị thông báo lỗi
+                ModelState.AddModelError("Ssdname", "SSD already exists.");
+                return View(ssd);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(ssd);
@@ -66,6 +83,7 @@ namespace Laptop.Areas.Admin.Controllers
             }
             return View(ssd);
         }
+
 
         // GET: Admin/Ssd/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -95,6 +113,23 @@ namespace Laptop.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            // Kiểm tra xem SsdName đã được cung cấp hay không
+            if (string.IsNullOrEmpty(ssd.Ssdname))
+            {
+                ModelState.AddModelError("Ssdname", "SSD name is required.");
+                return View(ssd);
+            }
+
+            // Kiểm tra xem SsdName đã tồn tại trong cơ sở dữ liệu chưa
+            var existingSsd = await _context.Ssds.FirstOrDefaultAsync(s => s.Ssdname == ssd.Ssdname && s.SsdId != id);
+
+            if (existingSsd != null)
+            {
+                // Nếu SsdName đã tồn tại, hiển thị thông báo lỗi
+                ModelState.AddModelError("Ssdname", "SSD already exists.");
+                return View(ssd);
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -117,6 +152,7 @@ namespace Laptop.Areas.Admin.Controllers
             }
             return View(ssd);
         }
+
 
         // GET: Admin/Ssd/Delete/5
         public async Task<IActionResult> Delete(int? id)
