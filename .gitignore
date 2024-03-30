@@ -7,3 +7,5 @@
 /Laptop/.vs/Laptop
 /Laptop/.vs/ProjectEvaluation
 /.vs
+/Laptop/Models/LaptopContext.cs
+/Laptop/appsettings.json
