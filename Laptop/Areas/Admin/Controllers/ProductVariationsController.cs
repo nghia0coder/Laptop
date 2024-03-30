@@ -51,9 +51,12 @@ namespace Laptop.Areas.Admin.Controllers
         public IActionResult Create(int id)
         {
             ViewData["ProductItemsId"] = _context.ProductItems.Where(n => n.ProductItemsId == id).Include(n => n.Product).FirstOrDefault();
+            var product = _context.ProductVariations.Where(n => n.ProductVarId == id)
+                .Include(n => n.ProductItems)
+                .FirstOrDefault();
             ViewData["RamId"] = new SelectList(_context.Rams, "RamId", "RamId");
             ViewData["Ssdid"] = new SelectList(_context.Ssds, "SsdId", "SsdId");
-            return View();
+            return View(product);
         }
 
         // POST: Admin/ProductVariations/Create
