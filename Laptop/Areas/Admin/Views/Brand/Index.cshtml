@@ -61,7 +61,7 @@
 </div>
 
 <div class="container">
-    @if (pager.TotalPage > 0)
+    @if (pager.TotalPages > 0)
     {
         <ul class="pagination justify-content-end">
             @if (pager.CurrentPage > 1)
@@ -80,13 +80,13 @@
                     <a class="page-link" asp-controller="NhaSX" asp-action="Index" asp-route-pg="@pge">@pge</a>
                 </li>
             }
-            @if (pager.CurrentPage < pager.TotalPage)
+            @if (pager.CurrentPage < pager.TotalPages)
             {
                 <li class="page-item">
                     <a class="page-link" asp-controller="NhaSX" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-controller="NhaSX" asp-action="Index" asp-route-pg="@pager.TotalPage">Last</a>
+                    <a class="page-link" asp-controller="NhaSX" asp-action="Index" asp-route-pg="@pager.TotalPages">Last</a>
                 </li>
             }
            
