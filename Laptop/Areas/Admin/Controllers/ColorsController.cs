@@ -60,12 +60,32 @@ namespace Laptop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem màu có được cung cấp hay không
+                if (string.IsNullOrEmpty(color.ColorName))
+                {
+                    ModelState.AddModelError("ColorName", "Color name is required.");
+                    return View(color);
+                }
+
+                // Kiểm tra xem màu đã tồn tại trong cơ sở dữ liệu chưa
+                var existingColor = await _context.Colors.FirstOrDefaultAsync(c => c.ColorName == color.ColorName);
+
+                if (existingColor != null)
+                {
+                    // Nếu màu đã tồn tại, hiển thị thông báo lỗi
+                    ModelState.AddModelError("ColorName", "Color already exists.");
+                    return View(color);
+                }
+
+                // Nếu màu không tồn tại, tiếp tục thêm vào cơ sở dữ liệu
                 _context.Add(color);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(color);
         }
+
+
 
         // GET: Admin/Colors/Edit/5
         public async Task<IActionResult> Edit(int? id)
