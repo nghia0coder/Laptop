@@ -1,64 +1,67 @@
 ﻿@model Laptop.Models.Product
-
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>THÊM  MỚI</h1>
+<h1 class="mb-4">Thêm Mới Sản Phẩm</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
         <form asp-action="Create" asp-controller="Products" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label">Tên sản phẩm</label>
+
+            <div class="mb-3">
+                <label asp-for="ProductName" class="form-label">Tên sản phẩm</label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
-         
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label">Loại sản phẩm</label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Loại sản phẩm</label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Category"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Brand" class="control-label">Thương Hiệu</label>
-                <select asp-for="Brand" class="form-control" asp-items="ViewBag.Brands"></select>
+
+            <div class="mb-3">
+                <label asp-for="Brand" class="form-label">Thương Hiệu</label>
+                <select asp-for="Brand" class="form-select" asp-items="ViewBag.Brand"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label">Mô Tả</label>
-                <input asp-for="Description" class="form-control-file" />
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Mô Tả</label>
+                <input asp-for="Description" class="form-control" type="text" /> <!-- Adjusted to 'text' for consistency -->
             </div>
-             
-            <div class="form-check">
+
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" asp-for="New" />
                 <label class="form-check-label" asp-for="New">
                     Sản Phẩm Mới
                 </label>
-                <input class="form-check-input" type="checkbox" asp-for="New"/>
             </div>
-            <div class="form-check">
+
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" asp-for="Hot" />
                 <label class="form-check-label" asp-for="Hot">
                     Sản Phẩm Hot
                 </label>
-                <input class="form-check-input" type="checkbox" asp-for="Hot" />
             </div>
-            <div class="form-check">
+
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" asp-for="TopSelling" />
                 <label class="form-check-label" asp-for="TopSelling">
                     Sản Phẩm Bán Chạy
                 </label>
-                <input class="form-check-input" type="checkbox" asp-for="TopSelling" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Tạo" class="btn btn-primary" />
+
+            <div class="d-grid gap-2">
+                <input type="submit" value="Tạo" class="btn btn-primary btn-lg" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-dark" asp-action="Index">Trở về</a>
+<div class="mt-3">
+    <a class="btn btn-secondary" asp-action="Index">Trở về</a>
 </div>
-
-
-

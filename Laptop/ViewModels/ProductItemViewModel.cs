@@ -16,6 +16,8 @@ namespace Laptop.ViewModels
         public int Size { get; set; }
         public int ProductId { get; set; }
 
+       
+
         [NotMapped]
         public IFormFile Img1 { get; set; }
         [NotMapped]

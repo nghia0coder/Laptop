@@ -129,23 +129,12 @@ namespace Laptop.Areas.Admin.Controllers
                     return View(voucher);
                 }
 
-                try
-                {
+                
                     _context.Update(voucher);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VoucherExists(voucher.VoucherCode))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
+                
+              
             }
             return View(voucher);
         }

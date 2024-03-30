@@ -72,7 +72,7 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
+            ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             ViewData["Brand"] = new SelectList(_context.Brands, "BrandId", "BrandName");
             Product Product = new Product()
             {

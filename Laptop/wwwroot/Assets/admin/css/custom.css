@@ -1,0 +1,54 @@
+﻿/* Custom form styling */
+.form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.form-control, .form-select {
+    height: 45px;
+    border: 1px solid #ced4da;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: #4d90fe;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(77, 144, 254, 0.6);
+    }
+
+.btn-custom-primary {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+    .btn-custom-primary:hover, .btn-custom-primary:focus {
+        background-color: #0056b3;
+        color: #ffffff;
+        border-color: #0056b3;
+    }
+
+.btn-custom-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+    border-color: #6c757d;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+    .btn-custom-secondary:hover, .btn-custom-secondary:focus {
+        background-color: #545b62;
+        color: #ffffff;
+        border-color: #545b62;
+    }
+
+/* Improving spacing and alignment */
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+/* Aligning the back button with form */
+.back-to-list-btn {
+    margin-top: 20px;
+}
