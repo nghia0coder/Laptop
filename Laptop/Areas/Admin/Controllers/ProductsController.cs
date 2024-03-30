@@ -26,14 +26,29 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index(int pg=1 )
         {
+            const int pageSize = 5;
 
-            var LaptopContext = _context.Products
+            var laptopContext = _context.Products
                 .Include(n => n.Category)
                 .Include(n => n.BrandNavigation)
-                .ToList();
-            return View(LaptopContext);
-        }
+                .ToList(); // Retrieve all products
 
+            // Perform pagination logic
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = laptopContext.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = laptopContext.Skip(recSkip).Take(pageSize).ToList();
+
+            ViewBag.Pager = pager;
+
+            return View(data); // Pass the paged data to the view
+        }
         // GET: Admin/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {

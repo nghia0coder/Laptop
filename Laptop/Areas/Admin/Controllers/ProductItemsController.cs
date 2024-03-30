@@ -24,10 +24,24 @@ namespace Laptop.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductItems
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg = 1)
         {
-            var LaptopContext = _context.ProductItems.Include(p => p.Color).Include(p => p.Product);
-            return View(await LaptopContext.ToListAsync());
+            const int pageSize = 5;
+
+            var productItems = await _context.ProductItems
+                .Include(p => p.Color)
+                .Include(p => p.Product)
+                .OrderBy(p => p.ProductItemsId)
+                .Skip((pg - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalProductItems = await _context.ProductItems.CountAsync();
+            var pager = new Pager(totalProductItems, pg, pageSize);
+
+            ViewBag.Pager = pager;
+
+            return View(productItems);
         }
 
         // GET: Admin/ProductItems/Details/5
