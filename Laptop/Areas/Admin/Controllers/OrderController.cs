@@ -41,24 +41,48 @@ namespace Laptop.Areas.Admin.Controllers
             return View(data);
         }
         [HttpGet]
-        public IActionResult PaidUndelivered()
+        public IActionResult PaidUndelivered(int pg = 1)
         {
-            var lstDSDHCG = _context.Orders
-                .Include(n => n.Customer)
-                .Where(n => !n.Delivered && n.Status)
-                .OrderBy(n => n.Delivered)
-                .ToList();
-            return View(lstDSDHCG);
+            var lstDSDHCG = _context.Orders.Include(n => n.Customer).Where(n => !n.Status).OrderBy(n => n.OrderDate).ToList();
+
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = lstDSDHCG.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = lstDSDHCG.Skip(recSkip).Take(pageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            //return View(lst);
+
+            return View(data);
         }
         [HttpGet]
-        public IActionResult PaidDelivered()
+        public IActionResult PaidDelivered(int pg=1)
         {
-            var lstDSDHCG = _context.Orders
-                .Include(n => n.Customer)
-                .Where(n => n.Delivered && n.Status)
-                .OrderBy(n => n.DeliveryDate)
-                .ToList();
-            return View(lstDSDHCG);
+            var lstDSDHCG = _context.Orders.Include(n => n.Customer).Where(n => !n.Status).OrderBy(n => n.OrderDate).ToList();
+
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+            int recsCount = lstDSDHCG.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = lstDSDHCG.Skip(recSkip).Take(pageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            //return View(lst);
+
+            return View(data);
         }
 
         [HttpGet]
