@@ -60,12 +60,31 @@ namespace Laptop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem RamName đã được cung cấp hay không
+                if (string.IsNullOrEmpty(ram.RamName))
+                {
+                    ModelState.AddModelError("RamName", "RAM name is required.");
+                    return View(ram);
+                }
+
+                // Kiểm tra xem RamName đã tồn tại trong cơ sở dữ liệu chưa
+                var existingRam = await _context.Rams.FirstOrDefaultAsync(r => r.RamName == ram.RamName);
+
+                if (existingRam != null)
+                {
+                    // Nếu RamName đã tồn tại, hiển thị thông báo lỗi
+                    ModelState.AddModelError("RamName", "RAM already exists.");
+                    return View(ram);
+                }
+
+                // Nếu RamName không tồn tại, tiếp tục thêm vào cơ sở dữ liệu
                 _context.Add(ram);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(ram);
         }
+
 
         // GET: Admin/Rams/Edit/5
         public async Task<IActionResult> Edit(int? id)
