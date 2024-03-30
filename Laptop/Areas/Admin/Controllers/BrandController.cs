@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Laptop.Areas.Admin.InterfacesRepositories;
 using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
+//uuyuyuu
+
 
 namespace Laptop.Areas.Admin.Controllers
 {
