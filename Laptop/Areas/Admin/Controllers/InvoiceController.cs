@@ -200,6 +200,8 @@ namespace Laptop.Areas.Admin.Controllers
             var lstSP = _context.ProductVariations
                 .Where(n => n.QtyinStock <= 5)
                 .Include(n => n.ProductItems.Product)
+                .Include(n => n.Ram)
+                .Include(n => n.Ssd)
                 .ToList();
             return View(lstSP);
         }

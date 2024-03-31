@@ -22,8 +22,9 @@
                 <table class="table table-bordered table-hover" id="tbl">
                     <thead>
                         <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Cấu Hình</th>
+                            <th>Số Lượng</th>
                             <th>Hình ảnh</th>
                             <th></th>
                         </tr>
@@ -33,10 +34,11 @@
                         {
                             <tr>
                                 <td>@item.ProductItems.Product.ProductName</td>
-                                <td>@item.ProductItems.Product.Brand</td>
+                                <td>Ram : @item.Ram.RamName  <br> Ssd : @item.Ssd.Ssdname</td>
+                                <td>@item.QtyinStock</td>
                                 <td><img class="scaled-image" src="~/Contents/img/@item.ProductItems.Image1" /></td>
                                 <td>
-                                    <a asp-action="NhapHangDon" asp-route-id="@item.ProductVarId">Nhập hàng</a>
+                                    <a class="btn btn-primary" asp-action="NhapHangDon" asp-route-id="@item.ProductVarId">Nhập hàng</a>
                                 </td>
                             </tr>
                         }

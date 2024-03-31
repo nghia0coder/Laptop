@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    IEnumerable<ProductVariation> listSize = ViewBag.productSize as IEnumerable<ProductVariation>;
+    IEnumerable<ProductVariation> list = ViewBag.product as IEnumerable<ProductVariation>;
 }
 
 <h2>Details</h2>
@@ -21,7 +21,37 @@
 
             <dt class="col-sm-3">Product:</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Product.ProductName)</dd>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ram</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach (var item in list)
+                        {
+                            <td>@item.Ram.RamName</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SSD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach (var item in list)
+                        {
+                            <td>@item.Ssd.Ssdname</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
             <dt class="col-sm-2">
                 <img src="~/Contents/img/@Model.Image1" class="thumbnail-image" />
             </dt>
