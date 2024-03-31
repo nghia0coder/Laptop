@@ -42,12 +42,7 @@
                                 <td>@item.Delivered</td>
                                 <td>@item.DeliveryDate</td>
                                 <td>@item.Status</td>
-                                <td>
-                                    @if (item.OrderId != null)
-                                    {
-                                        <a href="@Url.Action("DuyetDonHang", "Invoice", new { id = item.OrderId })" target="_blank" class="btn btn-primary">Duyệt đơn</a>
-                                    }
-                                </td>
+                                <td>@item.Voucher</td>
                             </tr>
                         }
                     </tbody>

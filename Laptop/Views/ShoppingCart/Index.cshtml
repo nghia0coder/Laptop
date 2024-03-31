@@ -146,8 +146,16 @@ else
                                         </label>
                                     </div>
                                     @if (User.Identity?.IsAuthenticated ?? false)
-                                    {
-                                        <a asp-action="DatHang" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
+                                    {   
+                                        if (Model.CartItems.Count > 0)
+                                        {
+                                            <a asp-action="DatHang" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
+                                        }
+                                        else
+                                        {
+                                            <a  class="primary-btn order-submit">Empty</a>
+                                        }
+
                                     }
                                     else
                                     {

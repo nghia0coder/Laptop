@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Laptop.Components
 {
-	public class MenuViewComponent : ViewComponent
+	public class HeaderViewComponent : ViewComponent
 	{
 		private readonly LaptopContext _context;
-		public MenuViewComponent(LaptopContext context)
+
+		public HeaderViewComponent(LaptopContext context)
 		{
 			_context = context;
 		}
 		public IViewComponentResult Invoke()
 		{
-			var lstSP = _context.Products
-			   .Include(n => n.BrandNavigation)
-			   .Include(n => n.Category);
-
+		
+			ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
 			return View();
 		}
+
 	}
 }

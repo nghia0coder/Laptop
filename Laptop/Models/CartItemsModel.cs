@@ -5,7 +5,7 @@ namespace Laptop.Models
 	public class CartItemsModel
 	{
 		public int ProductID { get; set; }
-		public string ProductName { get; set; }
+		public string? ProductName { get; set; }
 		public int? Quanity { get; set; }
 		public int? Price { get; set; }
 		public int? Total
@@ -15,11 +15,11 @@ namespace Laptop.Models
 		public string? ram { get; set; }
 		public string? SSD { get; set; }
 
-		public string Color { get; set; }
+		public string? Color { get; set; }
 
-		public string HinhAnh { get; set; }
+		public string? HinhAnh { get; set; }
 
-		public string Hang { get; set; }
+		public string? Hang { get; set; }
 
 		public CartItemsModel() { }
 

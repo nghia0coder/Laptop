@@ -42,13 +42,18 @@
 
 
 <body>
+
     <!--header-->
     <div class="header">
         @await Html.PartialAsync("~/Views/Shared/Partial/_HeaderTopPartial.cshtml")
+
     </div>
     <div>
-        @await Html.PartialAsync("~/Views/Shared/Partial/_TopBarPartial.cshtml")
+        @await Component.InvokeAsync("Header")
     </div>
+  @* <div>
+        @await Html.PartialAsync("~/Views/Shared/Partial/_TopBarPartial.cshtml")
+    </div> *@
     <div>
        @await Component.InvokeAsync("Nav")
     </div>
