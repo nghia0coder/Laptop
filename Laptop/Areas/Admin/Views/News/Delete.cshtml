@@ -1,0 +1,75 @@
+﻿@model Laptop.Models.News
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class ="mt-3">Xóa tin tức</h2>
+
+<div class="p-lg-3">
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <h4>
+            Tiêu đề
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <h4>
+            Mở đầu
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.ContentPreview)
+        </dd>
+        <h4>
+            Nội dung
+        </h4>
+        <dd>
+            @Html.Raw(Model.Contents)
+        </dd>     
+        <h4>
+            Tác giả
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <h4>
+            Thời điểm tạo tin
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <h4>
+            Trạng thái
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <h4>
+            Tin Hot
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.Hot)
+        </dd>
+        <h4>
+            Tin Mới
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.New)
+        </dd>
+        <h4>
+            Tin của hãng
+        </h4>
+        <dd>
+            @Html.DisplayFor(model => model.Brand.BrandName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="PostId" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a class="btn btn-primary" asp-action="Index">Quay lại</a>
+    </form>
+</div>

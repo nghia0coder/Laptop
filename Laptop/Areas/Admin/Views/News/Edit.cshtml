@@ -1,0 +1,103 @@
+﻿@model Laptop.Models.News
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sửa chi tiết tin tức</h2>
+
+
+<hr />
+<div class="row p-lg-3">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PostId" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"><h4>Tiêu đề</h4></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContentPreview" class="control-label"><h4>Mở đầu</h4></label>
+                <input asp-for="ContentPreview" class="form-control" />
+                <span asp-validation-for="ContentPreview" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contents" class="control-label"><h4>Nội dung</h4></label>
+                <textarea asp-for="Contents" class="form-control"></textarea>
+                <span asp-validation-for="Contents" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Img1" class="control-label"><h4 class="mt-2">Ảnh thumbnail</h4></label>
+                <input asp-for="Img1" class="form-control-file" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"><h4>Tác giả</h4></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"><h4>Thời điểm tạo</h4></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <h4>Trạng thái</h4> <input asp-for="Status" />
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <h4>Tin hot</h4><input asp-for="Hot" />
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <h4>Tin mới</h4>  <input asp-for="New" />
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandId" class="control-label">Tên hãng</label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Sửa" class="btn btn-success" />
+                <a class="btn btn-primary" asp-action="Index">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script src="@Url.Content("~/lib/summernote/summernote.js")"></script>
+<link href="@Url.Content("~/lib/summernote/summernote.css")" rel="stylesheet">
+<script>
+    $(document).ready(function () {
+        $('#Contents').summernote({
+            height: 200,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert', ['link', 'picture', 'video']]
+            ]
+        });
+    });
+   </script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
