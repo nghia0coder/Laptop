@@ -29,17 +29,13 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </th>
-          
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    Tên Sản Phẩm
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                    Loại Sản Phẩm
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Brand)
+                    Thương Hiệu
                 </th>
                 <th></th>
             </tr>
@@ -50,10 +46,6 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-            
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)

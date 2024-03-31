@@ -54,8 +54,8 @@ namespace Laptop.Areas.Admin.Controllers
             var product = _context.ProductVariations.Where(n => n.ProductVarId == id)
                 .Include(n => n.ProductItems)
                 .FirstOrDefault();
-            ViewData["RamId"] = new SelectList(_context.Rams, "RamId", "RamId");
-            ViewData["Ssdid"] = new SelectList(_context.Ssds, "SsdId", "SsdId");
+            ViewData["RamId"] = new SelectList(_context.Rams, "RamId", "RamName");
+            ViewData["Ssdid"] = new SelectList(_context.Ssds, "SsdId", "Ssdname");
             return View(product);
         }
 

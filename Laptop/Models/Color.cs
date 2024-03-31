@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Laptop.Models
 {
@@ -12,6 +13,7 @@ namespace Laptop.Models
         }
 
         public int ColorId { get; set; }
+        [DisplayName("Tên Màu")]
         public string? ColorName { get; set; }
 
         public virtual ICollection<ProductItem> ProductItems { get; set; }

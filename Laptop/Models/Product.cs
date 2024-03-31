@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Laptop.Models
 {
@@ -11,6 +13,7 @@ namespace Laptop.Models
         }
 
         public int ProductId { get; set; }
+        [DisplayName("Tên Sản Phẩm")]
         public string? ProductName { get; set; }
         public int? CategoryId { get; set; }
         public string? Description { get; set; }
