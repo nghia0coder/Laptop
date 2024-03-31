@@ -79,7 +79,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
 
-                entity.Property(e => e.CreateDate).HasColumnType("date");
+                //entity.Property(e => e.CreateDate).HasColumnType("date2");
 
                 entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
@@ -94,8 +94,8 @@ namespace Laptop.Models
             {
                 entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
 
-                entity.HasIndex(e => e.ProductVarId, "IX_InvoiceDetails")
-                    .IsUnique();
+                //entity.HasIndex(e => e.ProductVarId, "IX_InvoiceDetails")
+                  
 
                 entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 

@@ -181,7 +181,7 @@
                     $.each(data["$values"], function (index, item) {
                         if (!addedValues[item.ssd.ssdid]) {
 
-                            $(ssdDropdown).append('<option value="' + item.ssd.ssdid + '">' + item.ssd.ssdname + '</option>');
+                            $(ssdDropdown).append('<option value="' + item.productVarId + '">' + item.ssd.ssdname + '</option>');
                             addedValues[item.ssd.ssdid] = true;
                         }
                     });
@@ -192,12 +192,18 @@
         $(document).on('change', '.ddlColors', function () {
             GetProductByRam($(this));
         });
+        $(document).on('change', '.ddlRams', function () {
+
+            var newProductDropdown1 = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlColors");
+
+            GetProductBySSD(newProductDropdown1,$(this));
+        });
 
         function GetProductByRam(selectedRamDropdown) {
 
             var productItemsId = $(selectedRamDropdown).val();
             var ramDropdown = $(selectedRamDropdown).closest('tr').find('select[id="ramId"]');
-            var ssdDropdown = $(selectedRamDropdown).closest('tr').find('select[id="SsdID"]');
+   
 
             $.ajax({
                 url: '@Url.Action("GetProductByRam", "Invoice")',
@@ -206,14 +212,38 @@
                 success: function (data) {
                     console.log(data)
                     $(ramDropdown).empty();
-                    $(ssdDropdown).empty();
+            
                     var addedValues = {};
                     $.each(data["$values"], function (index, item) {
                         if (!addedValues[item.ram.ramName]) {
                             // Nếu chưa, thêm vào dropdown và đánh dấu là đã thêm
                             $(ramDropdown).append('<option value="' + item.productVarId + '">' + item.ram.ramName + '</option>');
-                            $(ssdDropdown).append('<option value="' + item.productVarId + '">' + item.ssd.ssdname + '</option>');
+         
                             addedValues[item.ram.ramName] = true;
+                        }
+                    });
+                }
+            });
+        }
+        function GetProductBySSD(selectedProductDropdown1, selectedProductDropdown2) {
+
+            var productId = $(selectedProductDropdown1).val();
+            var ramId = $(selectedProductDropdown2).val();
+            var ssdDropdown = $(selectedProductDropdown1).closest('tr').find('select[id="SsdID"]');
+
+            $.ajax({
+                url: '@Url.Action("GetProductBySSD", "Invoice")',
+                type: 'GET',
+                data: { id: productId, ram: ramId },
+                success: function (data) {
+
+                    $(ssdDropdown).empty();
+                    var addedValues = {};
+                    $.each(data["$values"], function (index, item) {
+                        if (!addedValues[item.ssd.ssdid]) {
+
+                            $(ssdDropdown).append('<option value="' + item.productVarId + '">' + item.ssd.ssdname + '</option>');
+                            addedValues[item.ssd.ssdid] = true;
                         }
                     });
                 }
