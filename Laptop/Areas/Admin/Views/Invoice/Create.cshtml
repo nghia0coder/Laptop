@@ -105,8 +105,14 @@
     <script>
 
         $(document).on('change', '.ddlProductItemsId', function () {
-            GetProductByColor($(this));
-            GetRam($(this));
+            var newProductDropdown = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlProductItemsId");
+            GetProductByColor(newProductDropdown, function () {
+                var newProductDropdown1 = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlColors");
+                GetRam(newProductDropdown1, function () {
+                    var newProductDropdown2 = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlRams");
+                    GetSSD(newProductDropdown1, newProductDropdown2);
+                });
+            });
         });
 
 
@@ -130,11 +136,12 @@
                 }
             });
         }
-        function GetRam(selectedProductDropdown) {
+       
+        function GetRam(selectedProductDropdown, callback) {
 
             var productId = $(selectedProductDropdown).val();
             var ramDropdown = $(selectedProductDropdown).closest('tr').find('select[id="ramId"]');
-            var ssdDropdown = $(selectedProductDropdown).closest('tr').find('select[id="SsdID"]');
+   
 
             $.ajax({
                 url: '@Url.Action("GetRam", "Invoice")',
@@ -142,10 +149,41 @@
                 data: { id: productId },
                 success: function (data) {
                     $(ramDropdown).empty();
-                    $(ssdDropdown).empty();
+                
+                    var addedValues = {};
                     $.each(data["$values"], function (index, item) {
-                        $(ramDropdown).append('<option value="' + item.productVarId + '">' + item.ram.ramName + '</option>');
-                        $(ssdDropdown).append('<option value="' + item.productVarId + '">' + item.ssd.ssdname + '</option>');
+                        if (!addedValues[item.ram.ramId]) {
+                            $(ramDropdown).append('<option value="' + item.ram.ramId + '">' + item.ram.ramName + '</option>');
+                  
+                            addedValues[item.ram.ramId] = true;
+                        }
+                    });
+                    if (callback && typeof (callback) === "function") {
+                        callback();
+                    }
+                }
+            });
+        }
+        function GetSSD(selectedProductDropdown1, selectedProductDropdown2) {
+
+            var productId = $(selectedProductDropdown1).val();
+            var ramId = $(selectedProductDropdown2).val();
+            var ssdDropdown = $(selectedProductDropdown1).closest('tr').find('select[id="SsdID"]');
+
+            $.ajax({
+                url: '@Url.Action("GetSSD", "Invoice")',
+                type: 'GET',
+                data: { id: productId, ram: ramId },
+                success: function (data) {
+
+                    $(ssdDropdown).empty();
+                    var addedValues = {};
+                    $.each(data["$values"], function (index, item) {
+                        if (!addedValues[item.ssd.ssdid]) {
+
+                            $(ssdDropdown).append('<option value="' + item.ssd.ssdid + '">' + item.ssd.ssdname + '</option>');
+                            addedValues[item.ssd.ssdid] = true;
+                        }
                     });
                 }
             });
@@ -195,9 +233,11 @@
             var newProductDropdown = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlProductItemsId");
             GetProductByColor(newProductDropdown, function () {
                 var newProductDropdown1 = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlColors");
-                GetRam(newProductDropdown1);
+                GetRam(newProductDropdown1, function () {
+                    var newProductDropdown2 = $(".tblInvoiceDetail").find("tr:last-child").find(".ddlRams");
+                    GetSSD(newProductDropdown1, newProductDropdown2);
+                });
             });
-         
         });
 
         $("body").delegate(".btnDelete", "click", function () {
