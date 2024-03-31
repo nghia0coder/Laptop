@@ -17,12 +17,13 @@ namespace Laptop.Models
         {
         }
 
-       //dddd
+
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; } = null!;
+        public virtual DbSet<News> News { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrdersDetail> OrdersDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
@@ -32,6 +33,8 @@ namespace Laptop.Models
         public virtual DbSet<Ssd> Ssds { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
+        
+        public virtual DbSet<Setting> Settings { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -44,7 +47,14 @@ namespace Laptop.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
+            modelBuilder.Entity<Setting>(entity =>
+            {
+                entity.ToTable("Setting");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+            });
+
 
             modelBuilder.Entity<Brand>(entity =>
             {
@@ -79,8 +89,6 @@ namespace Laptop.Models
 
                 entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
 
-                //entity.Property(e => e.CreateDate).HasColumnType("date2");
-
                 entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
                 entity.HasOne(d => d.Supplier)
@@ -94,9 +102,6 @@ namespace Laptop.Models
             {
                 entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
 
-                //entity.HasIndex(e => e.ProductVarId, "IX_InvoiceDetails")
-                  
-
                 entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 
                 entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
@@ -108,11 +113,36 @@ namespace Laptop.Models
                     .HasConstraintName("FK_InvoiceDetails_Invoice1");
 
                 entity.HasOne(d => d.ProductVar)
-                    .WithOne(p => p.InvoiceDetail)
-                    .HasPrincipalKey<ProductVariation>(p => p.ProductVarId)
-                    .HasForeignKey<InvoiceDetail>(d => d.ProductVarId)
+                    .WithMany(p => p.InvoiceDetails)
+                    .HasPrincipalKey(p => p.ProductVarId)
+                    .HasForeignKey(d => d.ProductVarId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_InvoiceDetails_ProductVariation");
+            });
+
+            modelBuilder.Entity<News>(entity =>
+            {
+                entity.HasKey(e => e.PostId);
+
+                entity.HasIndex(e => e.PostId, "Title")
+                    .IsUnique();
+
+                entity.Property(e => e.PostId)
+             
+                    .HasColumnName("PostId");
+
+                entity.Property(e => e.Author).HasMaxLength(50);
+
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
+
+                entity.Property(e => e.ContentPreview).HasMaxLength(255);
+
+                entity.Property(e => e.Title).HasMaxLength(255);
+
+                entity.HasOne(d => d.Brand)
+                    .WithMany(p => p.News)
+                    .HasForeignKey(d => d.BrandId)
+                    .HasConstraintName("FK_News_Brand");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -163,6 +193,9 @@ namespace Laptop.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
+
+                entity.HasIndex(e => e.ProductId, "ProductName")
+                    .IsUnique();
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
