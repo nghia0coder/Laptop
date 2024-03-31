@@ -3,13 +3,23 @@
     ViewData["Title"] = "Sản phẩm gần hết hàng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
+
+
 <h2>@ViewData["Title"]</h2>
+
+
+
 <div class="card">
     <div class="card-body">
+        <form class="d-flex small-search mb-3" role="search">
+            <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         @if (Model.Any())
         {
             <div id="list" class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="tbl">
                     <thead>
                         <tr>
                             <th>Mã sản phẩm</th>
@@ -24,7 +34,7 @@
                             <tr>
                                 <td>@item.ProductItems.Product.ProductName</td>
                                 <td>@item.ProductItems.Product.Brand</td>
-                                <td><img width="100" height="100" src="~/Contents/img/@item.ProductItems.Image1" /></td> 
+                                <td><img class="scaled-image" src="~/Contents/img/@item.ProductItems.Image1" /></td>
                                 <td>
                                     <a asp-action="NhapHangDon" asp-route-id="@item.ProductVarId">Nhập hàng</a>
                                 </td>
@@ -40,3 +50,59 @@
         }
     </div>
 </div>
+
+
+
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.search').on("keyup", function () {
+                var myvalue = $(this).val().toLowerCase();
+
+                $('#tbl tbody tr').each(function () {
+
+                    var data = $(this).text().toLowerCase();
+
+                    if (data.indexOf(myvalue) === -1) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show()
+                    }
+                })
+            })
+        })
+    </script>
+}
+<style>
+    .small-search {
+        max-width: 200px; /* Độ rộng tối đa của form */
+    }
+
+        .small-search .form-control {
+            font-size: 0.875rem; /* Thu nhỏ kích thước phông chữ của input */
+            padding: 0.25rem 0.5rem; /* Điều chỉnh padding cho input */
+        }
+
+        .small-search .btn {
+            font-size: 0.875rem; /* Thu nhỏ kích thước phông chữ của button */
+            padding: 0.25rem 0.5rem; /* Điều chỉnh padding cho button */
+        }
+
+    .scaled-image {
+        width: 100px; /* Độ rộng bạn muốn áp dụng cho tất cả ảnh */
+        height: 100px; /* Độ cao bạn muốn áp dụng cho tất cả ảnh */
+        object-fit: cover; /* Scale ảnh để lấp đầy toàn bộ phần kích thước đã chỉ định mà vẫn giữ tỷ lệ khung hình */
+    }
+    /* CSS */
+    .card-body {
+        padding: 20px; /* Tăng padding để tạo khoảng cách với phần nội dung của thẻ card */
+    }
+
+    .small-search {
+        margin-bottom: 20px; /* Tạo khoảng cách dưới form tìm kiếm */
+    }
+
+</style>

@@ -33,6 +33,7 @@ namespace Laptop.Areas.Admin.Controllers
                 .Include(n => n.Invoice)
                 .Include(n => n.ProductVar.ProductItems.Color)
                 .Include(n => n.ProductVar.Ram)
+                 .Include(n => n.ProductVar.Ssd)
                 .ToList();
             return View(details);
         }
@@ -261,8 +262,7 @@ namespace Laptop.Areas.Admin.Controllers
         public async Task<JsonResult> GetProductByColorAsync(int id)
         {   
             var list = _context.ProductItems.Where(n => n.ProductId == id)
-           
-                .Include(n => n.Color)
+                          .Include(n => n.Color)
                 .ToList();
             return Json(list);    
         }
@@ -270,8 +270,22 @@ namespace Laptop.Areas.Admin.Controllers
         {
             var productVariations = await _context.ProductVariations
                                 .Where(pv => pv.ProductItems.ProductItemsId == id)
-                                .Include(p => p.Ram)
-                                .Include(p => p.Ssd)
+                                .Select(n => new {
+                                    ProductVarId = n.ProductVarId,
+                                    Ram = new { n.RamId, n.Ram.RamName }, // Chọn các thuộc tính cần thiết của Ram
+                                    Ssd = new { n.Ssdid, n.Ssd.Ssdname }  // Chọn các thuộc tính cần thiết của Ssd
+                                })
+                                .ToListAsync();
+            return Json(productVariations);
+        }
+        public async Task<JsonResult> GetSSD(int id,int ram)
+        {
+            var productVariations = await _context.ProductVariations
+                                .Where(pv => pv.ProductItems.ProductItemsId == id && pv.RamId == ram)
+                                .Select(n => new {
+                                    ProductVarId = n.ProductVarId,           
+                                    Ssd = new { n.Ssdid, n.Ssd.Ssdname }  
+                                })
                                 .ToListAsync();
             return Json(productVariations);
         }
@@ -284,6 +298,17 @@ namespace Laptop.Areas.Admin.Controllers
                     Ram = new { n.RamId, n.Ram.RamName }, // Chọn các thuộc tính cần thiết của Ram
                     Ssd = new { n.Ssdid, n.Ssd.Ssdname }  // Chọn các thuộc tính cần thiết của Ssd
                 })
+                .ToListAsync();
+            return Json(list);
+        }
+        public async Task<JsonResult> GetProductBySSDAsync(int id,int ram)
+        {
+            var list = await _context.ProductVariations
+                                .Where(pv => pv.ProductItems.ProductItemsId == id && pv.RamId == ram)
+                                .Select(n => new {
+                                    ProductVarId = n.ProductVarId,
+                                    Ssd = new { n.Ssdid, n.Ssd.Ssdname }
+                                })
                 .ToListAsync();
             return Json(list);
         }
