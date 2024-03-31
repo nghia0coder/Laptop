@@ -137,6 +137,10 @@ namespace Laptop.Controllers
 			{
 				HttpContext.Session.Remove("Cart");
 			}
+			else
+			{
+				HttpContext.Session.SetJson("Cart", cart);
+			}	
 			TempData["success"] = "Đã Xóa Sản Phẩm Ra Khỏi Giỏ Hàng";
 			return RedirectToAction("Index");
 		}
@@ -175,7 +179,13 @@ namespace Laptop.Controllers
 				ctdh.ProductVarId = item.ProductID;
 				ctdh.Quanity = item.Quanity;
 				ctdh.Price = item.Total;
-         
+				
+
+				var product =_context.ProductVariations.FirstOrDefault(x => x.ProductVarId == ctdh.ProductVarId);
+
+				product.QtyinStock -= item.Quanity;
+
+
                 _context.OrdersDetails.Add(ctdh);
      
                 await _context.Entry(ctdh).Reference(p => p.ProductVar).LoadAsync();

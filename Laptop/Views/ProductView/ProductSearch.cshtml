@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http.Extensions
-@model IEnumerable<ProductVariation>
+@model IEnumerable<Product>
 
 @{
 	ViewData["Title"] = "LoaiProduct";
@@ -220,40 +220,48 @@
 				<!-- /store top filter -->
 				<!-- store products -->
 				<div class="row">
-					<!-- product -->
-					@foreach (var item in Model.Take(6))
+					@if(Model.Count() > 0)
 					{
-						<div class="col-md-4 col-xs-6">
-							<div class="product">
-								@* <a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductItems.Product.ProductName)-@item.ProductVarId" /> *@
-								<div class="product-img">
-									<img class="scaled-image" src="~/Contents/img/@item.ProductItems.Image1" alt="">
-									<div class="product-label">
-										<span class="sale">-30%</span>
-										<span class="new">NEW</span>
+						@foreach (var item in Model.Take(6))
+						{
+							<div class="col-md-4 col-xs-6">
+								<div class="product">
+									@* <a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductItems.Product.ProductName)-@item.ProductVarId" /> *@
+									<div class="product-img">
+										<img class="scaled-image" src="~/Contents/img/@item.ProductItems.FirstOrDefault().Image1" alt="">
+										<div class="product-label">
+											<span class="sale">-30%</span>
+											<span class="new">NEW</span>
+										</div>
 									</div>
+									<div class="product-body">
+										<p class="product-category">@item.ProductItems.First().Product.Category.CategoryName.ToUpper()</p>
+										<h3 class="product-name"><a href="#">@item.ProductItems.First().Product.ProductName.ToUpper()</a></h3>
+										@* 		<h4 class="product-price">$@item.Product.Price<del class="product-old-price">$@(item.Product.Price + 200)</del></h4> *@
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<div class="product-btns">
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+
 								</div>
-								<div class="product-body">
-									<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
-									<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()</a></h3>
-									@* 		<h4 class="product-price">$@item.Product.Price<del class="product-old-price">$@(item.Product.Price + 200)</del></h4> *@
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-btns">
-										<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-										<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-									</div>
-								</div>
-								
 							</div>
-						</div>
+						}
 					}
+					else
+					{
+						<h1>Không Tìm Thấy Sản Phẩm Nào</h1>
+					}
+					<!-- product -->
+					
 					<!-- /product -->
 				</div>
 				<!-- /store products -->

@@ -34,7 +34,7 @@
 								@foreach (var item in Model)
 								{
 									<div class="product" alt="">
-										<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductName)-@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().ProductVarId" />
+										@* <a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductName)-@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().ProductVarId" /> *@
 										<div class="product-img">
 											<img class="scaled-image" src="~/Contents/img/@item.ProductItems.FirstOrDefault().Image1" alt="">
 

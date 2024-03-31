@@ -58,7 +58,39 @@ namespace Laptop.Controllers
 
 			return View(sp);
 		}
+		[HttpGet]
+		public async Task<IActionResult> ProductSearch(string s, int categoryId)
+		{	
 
+			
+			if (!string.IsNullOrEmpty(s))
+			{	
+				if (categoryId != 0)
+				{
+					var product = _context.Products
+					.Where(x => x.ProductName.Contains(s) && x.CategoryId == categoryId)
+					.Include(n => n.Category)
+					.Include(x => x.ProductItems)
+					.ThenInclude(x => x.ProductVariations)
+					.ToList();
+                    return View(product);
+                }
+				else
+				{
+                    var product = _context.Products
+                    .Where(x => x.ProductName.Contains(s))
+                    .Include(n => n.Category)
+                    .Include(x => x.ProductItems)
+                    .ThenInclude(x => x.ProductVariations)
+                    .ToList();
+                    return View(product);
+                }	
+				
+
+			
+			}
+			return View();
+		}
 
 		[Route("Product/{slug}-{id:int}")]
 		public IActionResult ProductBrand(int? Id)

@@ -43,7 +43,7 @@ namespace Laptop.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult PaidUndelivered(int pg = 1)
         {
-            var lstDSDHCG = _context.Orders.Include(n => n.Customer).Where(n => !n.Status).OrderBy(n => n.OrderDate).ToList();
+            var lstDSDHCG = _context.Orders.Include(n => n.Customer).Where(n => n.Status && !n.Delivered).OrderBy(n => n.OrderDate).ToList();
 
             const int pageSize = 5;
             if (pg < 1)
@@ -65,7 +65,8 @@ namespace Laptop.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult PaidDelivered(int pg=1)
         {
-            var lstDSDHCG = _context.Orders.Include(n => n.Customer).Where(n => !n.Status).OrderBy(n => n.OrderDate).ToList();
+            var lstDSDHCG = _context.Orders.Include(n => n.Customer)
+                .Where(n => n.Status && n.Delivered).OrderBy(n => n.OrderDate).ToList();
 
             const int pageSize = 5;
             if (pg < 1)
