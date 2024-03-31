@@ -57,9 +57,10 @@ namespace Laptop.Areas.Admin.Controllers
                 .Include(p => p.Product)
                 .FirstOrDefaultAsync(m => m.ProductItemsId == id);
 
-            ViewData["productSize"] = await _context.ProductVariations
+            ViewData["product"] = await _context.ProductVariations
                 .Where(n => n.ProductItemsId == productItem.ProductItemsId)
                 .Include(n => n.Ram)
+                .Include(n => n.Ssd)
                 .ToListAsync();
             
 
