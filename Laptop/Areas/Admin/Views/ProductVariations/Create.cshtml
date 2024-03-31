@@ -2,8 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
-
-    ProductItem product = ViewBag.ProductItemsId;
+    ProductItem product = ViewBag.ProductItemsId as ProductItem;
 }
 
 <h2>Create</h2>
@@ -11,45 +10,46 @@
 <h4>ProductVariation</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <!-- Sử dụng col-md-6 cho kích thước cột rộng hơn một chút -->
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductItemsId" class="control-label"></label>
-                <input type="hidden" asp-for="ProductItemsId" class ="form-control" value="@product.ProductItemsId"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label asp-for="ProductItemsId" class="form-label">Tên Sản Phẩm</label>
+                <input type="hidden" asp-for="ProductItemsId" class="form-control " value="@product.ProductItemsId" />
+                <div class="form-label h4">@product.Product.ProductName</div> <!-- Thêm form-text cho phần hiển thị tên sản phẩm -->
             </div>
-            <div class="form-group">
-                <label  class="control-label">@Model.ProductItems.Product.ProductName</label>
+            <div class="mb-3">
+                <label asp-for="RamId" class="form-label"></label>
+                <select asp-for="RamId" class="form-select" asp-items="ViewBag.RamId"></select> <!-- Sử dụng form-select cho select box -->
             </div>
-            <div class="form-group">
-                <label asp-for="RamId" class="control-label"></label>
-                <select asp-for="RamId" class ="form-control" asp-items="ViewBag.RamId"></select>
+            <div class="mb-3">
+                <label asp-for="Ssdid" class="form-label"></label>
+                <select asp-for="Ssdid" class="form-select" asp-items="ViewBag.Ssdid"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Ssdid" class="control-label"></label>
-                <select asp-for="Ssdid" class ="form-control" asp-items="ViewBag.Ssdid"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="QtyinStock" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="QtyinStock" class="form-label"></label>
                 <input asp-for="QtyinStock" class="form-control" />
                 <span asp-validation-for="QtyinStock" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" /> <!-- Sử dụng btn-primary cho nút submit -->
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a> <!-- Sử dụng btn-secondary cho nút quay lại -->
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

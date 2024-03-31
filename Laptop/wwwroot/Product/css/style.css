@@ -2380,6 +2380,14 @@ body{
     box-shadow: -3px 2px 2px 1px #121111;
 }
 
+/* CSS */
+.scaled-image {
+    width: 100px; /* Độ rộng bạn muốn áp dụng cho tất cả ảnh */
+    height: 100px; /* Độ cao bạn muốn áp dụng cho tất cả ảnh */
+    object-fit: cover; /* Scale ảnh để lấp đầy toàn bộ phần kích thước đã chỉ định mà vẫn giữ tỷ lệ khung hình */
+}
+
+
 
 
 
