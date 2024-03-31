@@ -145,8 +145,8 @@ namespace Laptop.Areas.Admin.Controllers
             //TempData["img3"] = Product.Hinhanh3;
             //TempData["img4"] = Product.Hinhanh4;
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", Product.CategoryId);
-            ViewData["Brand"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", Product.Brand);
+            ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", Product.CategoryId);
+            ViewData["Brand"] = new SelectList(_context.Brands, "BrandId", "BrandName", Product.Brand);
 	
 		
 			return View(Product);
