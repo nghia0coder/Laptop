@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home";
- 
+    
 }
 
 <!DOCTYPE html>
@@ -48,12 +48,12 @@
         @await Html.PartialAsync("~/Views/Shared/Partial/_HeaderTopPartial.cshtml")
 
     </div>
-    <div>
+@*     <div>
         @await Component.InvokeAsync("Header")
-    </div>
-  @* <div>
-        @await Html.PartialAsync("~/Views/Shared/Partial/_TopBarPartial.cshtml")
     </div> *@
+  <div>
+        @await Html.PartialAsync("~/Views/Shared/Partial/_TopBarPartial.cshtml")
+    </div>
     <div>
        @await Component.InvokeAsync("Nav")
     </div>

@@ -74,7 +74,7 @@
 						<a class="review-link" href="#">10 Review(s) | Add your review</a>
 					</div>
 					<div>
-						 <h3 class="product-price">@Model.Price <del class="product-old-price">$@(Model.Price)</del></h3>
+						<h4 class="product-price">@Model.Price <del class="product-old-price">@Model.OriginPrice</del></h4>
 						@if (Model.QtyinStock <= 0 || Model.QtyinStock == null)
 						{
 							<span class="product-available">Out Of Stock</span>
@@ -388,7 +388,7 @@
 							<div class="product-body">
 								<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
 								<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()  @item.Ram.RamName.ToUpper() @item.Ssd.Ssdname</a></h3>
-								<h4 class="product-price">$@item.Price <del class="product-old-price">$@(item.Price + 200)</del></h4>
+								<h4 class="product-price">@item.Price <del class="product-old-price">@item.OriginPrice</del></h4>
 								<div class="product-rating">
 								</div>
 								<div class="product-btns">
