@@ -90,34 +90,21 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ImgUrl,Contents")] Setting setting)
+        public async Task<IActionResult> Edit(int id, Setting setting)
         {
             if (id != setting.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(setting);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SettingExists(setting.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(setting);
+            string uniqueFileName1 = GetProfilePhotoFileName1(setting);
+            setting.ImgUrl = uniqueFileName1;
+            _context.Update(setting);
+            await _context.SaveChangesAsync();
+
+
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Admin/Settings/Delete/5
