@@ -4,25 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>PHÂN KHÚC SẢN PHẨM</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Tạo mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductVarId)
+                Mã phân khúc
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QtyinStock)
+                Số lượng tồn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductItems)
+                Mục sản phẩm
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ram)

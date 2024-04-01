@@ -13,7 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProductVarId" class="control-label"></label>
+                <label asp-for="ProductVarId" class="control-label">Mã phân khúc</label>
                 <input asp-for="ProductVarId" class="form-control" />
                 <span asp-validation-for="ProductVarId" class="text-danger"></span>
             </div>
@@ -21,24 +21,24 @@
             <input type="hidden" asp-for="RamId" />
             <input type="hidden" asp-for="Ssdid" />
             <div class="form-group">
-                <label asp-for="QtyinStock" class="control-label"></label>
+                <label asp-for="QtyinStock" class="control-label">Số lượng tồn</label>
                 <input asp-for="QtyinStock" class="form-control" />
                 <span asp-validation-for="QtyinStock" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
+                <label asp-for="Price" class="control-label">Giá</label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Trở về</a>
 </div>
 
 @section Scripts {

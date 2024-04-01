@@ -4,32 +4,31 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>CHI TIẾT PHÂN KHÚC SẢN PHẨM</h2>
 
 <div>
-    <h4>ProductVariation</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProductVarId)
+            Mã phân khúc
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ProductVarId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.QtyinStock)
+            Số lượng tồn
         </dt>
         <dd>
             @Html.DisplayFor(model => model.QtyinStock)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            Giá
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ProductItems)
+            Mục sản phẩm
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ProductItems.ProductItemsId)
@@ -50,5 +49,5 @@
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Trở về</a>
 </div>

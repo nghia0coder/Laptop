@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Danh Sách Sản Phẩm</h2>
+<h2>DANH SÁCH SẢN PHẨM</h2>
 
 
 <div class="table-responsive">
@@ -12,13 +12,13 @@
         <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductCode)
+                    Mã sản phẩm
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Color)
+                    Màu
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Product)
+                    Tên mục sản phẩm
                 </th>
                 <th></th>
             </tr>
@@ -37,9 +37,9 @@
                         @Html.DisplayFor(modelItem => item.Product.ProductName)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ProductItemsId" class="btn btn-primary">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ProductItemsId" class="btn btn-info">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ProductItemsId" class="btn btn-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.ProductItemsId" class="btn btn-primary">Sửa</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductItemsId" class="btn btn-info">Chi tiết</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductItemsId" class="btn btn-danger">Xóa</a>
                         <a asp-action="Create" asp-controller="ProductVariations" asp-route-id="@item.ProductItemsId" class="btn btn-success">Thêm Cấu Hình</a>
                     </td>
                 </tr>
