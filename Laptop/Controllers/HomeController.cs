@@ -21,7 +21,11 @@ namespace Laptop.Controllers
         }
 
         public ActionResult Index()
-        {
+        {   
+
+            var model = _context.Settings.ToList();
+
+            ViewBag.Settings = model;
 
             var lstLTM = _context.Products
                  .Where(n => n.New)

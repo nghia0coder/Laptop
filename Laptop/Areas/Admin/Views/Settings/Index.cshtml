@@ -25,7 +25,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
+                <img src="~/img/@item.ImgUrl" class="thumbnail-image" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Contents)
@@ -39,3 +39,11 @@
 }
     </tbody>
 </table>
+
+
+<style>
+    .thumbnail-image {
+        max-width: 100px; /* Adjust the maximum width as needed */
+        max-height: 100px; /* Adjust the maximum height as needed */
+    }
+</style>

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Product>
+﻿
 
-@{
-	ViewBag.Title = "Index";
+@{	ViewBag.Title = "Index";
 	Layout = "~/Views/Layout/HomeLayout.cshtml";
 
 	// Định nghĩa các viewbag để truyền vào partial Product
 	IEnumerable<Product> lstLTM = ViewBag.ListLTM as IEnumerable<Product>; // Cách ép kiểu 1
 	IEnumerable<Product> lstSelling = ViewBag.ListSelling as IEnumerable<Product>;
 	IEnumerable<Product> lstDTM = ViewBag.ListDTM as IEnumerable<Product>;
+	IEnumerable<Setting> settings = ViewBag.Settings as IEnumerable<Setting>;
 }
 
 <!-- SECTION -->
@@ -20,7 +20,7 @@
 			<div class="col-md-4 col-xs-6">
 				<div class="shop">
 					<div class="shop-img">
-						<img src="~/Product/img/shop01.png" alt="">
+						<img src="~/img/@settings.ElementAt(0).ImgUrl" alt="">
 					</div>
 					<div class="shop-body">
 						<h3>Laptop<br>Collection</h3>
@@ -33,7 +33,7 @@
 			<div class="col-md-4 col-xs-6">
 				<div class="shop">
 					<div class="shop-img">
-						<img src="~/Product/img/shop03.png" alt="">
+						<img src="~/img/@settings.ElementAt(1).ImgUrl" alt="">
 					</div>
 					<div class="shop-body">
 						<h3>Accessories<br>Collection</h3>
@@ -46,7 +46,7 @@
 			<div class="col-md-4 col-xs-6">
 				<div class="shop">
 					<div class="shop-img">
-						<img src="~/Product/img/shop02.png" alt="">
+						<img src="~/img/@settings.ElementAt(2).ImgUrl" alt="">
 					</div>
 					<div class="shop-body">
 						<h3>Cameras<br>Collection</h3>
@@ -127,4 +127,10 @@
 	@await Html.PartialAsync("~/Views/Shared/Partial/_FooterPartial.cshtml", listCate)
 </div>
  *@
+ <style>
+	#hot-deal.section {
 
+		background-image: url('../img/@settings.ElementAt(3).ImgUrl');
+		
+	}
+ </style>
