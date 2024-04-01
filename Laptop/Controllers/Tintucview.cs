@@ -13,14 +13,7 @@ namespace Laptop.Controllers
         {
             _context = context;
         }
-        public ActionResult Show(int id)
-        {
-            // Lấy bài viết từ cơ sở dữ liệu dựa trên id
-            var article = _context.Tintucs.FirstOrDefault(a => a.PostID == id);
-
-            // Trả về view với bài viết đã lấy được
-            return View(article);
-        }
+        
 
 
 
