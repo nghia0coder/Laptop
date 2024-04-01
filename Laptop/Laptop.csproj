@@ -64,11 +64,6 @@
     <None Include="Areas\Admin\Views\Suppliers\Details.cshtml" />
     <None Include="Areas\Admin\Views\Suppliers\Edit.cshtml" />
     <None Include="Areas\Admin\Views\Suppliers\Index.cshtml" />
-    <None Include="Areas\Admin\Views\News\Create.cshtml" />
-    <None Include="Areas\Admin\Views\News\Delete.cshtml" />
-    <None Include="Areas\Admin\Views\News\Details.cshtml" />
-    <None Include="Areas\Admin\Views\News\Edit.cshtml" />
-    <None Include="Areas\Admin\Views\News\Index.cshtml" />
     <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Properties\serviceDependencies.local.json.user" />
@@ -100,9 +95,6 @@
     <None Include="Views\ShoppingCart\Success.cshtml" />
     <None Include="Views\ShoppingCart\_CartPartial.cshtml" />
     <None Include="Views\ShoppingCart\_ShoppingCartPartial.cshtml" />
-    <None Include="Views\News\Displaybrandpost.cshtml" />
-    <None Include="Views\News\DisplayPost.cshtml" />
-    <None Include="Views\News\Index.cshtml" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />

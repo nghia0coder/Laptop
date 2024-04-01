@@ -11,12 +11,12 @@ using Laptop.ViewModels;
 namespace Laptop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class NewsController : Controller
+    public class TintucsController : Controller
     {
         private readonly LaptopContext _context;
         private readonly IWebHostEnvironment _webHost;
 
-        public NewsController(LaptopContext context, IWebHostEnvironment webHost)
+        public TintucsController(LaptopContext context, IWebHostEnvironment webHost)
         {
             _context = context;
             _webHost = webHost;
@@ -24,64 +24,64 @@ namespace Laptop.Areas.Admin.Controllers
         public ActionResult Show(int id)
         {
             // Lấy bài viết từ cơ sở dữ liệu dựa trên id
-            var article = _context.News.FirstOrDefault(a => a.PostId == id);
+            var article = _context.Tintucs.FirstOrDefault(a => a.PostID == id);
 
             // Trả về view với bài viết đã lấy được
             return View(article);
         }
 
-        // GET: Admin/News
+        // GET: Admin/Tintucs
         public async Task<IActionResult> Index()
         {
             
-            var laptopContext = _context.News.Include(t => t.Brand);
+            var laptopContext = _context.Tintucs.Include(t => t.Brand);
             return View(await laptopContext.ToListAsync());
         }
 
-        // GET: Admin/News/Details/5
+        // GET: Admin/Tintucs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.News == null)
+            if (id == null || _context.Tintucs == null)
             {
                 return NotFound();
             }
 
-            var New = await _context.News
+            var tintuc = await _context.Tintucs
                 .Include(t => t.Brand)
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (New == null)
+                .FirstOrDefaultAsync(m => m.PostID == id);
+            if (tintuc == null)
             {
                 return NotFound();
             }
 
-            return View(New);
+            return View(tintuc);
         }
 
-        // GET: Admin/News/Create
+        // GET: Admin/Tintucs/Create
         public IActionResult Create()
         {
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName");
             return View();
         }
 
-        // POST: Admin/News/Create
+        // POST: Admin/Tintucs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(News New)
+        public async Task<IActionResult> Create( Tintuc tintuc)
         {
-            string uniqueFileName1 = GetProfilePhotoFileName1(New);
-            New.ThumbUrl = uniqueFileName1;
-            await _context.AddAsync(New);
+            string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
+            tintuc.Thumburl = uniqueFileName1;
+            await _context.AddAsync(tintuc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             
        
-            return View(New);
+            return View(tintuc);
         }
 
-        private string GetProfilePhotoFileName1(News Product)
+        private string GetProfilePhotoFileName1(Tintuc Product)
         {
             string uniqueFileName = null;
 
@@ -98,48 +98,45 @@ namespace Laptop.Areas.Admin.Controllers
             return uniqueFileName;
         }
 
-        // GET: Admin/News/Edit/5
+        // GET: Admin/Tintucs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
 
-            if (id == null || _context.News == null)
+            if (id == null || _context.Tintucs == null)
             {
                 return NotFound();
             }
 
-            var New = await _context.News.FindAsync(id);
-            if (New == null)
+            var tintuc = await _context.Tintucs.FindAsync(id);
+            if (tintuc == null)
             {
                 return NotFound();
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", New.BrandId);
-            return View(New);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandID);
+            return View(tintuc);
         }
 
-        // POST: Admin/News/Edit/5
+        // POST: Admin/Tintucs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,ContentPreview,Contents,Thumb,ThumbUrl,Status,Author,CreatedDate,Hot,New,BrandID")] News New)
+        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandID")] Tintuc tintuc)
         {
-            if (id != New.PostId)
+            if (id != tintuc.PostID)
             {
                 return NotFound();
             }
 
-          
-
-            try
+            
+                try
                 {
-                string uniqueFileName1 = GetProfilePhotoFileName1(New);
-                New.ThumbUrl = uniqueFileName1;
-                _context.Update(New);
+                    _context.Update(tintuc);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewExists(New.PostId))
+                    if (!TintucExists(tintuc.PostID))
                     {
                         return NotFound();
                     }
@@ -150,51 +147,51 @@ namespace Laptop.Areas.Admin.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", New.BrandId);
-            return View(New);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandID);
+            return View(tintuc);
         }
 
-        // GET: Admin/News/Delete/5
+        // GET: Admin/Tintucs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.News == null)
+            if (id == null || _context.Tintucs == null)
             {
                 return NotFound();
             }
 
-            var New = await _context.News
+            var tintuc = await _context.Tintucs
                 .Include(t => t.Brand)
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (New == null)
+                .FirstOrDefaultAsync(m => m.PostID == id);
+            if (tintuc == null)
             {
                 return NotFound();
             }
 
-            return View(New);
+            return View(tintuc);
         }
 
-        // POST: Admin/News/Delete/5
+        // POST: Admin/Tintucs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.News == null)
+            if (_context.Tintucs == null)
             {
-                return Problem("Entity set 'LaptopContext.News'  is null.");
+                return Problem("Entity set 'LaptopContext.Tintucs'  is null.");
             }
-            var New = await _context.News.FindAsync(id);
-            if (New != null)
+            var tintuc = await _context.Tintucs.FindAsync(id);
+            if (tintuc != null)
             {
-                _context.News.Remove(New);
+                _context.Tintucs.Remove(tintuc);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NewExists(int id)
+        private bool TintucExists(int id)
         {
-          return (_context.News?.Any(e => e.PostId == id)).GetValueOrDefault();
+          return (_context.Tintucs?.Any(e => e.PostID == id)).GetValueOrDefault();
         }
     }
 }

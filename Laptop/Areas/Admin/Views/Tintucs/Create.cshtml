@@ -1,4 +1,4 @@
-﻿@model Laptop.Models.News
+﻿@model Laptop.Models.Tintuc
 
 @{
     ViewData["Title"] = "Create";
@@ -19,9 +19,9 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContentPreview" class="control-label"><h4>Mở đầu</h4></label>
-                <input asp-for="ContentPreview" class="form-control" />
-                <span asp-validation-for="ContentPreview" class="text-danger"></span>
+                <label asp-for="Contentspreview" class="control-label"><h4>Mở đầu</h4></label>
+                <input asp-for="Contentspreview" class="form-control" />
+                <span asp-validation-for="Contentspreview" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Contents" class="control-label"><h4>Nội dung</h4></label>
@@ -65,8 +65,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="BrandId" class="control-label"><h4>Tên hãng</h4></label>
-                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+                <label asp-for="BrandID" class="control-label"><h4>Tên hãng</h4></label>
+                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
             </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Tạo tin" class="btn btn-success" />

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
-@model IEnumerable<Laptop.Models.News>
+@model IEnumerable<Laptop.Models.Tintuc>
 @{
     IEnumerable<Brand> Brandname = ViewBag.Brandname as IEnumerable<Brand>;
 }
@@ -72,7 +72,7 @@
                 <div class="left-sidebar-menu__wrapper">
                     <ul>
                         <li class="menu-item">
-                            <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="News" asp-action="Index">
+                            <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Index">
                                 <i class="left-sidebar-menu--icon" style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/home-3.png)"></i>
                                 <span style="white-space: nowrap;">Trang chủ</span>
                             </a>
@@ -80,7 +80,7 @@
                         @foreach (var item in Brandname)
                         {
                             <li class="menu-item">
-                                <a asp-controller="News" asp-action="Displaybrandpost" asp-route-brandid="@item.BrandId" class="menu_icon_pc">
+                                <a asp-controller="Tintucview" asp-action="Displaybrandpost" asp-route-brandid="@item.BrandId" class="menu_icon_pc">
                                     <i class="left-sidebar-menu--icon" style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/smartphone-icon.png)"></i>
                                     <span style="white-space: nowrap;">@item.BrandName</span>
                                 </a>
@@ -117,7 +117,7 @@
                 <div class="elementor-widget-container tag-head detail-head">
                     <div class="jeg_custom_breadcrumb_wrapper">
                         <div id="breadcrumbs">
-                            <span><a asp-controller="News" asp-action="Index" data-wpel-link="exclude">Trang chủ</a></span>
+                            <span><a asp-controller="Tintucview" asp-action="Index" data-wpel-link="exclude">Trang chủ</a></span>
                             <i class="fa fa-angle-right"></i>
                             @if (Model.Count() >0)
                             {
@@ -135,7 +135,7 @@
             @if (Model.Count() <= 0)
                                         {
                 <div class="elementor-widget-container_tintuccapnhat__index">
-                    <a href="https://localhost:7266/News">
+                    <a href="https://localhost:7266/Tintucview">
                     <h2 class="elementor-heading-title">Tin mới nhất</h2>
                 </a>
                 </div>
@@ -143,7 +143,7 @@
             else
             {
                 <div class="elementor-widget-container_tintuccapnhat__index">
-                    <a href="https://localhost:7266/News">
+                    <a href="https://localhost:7266/Tintucview">
                         <h2 class="elementor-heading-title">Tin mới nhất</h2>
                     </a>
                 </div>
@@ -166,18 +166,18 @@
                                             {
                                                 <article class="jeg_post jeg_pl_md_2 format-standard post">
                                                     <div class="jeg_thumb">
-                                                        <a asp-action="DisplayPost" asp-route-postid="@item.PostId" data-wpel-link="exclude">
+                                                        <a asp-action="DisplayPost" asp-route-postid="@item.PostID" data-wpel-link="exclude">
                                                             <div class="thumbnail-container size-715">
-                                                                <img loading="lazy" width="350" height="250" src="~/contents/img/@item.ThumbUrl" class="wp-post-image lazy">
+                                                                <img loading="lazy" width="350" height="250" src="~/contents/img/@item.Thumburl" class="wp-post-image lazy">
                                                             </div>
                                                         </a>
                                                     </div>
                                                     <div class="jeg_postblock_content">
                                                         <h3 class="jeg_post_title">
-                                                            <a asp-action="DisplayPost" asp-route-postid="@item.PostId" data-wpel-link="exclude">@item.Title</a>
+                                                            <a asp-action="DisplayPost" asp-route-postid="@item.PostID" data-wpel-link="exclude">@item.Title</a>
                                                         </h3>
                                                         <div class="jeg_meta_date">
-                                                            <a asp-action="DisplayPost" asp-route-postid="@item.PostId" data-wpel-link="exclude">
+                                                            <a asp-action="DisplayPost" asp-route-postid="@item.PostID" data-wpel-link="exclude">
                                                                 
                                                                 <i class="fa fa-clock-o"></i>
                                                                 @item.CreatedDate
@@ -275,14 +275,14 @@
                                         <div class="sf_right_featured--box sf_right_featured--small-box">
 
                                             <div class="sf_right_featured--box-thumb">
-                                                <a asp-action="DisplayPost" asp-route-postid="@item.PostId">
+                                                <a asp-action="DisplayPost" asp-route-postid="@item.PostID">
                                                     <div class="sf_right_featured--thumbnail-container lazyload">
-                                                        <img class="lazy" src="~/Contents/img/@item.ThumbUrl" loading="lazy" />
+                                                        <img class="lazy" src="~/Contents/img/@item.Thumburl" loading="lazy" />
                                                         <div class="sf_right_featured--thumb-overlay"></div>
                                                     </div>
                                                 </a>
                                             </div>
-                                            <div class="sf_right_featured--box-content"><a asp-action="DisplayPost" asp-route-postid="@item.PostId">@item.Title</a></div>
+                                            <div class="sf_right_featured--box-content"><a asp-action="DisplayPost" asp-route-postid="@item.PostID">@item.Title</a></div>
 
 
                                         </div>
@@ -377,9 +377,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <a href="mailto:tongthanhthao2009@gmail.com" class="sf-mail-img">
-                                <img loading="lazy" width="960" height="480" src="~/Contents/img/z5303157127622_6cc30d5ee0ccc4b2d2f3483558b5e7de.jpg" class="attachment-large size-large lazy" data-pin-no-hover="true">
+                            <img loading="lazy" width="960" height="480" src="~/Contents/img/booking.png" class="attachment-large size-large lazy" data-pin-no-hover="true">
                         </a>
 
                         <div class="sf-social" style="margin: 25px 0px">

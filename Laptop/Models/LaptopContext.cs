@@ -23,7 +23,7 @@ namespace Laptop.Models
         public virtual DbSet<Color> Colors { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; } = null!;
-        public virtual DbSet<News> News { get; set; } = null!;
+        public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrdersDetail> OrdersDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
@@ -41,7 +41,7 @@ namespace Laptop.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=Laptop2;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-B5FIP5M\\SQLEXPRESS01;Initial Catalog=Laptop3;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
@@ -120,29 +120,21 @@ namespace Laptop.Models
                     .HasConstraintName("FK_InvoiceDetails_ProductVariation");
             });
 
-            modelBuilder.Entity<News>(entity =>
+            modelBuilder.Entity<Tintuc>(entity =>
             {
-                entity.HasKey(e => e.PostId);
+                entity.ToTable("Tintuc");
 
-                entity.HasIndex(e => e.PostId, "Title")
-                    .IsUnique();
+                entity.Property(e => e.PostID).HasColumnName("PostID");
 
-                entity.Property(e => e.PostId)
-             
-                    .HasColumnName("PostId");
+                entity.Property(e => e.Title).HasMaxLength(500);
 
-                entity.Property(e => e.Author).HasMaxLength(50);
+                entity.Property(e => e.Thumburl).HasMaxLength(500);
 
-                entity.Property(e => e.BrandId).HasColumnName("BrandID");
+                entity.Property(e => e.BrandID).HasColumnName("BrandID");
 
-                entity.Property(e => e.ContentPreview).HasMaxLength(255);
+                entity.Property(e => e.CreatedDate).HasColumnType("date");
 
-                entity.Property(e => e.Title).HasMaxLength(255);
 
-                entity.HasOne(d => d.Brand)
-                    .WithMany(p => p.News)
-                    .HasForeignKey(d => d.BrandId)
-                    .HasConstraintName("FK_News_Brand");
             });
 
             modelBuilder.Entity<Order>(entity =>

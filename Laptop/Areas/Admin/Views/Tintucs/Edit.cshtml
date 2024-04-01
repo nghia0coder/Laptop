@@ -1,4 +1,4 @@
-﻿@model Laptop.Models.News
+﻿@model Laptop.Models.Tintuc
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,26 +13,23 @@
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="PostId" />
+            <input type="hidden" asp-for="PostID" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"><h4>Tiêu đề</h4></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContentPreview" class="control-label"><h4>Mở đầu</h4></label>
-                <input asp-for="ContentPreview" class="form-control" />
-                <span asp-validation-for="ContentPreview" class="text-danger"></span>
+                <label asp-for="Contentspreview" class="control-label"><h4>Mở đầu</h4></label>
+                <input asp-for="Contentspreview" class="form-control" />
+                <span asp-validation-for="Contentspreview" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Contents" class="control-label"><h4>Nội dung</h4></label>
                 <textarea asp-for="Contents" class="form-control"></textarea>
                 <span asp-validation-for="Contents" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Img1" class="control-label"><h4 class="mt-2">Ảnh thumbnail</h4></label>
-                <input asp-for="Img1" class="form-control-file" />
-            </div>
+            
 
             <div class="form-group">
                 <label asp-for="Author" class="control-label"><h4>Tác giả</h4></label>
@@ -66,9 +63,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="BrandId" class="control-label">Tên hãng</label>
-                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
-                <span asp-validation-for="BrandId" class="text-danger"></span>
+                <label asp-for="BrandID" class="control-label">Tên hãng</label>
+                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+                <span asp-validation-for="BrandID" class="text-danger"></span>
             </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Sửa" class="btn btn-success" />
