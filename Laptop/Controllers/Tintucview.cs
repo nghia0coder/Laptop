@@ -42,13 +42,13 @@ namespace Laptop.Controllers
 
             ViewBag.Brandname = _context.Brands.ToList();
             // Truy vấn lấy bài viết theo ID
-            var post = await _context.Tintucs
+            var post = _context.Tintucs
                 .Where(p => p.PostID == postid)
                 .Include(p => p.Brand)
                 .OrderByDescending(p => p.CreatedDate)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
    
-            var laptopContext = _context.Tintucs.Include(t => t.Brand);
+            //var laptopContext = _context.Tintucs.Include(t => t.Brand);
             return View(post);
         }
         public async Task<IActionResult> Displaybrandpost(int brandid)

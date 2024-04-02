@@ -45,9 +45,27 @@
     @* <meta name="google-site-verification" content="-EdwUpgLv6BGRhbjyOazkiHFkTo7magmo2AOKm1tfL4" /> *@
     <script src="~/News/js/app.min.js"></script>
 
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
     <link type="text/css" rel="stylesheet" href="~/News/css/app.min.css" />
     <link type="text/css" rel="stylesheet" href="~/News/lib/css/autoptimize.css" />\
 
+    <link type="text/css" rel="stylesheet" href="~/Product/css/style.css" />
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/Product/css/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/Product/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/Product/css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/Product/css/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/Product/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/Product/css/style.css" />
 
 
@@ -55,6 +73,13 @@
 </head>
 
 <body>
+    <div class="header">
+        @await Html.PartialAsync("~/Views/Shared/Partial/_HeaderTopPartial.cshtml")
+
+    </div>
+    <div>
+        @await Component.InvokeAsync("Nav")
+    </div>
 
     </div>
     <!--header-->
