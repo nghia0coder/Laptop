@@ -132,7 +132,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.BrandID).HasColumnName("BrandID");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("date");
+                entity.Property(e => e.CreatedDate).HasColumnType("date2");
 
 
             });
