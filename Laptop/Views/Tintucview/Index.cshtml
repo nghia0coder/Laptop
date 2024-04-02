@@ -1,68 +1,15 @@
-﻿<!DOCTYPE html>
-<html lang="vi">
+﻿
 @model IEnumerable<Laptop.Models.Tintuc>
 @{
     IEnumerable<Brand> Brandname = ViewBag.Brandname as IEnumerable<Brand>;
 }
-<head>
-    <meta charset="UTF-8">
-    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="turbolinks-cache-control" content="no-cache">
-    <meta name="csrf-token" content="8ZqQKg7jjpoTL0QwvIwDdp29b8vQ2VPCeFVxuUCB">
-    <title>Kh&aacute;m ph&aacute; khoa học - Giải m&atilde; b&iacute; ẩn c&ocirc;ng nghệ - Sforum</title>
-    <meta name="description" content="Kh&aacute;m ph&aacute; khoa học v&agrave; c&ocirc;ng nghệ mới nhất. Những c&acirc;u hỏi l&yacute; th&uacute; về khoa học c&ocirc;ng nghệ chưa c&oacute; lời giải. T&igrave;m hiểu ngay những b&iacute; ẩn về c&ocirc;ng nghệ...">
-    <link rel="canonical" href="https://cellphones.com.vn/sforum/kham-pha">
-    <meta property="og:site_name" content="Sforum - Trang thông tin công nghệ mới nhất">
-    <meta property="og:locale" content="vi_VN">
-    <meta property="og:url" content="https://cellphones.com.vn/sforum/kham-pha">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Lưu trữ Kh&aacute;m ph&aacute;">
-    <meta property="og:description" content="Kh&aacute;m ph&aacute; khoa học v&agrave; c&ocirc;ng nghệ mới nhất. Những c&acirc;u hỏi l&yacute; th&uacute; về khoa học c&ocirc;ng nghệ chưa c&oacute; lời giải. T&igrave;m hiểu ngay những b&iacute; ẩn về c&ocirc;ng nghệ...">
-    <meta property="og:image" content="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/10/kham-pha-khoa-hoc-1-compressed-600x338-1.jpg">
-    <meta property="msapplication-TileImage" content="2018/03/cropped-Logo_ico1-270x270.png">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    
-    
-
-
-
-
-    <link rel="alternate" type="application/rss+xml" title="Dòng thông tin Sforum - Trang thông tin công nghệ mới nhất »" href="https://cellphones.com.vn/sforum/feed">
-
-
-    <link rel="alternate" type="application/atom+xml" title="Dòng thông tin chuyên mục Sforum - Trang thông tin công nghệ mới nhất » " href="/sforum/kham-pha/feed">
-
-    <link rel="icon" href="cellphones.com.vn/sforum/storage/2023/03/21/logo-ico.png" />
-
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;1,300;1,500&amp;family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,400&amp;display=swap?v=1.0.2" id="main-0">
-    <link rel="stylesheet" type="text/css" href="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/css/app.min.css?v=1.0.2" id="main-1">
-    <link rel="stylesheet" type="text/css" href="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/lib/css/autoptimize.css?v=1.0.2" id="main-2">
-    <script src="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/js/app.min.js?v=1.0.2" id="main-0"></script>
-    <script src="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/lib/js/jquery.magnific-popup.min.js?v=1.0.2" id="main-1"></script>
-    <link rel="stylesheet" type="text/css" href="~/cellphones.com.vn/cellphones.com.vn/sforum/jw-styles/themes/default/assets/css/app.min.css" id="main-1">
-    <script src="~/cellphones.com.vn/cellphones.com.vn/sforum/jw-styles/themes/default/assets/css/app.min.css" id="main-0"></script>
-    <meta name="google-site-verification" content="-EdwUpgLv6BGRhbjyOazkiHFkTo7magmo2AOKm1tfL4" />
-
-    
-
- 
-
-</head>
+@{
+    Layout = "~/Views/Layout/_NewLayout.cshtml";
+}
 
 <body class="jw-theme jw-theme-body ">
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MS9NGTN" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-
+  
 
 
     <div class="jeg_viewport">
@@ -88,7 +35,7 @@
                         }
                        
                        
-
+@* 
                         <script>
                             function handleChildsMenu(element) {
                                 // Hide all other child elements
@@ -97,7 +44,7 @@
                                 // Toggle the visibility of the clicked element's child
                                 jQuery(element).siblings('.childs-menu-item').toggle("active");
                             }
-                        </script>
+                        </script> *@
 
                         <style>
                             .menu-icon-left {
@@ -151,7 +98,7 @@
                                                 <div class="jeg_thumb">
                                                     <a asp-action="DisplayPost" asp-route-postid="@item.PostID" data-wpel-link="exclude">
                                                         <div class="thumbnail-container size-715">
-                                                            <img loading="lazy" width="350" height="250" src="~/contents/img/@item.Thumburl" class="wp-post-image lazy"
+                                                            <img  width="350" height="250" src="~/contents/img/@item.Thumburl" class="wp-post-image"
                                                             >
                                                         </div>
                                                     </a>
@@ -199,7 +146,7 @@
                         border: 1px solid #e7e7e7;
                     }
                 </style>
-                <script>
+         @*        <script>
                     document.addEventListener("DOMContentLoaded", function() {
                         const loadmore = document.querySelector('.jeg_block_loadmore');
                         const taxonomy = {
@@ -237,7 +184,7 @@
                         })
                         observer.observe(loadmore)
                     })
-                </script>
+                </script> *@
             </div>
             <span id="loader"></span>
         </div>
@@ -259,7 +206,7 @@
                             
                                         <div class="sf_right_featured--box-thumb">
                                             <a asp-action="DisplayPost" asp-route-postid="@item.PostID">
-                                                <div class="sf_right_featured--thumbnail-container lazyload"><img class="lazy" src="~/Contents/img/@item.Thumburl" loading="lazy" 
+                                                <div class="sf_right_featured--thumbnail-container lazyload"><img  src="~/Contents/img/@item.Thumburl" 
                                                      />
                                                     <div class="sf_right_featured--thumb-overlay"></div>
                                                 </div>
@@ -275,7 +222,7 @@
                 </div>
 
 
-                <div>
+               @*  <div>
                             <div class="sf_hot_event sf_hot_event_slide" style="visibility: hidden;">
                         <div class="sf_hot_event__wrapper">
                             <div class="sf_hot_event--header"><img class="lazy" src="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/images/icon/Hot-event-icon.png" />
@@ -352,10 +299,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@
 
                         <a href="mailto:tongthanhthao2009@gmail.com" class="sf-mail-img">
-                            <img loading="lazy" width="960" height="480" src="~/Contents/img/booking.png" class="attachment-large size-large lazy" data-pin-no-hover="true">
+                            <img  width="960" height="480" src="~/Contents/img/booking.png" class="attachment-large size-large " data-pin-no-hover="true">
                         </a>
 
                 <div class="sf-social" style="margin: 25px 0px">
@@ -380,10 +327,10 @@
                     <img class="lazy" src="https://cdn2.cellphones.com.vn/35x35/https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/images/icon/tiktok-1.png" alt="Tiktok" data-pin-no-hover="true">
                 </a>
                             </div> *@
-                            <div class="sf-social-icon--container">
+                      @*       <div class="sf-social-icon--container">
                                         <a href="https://www.youtube.com/watch?v=b3rNUhDqciM" target="_blank" rel="nofollow external noopener noreferrer" data-wpel-link="external">
                     <img class="lazy" src="https://cdn2.cellphones.com.vn/35x35/https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/images/icon/youtube-1.png" alt="Youtube" data-pin-no-hover="true">
-                </a>
+                </a> *@
                             </div>
                         </div>
                     </div>
@@ -514,7 +461,7 @@
         }
     </style>
 
-    <script>
+@*     <script>
         $(document).ready(function() {
 
             if ($(".tag_content").length !== 0) {
@@ -541,7 +488,7 @@
                 }
             });
         });
-    </script>
+    </script> *@
 
 
     <div class="jscroll-to-top" id="hidden-button">
