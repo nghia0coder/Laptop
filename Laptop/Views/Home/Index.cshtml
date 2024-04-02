@@ -1,6 +1,5 @@
-﻿
-
-@{	ViewBag.Title = "Index";
+﻿@{	
+	ViewBag.Title = "Index";
 	Layout = "~/Views/Layout/HomeLayout.cshtml";
 
 	// Định nghĩa các viewbag để truyền vào partial Product
@@ -23,8 +22,8 @@
 						<img src="~/img/@settings.ElementAt(0).ImgUrl" alt="">
 					</div>
 					<div class="shop-body">
-						<h3>Laptop<br>Collection</h3>
-						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						@Html.Raw(@settings.ElementAt(0).Contents)
+						<a href="Product/apple-1" class="cta-btn">Shop now<i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -36,8 +35,8 @@
 						<img src="~/img/@settings.ElementAt(1).ImgUrl" alt="">
 					</div>
 					<div class="shop-body">
-						<h3>Accessories<br>Collection</h3>
-						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						@Html.Raw(@settings.ElementAt(1).Contents)
+						<a href="Product/asus-3" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -49,8 +48,8 @@
 						<img src="~/img/@settings.ElementAt(2).ImgUrl" alt="">
 					</div>
 					<div class="shop-body">
-						<h3>Cameras<br>Collection</h3>
-						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						@Html.Raw(@settings.ElementAt(2).Contents)
+						<a href="Product/dell-2" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>

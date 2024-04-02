@@ -86,7 +86,6 @@
     <None Include="Views\Shared\Partial\_FooterPartial.cshtml" />
     <None Include="Views\Shared\Partial\_HeaderTopPartial.cshtml" />
     <None Include="Views\Shared\Partial\_NavbarHeader.cshtml" />
-    <None Include="Views\Shared\Partial\_TopBarPartial.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_NotificationPartial.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
@@ -239,6 +238,8 @@
     <None Include="wwwroot\lib\summernote\summernote.js.map" />
     <None Include="wwwroot\lib\summernote\summernote.min.js" />
     <None Include="wwwroot\lib\summernote\summernote.min.js.map" />
+    <None Include="wwwroot\News\js\app.min.js" />
+    <None Include="wwwroot\News\lib\js\jquery.magnific-popup.min.js" />
   </ItemGroup>
 
   <ItemGroup>

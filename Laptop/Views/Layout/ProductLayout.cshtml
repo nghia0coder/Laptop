@@ -43,7 +43,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--header-->
    
         @RenderBody()
-
+    <div>
+        @await Html.PartialAsync("~/Views/Shared/Partial/_Plugin.cshtml")
+    </div>
     
  <div class="footer">
         @await Component.InvokeAsync("Footer")

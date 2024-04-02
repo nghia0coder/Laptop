@@ -34,8 +34,8 @@ namespace Laptop.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             
-            var laptopContext = _context.Tintucs.Include(t => t.Brand);
-            return View(await laptopContext.ToListAsync());
+            var laptopContext =  _context.Tintucs.Include(t => t.Brand).ToList();
+            return View(laptopContext);
         }
 
         // GET: Admin/Tintucs/Details/5
@@ -131,6 +131,8 @@ namespace Laptop.Areas.Admin.Controllers
             
                 try
                 {
+                    string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
+                    tintuc.Thumburl = uniqueFileName1;
                     _context.Update(tintuc);
                     await _context.SaveChangesAsync();
                 }
@@ -144,8 +146,7 @@ namespace Laptop.Areas.Admin.Controllers
                     {
                         throw;
                     }
-                
-                return RedirectToAction(nameof(Index));
+              
             }
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandID);
             return View(tintuc);
