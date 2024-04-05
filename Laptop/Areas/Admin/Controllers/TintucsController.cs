@@ -160,9 +160,9 @@ namespace Laptop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var tintuc = await _context.Tintucs
+            var tintuc = _context.Tintucs
                 .Include(t => t.Brand)
-                .FirstOrDefaultAsync(m => m.PostID == id);
+                .FirstOrDefault(m => m.PostID == id);
             if (tintuc == null)
             {
                 return NotFound();

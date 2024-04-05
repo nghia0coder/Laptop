@@ -236,7 +236,7 @@ namespace Laptop.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductItems)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_ProductItems_Product");
             });
 
@@ -264,7 +264,7 @@ namespace Laptop.Models
                     .WithMany(p => p.ProductVariations)
                     .HasPrincipalKey(p => p.ProductItemsId)
                     .HasForeignKey(d => d.ProductItemsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_ProductVariation_ProductItems");
 
                 entity.HasOne(d => d.Ram)
