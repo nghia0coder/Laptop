@@ -205,7 +205,7 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 return Problem("Entity set 'LaptopContext.ProductItems'  is null.");
             }
-            var productItem = await _context.ProductItems.FindAsync(id);
+            var productItem = await _context.ProductItems.Where(n => n.ProductItemsId == id).FirstOrDefaultAsync();
             if (productItem != null)
             {
                 _context.ProductItems.Remove(productItem);
