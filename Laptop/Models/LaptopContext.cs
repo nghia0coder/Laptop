@@ -220,7 +220,13 @@ namespace Laptop.Models
                 entity.Property(e => e.Name).HasMaxLength(150);
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductComments)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_ProductComment_Product");
             });
+
 
             modelBuilder.Entity<ProductItem>(entity =>
             {
