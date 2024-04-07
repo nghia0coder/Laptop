@@ -215,16 +215,24 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Detail).HasMaxLength(150);
 
-                entity.Property(e => e.Email).HasMaxLength(150);
+                entity.Property(e => e.Ratings).HasColumnName("Rating");
 
-                entity.Property(e => e.Name).HasMaxLength(150);
+				entity.Property(e => e.CreatedBy)
+				  .HasMaxLength(450)
+				  .HasColumnName("CreatedBy");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+				entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductComments)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK_ProductComment_Product");
+
+                entity.HasOne(e => e.Customer)
+                       .WithMany(n => n.Comments)
+                       .HasForeignKey(p => p.CreatedBy)
+                       .OnDelete(DeleteBehavior.NoAction)
+                       .HasConstraintName("FK_ProductComment_AspNetUsers");
             });
 
 

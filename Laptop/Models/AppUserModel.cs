@@ -7,5 +7,7 @@ namespace Laptop.Models
         public string Address { get; set; }
 
 		public virtual ICollection<Order> Orders { get; } = new List<Order>();
+
+        public virtual ICollection<ProductComment> Comments { get; } = new List<ProductComment>();
 	}
 }
