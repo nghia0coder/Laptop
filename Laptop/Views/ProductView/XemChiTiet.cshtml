@@ -328,7 +328,20 @@
 								<!-- Review Form -->
 								<div class="col-md-3">
 									<div id="review-form">
-										<form class="review-form">
+										<form asp-controller="Comments" asp-action="Create" method="post">
+											<input type="hidden" name="ProductId" value="@Model.ProductItems.Product.ProductId" />
+											<textarea name="Detail" class="input" placeholder="Your Review"></textarea>
+											<button type="submit" class="btn">Post Comment</button>
+										</form>
+										@foreach (var comment in Model.ProductItems.Product.ProductComments)
+										{
+											<div>
+												<p>@comment.Detail</p>
+												<p>@comment.Name</p>
+												<p>@comment.CreateDate</p>
+											</div>
+										}
+									@* 	<form class="review-form">
 											<textarea class="input" placeholder="Your Review"></textarea>
 											<div class="input-rating">
 												<span>Your Rating: </span>
@@ -341,7 +354,7 @@
 												</div>
 											</div>
 											<button class="primary-btn">Submit</button>
-										</form>
+										</form> *@
 									</div>
 								</div>
 								<!-- /Review Form -->
