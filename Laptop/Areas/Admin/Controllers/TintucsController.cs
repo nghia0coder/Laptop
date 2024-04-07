@@ -112,7 +112,7 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandID);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandId);
             return View(tintuc);
         }
 
@@ -148,7 +148,7 @@ namespace Laptop.Areas.Admin.Controllers
                     }
               
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandID);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandId);
             return View(tintuc);
         }
 

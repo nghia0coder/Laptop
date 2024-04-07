@@ -17,24 +17,23 @@ namespace Laptop.Models
         {
         }
 
-
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; } = null!;
-        public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrdersDetail> OrdersDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductComment> ProductComments { get; set; } = null!;
         public virtual DbSet<ProductItem> ProductItems { get; set; } = null!;
         public virtual DbSet<ProductVariation> ProductVariations { get; set; } = null!;
         public virtual DbSet<Ram> Rams { get; set; } = null!;
+        public virtual DbSet<Setting> Settings { get; set; } = null!;
         public virtual DbSet<Ssd> Ssds { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
+        public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
-        
-        public virtual DbSet<Setting> Settings { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,7 +46,7 @@ namespace Laptop.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            
             modelBuilder.Entity<Setting>(entity =>
             {
                 entity.ToTable("Setting");
@@ -113,7 +112,7 @@ namespace Laptop.Models
                     .HasConstraintName("FK_InvoiceDetails_Invoice1");
 
                 entity.HasOne(d => d.ProductVar)
-                    .WithMany(p => p.InvoiceDetail)
+                    .WithMany(p => p.InvoiceDetails)
                     .HasPrincipalKey(p => p.ProductVarId)
                     .HasForeignKey(d => d.ProductVarId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -130,7 +129,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Thumburl).HasMaxLength(500);
 
-                entity.Property(e => e.BrandID).HasColumnName("BrandID");
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("date");
 
@@ -206,6 +205,23 @@ namespace Laptop.Models
                     .HasConstraintName("FK_Product_Category");
             });
 
+            modelBuilder.Entity<ProductComment>(entity =>
+            {
+                entity.HasKey(e => e.CommentId);
+
+                entity.ToTable("ProductComment");
+
+                entity.Property(e => e.CommentId).HasColumnName("CommentID");
+
+                entity.Property(e => e.Detail).HasMaxLength(150);
+
+                entity.Property(e => e.Email).HasMaxLength(150);
+
+                entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            });
+
             modelBuilder.Entity<ProductItem>(entity =>
             {
                 entity.HasKey(e => new { e.ProductId, e.ColorId })
@@ -236,7 +252,6 @@ namespace Laptop.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductItems)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_ProductItems_Product");
             });
 
@@ -264,7 +279,6 @@ namespace Laptop.Models
                     .WithMany(p => p.ProductVariations)
                     .HasPrincipalKey(p => p.ProductItemsId)
                     .HasForeignKey(d => d.ProductItemsId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_ProductVariation_ProductItems");
 
                 entity.HasOne(d => d.Ram)

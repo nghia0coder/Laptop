@@ -29,5 +29,6 @@ namespace Laptop.Models
         public virtual Brand? BrandNavigation { get; set; }
         public virtual Category? Category { get; set; }
         public virtual ICollection<ProductItem> ProductItems { get; set; }
+
     }
 }

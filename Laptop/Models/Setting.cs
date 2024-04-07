@@ -1,5 +1,6 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Laptop.Models
@@ -9,7 +10,6 @@ namespace Laptop.Models
         public int Id { get; set; }
         [DisplayName("Hình Ảnh")]
         public string? ImgUrl { get; set; }
-
         public string? Contents { get; set; }
 
         [NotMapped]
