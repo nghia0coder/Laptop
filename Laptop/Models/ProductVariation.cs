@@ -7,7 +7,7 @@ namespace Laptop.Models
     {
         public ProductVariation()
         {
-          
+            InvoiceDetails = new HashSet<InvoiceDetail>();
             OrdersDetails = new HashSet<OrdersDetail>();
         }
 
@@ -22,7 +22,7 @@ namespace Laptop.Models
         public virtual ProductItem ProductItems { get; set; } = null!;
         public virtual Ram Ram { get; set; } = null!;
         public virtual Ssd Ssd { get; set; } = null!;
-        public virtual ICollection<InvoiceDetail?> InvoiceDetail { get; set; }
+        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual ICollection<OrdersDetail> OrdersDetails { get; set; }
     }
 }

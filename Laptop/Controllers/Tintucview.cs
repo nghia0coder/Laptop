@@ -58,7 +58,7 @@ namespace Laptop.Controllers
                 ViewBag.Brandname = _context.Brands.ToList();
                 // Truy vấn lấy bài viết theo ID
                 var post = await _context.Tintucs
-                    .Where(p => p.BrandID == brandid)
+                    .Where(p => p.BrandId == brandid)
                     .Include(p => p.Brand)
                     .OrderByDescending(p => p.CreatedDate)
                     .ToListAsync();              

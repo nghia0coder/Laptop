@@ -35,11 +35,16 @@ namespace Laptop.Controllers
 			}
 
 			var sp = await _context.ProductVariations
-				.Include(n => n.ProductItems.Product)
+				.Include(n => n.ProductItems.Product.ProductComments)
+					.ThenInclude(n => n.Customer)
 				.Include(n => n.ProductItems.Product.Category)
 				.Include(n => n.Ram)
 				.Include(n => n.Ssd)
 				.FirstOrDefaultAsync(n => n.ProductVarId == id);
+			
+			ViewBag.Comment = await _context.ProductComments
+				.Where(n => n.ProductId  == sp.ProductItems.ProductId)
+				.ToListAsync();
 
 
 			ViewBag.ListSP = _context.ProductVariations

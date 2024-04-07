@@ -5,6 +5,9 @@
 	IEnumerable<ProductItem> ListColor = ViewBag.Color ;
 	IEnumerable<ProductVariation> ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
+
+
+
 }
 
 @{
@@ -65,13 +68,13 @@
 					<h2 class="product-name">@Model.ProductItems.Product.ProductName.ToUpper() @Model.Ram.RamName.ToUpper() @Model.Ssd.Ssdname</h2>
 					<div>
 						<div class="product-rating">
-							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>	
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star-o"></i>
 						</div>
-						<a class="review-link" href="#">10 Review(s) | Add your review</a>
+						<a class="review-link" href="#">@Model.ProductItems.Product.ProductComments.Count() Review(s) | Add your review</a>
 					</div>
 					<div>
 						<h4 class="product-price">@Model.Price <del class="product-old-price">@Model.OriginPrice</del></h4>
@@ -152,8 +155,7 @@
 					<!-- product tab nav -->
 					<ul class="tab-nav">
 						<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-						<li><a data-toggle="tab" href="#tab2">Details</a></li>
-						<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+						<li><a data-toggle="tab" href="#tab3">Reviews (@Model.ProductItems.Product.ProductComments.Count())</a></li>
 					</ul>
 					<!-- /product tab nav -->
 					<!-- product tab content -->
@@ -183,137 +185,99 @@
 								<div class="col-md-3">
 									<div id="rating">
 										<div class="rating-avg">
-											<span>4.5</span>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
+											@{
+		
+												int totalComments1 = Model.ProductItems.Product.ProductComments.Count();
+												if (totalComments1 > 0)
+												{
+												
+													int totalRating = 0;
+													foreach (var comment in Model.ProductItems.Product.ProductComments)
+													{
+														totalRating += comment.Ratings;
+													}
+
+												
+													double averageRating = (double)totalRating / totalComments1;
+
+													int roundedAverageRating = (int)Math.Round(averageRating);
+
+									
+													<span>@roundedAverageRating</span>
+													<div class="rating-stars">
+														@for (int i = 1; i <= 5; i++)
+														{
+															@if (i <= roundedAverageRating)
+															{
+																<i class="fa fa-star"></i>
+															}
+															else
+															{
+																<i class="fa fa-star-o"></i>
+															}
+														}
+													</div>
+												}
+												else
+												{
+													<span>No ratings available</span>
+												}
+											}
+										
+										
 										</div>
 										<ul class="rating">
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="rating-progress">
-													<div style="width: 80%;"></div>
-												</div>
-												<span class="sum">3</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div style="width: 60%;"></div>
-												</div>
-												<span class="sum">2</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div></div>
-												</div>
-												<span class="sum">0</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div></div>
-												</div>
-												<span class="sum">0</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div></div>
-												</div>
-												<span class="sum">0</span>
-											</li>
+											@foreach (var rating in Enumerable.Range(1, 5).Reverse())
+											{
+												<li>
+													<div class="rating-stars">
+														@for (int i = 1; i <=5; i++)
+														{
+															<i class="fa fa-star@(i <= rating ? "" : "-o")"></i>
+														}
+													</div>
+													<div class="rating-progress">
+														@{
+															// Tính toán tiến độ xếp hạng cho mỗi xếp hạng
+															int totalComments = Model.ProductItems.Product.ProductComments.Count();
+															int ratingCount = Model.ProductItems.Product.ProductComments.Count(n => n.Ratings == rating);
+															double ratingProgress = totalComments == 0 ? 0 : (double)ratingCount / totalComments * 100;
+														}
+														<div style="width: @ratingProgress%"></div>
+													</div>
+													<span class="sum">@ratingCount</span>
+												</li>
+											}
 										</ul>
+
 									</div>
 								</div>
 								<!-- /Rating -->
 								<!-- Reviews -->
 								<div class="col-md-6">
+								
 									<div id="reviews">
 										<ul class="reviews">
+											@foreach (var comment in Model.ProductItems.Product.ProductComments)
+											{
 											<li>
-												<div class="review-heading">
-													<h5 class="name">John</h5>
-													<p class="date">27 DEC 2018, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
+													<div class="review-heading">
+														<h5 class="name">@comment.Customer.UserName</h5>
+														<p class="date">@comment.CreateDate</p>
+														<div class="review-rating">
+															@for (int i = 1; i <= 5; i++)
+															{
+																<i class="fa fa-star@(comment.Ratings >= i ? "" : "-o")"></i>
+															}
+														</div>
+
 													</div>
-												</div>
-												<div class="review-body">
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-												</div>
-											</li>
-											<li>
-												<div class="review-heading">
-													<h5 class="name">John</h5>
-													<p class="date">27 DEC 2018, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
+													<div class="review-body">
+														<p>@comment.Detail</p>
 													</div>
-												</div>
-												<div class="review-body">
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-												</div>
 											</li>
-											<li>
-												<div class="review-heading">
-													<h5 class="name">John</h5>
-													<p class="date">27 DEC 2018, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
-													</div>
-												</div>
-												<div class="review-body">
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-												</div>
-											</li>
+											}
+				
 										</ul>
 										<ul class="reviews-pagination">
 											<li class="active">1</li>
@@ -323,14 +287,31 @@
 											<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
 										</ul>
 									</div>
+
+									
 								</div>
 								<!-- /Reviews -->
 								<!-- Review Form -->
 								<div class="col-md-3">
 									<div id="review-form">
-										<form class="review-form">
-											<input class="input" type="text" placeholder="Your Name">
-											<input class="input" type="email" placeholder="Your Email">
+										<form class="review-form" asp-controller="Comments" asp-action="Create" method="post" asp-route-currentUrl="@currentUrl">
+											<div class="input-rating">
+												<span>Your Rating: </span>
+												<div class="stars">
+													<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+													<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+													<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+													<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+													<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+												</div>
+											</div>
+											<input type="hidden" name="ProductId" value="@Model.ProductItems.Product.ProductId" />
+		
+											<textarea name="Detail" class="input" placeholder="Your Review"></textarea>
+											<button type="submit" class="btn">Post Comment</button>
+										</form>
+									
+									@* 	<form class="review-form">
 											<textarea class="input" placeholder="Your Review"></textarea>
 											<div class="input-rating">
 												<span>Your Rating: </span>
@@ -343,7 +324,7 @@
 												</div>
 											</div>
 											<button class="primary-btn">Submit</button>
-										</form>
+										</form> *@
 									</div>
 								</div>
 								<!-- /Review Form -->
@@ -562,7 +543,20 @@
 			var newValue = currentValue--;
 			$('#quantityInput').val(newValue);
 		});
-		
+
+
+		document.querySelectorAll('.stars input').forEach(function (star) {
+			star.addEventListener('change', function () {
+				var rating = this.value;
+				document.getElementById('commentForm').appendChild(
+					document.createElement('input', {
+						type: 'hidden',
+						name: 'rating',
+						value: rating
+					})
+				);
+			});
+		});
 		
 
 	</script>
