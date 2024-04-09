@@ -1,7 +1,11 @@
 ﻿using Laptop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PagedList.Core;
+using System.Collections.Generic;
+using System.Drawing.Printing;
 
 namespace Laptop.Controllers
 {
@@ -27,7 +31,7 @@ namespace Laptop.Controllers
 			return PartialView();
 		}
 		[Route("post/{slug}-{id:int}")]
-		public async Task<IActionResult> XemChiTiet(int? id)
+		public async Task<IActionResult> XemChiTiet(int? id, int? page)
 		{
 			if (id == null)
 			{
@@ -45,6 +49,15 @@ namespace Laptop.Controllers
 			ViewBag.Comment = await _context.ProductComments
 				.Where(n => n.ProductId  == sp.ProductItems.ProductId)
 				.ToListAsync();
+
+			var items = _context.ProductComments.Where(n => n.ProductId == sp.ProductItems.ProductId).OrderBy(c => c.CreateDate).ToPagedList(page ?? 1, 3);
+		
+			var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+			if (isAjax)
+			{
+				return PartialView("_Comment", items);
+			}
+
 
 
 			ViewBag.ListSP = _context.ProductVariations
@@ -186,5 +199,8 @@ namespace Laptop.Controllers
 				.ToListAsync();
 			return Json(list);
 		}
+		
+	
+
 	}
 }

@@ -1,12 +1,23 @@
 ﻿@model ProductVariation
 @using Microsoft.AspNetCore.Http.Extensions
+@using PagedList
+@using PagedList.Core
+@using X.PagedList
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
 	IEnumerable<ProductItem> ListColor = ViewBag.Color ;
 	IEnumerable<ProductVariation> ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
 
+	Pager pager = new Pager();
 
+	int pageNo = 0;
+
+	if (ViewBag.Pager != null)
+	{
+		pager = ViewBag.Pager;
+		pageNo = pager.CurrentPage;
+	}
 
 }
 
@@ -196,13 +207,11 @@
 													{
 														totalRating += comment.Ratings;
 													}
-
 												
 													double averageRating = (double)totalRating / totalComments1;
 
 													int roundedAverageRating = (int)Math.Round(averageRating);
 
-									
 													<span>@roundedAverageRating</span>
 													<div class="rating-stars">
 														@for (int i = 1; i <= 5; i++)
@@ -254,41 +263,8 @@
 								</div>
 								<!-- /Rating -->
 								<!-- Reviews -->
-								<div class="col-md-6">
-								
-									<div id="reviews">
-										<ul class="reviews">
-											@foreach (var comment in Model.ProductItems.Product.ProductComments)
-											{
-											<li>
-													<div class="review-heading">
-														<h5 class="name">@comment.Customer.UserName</h5>
-														<p class="date">@comment.CreateDate</p>
-														<div class="review-rating">
-															@for (int i = 1; i <= 5; i++)
-															{
-																<i class="fa fa-star@(comment.Ratings >= i ? "" : "-o")"></i>
-															}
-														</div>
-
-													</div>
-													<div class="review-body">
-														<p>@comment.Detail</p>
-													</div>
-											</li>
-											}
-				
-										</ul>
-										<ul class="reviews-pagination">
-											<li class="active">1</li>
-											<li><a href="#">2</a></li>
-											<li><a href="#">3</a></li>
-											<li><a href="#">4</a></li>
-											<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-										</ul>
-									</div>
-
-									
+								<div id="table1" class="col-md-6">
+										<partial name="_Comment" model="@Model.ProductItems.Product.ProductComments.ToPagedList()" />
 								</div>
 								<!-- /Reviews -->
 								<!-- Review Form -->
@@ -523,6 +499,9 @@
 			});
 		});
 
+
+		
+
 		$('#unique-item-qty-up').click(function () {
 
 			var currentValue = parseInt($("#quantityInput").val());
@@ -557,6 +536,24 @@
 				);
 			});
 		});
+
+
+		$(function () {
+			function interceptPaging() {
+				$("#table1").on("click", ".pagination a", function (event) {
+					event.preventDefault();
+
+					$.get($(this).attr("href"), function (data) {
+						$("#table1").html(data);
+						interceptPaging();
+					});
+				});
+			}
+
+			interceptPaging();
+		});
+
+
 		
 
 	</script>
