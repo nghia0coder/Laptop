@@ -1,0 +1,27 @@
+﻿
+@model IEnumerable<ProductComment>
+<div id="reviews">
+	<ul class="reviews">
+		@foreach (var comment in Model)
+		{
+			<li>
+				<div class="review-heading">
+				
+					<h5 class="name">@comment.Customer.UserName</h5>
+					<p class="date">@comment.CreateDate</p>
+					<div class="review-rating">
+						@for (int i = 1; i <= 5; i++)
+						{
+							<i class="fa fa-star@(comment.Ratings >= i ? "" : "-o")"></i>
+						}
+					</div>
+
+				</div>
+				<div class="review-body">
+					<p>@comment.Detail</p>
+				</div>
+			</li>
+		}
+
+	</ul>
+</div>
