@@ -212,24 +212,24 @@
 
 													int roundedAverageRating = (int)Math.Round(averageRating);
 
-													<span>@roundedAverageRating</span>
-													<div class="rating-stars">
-														@for (int i = 1; i <= 5; i++)
+																		<span>@roundedAverageRating</span>
+																		<div class="rating-stars">
+																			@for (int i = 1; i <= 5; i++)
 														{
-															@if (i <= roundedAverageRating)
+																				@if (i <= roundedAverageRating)
 															{
-																<i class="fa fa-star"></i>
+																					<i class="fa fa-star"></i>
 															}
 															else
 															{
-																<i class="fa fa-star-o"></i>
+																					<i class="fa fa-star-o"></i>
 															}
 														}
-													</div>
+																		</div>
 												}
 												else
 												{
-													<span>No ratings available</span>
+																		<span>No ratings available</span>
 												}
 											}
 										
@@ -263,8 +263,34 @@
 								</div>
 								<!-- /Rating -->
 								<!-- Reviews -->
-								<div id="table1" class="col-md-6">
-										<partial name="_Comment" model="@Model.ProductItems.Product.ProductComments.ToPagedList()" />
+								<div  class="col-md-6">
+									<div id="records">
+										<ul class="reviews">
+											@foreach (var comment in Model.ProductItems.Product.ProductComments.Take(3).OrderBy(n => n.CreateDate))
+											{
+												<li>
+													<div class="review-heading">
+
+														<h5 class="name">@comment.Customer.UserName</h5>
+														<p class="date">@comment.CreateDate</p>
+														<div class="review-rating">
+															@for (int i = 1; i <= 5; i++)
+															{
+																<i class="fa fa-star@(comment.Ratings >= i ? "" : "-o")"></i>
+															}
+														</div>
+
+													</div>
+													<div class="review-body">
+														<p>@comment.Detail</p>
+													</div>
+												</li>
+											}
+
+										</ul>
+									</div>
+								
+									<button id="showMore" class="center-button btn">Show More</button>
 								</div>
 								<!-- /Reviews -->
 								<!-- Review Form -->
@@ -553,10 +579,40 @@
 			interceptPaging();
 		});
 
+		var page1 = 2;
+		var pageSize1 = 3;
 
+		$("#showMore").click(function () {
+			$.ajax({
+				url: '@Url.Action("GetMoreRecord", "ProductView")',
+				type: 'GET',
+				data: {
+					id: '@Model.ProductItems.Product.ProductId',
+					page: page1,
+					pageSize: pageSize1
+				},
+				success: function (data) {
+					$("#records").append(data);
+					page1++; // Increment the correct variable
+				},
+				error: function (xhr, status, error) {
+					console.error(xhr.responseText); // Log any errors for debugging
+				}
+			});
+		});
+
+
+		
 		
 
 	</script>
+	<style>
+		.center-button {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
 }
 	
 

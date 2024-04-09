@@ -1,6 +1,5 @@
-﻿@using X.PagedList;
-@using X.PagedList.Mvc.Core
-@model X.PagedList.IPagedList<Laptop.Models.ProductComment>
+﻿
+@model IEnumerable<ProductComment>
 <div id="reviews">
 	<ul class="reviews">
 		@foreach (var comment in Model)
@@ -25,10 +24,4 @@
 		}
 
 	</ul>
-</div>
-
-<div class="pagination">
-	 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) Comments @Model.PageCount
-
-	@Html.PagedListPager(Model, page => Url.Action("XemChiTiet", "ProductView", new { page }))
 </div>

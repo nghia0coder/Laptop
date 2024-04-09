@@ -7,6 +7,7 @@ using PagedList.Core;
 using System.Collections.Generic;
 using System.Drawing.Printing;
 
+
 namespace Laptop.Controllers
 {
 	public class ProductView : Controller
@@ -49,14 +50,6 @@ namespace Laptop.Controllers
 			ViewBag.Comment = await _context.ProductComments
 				.Where(n => n.ProductId  == sp.ProductItems.ProductId)
 				.ToListAsync();
-
-			var items = _context.ProductComments.Where(n => n.ProductId == sp.ProductItems.ProductId).OrderBy(c => c.CreateDate).ToPagedList(page ?? 1, 3);
-		
-			var isAjax = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-			if (isAjax)
-			{
-				return PartialView("_Comment", items);
-			}
 
 
 
@@ -200,6 +193,14 @@ namespace Laptop.Controllers
 			return Json(list);
 		}
 		
+		public IActionResult GetMoreRecord (int id,int page = 1, int pageSize = 3)
+		{
+			var record = _context.ProductComments.Where(n => n.ProductId == id).Skip((page - 1) * pageSize).Take(pageSize)
+				.Include(n => n.Customer)
+				.ToList();
+
+			return PartialView("_CommentPartial", record);
+		}
 	
 
 	}
