@@ -16,5 +16,6 @@ namespace Laptop.Models
 
         
         public virtual ICollection<Product> Products { get; set; }
+            public virtual ICollection<Tintuc> Tintucs { get; set; }
     }
 }

@@ -1,13 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
-    @model Laptop.Models.Tintuc
+@model Laptop.Models.Tintuc
 @{
     IEnumerable<Brand> Brandname = ViewBag.Brandname as IEnumerable<Brand>;
 }
 <head>
     <meta charset="UTF-8">
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +36,7 @@
     <meta name="twitter:data2" content="TiZ">
     <meta name="author" content="TiZ">
     <link rel="amphtml" href="https://cellphones.com.vn/sforum/snapdragon-x-elite-choi-game/amp">
+    
     <script type="application/ld+json">
         {
             "$context": "http:\/\/schema.org",
@@ -76,6 +76,7 @@
             }
         }
     </script>
+    
     <script type="application/ld+json">
         {
             "$context": "http:\/\/schema.org",
@@ -177,16 +178,19 @@
     <link rel="stylesheet" type="text/css" href="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/lib/css/autoptimize.css?v=1.0.2" id="main-2">
     <script src="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/js/app.min.js?v=1.0.2" id="main-0"></script>
     <script src="https://cellphones.com.vn/sforum/jw-styles/themes/default/assets/lib/js/jquery.magnific-popup.min.js?v=1.0.2" id="main-1"></script>
-    
+
     <meta name="google-site-verification" content="-EdwUpgLv6BGRhbjyOazkiHFkTo7magmo2AOKm1tfL4" />
 
     <style>
         $media screen and (max-width: 481px) {
-            .thumbnail-container>img {
-                width: unset !important;
-                max-width: 100% !important;
-                transform: translateX(0px);
-            }
+            .thumbnail-container>img
+
+        {
+            width: unset !important;
+            max-width: 100% !important;
+            transform: translateX(0px);
+        }
+
         }
     </style>
 
@@ -204,7 +208,7 @@
                     'measurementId': 'G-QLK8WFHNK9',
                     'fbPixelId': '493068327514709'
                 });
-                (function(w, d, s, l, i) {
+                (function (w, d, s, l, i) {
                     w[l] = w[l] || [];
                     w[l].push({
                         'gtm.start': new Date().getTime(),
@@ -238,8 +242,8 @@
 
 
     <div class="jeg_viewport">
-        
-       
+
+
 
         <div class="jeg-body-container home">
             <div id="left-sidebar-menu" class="hidden_menu">
@@ -248,14 +252,15 @@
                         <ul>
                             <li class="menu-item ">
                                 <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Index">
-							<i class="left-sidebar-menu--icon " style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/home-3.png) "></i>
-						Trang chủ</a>
-                               
-                            </li>       
+                                    <i class="left-sidebar-menu--icon " style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/home-3.png) "></i>
+                                    Trang chủ
+                                </a>
+
+                            </li>
                             @foreach (var item in Brandname)
                             {
                                 <li class="menu-item ">
-                                    <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Displaybrandpost" asp-route-brandid="@item.BrandId" >
+                                    <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Displaybrandpost" asp-route-brandid="@item.BrandId">
                                         <i class="left-sidebar-menu--icon " style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/smartphone-icon.png) "></i>
                                         @item.BrandName
                                     </a>
@@ -282,9 +287,12 @@
                                 }
 
                                 $media only screen and (max-width: 600px) {
-                                    .menu-icon-left {
-                                        display: none;
-                                    }
+                                    .menu-icon-left
+
+                                {
+                                    display: none;
+                                }
+
                                 }
                             </style>
                         </ul>
@@ -294,11 +302,11 @@
             <div id="right-content" class="right-content-detail_post">
                 <div class="elementor-column-wrap elementor-element-populated" style="transform: none;">
                     <div class="elementor-widget-wrap" style="transform: none;">
-                        
+
                         <div class="elementor-element elementor-element-31c7df40 elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image" data-id="31c7df40" data-element_type="widget" data-widget_type="theme-post-featured-image.default">
                             <div class="elementor-widget-container tag-head">
                                 <div class="elementor-image detail_img">
-                                    <img width="1200" height="675" src="~/Contents/img/@Model.Thumburl" class="attachment-full size-full detail_img_child lazy"
+                                    <img width="1200" height="675" src="~/contents/img/booking.png" class="attachment-full size-full detail_img_child lazy"
                                          data-pin-no-hover="true">
                                 </div>
                             </div>
@@ -313,77 +321,103 @@
                                                     <div class="elementor-widget-container category-title-label">
                                                         <div class="elementor-shortcode">
                                                             <div class="sf-post-category">
-                                                                <a href="https://cellphones.com.vn/sforum/tin-cong-nghe">@Model.Brand.BrandName
-                                                                </a>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="elementor-element elementor-element-5bf379a8 elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-element_type="widget" data-widget_type="theme-post-title.default">
                                                     <div class="elementor-widget-container elementor-widget-container-title_post">
-                                                        <h1 class=" elementor-size-default elementor-heading-title-post pt-20">@Model.Title</h1>
+                                                        <h1 class=" elementor-size-default elementor-heading-title-post pt-20"></h1>
                                                     </div>
                                                 </div>
                                                 <div class="elementor-element elementor-widget elementor-widget-jnews_post_meta_elementor" data-element_type="widget" data-widget_type="jnews_post_meta_elementor.default">
-                                                    <div class="elementor-widget-container elementor-widget-container-author_post">
-                                                        <div class="jeg_post_meta jeg_custom_meta_wrapper">
-                                                            <div class="meta_left">
-                                                                <div class="jeg_meta_author">
-                                                                    
-                                                                    <a style="text-transform: uppercase;" data-wpel-link="exclude">@Model.Author</a>
-                                                                </div>
-                                                                <div class="jeg_meta_date jeg_meta_date-detail_post jeg_meta_date-detail_post_author">
-                                                                    <a class="time-author" ><i class="fa fa-calendar"></i>Ngày đăng @Model.CreatedDate
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="elementor-element elementor-element-a71c803 elementor-widget elementor-widget-jnews_post_content_elementor" data-id="a71c803" data-element_type="widget" data-widget_type="jnews_post_content_elementor.default" style="transform: none;">
-                                                    <div class="content-description-details" style="transform: none;">
-                                                        <div class="jeg_custom_content_wrapper" style="transform: none;">
-                                                            <div class="entry-content no-share" style="transform: none;">
-                                                                <div class="jeg_share_button share-float jeg_sticky_share clearfix share-normal" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
-                                                                    <div class="jegStickyHolder">
-                                                                        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static;"></div>
+                                                   
+                                                    <div class="elementor-element elementor-element-a71c803 elementor-widget elementor-widget-jnews_post_content_elementor" data-id="a71c803" data-element_type="widget" data-widget_type="jnews_post_content_elementor.default" style="transform: none;">
+                                                        <div class="content-description-details" style="transform: none;">
+                                                            <div class="jeg_custom_content_wrapper" style="transform: none;">
+                                                                <div class="entry-content no-share" style="transform: none;">
+                                                                    <div class="jeg_share_button share-float jeg_sticky_share clearfix share-normal" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                                                                        <div class="jegStickyHolder">
+                                                                            <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static;"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="content-inner" style="text-align: justify;">
-                                                                    <h3>@Model.Contentspreview</h3>
-                                                                        <p>@Html.Raw(Model.Contents)</p>
-                                                                    
+                                                                    <div class="content-inner" style="text-align: justify;">
+                                                                        <div class="row p-lg-3">
+                                                                            <div class="col-md-10">
+                                                                                <form asp-action="Createpost" enctype="multipart/form-data">
+                                                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for="Title" class="control-label"><h4>Tiêu đề</h4></label>
+                                                                                        <textarea asp-for="Title" class="form-control"></textarea>
+                                                                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for="Contentspreview" class="control-label"><h4>Mở đầu</h4></label>
+                                                                                        <textarea asp-for="Contentspreview" class="form-control"></textarea>
+                                                                                        <span asp-validation-for="Contentspreview" class="text-danger"></span>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for="Contents" class="control-label"><h4>Nội dung</h4></label>
+                                                                                        <textarea asp-for="Contents" class="form-control" style="height: 300px"></textarea>
+                                                                                        <span asp-validation-for="Contents" class="text-danger"></span>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for="Img1" class="control-label"><h4 class="mt-2">Ảnh thumbnail</h4></label>
+                                                                                        <input asp-for="Img1" class="form-control-file" />
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for="Author" class="control-label"><h4>Tác giả</h4></label>
+                                                                                        <input readonly asp-for="Author" class="form-control" value="@User.Identity.Name"/>
+                                                                                        <span asp-validation-for="Author" class="text-danger"></span>
+                                                                                    </div>
+                                                                                    
+                                                                          
+                                                                                    <div class="form-group">
+                                                                                        <label asp-for="BrandID" class="control-label"><h4>Tên hãng</h4></label>
+                                                                                        <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="width: 200px;"></select>
+                                                                                    </div>
+                                                                                    <div class="form-group mt-4">
+                                                                                        <input type="submit" value="Tạo tin" class="btn btn-success" />
+                                                                                        <a class="btn btn-primary" asp-action="Index">Quay lại</a>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
                                                                         
+                                                                        
+
+
                                                                         <p></p>
                                                                         <b>Nếu bạn đang tìm kiếm một chiếc laptop cho nhu cầu giải trí, hãy tham khảo thêm các sản phẩm hiện đang được bán tại <a href='https://localhost:7266'><b>SiuLaptop</b></a></b>
                                                                         <p></p>
-                                                                        
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    
 
-    
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-    
 
-    
 
-    
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    </div>
-    </div>
-    </div>
-    
-    </div>
+
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
     </div>
 
@@ -409,7 +443,7 @@
         let html = ''
         let messageModal = '<p></p>';
 
-        $('document').ready(async function() {
+        $('document').ready(async function () {
             var h2s = $('h2');
             var h3s = $('h3');
             if (h2s.length > 0) {
@@ -464,89 +498,89 @@
         }
 
         function showComment(data) {
-            $.each(data.data.data, function(key, value) {
+            $.each(data.data.data, function (key, value) {
                 let time = handleTime(value.created_at)
                 if (value !== null) {
                     html += `<div class="item-comment">
-                                       <div class="item-comment__box-cmt">
-                                                                        <div class="box-cmt__box-info">
-                                                                            <div class="box-info">
-                                                                                <div class="box-info__avatar"><img
-                                                                                        src="https://cdn.sforum.vn/sforum/wp-content/plugins/dtv-comments-system/images/shipper-icon.png">
+                                               <div class="item-comment__box-cmt">
+                                                                                <div class="box-cmt__box-info">
+                                                                                    <div class="box-info">
+                                                                                        <div class="box-info__avatar"><img
+                                                                                                src="https://cdn.sforum.vn/sforum/wp-content/plugins/dtv-comments-system/images/shipper-icon.png">
+                                                                                        </div>
+                                                                                        <p class="box-info__name">
+                                                                                            ${value.customer_name}</p>
+                                                                                        <!----></div>
+                                                                                    <div class="box-info-separate"></div>
+                                                                                    <p class="box-time-cmt">Ngày ${time.day}
+                                                                                        lúc ${time.time}</p>
                                                                                 </div>
-                                                                                <p class="box-info__name">
-                                                                                    ${value.customer_name}</p>
-                                                                                <!----></div>
-                                                                            <div class="box-info-separate"></div>
-                                                                            <p class="box-time-cmt">Ngày ${time.day}
-                                                                                lúc ${time.time}</p>
-                                                                        </div>
-                                                                        <div class="box-cmt__box-question"><p>
-                                                                                ${value.content}<br></p>
-                                                                            <button href="javascript:void(0)"
-                                                                                    onclick="openAnswer(${value.id})"
-                                                                                    class="btn-rep-cmt respondent"
-                                                                                    style="font-size: 13px">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                     width="13" height="12"
-                                                                                     viewBox="0 0 12 10.8">
-                                                                                    <path id="chat"
-                                                                                          d="M3.48,8.32V4.6H1.2A1.2,1.2,0,0,0,0,5.8V9.4a1.2,1.2,0,0,0,1.2,1.2h.6v1.8l1.8-1.8h3A1.2,1.2,0,0,0,7.8,9.4V8.308a.574.574,0,0,1-.12.013H3.48ZM10.8,1.6H5.4A1.2,1.2,0,0,0,4.2,2.8V7.6H8.4l1.8,1.8V7.6h.6A1.2,1.2,0,0,0,12,6.4V2.8a1.2,1.2,0,0,0-1.2-1.2Z"
-                                                                                          transform="translate(0 -1.6)"
-                                                                                          fill="#707070"></path>
-                                                                                </svg>&nbsp;Trả lời
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="item-comment__box-rep-comment">
-                                                                            <div class="list-rep-comment">`
-                    $.each(value.child, function(key, item) {
+                                                                                <div class="box-cmt__box-question"><p>
+                                                                                        ${value.content}<br></p>
+                                                                                    <button href="javascript:void(0)"
+                                                                                            onclick="openAnswer(${value.id})"
+                                                                                            class="btn-rep-cmt respondent"
+                                                                                            style="font-size: 13px">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                             width="13" height="12"
+                                                                                             viewBox="0 0 12 10.8">
+                                                                                            <path id="chat"
+                                                                                                  d="M3.48,8.32V4.6H1.2A1.2,1.2,0,0,0,0,5.8V9.4a1.2,1.2,0,0,0,1.2,1.2h.6v1.8l1.8-1.8h3A1.2,1.2,0,0,0,7.8,9.4V8.308a.574.574,0,0,1-.12.013H3.48ZM10.8,1.6H5.4A1.2,1.2,0,0,0,4.2,2.8V7.6H8.4l1.8,1.8V7.6h.6A1.2,1.2,0,0,0,12,6.4V2.8a1.2,1.2,0,0,0-1.2-1.2Z"
+                                                                                                  transform="translate(0 -1.6)"
+                                                                                                  fill="#707070"></path>
+                                                                                        </svg>&nbsp;Trả lời
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="item-comment__box-rep-comment">
+                                                                                    <div class="list-rep-comment">`
+                    $.each(value.child, function (key, item) {
                         let time = handleTime(value.created_at)
                         if (value !== null) {
                             html +=
                                 ` <!--reply-item-->
-                                                                                <div class="item-rep-comment">
-                                                                                    <div class="box-cmt__box-info">
-                                                                                        <div class="box-info">
-                                                                                            <div
-                                                                                                class="box-info__avatar">
-<!--                                                                                                <i class="cps-icons icon-cps"></i>-->
-                                                                                                     <img src="https://cdn.sforum.vn/sforum/wp-content/plugins/dtv-comments-system/images/shipper-icon.png">
-                                                                                            </div>
-                                                                                            <p class="box-info__name">
-                                                                                                ${item.customer_name}</p>
-<!--                                                                                            <span class="box-info__tag">QTV</span>-->
+                                                                                        <div class="item-rep-comment">
+                                                                                            <div class="box-cmt__box-info">
+                                                                                                <div class="box-info">
+                                                                                                    <div
+                                                                                                        class="box-info__avatar">
+        <!--                                                                                                <i class="cps-icons icon-cps"></i>-->
+                                                                                                             <img src="https://cdn.sforum.vn/sforum/wp-content/plugins/dtv-comments-system/images/shipper-icon.png">
+                                                                                                    </div>
+                                                                                                    <p class="box-info__name">
+                                                                                                        ${item.customer_name}</p>
+        <!--                                                                                            <span class="box-info__tag">QTV</span>-->
 
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="box-info-separate"></div>
+                                                                                                <p class="box-time-cmt">Ngày ${time.day} vào
+                                                                                        lúc ${time.time}</p></div>
+                                                                                            <div class="box-cmt__box-question">
+                                                                                                <p> ${item.content}</p>
+                                                                                                <button style="font-size: 13px;" onclick="openAnswer(${item.parent_id})"
+                                                                                                    href="javascript:void(0)"
+                                                                                                    class="btn-rep-cmt respondent">
+                                                                                                    <svg
+                                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                                        width="13" height="12"
+                                                                                                        viewBox="0 0 12 10.8">
+                                                                                                        <path id="chat"
+                                                                                                              d="M3.48,8.32V4.6H1.2A1.2,1.2,0,0,0,0,5.8V9.4a1.2,1.2,0,0,0,1.2,1.2h.6v1.8l1.8-1.8h3A1.2,1.2,0,0,0,7.8,9.4V8.308a.574.574,0,0,1-.12.013H3.48ZM10.8,1.6H5.4A1.2,1.2,0,0,0,4.2,2.8V7.6H8.4l1.8,1.8V7.6h.6A1.2,1.2,0,0,0,12,6.4V2.8a1.2,1.2,0,0,0-1.2-1.2Z"
+                                                                                                              transform="translate(0 -1.6)"
+                                                                                                              fill="#707070"></path>
+                                                                                                    </svg>&nbsp;Trả lời
+                                                                                                </button>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div
-                                                                                            class="box-info-separate"></div>
-                                                                                        <p class="box-time-cmt">Ngày ${time.day} vào
-                                                                                lúc ${time.time}</p></div>
-                                                                                    <div class="box-cmt__box-question">
-                                                                                        <p> ${item.content}</p>
-                                                                                        <button style="font-size: 13px;" onclick="openAnswer(${item.parent_id})"
-                                                                                            href="javascript:void(0)"
-                                                                                            class="btn-rep-cmt respondent">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="13" height="12"
-                                                                                                viewBox="0 0 12 10.8">
-                                                                                                <path id="chat"
-                                                                                                      d="M3.48,8.32V4.6H1.2A1.2,1.2,0,0,0,0,5.8V9.4a1.2,1.2,0,0,0,1.2,1.2h.6v1.8l1.8-1.8h3A1.2,1.2,0,0,0,7.8,9.4V8.308a.574.574,0,0,1-.12.013H3.48ZM10.8,1.6H5.4A1.2,1.2,0,0,0,4.2,2.8V7.6H8.4l1.8,1.8V7.6h.6A1.2,1.2,0,0,0,12,6.4V2.8a1.2,1.2,0,0,0-1.2-1.2Z"
-                                                                                                      transform="translate(0 -1.6)"
-                                                                                                      fill="#707070"></path>
-                                                                                            </svg>&nbsp;Trả lời
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!---->`
+                                                                                        <!---->`
                         }
                     })
                     html += `        </div>
-                                      <div data-index="1"  id="product_reply_list_${value.id}"class="list-comment"></div>
-                                  </div>
-                               </div>
-                            </div>
-          `
+                                              <div data-index="1"  id="product_reply_list_${value.id}"class="list-comment"></div>
+                                          </div>
+                                       </div>
+                                    </div>
+                  `
                 }
             });
             jQuery("#product_comment_list_698550").html(html);
@@ -557,19 +591,19 @@
             let html = '';
             if (activeReply) {
                 html += `<div class="block-comment__box-form-comment form-add" style="width: 100%; height: 50px; margin-top: 10px;">
-                                                            <div class="input-group">
-                                                                <textarea id="review_field_reply" name="detail"
-                                                                          placeholder="trả lời bình luận"
-                                                                          class="cps-textarea-field"
-                                                                          style="height: 50px;"></textarea>
-                                                                <button href="javascript:void(0)" id="btnSendReply" style="color: #ebf5f5;margin-top: 20px;margin-right: 5px;height: 23px;"
-                                                                        onclick="openModel(${parent_id})"
-                                                                        class="btn-send-cmt cta-gui-binh-luan">Gửi
-                                                                </button>
-                                                            </div>
-                                                            <span id="sub-comment-error"
-                                                                  class="comment-error error-text error d-none">Vui lòng nhập bình luận</span>
-                                                        </div>`
+                                                                    <div class="input-group">
+                                                                        <textarea id="review_field_reply" name="detail"
+                                                                                  placeholder="trả lời bình luận"
+                                                                                  class="cps-textarea-field"
+                                                                                  style="height: 50px;"></textarea>
+                                                                        <button href="javascript:void(0)" id="btnSendReply" style="color: #ebf5f5;margin-top: 20px;margin-right: 5px;height: 23px;"
+                                                                                onclick="openModel(${parent_id})"
+                                                                                class="btn-send-cmt cta-gui-binh-luan">Gửi
+                                                                        </button>
+                                                                    </div>
+                                                                    <span id="sub-comment-error"
+                                                                          class="comment-error error-text error d-none">Vui lòng nhập bình luận</span>
+                                                                </div>`
                 jQuery(`#product_reply_list_${parent_id}`).html(html);
 
             }
@@ -613,16 +647,16 @@
                     'page_url': url,
                     'content': content,
                 },
-                beforeSend: function(xhr) {
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', 'Bearer ' + bearerToken);
                     xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'))
                 },
-                success: function() {
+                success: function () {
                     document.getElementById("modal-message").style.display = 'block';
                     messageModal = $('#modalMess').html("<p>Hệ thống đã ghi nhận bình luận. Vui lòng đợi trong giây lát</p>")
                     location.reload()
                 },
-                error: function() {
+                error: function () {
                     document.getElementById("modal-message").style.display = 'block';
                     messageModal = $('#modalMess').html("<p>Quá nhiều yêu cầu vui lòng thử lại sau</p>")
                 }
@@ -658,7 +692,7 @@
         function hotlineButtonPage() {
             let mobileHeader = jQuery(".mobile-hotline");
             let mobileHeader_top = 150;
-            jQuery(window).on("scroll", function() {
+            jQuery(window).on("scroll", function () {
                 if (jQuery(window).scrollTop() >= mobileHeader_top) {
                     jQuery(".jeg_navbar_mobile_wrapper").addClass("sf_mobile_sticky");
                 } else {
@@ -704,28 +738,28 @@
             z-index: 100;
         }
 
-        .modal-login .modal-wrapper {
-            position: fixed;
-            max-width: 350px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
+            .modal-login .modal-wrapper {
+                position: fixed;
+                max-width: 350px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 15px;
+                border-radius: 10px;
+                text-align: center;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
 
-        .modal-login button.modal-close.is-medium {
-            position: absolute;
-        }
+            .modal-login button.modal-close.is-medium {
+                position: absolute;
+            }
 
-        .modal-login .title {
-            color: #d70018;
-            font-size: 25px;
-            margin-bottom: 5px;
-        }
+            .modal-login .title {
+                color: #d70018;
+                font-size: 25px;
+                margin-bottom: 5px;
+            }
 
         .is-flex {
             display: flex !important;
@@ -883,28 +917,31 @@
             border-left: 2px solid #d0d0d0;
         }
 
-        .block-comment .block-comment__box-list-comment .item-comment__box-rep-comment .item-rep-comment {
-            margin-top: 5px;
-        }
+            .block-comment .block-comment__box-list-comment .item-comment__box-rep-comment .item-rep-comment {
+                margin-top: 5px;
+            }
 
         .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-question .btn-rep-cmt {
             margin-top: 5px;
         }
 
         $media screen and (max-width: 782px) {
-            .modal-login .modal-wrapper {
-                position: fixed;
-                max-width: 350px;
-                margin: 0 auto;
-                background: #fff;
-                padding: 15px;
-                border-radius: 10px;
-                text-align: center;
-                left: 50%;
-                top: 40%;
-                width: 100%;
-                transform: translate(-50%, -50%);
-            }
+            .modal-login .modal-wrapper
+
+        {
+            position: fixed;
+            max-width: 350px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            left: 50%;
+            top: 40%;
+            width: 100%;
+            transform: translate(-50%, -50%);
+        }
+
         }
 
         figcaption {
@@ -923,54 +960,71 @@
         }
 
         $media (max-width: 375px) {
-            .sforum-on-google-news-desktop {
-                display: none;
-            }
-            .sforum-on-google-news-mobile {
-                border-radius: 10px;
-                height: 35px;
-                display: block;
-            }
+            .sforum-on-google-news-desktop
+
+        {
+            display: none;
+        }
+
+        .sforum-on-google-news-mobile {
+            border-radius: 10px;
+            height: 35px;
+            display: block;
+        }
+
         }
 
         .wp-caption .wp-caption-text {
             color: #0b0b0b;
-             !important;
+            !important;
         }
 
         $media screen and (max-width: 768px) {
-            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-info .box-info__name {
-                font-size: 14px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-info .box-info__avatar {
-                height: 30px;
-                width: 30px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-info .icon-cps {
-                height: 20px;
-                width: 20px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-time-cmt {
-                font-size: 12px;
-            }
+            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-info .box-info__name
+
+        {
+            font-size: 14px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-info .box-info__avatar {
+            height: 30px;
+            width: 30px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-info .icon-cps {
+            height: 20px;
+            width: 20px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-time-cmt {
+            font-size: 12px;
+        }
+
         }
 
         $media screen and (max-width: 540px) {
-            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-info .box-info__name {
-                font-size: 12px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-info .box-info__name {
-                font-size: 14px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-time-cmt {
-                font-size: 10px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-time-cmt {
-                font-size: 12px;
-            }
-            .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-info-separate {
-                margin: 0 5px;
-            }
+            .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-info .box-info__name
+
+        {
+            font-size: 12px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-info .box-info__name {
+            font-size: 14px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .item-rep-comment .box-cmt__box-info .box-time-cmt {
+            font-size: 10px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-time-cmt {
+            font-size: 12px;
+        }
+
+        .block-comment .block-comment__box-list-comment .item-comment .box-cmt__box-info .box-info-separate {
+            margin: 0 5px;
+        }
+
         }
 
         blockquote {
@@ -989,9 +1043,9 @@
             color: #333 !important;
         }
 
-        td:first-child {
-            border: 1px solid #eee !important;
-        }
+            td:first-child {
+                border: 1px solid #eee !important;
+            }
 
         div.subscriber-box__form {
             display: flex;
@@ -1000,18 +1054,22 @@
             justify-content: center
         }
 
-        div.subscriber-box__form input[type=text] {
-            margin-bottom: 10px;
-            border-radius: 5px
-        }
+            div.subscriber-box__form input[type=text] {
+                margin-bottom: 10px;
+                border-radius: 5px
+            }
 
         $media screen and (max-width: 500px) {
-            .css_table_overflow {
-                overflow-x: scroll !important;
-            }
-            table {
-                min-width: max-content !important;
-            }
+            .css_table_overflow
+
+        {
+            overflow-x: scroll !important;
+        }
+
+        table {
+            min-width: max-content !important;
+        }
+
         }
 
         .content-inner .jeg_post_meta .jeg_meta_author figure {
@@ -1036,10 +1094,10 @@
 
     <div class="jscroll-to-top" id="hidden-button">
         <a href="#back-to-top" onclick="scrollToTop(this)" class="jscroll-to-top_link">
-        <i class="fa fa-angle-up"></i>
-    </a>
+            <i class="fa fa-angle-up"></i>
+        </a>
     </div>
-    
+
     <style>
         .text-footer-icon {
             font-weight: 500;
@@ -1059,23 +1117,47 @@
             /* Căn giữa nội dung */
         }
 
-        .sf-sticky-footer--icon img {
-            display: block;
-            /* Để có thể sử dụng margin hoặc padding cho hình ảnh */
-            margin: 0 auto;
-            /* Căn giữa hình ảnh */
-        }
+            .sf-sticky-footer--icon img {
+                display: block;
+                /* Để có thể sử dụng margin hoặc padding cho hình ảnh */
+                margin: 0 auto;
+                /* Căn giữa hình ảnh */
+            }
 
-        .sf-sticky-footer--icon span {
-            display: block;
-            /* Để chữ hiển thị trên một dòng mới */
-            margin-top: 5px;
-            /* Khoảng cách giữa hình ảnh và chữ */
-        }
+            .sf-sticky-footer--icon span {
+                display: block;
+                /* Để chữ hiển thị trên một dòng mới */
+                margin-top: 5px;
+                /* Khoảng cách giữa hình ảnh và chữ */
+            }
     </style>
 
-
+    
 
 </body>
 
+
 </html>
+
+
+
+@section Scripts {
+    <script src="@Url.Content("~/lib/summernote/summernote.js")"></script>
+    <link href="@Url.Content("~/lib/summernote/summernote.css")" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $('#Contents').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video']]
+                ]
+            });
+        });
+    </script>
+}

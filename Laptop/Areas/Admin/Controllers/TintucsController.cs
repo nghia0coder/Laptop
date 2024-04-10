@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Laptop.Models;
 using Laptop.ViewModels;
+using System.Security.Claims;
 
 namespace Laptop.Areas.Admin.Controllers
 {
@@ -73,6 +74,8 @@ namespace Laptop.Areas.Admin.Controllers
         {
             string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
             tintuc.Thumburl = uniqueFileName1;
+            var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
+            tintuc.CustomerId = userId;
             await _context.AddAsync(tintuc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

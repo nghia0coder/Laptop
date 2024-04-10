@@ -68,6 +68,7 @@
                 <label asp-for="BrandID" class="control-label"><h4>Tên hãng</h4></label>
                 <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
             </div>
+            <input type="hidden" asp-for="CustomerId" value="@User.Identity"/>
             <div class="form-group mt-4">
                 <input type="submit" value="Tạo tin" class="btn btn-success" />
                 <a class="btn btn-primary" asp-action="Index">Quay lại</a>

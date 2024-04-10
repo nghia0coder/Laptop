@@ -7,5 +7,6 @@ namespace Laptop.Models
         public string Address { get; set; }
 
 		public virtual ICollection<Order> Orders { get; } = new List<Order>();
-	}
+        public virtual ICollection<Tintuc> Tintucs { get; } = new List<Tintuc>();
+    }
 }
