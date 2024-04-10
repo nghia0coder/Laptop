@@ -80,7 +80,7 @@ namespace Laptop.Controllers
 			ViewBag.ListDTM = lstDTM;
 
             
-
+            
 
             return View();
         }

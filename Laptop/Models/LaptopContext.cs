@@ -35,6 +35,8 @@ namespace Laptop.Models
         public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
+       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -53,6 +55,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
             });
+
 
 
             modelBuilder.Entity<Brand>(entity =>
