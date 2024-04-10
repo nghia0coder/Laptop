@@ -18,7 +18,7 @@ namespace Laptop.Models
         public DateTime? CreatedDate { get; set; }
         public bool Hot { get; set; }
         public bool New { get; set; }
-        public int BrandId { get; set; }
+        public int BrandID { get; set; }
 
         public virtual Brand? Brand { get; set; }
 

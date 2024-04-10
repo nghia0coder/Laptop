@@ -115,7 +115,7 @@ namespace Laptop.Models
                     .HasConstraintName("FK_InvoiceDetails_Invoice1");
 
                 entity.HasOne(d => d.ProductVar)
-                    .WithMany(p => p.InvoiceDetails)
+                    .WithMany(p => p.InvoiceDetail)
                     .HasPrincipalKey(p => p.ProductVarId)
                     .HasForeignKey(d => d.ProductVarId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -132,7 +132,7 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Thumburl).HasMaxLength(500);
 
-                entity.Property(e => e.BrandId).HasColumnName("BrandID");
+                entity.Property(e => e.BrandID).HasColumnName("BrandID");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("date2");
 
