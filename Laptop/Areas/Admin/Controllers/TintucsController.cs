@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Laptop.Models;
 using Laptop.ViewModels;
+using System.Security.Claims;
 
 namespace Laptop.Areas.Admin.Controllers
 {
@@ -34,8 +35,8 @@ namespace Laptop.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             
-            var laptopContext = _context.Tintucs.Include(t => t.Brand);
-            return View(await laptopContext.ToListAsync());
+            var laptopContext =  _context.Tintucs.Include(t => t.Brand).ToList();
+            return View(laptopContext);
         }
 
         // GET: Admin/Tintucs/Details/5
@@ -73,6 +74,8 @@ namespace Laptop.Areas.Admin.Controllers
         {
             string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
             tintuc.Thumburl = uniqueFileName1;
+            var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
+            tintuc.CustomerId = userId;
             await _context.AddAsync(tintuc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -112,7 +115,7 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandID);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandId);
             return View(tintuc);
         }
 
@@ -131,6 +134,8 @@ namespace Laptop.Areas.Admin.Controllers
             
                 try
                 {
+                    string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
+                    tintuc.Thumburl = uniqueFileName1;
                     _context.Update(tintuc);
                     await _context.SaveChangesAsync();
                 }
@@ -144,10 +149,9 @@ namespace Laptop.Areas.Admin.Controllers
                     {
                         throw;
                     }
-                
-                return RedirectToAction(nameof(Index));
+              
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandID);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandId);
             return View(tintuc);
         }
 
@@ -159,9 +163,9 @@ namespace Laptop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var tintuc = await _context.Tintucs
+            var tintuc = _context.Tintucs
                 .Include(t => t.Brand)
-                .FirstOrDefaultAsync(m => m.PostID == id);
+                .FirstOrDefault(m => m.PostID == id);
             if (tintuc == null)
             {
                 return NotFound();

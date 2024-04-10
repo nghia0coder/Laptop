@@ -17,43 +17,45 @@ namespace Laptop.Models
         {
         }
 
-
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; } = null!;
-        public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrdersDetail> OrdersDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductComment> ProductComments { get; set; } = null!;
         public virtual DbSet<ProductItem> ProductItems { get; set; } = null!;
         public virtual DbSet<ProductVariation> ProductVariations { get; set; } = null!;
         public virtual DbSet<Ram> Rams { get; set; } = null!;
+        public virtual DbSet<Setting> Settings { get; set; } = null!;
         public virtual DbSet<Ssd> Ssds { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
+        public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
-        
-        public virtual DbSet<Setting> Settings { get; set; } = null!;
+
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=Laptop4;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-B5FIP5M\\SQLEXPRESS01;Initial Catalog=Laptop3;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            
             modelBuilder.Entity<Setting>(entity =>
             {
                 entity.ToTable("Setting");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
             });
+
 
 
             modelBuilder.Entity<Brand>(entity =>
@@ -113,7 +115,7 @@ namespace Laptop.Models
                     .HasConstraintName("FK_InvoiceDetails_Invoice1");
 
                 entity.HasOne(d => d.ProductVar)
-                    .WithMany(p => p.InvoiceDetail)
+                    .WithMany(p => p.InvoiceDetails)
                     .HasPrincipalKey(p => p.ProductVarId)
                     .HasForeignKey(d => d.ProductVarId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -130,9 +132,24 @@ namespace Laptop.Models
 
                 entity.Property(e => e.Thumburl).HasMaxLength(500);
 
-                entity.Property(e => e.BrandID).HasColumnName("BrandID");
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("date");
+                entity.Property(e => e.CreatedDate).HasColumnType("date2");
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(450)
+                    .HasColumnName("CustomerId");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Tintucs)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Invoice_AspNetUsers");
+
+                entity.HasOne(d => d.Brand)
+                    .WithMany(p => p.Tintucs)
+                    .HasForeignKey(d => d.BrandID)
+                    .HasConstraintName("FK_Tintuc_Brand");
 
 
             });
@@ -206,6 +223,37 @@ namespace Laptop.Models
                     .HasConstraintName("FK_Product_Category");
             });
 
+            modelBuilder.Entity<ProductComment>(entity =>
+            {
+                entity.HasKey(e => e.CommentId);
+
+                entity.ToTable("ProductComment");
+
+                entity.Property(e => e.CommentId).HasColumnName("CommentID");
+
+                entity.Property(e => e.Detail).HasMaxLength(150);
+
+                entity.Property(e => e.Ratings).HasColumnName("Rating");
+
+				entity.Property(e => e.CreatedBy)
+				  .HasMaxLength(450)
+				  .HasColumnName("CreatedBy");
+
+				entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductComments)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_ProductComment_Product");
+
+                entity.HasOne(e => e.Customer)
+                       .WithMany(n => n.Comments)
+                       .HasForeignKey(p => p.CreatedBy)
+                       .OnDelete(DeleteBehavior.NoAction)
+                       .HasConstraintName("FK_ProductComment_AspNetUsers");
+            });
+
+
             modelBuilder.Entity<ProductItem>(entity =>
             {
                 entity.HasKey(e => new { e.ProductId, e.ColorId })
@@ -236,7 +284,6 @@ namespace Laptop.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductItems)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductItems_Product");
             });
 
@@ -264,7 +311,6 @@ namespace Laptop.Models
                     .WithMany(p => p.ProductVariations)
                     .HasPrincipalKey(p => p.ProductItemsId)
                     .HasForeignKey(d => d.ProductItemsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductVariation_ProductItems");
 
                 entity.HasOne(d => d.Ram)

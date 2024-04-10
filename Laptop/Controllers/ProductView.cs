@@ -1,7 +1,12 @@
 ﻿using Laptop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PagedList.Core;
+using System.Collections.Generic;
+using System.Drawing.Printing;
+
 
 namespace Laptop.Controllers
 {
@@ -27,7 +32,7 @@ namespace Laptop.Controllers
 			return PartialView();
 		}
 		[Route("post/{slug}-{id:int}")]
-		public async Task<IActionResult> XemChiTiet(int? id)
+		public async Task<IActionResult> XemChiTiet(int? id, int? page)
 		{
 			if (id == null)
 			{
@@ -35,11 +40,17 @@ namespace Laptop.Controllers
 			}
 
 			var sp = await _context.ProductVariations
-				.Include(n => n.ProductItems.Product)
+				.Include(n => n.ProductItems.Product.ProductComments)
+					.ThenInclude(n => n.Customer)
 				.Include(n => n.ProductItems.Product.Category)
 				.Include(n => n.Ram)
 				.Include(n => n.Ssd)
 				.FirstOrDefaultAsync(n => n.ProductVarId == id);
+			
+			ViewBag.Comment = await _context.ProductComments
+				.Where(n => n.ProductId  == sp.ProductItems.ProductId)
+				.ToListAsync();
+
 
 
 			ViewBag.ListSP = _context.ProductVariations
@@ -181,5 +192,16 @@ namespace Laptop.Controllers
 				.ToListAsync();
 			return Json(list);
 		}
+		
+		public IActionResult GetMoreRecord (int id,int page = 1, int pageSize = 3)
+		{
+			var record = _context.ProductComments.Where(n => n.ProductId == id).Skip((page - 1) * pageSize).Take(pageSize)
+				.Include(n => n.Customer)
+				.ToList();
+
+			return PartialView("_CommentPartial", record);
+		}
+	
+
 	}
 }

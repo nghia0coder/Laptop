@@ -74,7 +74,6 @@
     <None Include="Views\Layout\HomeLayout.cshtml" />
     <None Include="Views\Layout\ProductLayout.cshtml" />
     <None Include="Views\Layout\_CategoryLayout.cshtml" />
-    <None Include="Views\Login\DangNhap.cshtml" />
     <None Include="Views\ProductView\ProductBrand.cshtml" />
     <None Include="Views\ProductView\ProductStyle1.cshtml" />
     <None Include="Views\ProductView\ProductStyle2.cshtml" />
@@ -238,6 +237,8 @@
     <None Include="wwwroot\lib\summernote\summernote.js.map" />
     <None Include="wwwroot\lib\summernote\summernote.min.js" />
     <None Include="wwwroot\lib\summernote\summernote.min.js.map" />
+    <None Include="wwwroot\News\js\app.min.js" />
+    <None Include="wwwroot\News\lib\js\jquery.magnific-popup.min.js" />
   </ItemGroup>
 
   <ItemGroup>
