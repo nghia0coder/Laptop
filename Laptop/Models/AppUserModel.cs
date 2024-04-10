@@ -8,5 +8,7 @@ namespace Laptop.Models
 
 		public virtual ICollection<Order> Orders { get; } = new List<Order>();
         public virtual ICollection<Tintuc> Tintucs { get; } = new List<Tintuc>();
+
+        public virtual ICollection<ProductComment> Comments { get; } = new List<ProductComment>();
     }
 }

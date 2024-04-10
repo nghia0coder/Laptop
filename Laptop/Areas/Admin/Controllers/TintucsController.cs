@@ -151,7 +151,7 @@ namespace Laptop.Areas.Admin.Controllers
                     }
               
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandId);
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandID);
             return View(tintuc);
         }
 
