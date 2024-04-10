@@ -35115,7 +35115,8 @@ body #asl-storelocator.asl-p-cont.container .item .thumb-a img {
 .sf_right_featured--box-thumb img {
     max-width: 100%;
     min-width: 110px;
-    border-radius: 5px
+    border-radius: 5px;
+    height: 62px
 }
 
 .sf_right_featured--box-content a {
@@ -74500,7 +74501,8 @@ body #asl-storelocator.asl-p-cont.container .item .thumb-a img {
 .sf_right_featured--box-thumb img {
     max-width: 100%;
     min-width: 110px;
-    border-radius: 5px
+    border-radius: 5px;
+    height: 62px
 }
 
 .sf_right_featured--box-content a {

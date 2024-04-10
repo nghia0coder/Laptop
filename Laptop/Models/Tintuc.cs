@@ -22,6 +22,10 @@ namespace Laptop.Models
 
         public virtual Brand? Brand { get; set; }
 
+        public string CustomerId { get; set; }
+
+        public virtual AppUserModel? Customer { get; set; }
+
         [NotMapped]
         public IFormFile Img1 { get; set; }
 
