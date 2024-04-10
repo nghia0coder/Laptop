@@ -9,3 +9,6 @@
 /.vs
 /Laptop/Models/LaptopContext.cs
 /Laptop/appsettings.json
+/Laptop/wwwroot/Contents/img
+/Laptop/wwwroot/img
+/Laptop/wwwroot/Slider/image
