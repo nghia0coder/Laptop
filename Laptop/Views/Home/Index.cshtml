@@ -7,6 +7,7 @@
 	IEnumerable<Product> lstSelling = ViewBag.ListSelling as IEnumerable<Product>;
 	IEnumerable<Product> lstDTM = ViewBag.ListDTM as IEnumerable<Product>;
 	IEnumerable<Setting> settings = ViewBag.Settings as IEnumerable<Setting>;
+	IEnumerable<Tintuc> news = ViewBag.News as IEnumerable<Tintuc>;
 }
 
 
@@ -25,9 +26,7 @@
                     <!-- lorem 50 -->
                    @Html.Raw(@settings.ElementAt(4).Contents)
                 </div>
-                <div class="buttons">
-                    <button>SEE MORE</button>
-                </div>
+               
             </div>
         </div>
         <div class="item">
@@ -40,40 +39,33 @@
                     <!-- lorem 50 -->
                     @Html.Raw(@settings.ElementAt(5).Contents)
                 </div>
-                <div class="buttons">
-                    <button>SEE MORE</button>
-                    <button>SUBSCRIBE</button>
-                </div>
+             
             </div>
         </div>
         <div class="item">
-            <img ưsrc="~/img/@settings.ElementAt(7).ImgUrl">
+            <img src="~/img/@settings.ElementAt(7).ImgUrl">
             <div class="content">
                 <div class="author">SIU</div>
                 <div class="title">LAPTOP</div>
                 <div class="topic">LENOVO</div>
                 <div class="des">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                    <!-- lorem 50 -->
+                    @Html.Raw(@settings.ElementAt(7).Contents)
                 </div>
-                <div class="buttons">
-                    <button>SEE MORE</button>
-                    <button>SUBSCRIBE</button>
-                </div>
+              
             </div>
         </div>
         <div class="item">
             <img src="~/img/@settings.ElementAt(8).ImgUrl">
             <div class="content">
-                <div class="author">LUNDEV</div>
-                <div class="title">DESIGN SLIDER</div>
-                <div class="topic">ANIMAL</div>
+                <div class="author">SIU</div>
+                <div class="title">LAPTOP</div>
+                <div class="topic">APPLE</div>
                 <div class="des">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                    <!-- lorem 50 -->
+                    @Html.Raw(@settings.ElementAt(8).Contents)
                 </div>
-                <div class="buttons">
-                    <button>SEE MORE</button>
-                    <button>SUBSCRIBE</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -83,21 +75,16 @@
             <img src="~/img/@settings.ElementAt(6).ImgUrl">
             <div class="content">
                 <div class="title">
-                    Laptop
+                    Alien
                 </div>
-                <div class="description">
-                    Check Now
-                </div>
+                
             </div>
         </div>
         <div class="item">
             <img src="~/img/@settings.ElementAt(5).ImgUrl">
             <div class="content">
                 <div class="title">
-                    Name Slider
-                </div>
-                <div class="description">
-                    Description
+                    Acer
                 </div>
             </div>
         </div>
@@ -105,22 +92,18 @@
             <img src="~/img/@settings.ElementAt(7).ImgUrl">
             <div class="content">
                 <div class="title">
-                    Name Slider
+                    Lenovo
                 </div>
-                <div class="description">
-                    Description
-                </div>
+        
             </div>
         </div>
         <div class="item">
             <img src="~/img/@settings.ElementAt(8).ImgUrl">
             <div class="content">
                 <div class="title">
-                    Name Slider
+                    Apple
                 </div>
-                <div class="description">
-                    Description
-                </div>
+               
             </div>
         </div>
     </div>
@@ -203,25 +186,25 @@
 					<ul class="hot-deal-countdown">
 						<li>
 							<div>
-								<h3>02</h3>
+                                <h3 id="days">02</h3>
 								<span>Days</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<h3>10</h3>
+                                <h3 id="hours">00</h3>
 								<span>Hours</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<h3>34</h3>
+                                <h3 id="minutes">00</h3>
 								<span>Mins</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<h3>60</h3>
+                                <h3 id="seconds">00</h3>
 								<span>Secs</span>
 							</div>
 						</li>
@@ -245,6 +228,9 @@
 <div class="container">
 	@await Html.PartialAsync("~/Views/ProductView/ProductStyle3.cshtml", lstSelling)
 </div>
+<div class="container">
+	@await Html.PartialAsync("~/Views/ProductView/News.cshtml", news)
+</div>
 
 
 
@@ -260,3 +246,39 @@
 		
 	}
  </style>
+
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("April 30, 2024 00:00:00").getTime();
+
+    // Update the count down every 1 second
+    var countdownFunction = setInterval(function () {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the time left between now and the countdown date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes, and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the elements with id="..."
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+
+        // If the countdown is over, write some text
+        if (distance < 0) {
+            clearInterval(countdownFunction);
+            document.getElementById("days").innerHTML = "00";
+            document.getElementById("hours").innerHTML = "00";
+            document.getElementById("minutes").innerHTML = "00";
+            document.getElementById("seconds").innerHTML = "00";
+        }
+    }, 1000);
+</script>

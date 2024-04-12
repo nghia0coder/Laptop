@@ -25,6 +25,17 @@
 	ViewData["Title"] = "Chi Tiết Sản Phẩm";
 	Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
+<div class="custom-model-main">
+	<div class="custom-model-inner">
+		<div class="close-btn">×</div>
+		<div class="custom-model-wrap">
+			<div class="pop-up-content-wrap">
+				<p>Thêm Vào Giỏ Hàng Thành Công</p>
+			</div>
+		</div>
+	</div>
+	<div class="bg-overlay"></div>
+</div>
 <!-- SECTION -->
 <div class="section">
 	<!-- container -->
@@ -116,14 +127,17 @@
 					</div>
 
 					<div class="add-to-cart">
-						<div class="qty-label">
-							Qty
-							<div class="input-number">
-								<input type="number" id="quantityInput" value="1"> 
-								<button  id="unique-item-qty-up">+</button>
-								<span class="qty-down">-</span>
+						@if (Model.QtyinStock > 0)
+						{
+							<div class="qty-label">
+								Chọn Số Lượng
+								<div class="input-number">
+									<input type="number" id="quantityInput" value="1">
+									<button id="unique-item-qty-up">+</button>
+									<span class="qty-down">-</span>
+								</div>
 							</div>
-						</div>
+						}
 						@if(Model.QtyinStock > 0)
 						{
 							<div class="add-to-cart">
@@ -133,7 +147,7 @@
 						else
 						{
 							<div class="add-to-cart" style="display: none;">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></button>
+								<button class="add-to-cart-btn" style="margin-top: 49px;"><i class="fa fa-shopping-cart"></i></button>
 							</div>
 						}
 
@@ -515,12 +529,15 @@
 					strURL: returnUrl
 				},
 				success: function (response) {
-					// Xử lý sau khi gửi thành công
-					alert("Product added to cart successfully!");
+
+					$(".custom-model-main").addClass('model-open');
 				},
-				error: function () {
-					// Xử lý lỗi
-					alert("Vượt quá số lượng tồn!");
+				error: function (xhr) {
+					if (xhr.status === 400) {
+						alert(xhr.statusText);
+					} else {
+						alert("Vượt quá số lượng tồn!");
+					}
 				}
 			});
 		});
@@ -600,10 +617,13 @@
 				}
 			});
 		});
+		$(".close-btn, .bg-overlay").click(function () {
+			$(".custom-model-main").removeClass('model-open');
+		});
 
 
-		
-		
+
+
 
 	</script>
 	<style>
@@ -612,6 +632,40 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
+	</style>
+	<style>
+		.input-number {
+			position: relative;
+			width: 70px;
+			display: inline-block;
+		}
+
+			.input-number input[type=number] {
+				width: 100%;
+				padding: 5px;
+				text-align: center;
+			}
+
+			.input-number button {
+				position: absolute;
+				top: 0;
+				width: 20px;
+				height: 20px;
+				border: none;
+				background: #f8f9fa;
+				color: #000;
+				cursor: pointer;
+			}
+
+				.input-number button:hover {
+					background: #e9ecef;
+				}
+
+		.qty-down {
+			right: 0;
+			left: 89px;
+		}
+
 	</style>
 }
 	

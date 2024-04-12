@@ -61,8 +61,11 @@ namespace Laptop.Controllers
 				.Include(n => n.ProductItems.Product)
 				.FirstOrDefaultAsync(n => n.ProductItems.ProductItemsId == masp && n.RamId == ramId && n.Ssdid == ssdId);
 
-
-            if (quantity == null || quantity == 0)
+			if (quantity < 0)
+			{
+				return BadRequest("Số lượng không hợp lệ");
+			}
+			if (quantity == null || quantity == 0)
 			{
 				quantity = 1;
 			}
@@ -70,8 +73,15 @@ namespace Laptop.Controllers
 			CartItemsModel cartItems = cart.Where(c => c.ProductID == id.ProductVarId).FirstOrDefault();
 			if (cartItems == null)
 			{
+				if (quantity > productVariation.QtyinStock)
+				{
+					return BadRequest("Số lượng vượt quá số lượng trong kho!");
 
-				cart.Add(new CartItemsModel(productVariation, quantity));
+				}
+				else
+				{
+					cart.Add(new CartItemsModel(productVariation, quantity));
+				}
 			}
 			else
 			{	
