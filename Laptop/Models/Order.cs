@@ -18,6 +18,8 @@ namespace Laptop.Models
         public bool Status { get; set; }
         public string? Voucher { get; set; }
 
+        public int ? Total { get; set; }
+
         public virtual AppUserModel Customer { get; set; } = null!;
         public virtual Voucher? VoucherNavigation { get; set; }
         public virtual ICollection<OrdersDetail> OrdersDetails { get; set; }

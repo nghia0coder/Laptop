@@ -149,7 +149,7 @@ else
                                     {   
                                         if (Model.CartItems.Count > 0)
                                         {
-                                            <a asp-action="DatHang" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
+                                            <a asp-action="DatHang" asp-route-total="@Model.Total" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
                                         }
                                         else
                                         {

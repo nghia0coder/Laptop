@@ -7,7 +7,6 @@ namespace Laptop.Models
     {
         public int OrderId { get; set; }
         public int ProductVarId { get; set; }
-        public int? Price { get; set; }
         public int? Quanity { get; set; }
 
         public virtual Order Order { get; set; } = null!;

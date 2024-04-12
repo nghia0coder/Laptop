@@ -164,7 +164,7 @@ namespace Laptop.Controllers
 		{
 			return View();
 		}
-		public async Task<IActionResult> DatHangAsync()
+		public async Task<IActionResult> DatHangAsync(int total)
 		{
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			// Check if the shopping cart session exists
@@ -176,6 +176,7 @@ namespace Laptop.Controllers
 			ddh.Delivered = false;
 			ddh.Status = false;
 			ddh.CustomerId = userId;
+			ddh.Total = total;
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 
@@ -188,7 +189,7 @@ namespace Laptop.Controllers
                 ctdh.OrderId = ddh.OrderId;
 				ctdh.ProductVarId = item.ProductID;
 				ctdh.Quanity = item.Quanity;
-				ctdh.Price = item.Total;
+		
 				
 
 				var product =_context.ProductVariations.FirstOrDefault(x => x.ProductVarId == ctdh.ProductVarId);
@@ -206,7 +207,7 @@ namespace Laptop.Controllers
                 await _context.Entry(ctdh.ProductVar).Reference(pv => pv.Ssd).LoadAsync();
 
                 string productInfo = $"Name: {ctdh.ProductVar.ProductItems.Product.ProductName} {ctdh.ProductVar.Ram.RamName} " +
-                  $"{ctdh.ProductVar.Ssd.Ssdname},Màu : {ctdh.ProductVar.ProductItems.Color.ColorName}, Quantity: {ctdh.Quanity} , Price: {ctdh.Price} VNĐ";
+                  $"{ctdh.ProductVar.Ssd.Ssdname},Màu : {ctdh.ProductVar.ProductItems.Color.ColorName}, Quantity: {ctdh.Quanity} , Price: {ctdh.ProductVar.Price} VNĐ";
                 sanphams.Add(productInfo);
             }
 			_context.SaveChanges();

@@ -158,7 +158,9 @@ namespace Laptop.Models
             {
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
-                entity.Property(e => e.CustomerId)
+				entity.Property(e => e.Total).HasColumnName("PriceTotal");
+
+				entity.Property(e => e.CustomerId)
                     .HasMaxLength(450)
                     .HasColumnName("CustomerID");
 
