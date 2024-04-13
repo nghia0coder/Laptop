@@ -132,7 +132,33 @@ namespace Laptop.Controllers
             }
             return uniqueFileName;
         }
+        public async Task<IActionResult> Displayuserpost()
+        {
+            ViewBag.Brandname = _context.Brands.ToList();
+            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            // Truy vấn lấy bài viết theo ID
+            var post = _context.Tintucs
+                .Where(p => p.CustomerId == customerid && p.Status)
+                .Include(p => p.Brand)
+                .OrderByDescending(p => p.CreatedDate)
+                .ToList();
 
+            return View(post);
+        }
+        public async Task<IActionResult> Displayuserunpost()
+        {
+            ViewBag.Brandname = _context.Brands.ToList();
+            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            // Truy vấn lấy bài viết theo ID
+            var post = _context.Tintucs
+                .Where(p => p.CustomerId == customerid && !p.Status)
+                .Include(p => p.Brand)
+                .OrderByDescending(p => p.CreatedDate)
+                .ToList();
+
+            return View(post);
+        }
     }
 }

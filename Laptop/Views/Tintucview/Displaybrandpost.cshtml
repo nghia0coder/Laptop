@@ -69,48 +69,9 @@
         
         <div class="jeg-body-container home wrap-category">
             <div id="left-sidebar-menu">
-                <div class="left-sidebar-menu__wrapper">
-                    <ul>
-                        <li class="menu-item">
-                            <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Index">
-                                <i class="left-sidebar-menu--icon" style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/home-3.png)"></i>
-                                <span style="white-space: nowrap;">Trang chủ</span>
-                            </a>
-                        </li>
-                        @foreach (var item in Brandname)
-                        {
-                            <li class="menu-item">
-                                <a asp-controller="Tintucview" asp-action="Displaybrandpost" asp-route-brandid="@item.BrandId" class="menu_icon_pc">
-                                    <i class="left-sidebar-menu--icon" style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/smartphone-icon.png)"></i>
-                                    <span style="white-space: nowrap;">@item.BrandName</span>
-                                </a>
-                            </li>
-                        }
+                <div>
+                    @await Html.PartialAsync("~/Views/Shared/Partial/_LeftsidebarPartial.cshtml", Brandname)
 
-
-
-                        <script>
-                            function handleChildsMenu(element) {
-                                // Hide all other child elements
-                                jQuery('.childs-menu-item').not(jQuery(element).siblings('.childs-menu-item')).hide();
-
-                                // Toggle the visibility of the clicked element's child
-                                jQuery(element).siblings('.childs-menu-item').toggle("active");
-                            }
-                        </script>
-
-                        <style>
-                            .menu-icon-left {
-                                right: -10px !important;
-                            }
-
-                            /* media only screen and (max-width: 600px) {
-                                                            .menu-icon-left {
-                                                                display: none;
-                                                            }
-                                                        } */
-                        </style>
-                    </ul>
                 </div>
             </div>
             <div id="right-content" class="right-content-index">
@@ -626,3 +587,39 @@
 </body>
 
 </html>
+@section Scripts {
+    <script src="@Url.Content("~/lib/summernote/summernote.js")"></script>
+    <link href="@Url.Content("~/lib/summernote/summernote.css")" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $('#Contents').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video']]
+                ]
+            });
+        });
+    </script>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+}
