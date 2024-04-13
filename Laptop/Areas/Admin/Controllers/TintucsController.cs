@@ -38,7 +38,15 @@ namespace Laptop.Areas.Admin.Controllers
             var laptopContext =  _context.Tintucs.Include(t => t.Brand).ToList();
             return View(laptopContext);
         }
-
+        public async Task<IActionResult> Displayindex()
+        {
+            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var laptopContext = _context.Tintucs
+                .Where(t=> t.CustomerId != customerid)
+                .Include(t => t.Brand)
+                .ToList();
+            return View(laptopContext);
+        }
         // GET: Admin/Tintucs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -118,43 +126,81 @@ namespace Laptop.Areas.Admin.Controllers
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandID);
             return View(tintuc);
         }
+        public async Task<IActionResult> Userpost(int? id)
+        {
+
+            if (id == null || _context.Tintucs == null)
+            {
+                return NotFound();
+            }
+
+            var tintuc = await _context.Tintucs.FindAsync(id);
+            if (tintuc == null)
+            {
+                return NotFound();
+            }
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandID);
+            return View(tintuc);
+        }
 
         // POST: Admin/Tintucs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandID")] Tintuc tintuc)
+        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandID,CustomerId")] Tintuc tintuc)
         {
             if (id != tintuc.PostID)
             {
                 return NotFound();
             }
 
-            
-                try
+            string image1 = GetProfilePhotoFileName1(tintuc);
+            if (!String.IsNullOrEmpty(image1))
+            {
+                string uniqueFileName1 = image1;
+                tintuc.Thumburl = uniqueFileName1;
+
+
+            }
+            _context.Update(tintuc);
+            _context.SaveChanges();
+
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandID);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Userpost(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandID,CustomerID")] Tintuc tintuc)
+        {
+            if (id != tintuc.PostID)
+            {
+                return NotFound();
+            }
+
+
+            try
+            {
+                string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
+                tintuc.Thumburl = uniqueFileName1;
+                _context.Update(tintuc);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TintucExists(tintuc.PostID))
                 {
-                    string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
-                    tintuc.Thumburl = uniqueFileName1;
-                    _context.Update(tintuc);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!TintucExists(tintuc.PostID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-              
+                    throw;
+                }
+
             }
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandId", tintuc.BrandID);
             return View(tintuc);
         }
-
         // GET: Admin/Tintucs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -173,6 +219,7 @@ namespace Laptop.Areas.Admin.Controllers
 
             return View(tintuc);
         }
+
 
         // POST: Admin/Tintucs/Delete/5
         [HttpPost, ActionName("Delete")]

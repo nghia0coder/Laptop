@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -16,4 +16,46 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.collapsible {
+    background-color: white;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 0px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    position: relative; /* Tạo một ngữ cảnh tương đối cho mũi tên */
+}
+
+.collapsible .arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #808080; /* Màu sắc của mũi tên */
+    transition: transform 0.3s ease-out; /* Thêm transition cho hiệu ứng xoay */
+}
+
+.collapsible.active .arrow {
+    transform: rotate(-90deg); /* Xoay mũi tên khi menu được mở */
+}
+
+.active, .collapsible:hover {
+    background-color: white;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+    padding: 0 0px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
 

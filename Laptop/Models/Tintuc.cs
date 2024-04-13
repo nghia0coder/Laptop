@@ -27,7 +27,7 @@ namespace Laptop.Models
         public virtual AppUserModel? Customer { get; set; }
 
         [NotMapped]
-        public IFormFile Img1 { get; set; }
+        public IFormFile? Img1 { get; set; }
 
 }
 }
