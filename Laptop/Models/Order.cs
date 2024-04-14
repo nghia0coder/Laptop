@@ -10,7 +10,7 @@ namespace Laptop.Models
             OrdersDetails = new HashSet<OrdersDetail>();
         }
 
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public DateTime? OrderDate { get; set; }
         public bool Delivered { get; set; }
         public DateTime? DeliveryDate { get; set; }

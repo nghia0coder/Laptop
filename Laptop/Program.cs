@@ -9,6 +9,7 @@ using Laptop.Models;
 using Laptop.Interface;
 using Laptop.Repository;
 using Laptop.Service;
+using Laptop.Models.Momo;
 
 namespace Laptop
 {
@@ -25,17 +26,21 @@ namespace Laptop
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.MaxDepth = 64;
             });
+
 			builder.Services.AddDbContext<LaptopContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
 
 			});
+            builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+            builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
             builder.Services.AddTransient<SendMailService>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddIdentity<AppUserModel, IdentityRole>()
 	.AddEntityFrameworkStores<LaptopContext>().AddDefaultTokenProviders();
-			builder.Services.Configure<IdentityOptions>(options =>
+          
+            builder.Services.Configure<IdentityOptions>(options =>
 			{
 				// Password settings.
 				options.Password.RequireDigit = true;

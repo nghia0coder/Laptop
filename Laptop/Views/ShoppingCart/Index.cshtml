@@ -107,20 +107,20 @@ else
                                             <input type="radio" name="payment" id="payment-1">
                                             <label for="payment-1">
                                                 <span></span>
-                                                Direct Bank Transfer
+                                                MOMO
                                             </label>
                                             <div class="caption">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                <p>Direct Transfer via MOMO</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
                                             <input type="radio" name="payment" id="payment-2">
                                             <label for="payment-2">
                                                 <span></span>
-                                                Cheque Payment
+                                                Payment
                                             </label>
                                             <div class="caption">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                <p>Pay upon delivery</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
@@ -149,7 +149,7 @@ else
                                     {   
                                         if (Model.CartItems.Count > 0)
                                         {
-                                            <a asp-action="DatHang" asp-route-total="@Model.Total" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
+                                            <a asp-action="CreatePaymentUrl" asp-route-total="@Model.Total" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
                                         }
                                         else
                                         {
@@ -209,6 +209,23 @@ else
                 alert("Voucher đã được áp dụng trước đó.");
             }
         });
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var addToCartBtn = document.getElementById('add-to-cart-btn');
+                addToCartBtn.addEventListener('click', function (event) {
+                    var payment1 = document.getElementById('payment-1');
+                    if (payment1.checked) {
+                        // Chuyển hướng đến URL mong muốn nếu phương thức thanh toán MOMO được chọn
+                        window.location.href = 'ShoppingCart/CreatePaymentUrl/@Model';
+                    } else {
+                        // Nếu không chọn MOMO, xử lý logic thêm vào giỏ hàng ở đây
+                        // Ví dụ: Gửi yêu cầu AJAX đến máy chủ để thêm vào giỏ hàng
+                    }
+                    // Ngăn chặn hành vi mặc định của nút "Add to Cart" (ví dụ: submit form)
+                    event.preventDefault();
+                });
+            });
+    </script>
 
     </script>
 

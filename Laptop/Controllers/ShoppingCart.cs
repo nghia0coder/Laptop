@@ -17,17 +17,18 @@ namespace Laptop.Controllers
 	public class ShoppingCart : Controller
 	{
 		private readonly LaptopContext _context;
-   
+        private IMomoService _momoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private UserManager<AppUserModel> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly SendMailService _sendMailService;
       
-		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService)
+		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService, IMomoService momoService)
 		{
 			_context = context;
 			_httpContextAccessor = httpContextAccessor;
             _sendMailService = sendMailService;
+			_momoService = momoService;
 
         }
 
@@ -164,25 +165,30 @@ namespace Laptop.Controllers
 		{
 			return View();
 		}
-		public async Task<IActionResult> DatHangAsync(int total)
+		public async Task<IActionResult> DatHangAsync(string id,string total)
 		{
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			// Check if the shopping cart session exists
 
 			// Add a new order
 			Order ddh = new Order();
-
+			ddh.OrderId = id;
 			ddh.OrderDate = DateTime.Now;
 			ddh.Delivered = false;
 			ddh.Status = false;
 			ddh.CustomerId = userId;
-			ddh.Total = total;
+			ddh.Total = int.Parse(total);
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 
             List<string> sanphams = new List<string>();
             // Add order details
             List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
+
+			if (cart == null)
+			{
+				return Content("jdsjad");
+			}	
 			foreach (var item in cart)
 			{
 				OrdersDetail ctdh = new OrdersDetail();
@@ -190,8 +196,6 @@ namespace Laptop.Controllers
 				ctdh.ProductVarId = item.ProductID;
 				ctdh.Quanity = item.Quanity;
 		
-				
-
 				var product =_context.ProductVariations.FirstOrDefault(x => x.ProductVarId == ctdh.ProductVarId);
 
 				product.QtyinStock -= item.Quanity;
@@ -219,11 +223,23 @@ namespace Laptop.Controllers
                 Body = "Thông tin sản phẩm:\n" + string.Join("\n", sanphams)
             };
             await _sendMailService.SendMail(mailContent);
-            HttpContext.Session.Remove("Cart"); // Clear the shopping cart session
+            HttpContext.Session.Remove("Cart");
+            return PartialView("Success", ddh);
+       
+        }
+        public async Task<IActionResult> CreatePaymentUrl(int total)
+        {
+            var response = await _momoService.CreatePaymentAsync(total);
 
-			// Redirect to the order success page
-			return RedirectToAction("Success");
-		}
+            return Redirect(response.PayUrl);
+        }
+        [HttpGet]
+        public IActionResult PaymentCallBack()
+        {
+            var response = _momoService.PaymentExecuteAsync(HttpContext.Request.Query);
+            return RedirectToAction("DatHang", "ShoppingCart", new { id = response.OrderId, total = response.Amount });
+          
+        }
         public JsonResult ApplyVoucher(string voucherCode,long total)
         {
 			var voucher = _context.Vouchers.Find(voucherCode);
@@ -237,6 +253,7 @@ namespace Laptop.Controllers
             long? newtotal = total - dicount;
             return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal });
         }
+       
 
         public int? TinhTongTien()
 		{

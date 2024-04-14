@@ -130,7 +130,7 @@
 						@if (Model.QtyinStock > 0)
 						{
 							<div class="qty-label">
-								Chọn Số Lượng
+								Choose Quantity
 								<div class="input-number">
 									<input type="number" id="quantityInput" value="1">
 									<button id="unique-item-qty-up">+</button>
@@ -374,32 +374,40 @@
 			@foreach (var item in ListSP)
 			{
 				<div class="col-md-3 col-xs-6">
-					<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductVarId} )">
-						<div class="product">
-							<div class="product-img">
+					<div class="product">
+						<div class="product-img">
+							<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductVarId})">
 								<img src="~/Contents/img/@item.ProductItems.Image1" alt="">
 								<div class="product-label">
 									<span class="sale">-30%</span>
 								</div>
-							</div>
-							<div class="product-body">
-								<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
-								<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()  @item.Ram.RamName.ToUpper() @item.Ssd.Ssdname</a></h3>
-								<h4 class="product-price">@item.Price <del class="product-old-price">@item.OriginPrice</del></h4>
-								<div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							</a>
+						</div>
+						<div class="product-body">
+							<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
+							<h3 class="product-name">
+								<a href="#">
+									@item.ProductItems.Product.ProductName.ToUpper()
+									@item.Ram.RamName.ToUpper() @item.Ssd.Ssdname
+								</a>
+							</h3>
+							<h4 class="product-price">@item.Price <del class="product-old-price">@item.OriginPrice</del></h4>
+							<div class="product-rating"></div>
+							<div class="product-btns">
+								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 							</div>
 						</div>
+						<div class="add-to-cart">
+							<button class="add-to-cart-btn">
+								<i class="fa fa-shopping-cart"></i> add to cart
+							</button>
+						</div>
+					</div>
 				</div>
 			}
+
 
 			<!-- /product -->
 

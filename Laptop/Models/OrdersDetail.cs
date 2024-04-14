@@ -5,7 +5,7 @@ namespace Laptop.Models
 {
     public partial class OrdersDetail
     {
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public int ProductVarId { get; set; }
         public int? Quanity { get; set; }
 
