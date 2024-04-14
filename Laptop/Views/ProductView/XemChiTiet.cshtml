@@ -25,7 +25,7 @@
 	ViewData["Title"] = "Chi Tiết Sản Phẩm";
 	Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
-<div class="custom-model-main">
+@* <div class="custom-model-main">
 	<div class="custom-model-inner">
 		<div class="close-btn">×</div>
 		<div class="custom-model-wrap">
@@ -35,7 +35,19 @@
 		</div>
 	</div>
 	<div class="bg-overlay"></div>
-</div>
+</div> *@
+<section>
+	<span class="overlay"></span>
+	<div class="modal-box">
+		<i class="fa-regular fa-circle-check"></i>
+		<h2>Completed</h2>
+		<h3>You have sucessfully downloaded all the source code files.</h3>
+
+		<div class="buttons">
+			<button class="close-btn">Ok, Close</button>
+		</div>
+	</div>
+</section>
 <!-- SECTION -->
 <div class="section">
 	<!-- container -->
@@ -519,36 +531,36 @@
 
 	
 
-		$('.add-to-cart-btn').click(function (e) {
-			var productId = $('#colorId').val();
-			var quanTity = $('#quantityInput').val();
-			var ram = @Model.RamId;
-			var ssd = @Model.Ssdid;
-			var returnUrl = "@currentUrl";
+		// $('.add-to-cart-btn').click(function (e) {
+		// 	var productId = $('#colorId').val();
+		// 	var quanTity = $('#quantityInput').val();
+		// 	var ram = @Model.RamId;
+		// 	var ssd = @Model.Ssdid;
+		// 	var returnUrl = "@currentUrl";
 
-			$.ajax({
-				url: '@Url.Action("ThemGioHang","ShoppingCart")',
-				type: "GET", // Hoặc "POST", tuỳ vào cấu hình của controller
-				data: {
-					masp: productId,
-					ramId: ram,
-					ssdId : ssd,
-					quantity: quanTity,
-					strURL: returnUrl
-				},
-				success: function (response) {
+		// 	$.ajax({
+		// 		url: '@Url.Action("ThemGioHang","ShoppingCart")',
+		// 		type: "GET", Hoặc "POST", tuỳ vào cấu hình của controller
+		// 		data: {
+		// 			masp: productId,
+		// 			ramId: ram,
+		// 			ssdId : ssd,
+		// 			quantity: quanTity,
+		// 			strURL: returnUrl
+		// 		},
+		// 		success: function (response) {
 
-					$(".custom-model-main").addClass('model-open');
-				},
-				error: function (xhr) {
-					if (xhr.status === 400) {
-						alert(xhr.statusText);
-					} else {
-						alert("Vượt quá số lượng tồn!");
-					}
-				}
-			});
-		});
+		// 			$(".custom-model-main").addClass('model-open');
+		// 		},
+		// 		error: function (xhr) {
+		// 			if (xhr.status === 400) {
+		// 				alert(xhr.statusText);
+		// 			} else {
+		// 				alert("Vượt quá số lượng tồn!");
+		// 			}
+		// 		}
+		// 	});
+		// });
 
 
 		
@@ -625,14 +637,24 @@
 				}
 			});
 		});
+
 		$(".close-btn, .bg-overlay").click(function () {
 			$(".custom-model-main").removeClass('model-open');
 		});
 
-
-
-
-
+	</script>
+	<script>
+		const section = document.querySelector("section"),
+			overlay = document.querySelector(".overlay"),
+			showBtn = document.querySelector(".add-to-cart-btn"),
+			closeBtn = document.querySelector(".close-btn");
+		showBtn.addEventListener("click", () => section.classList.add("active"));
+		overlay.addEventListener("click", () =>
+			section.classList.remove("active")
+		);
+		closeBtn.addEventListener("click", () =>
+			section.classList.remove("active")
+		);
 	</script>
 	<style>
 		.center-button {
