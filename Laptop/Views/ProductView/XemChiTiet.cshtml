@@ -25,8 +25,24 @@
 	ViewData["Title"] = "Chi Tiết Sản Phẩm";
 	Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
+<div class="custom-model-main">
+	<div class="custom-model-inner">
+		<div class="close-btn">×</div>
+		<div class="custom-model-wrap">
+			<div class="pop-up-content-wrap">
+				<strong>Add To Cart Success</strong>
+			</div>
+		</div>
+	</div>
+	<div class="bg-overlay"></div>
+</div>
+
 <!-- SECTION -->
-<div class="section">
+<div class="section" >
+	<div class="alert" style="display:none;">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		Exceeding stock quantity
+	</div>
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
@@ -116,14 +132,17 @@
 					</div>
 
 					<div class="add-to-cart">
-						<div class="qty-label">
-							Qty
-							<div class="input-number">
-								<input type="number" id="quantityInput" value="1"> 
-								<button  id="unique-item-qty-up">+</button>
-								<span class="qty-down">-</span>
+						@if (Model.QtyinStock > 0)
+						{
+							<div class="qty-label">
+								Choose Quantity
+								<div class="input-number">
+									<input type="number" id="quantityInput" value="1">
+									<button id="unique-item-qty-up">+</button>
+									<span class="qty-down">-</span>
+								</div>
 							</div>
-						</div>
+						}
 						@if(Model.QtyinStock > 0)
 						{
 							<div class="add-to-cart">
@@ -133,7 +152,7 @@
 						else
 						{
 							<div class="add-to-cart" style="display: none;">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></button>
+								<button class="add-to-cart-btn" style="margin-top: 49px;"><i class="fa fa-shopping-cart"></i></button>
 							</div>
 						}
 
@@ -360,32 +379,36 @@
 			@foreach (var item in ListSP)
 			{
 				<div class="col-md-3 col-xs-6">
-					<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductVarId} )">
-						<div class="product">
-							<div class="product-img">
+					<div class="product">
+						<div class="product-img">
+							<a href="@Url.Action("XemChiTiet", "ProductView", new { id = item.ProductVarId})">
 								<img src="~/Contents/img/@item.ProductItems.Image1" alt="">
 								<div class="product-label">
 									<span class="sale">-30%</span>
 								</div>
-							</div>
-							<div class="product-body">
-								<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
-								<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()  @item.Ram.RamName.ToUpper() @item.Ssd.Ssdname</a></h3>
-								<h4 class="product-price">@item.Price <del class="product-old-price">@item.OriginPrice</del></h4>
-								<div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							</a>
+						</div>
+						<div class="product-body">
+							<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
+							<h3 class="product-name">
+								<a href="#">
+									@item.ProductItems.Product.ProductName.ToUpper()
+									@item.Ram.RamName.ToUpper() @item.Ssd.Ssdname
+								</a>
+							</h3>
+							<h4 class="product-price">@item.Price <del class="product-old-price">@item.OriginPrice</del></h4>
+							<div class="product-rating"></div>
+							<div class="product-btns">
+								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 							</div>
 						</div>
+					
+					</div>
 				</div>
 			}
+
 
 			<!-- /product -->
 
@@ -515,12 +538,14 @@
 					strURL: returnUrl
 				},
 				success: function (response) {
-					// Xử lý sau khi gửi thành công
-					alert("Product added to cart successfully!");
+
+					$(".custom-model-main").addClass('model-open');
 				},
 				error: function () {
-					// Xử lý lỗi
-					alert("Vượt quá số lượng tồn!");
+					$(".alert").css({
+						"display": "block",
+						"opacity": 1
+					});
 				}
 			});
 		});
@@ -538,7 +563,10 @@
 				$('#quantityInput').val(currentValue);
 			} 
 			else {
-				alert("Số lượng vượt quá số lượng trong kho!");
+				$(".alert").css({
+					"display": "block",
+					"opacity": 1
+				});
 			}
 		});
 
@@ -600,18 +628,99 @@
 				}
 			});
 		});
+		$(".close-btn, .bg-overlay").click(function () {
+			$(".custom-model-main").removeClass('model-open');
+		});
 
 
-		
-		
+
+
 
 	</script>
+	<script>
+		// Get all elements with class="closebtn"
+		var close = document.getElementsByClassName("closebtn");
+		var i;
+
+		// Loop through all close buttons
+		for (i = 0; i < close.length; i++) {
+			// When someone clicks on a close button
+			close[i].onclick = function () {
+
+				// Get the parent of <span class="closebtn"> (<div class="alert">)
+				var div = this.parentElement;
+
+				// Set the opacity of div to 0 (transparent)
+				div.style.opacity = "0";
+
+				// Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+				setTimeout(function () { div.style.display = "none"; }, 600);
+			}
+		}
+	</script>
+
+	<style>
+		.alert {
+			opacity: 1;
+			transition: opacity 0.6s; /* 600ms to fade out */
+		}
+	</style>
 	<style>
 		.center-button {
 			display: block;
 			margin-left: auto;
 			margin-right: auto;
 		}
+	</style>
+	<style>
+		.input-number {
+			position: relative;
+			width: 70px;
+			display: inline-block;
+		}
+
+			.input-number input[type=number] {
+				width: 100%;
+				padding: 5px;
+				text-align: center;
+			}
+
+			.input-number button {
+				position: absolute;
+				top: 0;
+				width: 20px;
+				height: 20px;
+				border: none;
+				background: #f8f9fa;
+				color: #000;
+				cursor: pointer;
+			}
+
+				.input-number button:hover {
+					background: #e9ecef;
+				}
+
+		.qty-down {
+			right: 0;
+			left: 89px;
+		}
+
+	</style>
+	<style>
+		.product-img {
+			width: 100%; /* Giả sử bạn muốn khung hình chiếm 100% chiều rộng của container cha */
+			height: auto; /* Chiều cao tự động tính toán theo tỷ lệ hình ảnh */
+			position: relative; /* Để label có thể được định vị tương đối */
+			overflow: hidden; /* Ngăn không cho hình ảnh tràn ra ngoài khung */
+		}
+
+			.product-img img {
+				width: 100%; /* Chiều rộng của hình ảnh bằng với container */
+				height: 100%; /* Chiều cao của hình ảnh bằng với container */
+				object-fit: cover; /* Giữ nguyên tỷ lệ, che đầy khung, có thể cắt bớt các cạnh */
+				display: block; /* Loại bỏ khoảng cách dưới cùng do thuộc tính inline gây ra */
+			}
+
 	</style>
 }
 	

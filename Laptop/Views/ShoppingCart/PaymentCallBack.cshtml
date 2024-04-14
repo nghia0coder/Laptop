@@ -1,7 +1,7 @@
-﻿@model Order
+﻿@model Laptop.Models.Momo.MomoExecuteResponseModel
 
-@{
-    Layout = "~/Views/Layout/HomeLayout.cshtml";
+@{  
+   
     ViewData["Title"] = "Home Page";
     var postUrl = "tich-hop-thanh-toan-momo-voi-asp-net-core-7d5e4hP";
 }
@@ -9,14 +9,14 @@
 <div class="container mt-5">
     <div class="text-center">
         <h1 class="display-4">Thank You For Your Transfer!</h1>
-        <div class="card mx-auto mt-4" style="max-width: 30rem;margin-left: auto;margin-right: auto;">
+        <div class="card mx-auto mt-4" style="max-width: 30rem;">
             <div class="card-body">
                 <h2 class="card-title text-success">Payment Successful</h2>
                 <p class="card-text">Your payment details are confirmed as follows:</p>
                 <ul class="list-group list-group-flush text-start">
                     <li class="list-group-item">Order ID: <strong>@Model.OrderId</strong></li>
-                    <li class="list-group-item">Amount: <strong>@Model.Total</strong></li>
-                    <li class="list-group-item">Order Info: <strong>@Model.OrderDate</strong></li>
+                    <li class="list-group-item">Amount: <strong>@Model.Amount</strong></li>
+                    <li class="list-group-item">Order Info: <strong>@Model.OrderInfo</strong></li>
                 </ul>
             </div>
         </div>
@@ -26,6 +26,6 @@
 
 <script>
     $(document).ready(function () {
-
+        
     });
 </script>

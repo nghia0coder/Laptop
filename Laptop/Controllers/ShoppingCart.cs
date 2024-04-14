@@ -11,24 +11,27 @@ using Laptop.Models;
 using Laptop.ViewModels;
 using Laptop.Service;
 using Laptop.Interface;
+using Laptop.Services;
 
 namespace Laptop.Controllers
 {
 	public class ShoppingCart : Controller
 	{
 		private readonly LaptopContext _context;
-   
+        private readonly IVnPayService _vnPayService;
+        private IMomoService _momoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private UserManager<AppUserModel> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly SendMailService _sendMailService;
       
-		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService)
+		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService, IMomoService momoService, IVnPayService vnPayService)
 		{
 			_context = context;
 			_httpContextAccessor = httpContextAccessor;
             _sendMailService = sendMailService;
-
+			_momoService = momoService;
+            _vnPayService = vnPayService;
         }
 
 
@@ -61,8 +64,11 @@ namespace Laptop.Controllers
 				.Include(n => n.ProductItems.Product)
 				.FirstOrDefaultAsync(n => n.ProductItems.ProductItemsId == masp && n.RamId == ramId && n.Ssdid == ssdId);
 
-
-            if (quantity == null || quantity == 0)
+			if (quantity < 0)
+			{
+				return BadRequest("Số lượng không hợp lệ");
+			}
+			if (quantity == null || quantity == 0)
 			{
 				quantity = 1;
 			}
@@ -70,8 +76,15 @@ namespace Laptop.Controllers
 			CartItemsModel cartItems = cart.Where(c => c.ProductID == id.ProductVarId).FirstOrDefault();
 			if (cartItems == null)
 			{
+				if (quantity > productVariation.QtyinStock)
+				{
+					return BadRequest("Số lượng vượt quá số lượng trong kho!");
 
-				cart.Add(new CartItemsModel(productVariation, quantity));
+				}
+				else
+				{
+					cart.Add(new CartItemsModel(productVariation, quantity));
+				}
 			}
 			else
 			{	
@@ -84,7 +97,6 @@ namespace Laptop.Controllers
 				}
 			}
 			HttpContext.Session.SetJson("Cart", cart);
-			TempData["success"] = "Thêm vào giỏ hàng thành công";
 			return Redirect(strURL);
 		}
 		public async Task<IActionResult> Decrease(int Id)
@@ -154,33 +166,37 @@ namespace Laptop.Controllers
 		{
 			return View();
 		}
-		public async Task<IActionResult> DatHangAsync()
+		public async Task<IActionResult> DatHangAsync(string id,string total)
 		{
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			// Check if the shopping cart session exists
 
 			// Add a new order
 			Order ddh = new Order();
-
+			ddh.OrderId = id;
 			ddh.OrderDate = DateTime.Now;
 			ddh.Delivered = false;
-			ddh.Status = false;
+			ddh.Status = true;
 			ddh.CustomerId = userId;
+			ddh.Total = int.Parse(total);
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 
             List<string> sanphams = new List<string>();
             // Add order details
             List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
+
+			if (cart == null)
+			{
+				return Content("jdsjad");
+			}	
 			foreach (var item in cart)
 			{
 				OrdersDetail ctdh = new OrdersDetail();
                 ctdh.OrderId = ddh.OrderId;
 				ctdh.ProductVarId = item.ProductID;
 				ctdh.Quanity = item.Quanity;
-				ctdh.Price = item.Total;
-				
-
+		
 				var product =_context.ProductVariations.FirstOrDefault(x => x.ProductVarId == ctdh.ProductVarId);
 
 				product.QtyinStock -= item.Quanity;
@@ -196,7 +212,7 @@ namespace Laptop.Controllers
                 await _context.Entry(ctdh.ProductVar).Reference(pv => pv.Ssd).LoadAsync();
 
                 string productInfo = $"Name: {ctdh.ProductVar.ProductItems.Product.ProductName} {ctdh.ProductVar.Ram.RamName} " +
-                  $"{ctdh.ProductVar.Ssd.Ssdname},Màu : {ctdh.ProductVar.ProductItems.Color.ColorName}, Quantity: {ctdh.Quanity} , Price: {ctdh.Price} VNĐ";
+                  $"{ctdh.ProductVar.Ssd.Ssdname},Màu : {ctdh.ProductVar.ProductItems.Color.ColorName}, Quantity: {ctdh.Quanity} , Price: {ctdh.ProductVar.Price} VNĐ";
                 sanphams.Add(productInfo);
             }
 			_context.SaveChanges();
@@ -208,12 +224,36 @@ namespace Laptop.Controllers
                 Body = "Thông tin sản phẩm:\n" + string.Join("\n", sanphams)
             };
             await _sendMailService.SendMail(mailContent);
-            HttpContext.Session.Remove("Cart"); // Clear the shopping cart session
+            HttpContext.Session.Remove("Cart");
+            return PartialView("Success", ddh);
+       
+        }
+        public async Task<IActionResult> CreatePaymentUrl(long total)
+        {
+            var response = await _momoService.CreatePaymentAsync(total);
+            return Redirect(response.PayUrl);
+        }
+        public IActionResult CreatePaymentVNPAYUrl(long total)
+        {
+            var url = _vnPayService.CreatePaymentUrl(total, HttpContext);
 
-			// Redirect to the order success page
-			return RedirectToAction("Success");
+            return Redirect(url);
+        }
+		[HttpGet]
+		public IActionResult PaymentCallBack()
+		{
+			var response = _momoService.PaymentExecuteAsync(HttpContext.Request.Query);
+			return RedirectToAction("DatHang", "ShoppingCart", new { id = response.OrderId, total = response.Amount });
+
 		}
-        public JsonResult ApplyVoucher(string voucherCode,long total)
+
+		public IActionResult PaymentCallbackVPN()
+		{
+			var response = _vnPayService.PaymentExecute(HttpContext.Request.Query);
+			return RedirectToAction("DatHang", "ShoppingCart", new { id = response.OrderId, total = response.OrderDescription});
+			
+        }
+		public JsonResult ApplyVoucher(string voucherCode,long total)
         {
 			var voucher = _context.Vouchers.Find(voucherCode);
 
@@ -226,8 +266,9 @@ namespace Laptop.Controllers
             long? newtotal = total - dicount;
             return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal });
         }
+       
 
-        public int? TinhTongTien()
+        public long? TinhTongTien()
 		{
 			List<Item> cart = HttpContext.Session.GetJson<List<Item>>("Cart");
 			if (cart == null)

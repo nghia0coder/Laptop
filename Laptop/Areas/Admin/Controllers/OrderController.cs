@@ -87,7 +87,7 @@ namespace Laptop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult ApproveOrders(int? id)
+        public IActionResult ApproveOrders(string? id)
         {
             if (id == null)
             {

@@ -1,21 +1,17 @@
 /* Slider */
-.slick-slider
-{
+.slick-slider {
     position: relative;
-
     display: block;
     box-sizing: border-box;
-
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     -webkit-touch-callout: none;
     -khtml-user-select: none;
     -ms-touch-action: pan-y;
-        touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
+    product slick-slide slick-cloned -webkit-tap-highlight-color: transparent;
 }
 
 .slick-list

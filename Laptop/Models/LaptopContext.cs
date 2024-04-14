@@ -156,9 +156,11 @@ namespace Laptop.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+                entity.Property(e => e.OrderId).HasColumnName("OrderID").HasMaxLength(300);
 
-                entity.Property(e => e.CustomerId)
+				entity.Property(e => e.Total).HasColumnName("PriceTotal");
+
+				entity.Property(e => e.CustomerId)
                     .HasMaxLength(450)
                     .HasColumnName("CustomerID");
 
@@ -181,7 +183,7 @@ namespace Laptop.Models
                 entity.HasKey(e => new { e.OrderId, e.ProductVarId })
                     .HasName("PK_OrdersDetails_1");
 
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+                entity.Property(e => e.OrderId).HasColumnName("OrderID").HasMaxLength(300);
 
                 entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 

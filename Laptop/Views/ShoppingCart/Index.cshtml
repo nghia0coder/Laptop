@@ -18,6 +18,10 @@
 else
 {
     <section class="h-100 h-custom" style="background-color: #fff;">
+        <div class="alert" style="display:none;">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Please Select A Payment Method
+        </div>
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12">
@@ -107,20 +111,20 @@ else
                                             <input type="radio" name="payment" id="payment-1">
                                             <label for="payment-1">
                                                 <span></span>
-                                                Direct Bank Transfer
+                                                MOMO
                                             </label>
                                             <div class="caption">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                <p>Direct Transfer via MOMO</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
                                             <input type="radio" name="payment" id="payment-2">
                                             <label for="payment-2">
                                                 <span></span>
-                                                Cheque Payment
+                                                    VNPAY
                                             </label>
                                             <div class="caption">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                <p>Pay By Bank Card</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
@@ -149,7 +153,7 @@ else
                                     {   
                                         if (Model.CartItems.Count > 0)
                                         {
-                                            <a asp-action="DatHang" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
+                                            <a class="primary-btn order-submit" id="place-order-btn">Place order</a>
                                         }
                                         else
                                         {
@@ -209,8 +213,38 @@ else
                 alert("Voucher đã được áp dụng trước đó.");
             }
         });
+       
+         
+
+
 
     </script>
+      
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var placeOrderBtn = document.getElementById("place-order-btn");
+            var momoRadio = document.getElementById("payment-1");
+            var vnPayRadio = document.getElementById("payment-2");
+            var urlMomo = "ShoppingCart/CreatePaymentUrl?total=@Model.Total";
+            var urlVNPAY = "ShoppingCart/CreatePaymentVNPAYUrl?total=@Model.Total";
+            placeOrderBtn.addEventListener("click", function (event) {
+                if (momoRadio.checked) {
+          
+                    window.location.href = urlMomo;
+                }
+                else if (vnPayRadio.checked) {
+                    window.location.href = urlVNPAY;
+                }
+                else {
+                    $(".alert").css({
+                        "display": "block",
+                        "opacity": 1
+                    });
+                }
+            });
+        });
+    </script>
+
 
 }
 

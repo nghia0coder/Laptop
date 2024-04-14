@@ -61,7 +61,7 @@ namespace Laptop.Controllers
             //Gán vào viewbag
             ViewBag.ListSelling = lstSelling;
 
-            //List CategoryId bằng 3
+       
             var lstDTM = _context.Products
                  .Where(n => n.Hot)
                  .Include(p => p.ProductItems)
@@ -79,8 +79,12 @@ namespace Laptop.Controllers
 			//Gán vào viewbag
 			ViewBag.ListDTM = lstDTM;
 
-            
-            
+
+            ViewBag.News = _context.Tintucs.
+                Where(n => n.Hot)
+                .Include(n => n.Brand)
+                .OrderBy(n => n.CreatedDate)
+                .ToList();
 
             return View();
         }
