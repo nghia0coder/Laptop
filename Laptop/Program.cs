@@ -10,6 +10,7 @@ using Laptop.Interface;
 using Laptop.Repository;
 using Laptop.Service;
 using Laptop.Models.Momo;
+using Laptop.Services;
 
 namespace Laptop
 {
@@ -36,6 +37,7 @@ namespace Laptop
             builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
             builder.Services.AddTransient<SendMailService>();
+            builder.Services.AddScoped<IVnPayService, VnPayService>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddIdentity<AppUserModel, IdentityRole>()
 	.AddEntityFrameworkStores<LaptopContext>().AddDefaultTokenProviders();

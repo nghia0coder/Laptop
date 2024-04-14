@@ -61,7 +61,7 @@ namespace Laptop.Controllers
             //Gán vào viewbag
             ViewBag.ListSelling = lstSelling;
 
-            //List CategoryId bằng 3
+       
             var lstDTM = _context.Products
                  .Where(n => n.Hot)
                  .Include(p => p.ProductItems)

@@ -11,25 +11,27 @@ using Laptop.Models;
 using Laptop.ViewModels;
 using Laptop.Service;
 using Laptop.Interface;
+using Laptop.Services;
 
 namespace Laptop.Controllers
 {
 	public class ShoppingCart : Controller
 	{
 		private readonly LaptopContext _context;
+        private readonly IVnPayService _vnPayService;
         private IMomoService _momoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private UserManager<AppUserModel> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly SendMailService _sendMailService;
       
-		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService, IMomoService momoService)
+		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService, IMomoService momoService, IVnPayService vnPayService)
 		{
 			_context = context;
 			_httpContextAccessor = httpContextAccessor;
             _sendMailService = sendMailService;
 			_momoService = momoService;
-
+            _vnPayService = vnPayService;
         }
 
 
@@ -95,7 +97,6 @@ namespace Laptop.Controllers
 				}
 			}
 			HttpContext.Session.SetJson("Cart", cart);
-			TempData["success"] = "Thêm vào giỏ hàng thành công";
 			return Redirect(strURL);
 		}
 		public async Task<IActionResult> Decrease(int Id)
@@ -175,7 +176,7 @@ namespace Laptop.Controllers
 			ddh.OrderId = id;
 			ddh.OrderDate = DateTime.Now;
 			ddh.Delivered = false;
-			ddh.Status = false;
+			ddh.Status = true;
 			ddh.CustomerId = userId;
 			ddh.Total = int.Parse(total);
 			_context.Orders.Add(ddh);
@@ -227,20 +228,32 @@ namespace Laptop.Controllers
             return PartialView("Success", ddh);
        
         }
-        public async Task<IActionResult> CreatePaymentUrl(int total)
+        public async Task<IActionResult> CreatePaymentUrl(long total)
         {
             var response = await _momoService.CreatePaymentAsync(total);
-
             return Redirect(response.PayUrl);
         }
-        [HttpGet]
-        public IActionResult PaymentCallBack()
+        public IActionResult CreatePaymentVNPAYUrl(long total)
         {
-            var response = _momoService.PaymentExecuteAsync(HttpContext.Request.Query);
-            return RedirectToAction("DatHang", "ShoppingCart", new { id = response.OrderId, total = response.Amount });
-          
+            var url = _vnPayService.CreatePaymentUrl(total, HttpContext);
+
+            return Redirect(url);
         }
-        public JsonResult ApplyVoucher(string voucherCode,long total)
+		[HttpGet]
+		public IActionResult PaymentCallBack()
+		{
+			var response = _momoService.PaymentExecuteAsync(HttpContext.Request.Query);
+			return RedirectToAction("DatHang", "ShoppingCart", new { id = response.OrderId, total = response.Amount });
+
+		}
+
+		public IActionResult PaymentCallbackVPN()
+		{
+			var response = _vnPayService.PaymentExecute(HttpContext.Request.Query);
+			return RedirectToAction("DatHang", "ShoppingCart", new { id = response.OrderId, total = response.OrderDescription});
+			
+        }
+		public JsonResult ApplyVoucher(string voucherCode,long total)
         {
 			var voucher = _context.Vouchers.Find(voucherCode);
 
@@ -255,7 +268,7 @@ namespace Laptop.Controllers
         }
        
 
-        public int? TinhTongTien()
+        public long? TinhTongTien()
 		{
 			List<Item> cart = HttpContext.Session.GetJson<List<Item>>("Cart");
 			if (cart == null)

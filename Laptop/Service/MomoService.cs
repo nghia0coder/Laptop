@@ -19,7 +19,7 @@ namespace Laptop.Service
             _options = options;
         }
 
-        public async Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(int total)
+        public async Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(long total)
         {
             
             Order model = new Order();

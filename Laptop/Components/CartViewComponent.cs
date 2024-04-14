@@ -48,7 +48,7 @@ namespace Laptop.Components
             }
             return cart;
         }
-        public int? TinhTongTien()
+        public long? TinhTongTien()
         {
             List<Item> cart = HttpContext.Session.GetJson<List<Item>>("Cart");
             if (cart == null)

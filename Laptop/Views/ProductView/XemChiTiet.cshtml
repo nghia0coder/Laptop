@@ -36,8 +36,13 @@
 	</div>
 	<div class="bg-overlay"></div>
 </div>
+
 <!-- SECTION -->
-<div class="section">
+<div class="section" >
+	<div class="alert" style="display:none;">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		Exceeding stock quantity
+	</div>
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
@@ -399,11 +404,7 @@
 								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 							</div>
 						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn" style="margin-top: 20px">
-								<i class="fa fa-shopping-cart"></i> add to cart
-							</button>
-						</div>
+					
 					</div>
 				</div>
 			}
@@ -540,12 +541,11 @@
 
 					$(".custom-model-main").addClass('model-open');
 				},
-				error: function (xhr) {
-					if (xhr.status === 400) {
-						alert(xhr.statusText);
-					} else {
-						alert("Vượt quá số lượng tồn!");
-					}
+				error: function () {
+					$(".alert").css({
+						"display": "block",
+						"opacity": 1
+					});
 				}
 			});
 		});
@@ -563,7 +563,10 @@
 				$('#quantityInput').val(currentValue);
 			} 
 			else {
-				alert("Số lượng vượt quá số lượng trong kho!");
+				$(".alert").css({
+					"display": "block",
+					"opacity": 1
+				});
 			}
 		});
 
@@ -634,6 +637,34 @@
 
 
 	</script>
+	<script>
+		// Get all elements with class="closebtn"
+		var close = document.getElementsByClassName("closebtn");
+		var i;
+
+		// Loop through all close buttons
+		for (i = 0; i < close.length; i++) {
+			// When someone clicks on a close button
+			close[i].onclick = function () {
+
+				// Get the parent of <span class="closebtn"> (<div class="alert">)
+				var div = this.parentElement;
+
+				// Set the opacity of div to 0 (transparent)
+				div.style.opacity = "0";
+
+				// Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+				setTimeout(function () { div.style.display = "none"; }, 600);
+			}
+		}
+	</script>
+
+	<style>
+		.alert {
+			opacity: 1;
+			transition: opacity 0.6s; /* 600ms to fade out */
+		}
+	</style>
 	<style>
 		.center-button {
 			display: block;
@@ -673,6 +704,22 @@
 			right: 0;
 			left: 89px;
 		}
+
+	</style>
+	<style>
+		.product-img {
+			width: 100%; /* Giả sử bạn muốn khung hình chiếm 100% chiều rộng của container cha */
+			height: auto; /* Chiều cao tự động tính toán theo tỷ lệ hình ảnh */
+			position: relative; /* Để label có thể được định vị tương đối */
+			overflow: hidden; /* Ngăn không cho hình ảnh tràn ra ngoài khung */
+		}
+
+			.product-img img {
+				width: 100%; /* Chiều rộng của hình ảnh bằng với container */
+				height: 100%; /* Chiều cao của hình ảnh bằng với container */
+				object-fit: cover; /* Giữ nguyên tỷ lệ, che đầy khung, có thể cắt bớt các cạnh */
+				display: block; /* Loại bỏ khoảng cách dưới cùng do thuộc tính inline gây ra */
+			}
 
 	</style>
 }

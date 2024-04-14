@@ -18,6 +18,10 @@
 else
 {
     <section class="h-100 h-custom" style="background-color: #fff;">
+        <div class="alert" style="display:none;">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Please Select A Payment Method
+        </div>
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12">
@@ -117,10 +121,10 @@ else
                                             <input type="radio" name="payment" id="payment-2">
                                             <label for="payment-2">
                                                 <span></span>
-                                                Payment
+                                                    VNPAY
                                             </label>
                                             <div class="caption">
-                                                <p>Pay upon delivery</p>
+                                                <p>Pay By Bank Card</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
@@ -149,7 +153,7 @@ else
                                     {   
                                         if (Model.CartItems.Count > 0)
                                         {
-                                            <a asp-action="CreatePaymentUrl" asp-route-total="@Model.Total" asp-controller="ShoppingCart" class="primary-btn order-submit">Place order</a>
+                                            <a class="primary-btn order-submit" id="place-order-btn">Place order</a>
                                         }
                                         else
                                         {
@@ -209,25 +213,38 @@ else
                 alert("Voucher đã được áp dụng trước đó.");
             }
         });
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var addToCartBtn = document.getElementById('add-to-cart-btn');
-                addToCartBtn.addEventListener('click', function (event) {
-                    var payment1 = document.getElementById('payment-1');
-                    if (payment1.checked) {
-                        // Chuyển hướng đến URL mong muốn nếu phương thức thanh toán MOMO được chọn
-                        window.location.href = 'ShoppingCart/CreatePaymentUrl/@Model';
-                    } else {
-                        // Nếu không chọn MOMO, xử lý logic thêm vào giỏ hàng ở đây
-                        // Ví dụ: Gửi yêu cầu AJAX đến máy chủ để thêm vào giỏ hàng
-                    }
-                    // Ngăn chặn hành vi mặc định của nút "Add to Cart" (ví dụ: submit form)
-                    event.preventDefault();
-                });
-            });
-    </script>
+       
+         
+
+
 
     </script>
+      
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var placeOrderBtn = document.getElementById("place-order-btn");
+            var momoRadio = document.getElementById("payment-1");
+            var vnPayRadio = document.getElementById("payment-2");
+            var urlMomo = "ShoppingCart/CreatePaymentUrl?total=@Model.Total";
+            var urlVNPAY = "ShoppingCart/CreatePaymentVNPAYUrl?total=@Model.Total";
+            placeOrderBtn.addEventListener("click", function (event) {
+                if (momoRadio.checked) {
+          
+                    window.location.href = urlMomo;
+                }
+                else if (vnPayRadio.checked) {
+                    window.location.href = urlVNPAY;
+                }
+                else {
+                    $(".alert").css({
+                        "display": "block",
+                        "opacity": 1
+                    });
+                }
+            });
+        });
+    </script>
+
 
 }
 
