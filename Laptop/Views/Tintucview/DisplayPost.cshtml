@@ -250,48 +250,8 @@
         <div class="jeg-body-container home">
             <div id="left-sidebar-menu" class="hidden_menu">
                 <div>
-                    <div class="left-sidebar-menu__wrapper hidden_menu_taxonomy left-sidebar-menu__wrapper_primary">
-                        <ul>
-                            <li class="menu-item ">
-                                <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Index">
-							<i class="left-sidebar-menu--icon " style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/home-3.png) "></i>
-						Trang chủ</a>
-                               
-                            </li>       
-                            @foreach (var item in Brandname)
-                            {
-                                <li class="menu-item ">
-                                    <a class="menu_icon_pc" data-wpel-link="exclude" asp-controller="Tintucview" asp-action="Displaybrandpost" asp-route-brandid="@item.BrandId" >
-                                        <i class="left-sidebar-menu--icon " style="background-image: url(https://cellphones.com.vn/sforum/storage/2023/03/22/smartphone-icon.png) "></i>
-                                        @item.BrandName
-                                    </a>
-                                </li>
-                            }
+                    @await Html.PartialAsync("~/Views/Shared/Partial/_LeftsidebarPartial.cshtml", Brandname)
 
-
-                            <script>
-                                function handleChildsMenu(element) {
-                                    // Hide all other child elements
-                                    jQuery('.childs-menu-item').not(jQuery(element).siblings('.childs-menu-item')).hide();
-
-                                    // Toggle the visibility of the clicked element's child
-                                    jQuery(element).siblings('.childs-menu-item').toggle("active");
-                                }
-                            </script>
-
-                            <style>
-                                .menu-icon-left {
-                                    right: -10px !important;
-                                }
-
-                                $media only screen and (max-width: 600px) {
-                                    .menu-icon-left {
-                                        display: none;
-                                    }
-                                }
-                            </style>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div id="right-content" class="right-content-detail_post">
@@ -383,7 +343,7 @@
                                                             <div class="bg-white p-2" style="box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);">
                                                                 <div class="d-flex flex-row user-info">
 
-                                                                    <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">@Model.Customer.UserName</span><span class="date text-black-50">Created Date : @item.CreatedDate</span></div>
+                                                                    <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">@item.Customer.UserName</span><span class="date text-black-50">Created Date : @item.CreatedDate</span></div>
                                                                 </div>
                                                                 <div class="mt-2">
                                                                     <p class="comment-text">@item.Comment</p>
@@ -1154,5 +1114,22 @@
 
 
 </body>
+@section Scripts{
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
 
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+}
 </html>

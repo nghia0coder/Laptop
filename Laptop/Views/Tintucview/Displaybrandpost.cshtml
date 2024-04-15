@@ -67,14 +67,14 @@
 
     <div class="jeg_viewport">
         
-        <div class="jeg-body-container home wrap-category">
+        <div class="jeg-body-container home wrap-category" >
             <div id="left-sidebar-menu">
                 <div>
                     @await Html.PartialAsync("~/Views/Shared/Partial/_LeftsidebarPartial.cshtml", Brandname)
 
                 </div>
             </div>
-            <div id="right-content" class="right-content-index">
+            <div id="right-content" class="right-content-index" style="z-index: 999">
                 <div class="elementor-widget-container tag-head detail-head">
                     <div class="jeg_custom_breadcrumb_wrapper">
                         <div id="breadcrumbs">
@@ -97,7 +97,7 @@
                                         {
                 <div class="elementor-widget-container_tintuccapnhat__index">
                     <a href="https://localhost:7266/Tintucview">
-                    <h2 class="elementor-heading-title">Tin mới nhất</h2>
+                            <h2 class="elementor-heading-title">Tin mới nhất</h2>
                 </a>
                 </div>
             }
@@ -105,7 +105,7 @@
             {
                 <div class="elementor-widget-container_tintuccapnhat__index">
                     <a href="https://localhost:7266/Tintucview">
-                        <h2 class="elementor-heading-title">Tin mới nhất</h2>
+                            <h2 class="elementor-heading-title">Tin mới nhất về @Model.FirstOrDefault().Brand.BrandName</h2>
                     </a>
                 </div>
             }
