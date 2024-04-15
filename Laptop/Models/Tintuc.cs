@@ -24,6 +24,9 @@ namespace Laptop.Models
 
         public string CustomerId { get; set; }
 
+
+
+        public virtual ICollection<PostComment> PostComments { get; set; }
         public virtual AppUserModel? Customer { get; set; }
 
         [NotMapped]

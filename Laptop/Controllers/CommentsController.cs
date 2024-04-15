@@ -22,10 +22,7 @@ namespace Laptop.Controllers
 
             
 				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-				if (userId == null)
-                {
-                    return Content("Con cac");
-                }
+				
 				productComment.CreatedBy = userId;
                 productComment.Ratings = rating;
                 productComment.CreateDate = DateTime.Now;
