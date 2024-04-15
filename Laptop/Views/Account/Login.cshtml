@@ -1,7 +1,9 @@
-﻿@model UserModel
+﻿@using Microsoft.AspNetCore.Identity
+@model UserModel
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+@inject SignInManager<AppUserModel> _signInManager
 <!DOCTYPE html>
 <!---Coding By CoderGirl | www.codinglabweb.com--->
 <html lang="en">
@@ -45,6 +47,36 @@
                    
                 </span>
             </div>
+        </div>
+        <div class="text-center">
+            <h1 class="display-4">External Login Code Mega</h1>
+            @{
+                var loginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();    
+               <form asp-controller="Account" asp-action="ExternalLogin" method="POST" class="form-horizontal" style="text-align: center">
+                        @foreach (var provider in loginProviders)
+                        {
+                            if (string.Equals(provider.Name, "facebook", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <button type="submit"
+                                        class="btn btn-lg btn-facebook btn-block text-uppercase"
+                                        name="provider" value="@provider.Name"
+                                        title="sử dụng tài khoản @provider.DisplayName của bạn để đăng nhập hoặc đăng ký">
+                                    <i class="fab fa-facebook-f mr-2"></i> Login Facebook
+                                </button>
+                            }
+                            else if (string.Equals(provider.Name, "google", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <button type="submit"
+                                        class="btn btn-lg btn-google btn-block text-uppercase"
+                                        name="provider" value="@provider.Name"
+                                        title="sử dụng tài khoản @provider.DisplayName của bạn để đăng nhập hoặc đăng ký">
+                                    <i class="fab fa-google mr-2"></i> Login Google
+                                </button>
+                            }
+                        }
+                    </form>
+                
+            }
         </div>
     </div>
 </body>

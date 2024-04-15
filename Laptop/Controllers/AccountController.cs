@@ -1,6 +1,8 @@
 ﻿using Laptop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Laptop.Controllers
 {
@@ -69,6 +71,65 @@ namespace Laptop.Controllers
                 return View("Register");
             }    
         
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string provider, string returnUrl = "")
+        {
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Authenticate", new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "")
+        {
+            try
+            {
+                var external = await _signInManager.GetExternalLoginInfoAsync();
+
+                var user = new UserFromExternalDto()
+                {
+                    Email = external.Principal.FindFirstValue(ClaimTypes.Email),
+                    Provider = external.ProviderDisplayName,
+                    Name = external.Principal.Identity?.Name ?? ""
+                };
+
+                var userExists = await _userManager.FindByEmailAsync(user.Email);
+
+                if (userExists != null)
+                {
+                    await _signInManager.SignInAsync(userExists, true);
+                }
+                else
+                {
+                    var identityUser = new AppUserModel()
+                    {
+                        Email = user.Email,
+                        UserName = user.Email.Split("@")[0],
+                        NormalizedEmail = user.Email.ToUpper(),
+                        NormalizedUserName = user.Email.Split("@")[0].ToUpper(),
+                    };
+
+                    const string defaultPassword = "CodeMega@123";
+
+                    await _userManager.CreateAsync(identityUser, defaultPassword);
+
+                    var newUser = await _userManager.FindByEmailAsync(user.Email);
+
+                    await _signInManager.SignInAsync(newUser, true);
+                }
+
+                // TO DO HERE
+                // Code tiếp phần lưu các thông tin khác người dùng ở đây
+
+                return View("UserInformation", user);
+            }
+            catch (Exception)
+            {
+                return new RedirectResult($"~/#error-oauth2");
+            }
         }
         public async Task<IActionResult> Logout()
         {

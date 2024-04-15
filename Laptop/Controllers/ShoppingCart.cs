@@ -228,7 +228,66 @@ namespace Laptop.Controllers
             return PartialView("Success", ddh);
        
         }
-        public async Task<IActionResult> CreatePaymentUrl(long total)
+		public async Task<IActionResult> Payment(string total)
+		{
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			// Check if the shopping cart session exists
+
+			// Add a new order
+			Order ddh = new Order();
+			ddh.OrderId = DateTime.UtcNow.Ticks.ToString();
+			ddh.OrderDate = DateTime.Now;
+			ddh.Delivered = false;
+			ddh.Status = false;
+			ddh.CustomerId = userId;
+			ddh.Total = int.Parse(total);
+			_context.Orders.Add(ddh);
+			_context.SaveChanges();
+
+			List<string> sanphams = new List<string>();
+			// Add order details
+			List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
+
+			
+			foreach (var item in cart)
+			{
+				OrdersDetail ctdh = new OrdersDetail();
+				ctdh.OrderId = ddh.OrderId;
+				ctdh.ProductVarId = item.ProductID;
+				ctdh.Quanity = item.Quanity;
+
+				var product = _context.ProductVariations.FirstOrDefault(x => x.ProductVarId == ctdh.ProductVarId);
+
+				product.QtyinStock -= item.Quanity;
+
+
+				_context.OrdersDetails.Add(ctdh);
+
+				await _context.Entry(ctdh).Reference(p => p.ProductVar).LoadAsync();
+				await _context.Entry(ctdh.ProductVar).Reference(pv => pv.ProductItems).LoadAsync();
+				await _context.Entry(ctdh.ProductVar.ProductItems).Reference(pv => pv.Product).LoadAsync();
+				await _context.Entry(ctdh.ProductVar.ProductItems).Reference(pv => pv.Color).LoadAsync();
+				await _context.Entry(ctdh.ProductVar).Reference(pv => pv.Ram).LoadAsync();
+				await _context.Entry(ctdh.ProductVar).Reference(pv => pv.Ssd).LoadAsync();
+
+				string productInfo = $"Name: {ctdh.ProductVar.ProductItems.Product.ProductName} {ctdh.ProductVar.Ram.RamName} " +
+				  $"{ctdh.ProductVar.Ssd.Ssdname},Màu : {ctdh.ProductVar.ProductItems.Color.ColorName}, Quantity: {ctdh.Quanity} , Price: {ctdh.ProductVar.Price} VNĐ";
+				sanphams.Add(productInfo);
+			}
+			_context.SaveChanges();
+
+			var mailContent = new MailContent
+			{
+				To = "nghialmao@gmail.com",
+				Subject = "Đơn hàng mới",
+				Body = "Thông tin sản phẩm:\n" + string.Join("\n", sanphams)
+			};
+			await _sendMailService.SendMail(mailContent);
+			HttpContext.Session.Remove("Cart");
+			return PartialView("Success", ddh);
+
+		}
+		public async Task<IActionResult> CreatePaymentUrl(long total)
         {
             var response = await _momoService.CreatePaymentAsync(total);
             return Redirect(response.PayUrl);

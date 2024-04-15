@@ -33,10 +33,19 @@ namespace Laptop
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
 
 			});
-            builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+		
+			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
             builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
             builder.Services.AddTransient<SendMailService>();
+            builder.Services.AddAuthentication()
+					.AddFacebook(options =>
+					{
+						options.AppId = builder.Configuration["Facebook:AppId"];
+						options.AppSecret = builder.Configuration["Facebook:AppSecret"];
+						options.SaveTokens = true;
+						options.CallbackPath = builder.Configuration["Facebook:CallbackPath"];
+					});
             builder.Services.AddScoped<IVnPayService, VnPayService>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddIdentity<AppUserModel, IdentityRole>()

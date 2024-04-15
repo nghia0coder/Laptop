@@ -131,10 +131,10 @@ else
                                             <input type="radio" name="payment" id="payment-3">
                                             <label for="payment-3">
                                                 <span></span>
-                                                Paypal System
+                                                Pay Later
                                             </label>
                                             <div class="caption">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                <p>Payment after receiving the items</p>
                                             </div>
                                         </div>
                                     </div>
@@ -225,8 +225,10 @@ else
             var placeOrderBtn = document.getElementById("place-order-btn");
             var momoRadio = document.getElementById("payment-1");
             var vnPayRadio = document.getElementById("payment-2");
+            var paylater = document.getElementById("payment-3");
             var urlMomo = "ShoppingCart/CreatePaymentUrl?total=@Model.Total";
             var urlVNPAY = "ShoppingCart/CreatePaymentVNPAYUrl?total=@Model.Total";
+            var urlPay = "ShoppingCart/Payment?total=@Model.Total";
             placeOrderBtn.addEventListener("click", function (event) {
                 if (momoRadio.checked) {
           
@@ -234,6 +236,10 @@ else
                 }
                 else if (vnPayRadio.checked) {
                     window.location.href = urlVNPAY;
+                }
+                else if (paylater.checked)
+                {
+                    window.location.href = urlPay;
                 }
                 else {
                     $(".alert").css({
