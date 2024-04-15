@@ -76,7 +76,7 @@ namespace Laptop.Controllers
         [AllowAnonymous]
         public IActionResult ExternalLogin(string provider, string returnUrl = "")
         {
-            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Authenticate", new { returnUrl });
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
@@ -110,11 +110,14 @@ namespace Laptop.Controllers
                         UserName = user.Email.Split("@")[0],
                         NormalizedEmail = user.Email.ToUpper(),
                         NormalizedUserName = user.Email.Split("@")[0].ToUpper(),
+                        Address = ""
                     };
 
                     const string defaultPassword = "CodeMega@123";
 
                     await _userManager.CreateAsync(identityUser, defaultPassword);
+
+                    IdentityResult addToRoleResult = await _userManager.AddToRoleAsync(identityUser, "User");
 
                     var newUser = await _userManager.FindByEmailAsync(user.Email);
 
@@ -124,14 +127,14 @@ namespace Laptop.Controllers
                 // TO DO HERE
                 // Code tiếp phần lưu các thông tin khác người dùng ở đây
 
-                return View("UserInformation", user);
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception)
             {
                 return new RedirectResult($"~/#error-oauth2");
             }
         }
-        public async Task<IActionResult> Logout()
+            public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
