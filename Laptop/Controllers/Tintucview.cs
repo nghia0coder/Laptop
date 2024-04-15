@@ -62,7 +62,7 @@ namespace Laptop.Controllers
             var post = _context.Tintucs
                 .Where(p => p.PostID == postid)
                 .Include(p => p.Brand)
-                .Include(p=> p.PostComments)
+                .Include(p=> p.PostComments).ThenInclude(p=>p.Customer)
                 .Include(p=> p.Customer)
                 .OrderByDescending(p => p.CreatedDate)
                 .FirstOrDefault();

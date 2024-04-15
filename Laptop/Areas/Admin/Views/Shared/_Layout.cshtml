@@ -131,14 +131,18 @@
                                 <a asp-controller="Invoice" asp-action="DSSPHetHang" class="nav-link">Sản phầm gần hết</a>
                             </nav>
                         </div>
-                        <a asp-area="Admin" asp-controller="Tintucs" asp-action="Index" class="nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tin Tức
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsNewsManagement" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Quản Lý Tin Tức
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a asp-area="Admin" asp-controller="Tintucs" asp-action="Displayindex" class="nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Duyệt tin tức member
-                        </a>
+                        <div class="collapse" id="collapseLayoutsNewsManagement" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a asp-controller="Tintucs" asp-action="Create" class="nav-link">Tạo Tin Tức</a>
+                                <a asp-controller="Tintucs" asp-action="Index" class="nav-link">Tin Tức</a>
+                                <a asp-controller="Tintucs" asp-action="Displayindex" class="nav-link">Duyệt tin SiuMember</a>
+                            </nav>
+                        </div>
 
 
             

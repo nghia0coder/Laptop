@@ -35,7 +35,7 @@ namespace Laptop.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             
-            var laptopContext =  _context.Tintucs.Include(t => t.Brand).ToList();
+            var laptopContext =  _context.Tintucs.Include(t => t.Brand).OrderByDescending(p=>p.CreatedDate).ToList();
             return View(laptopContext);
         }
         public async Task<IActionResult> Displayindex()
