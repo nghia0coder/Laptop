@@ -13,6 +13,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login & Registration Form | CoderGirl</title>
     <!---Custom CSS File--->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
     <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
@@ -46,10 +48,12 @@
                     </a>
                    
                 </span>
+                <br />
+                 <span>Other sign-in methods</span>
             </div>
         </div>
+        
         <div class="text-center">
-            <h1 class="display-4">External Login Code Mega</h1>
             @{
                 var loginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();    
                <form asp-controller="Account" asp-action="ExternalLogin" method="POST" class="form-horizontal" style="text-align: center">
@@ -58,11 +62,12 @@
                             if (string.Equals(provider.Name, "facebook", StringComparison.OrdinalIgnoreCase))
                             {
                                 <button type="submit"
-                                        class="btn btn-lg btn-facebook btn-block text-uppercase"
-                                        name="provider" value="@provider.Name"
-                                        title="sử dụng tài khoản @provider.DisplayName của bạn để đăng nhập hoặc đăng ký">
-                                    <i class="fab fa-facebook-f mr-2"></i> Login Facebook
+                                    class="btn btn-lg btn-facebook btn-block text-uppercase"
+                                    name="provider" value="@provider.Name"
+                                    title="Sử dụng tài khoản @provider.DisplayName của bạn để đăng nhập hoặc đăng ký">
+                                <i class="fab fa-facebook-f mr-2"></i> Login Facebook
                                 </button>
+
                             }
                             else if (string.Equals(provider.Name, "google", StringComparison.OrdinalIgnoreCase))
                             {
@@ -81,3 +86,12 @@
     </div>
 </body>
 </html>
+
+<style>
+    .btn-facebook {
+        background-color: #3b5998;
+        color: white;
+    }
+
+</style>
+                                     
