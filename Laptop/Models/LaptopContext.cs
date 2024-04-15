@@ -35,7 +35,7 @@ namespace Laptop.Models
         public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
-       
+        public virtual DbSet<PostComment> PostComments { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -136,6 +136,10 @@ namespace Laptop.Models
 
                 entity.Property(e => e.CreatedDate).HasColumnType("date2");
 
+
+                
+
+
                 entity.Property(e => e.CustomerId)
                     .HasMaxLength(450)
                     .HasColumnName("CustomerId");
@@ -152,6 +156,35 @@ namespace Laptop.Models
                     .HasConstraintName("FK_Tintuc_Brand");
 
 
+            });
+            modelBuilder.Entity<PostComment>(entity =>
+            {
+                entity.HasKey(e => e.PostCommentID);
+
+                entity.ToTable("PostComment");
+
+                entity.Property(e => e.PostCommentID).HasColumnName("PostCommentID");
+
+                entity.Property(e => e.Comment).HasColumnName("Comment");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("date2");
+
+                entity.Property(e => e.CustomerId)
+                     .HasMaxLength(450)
+                     .HasColumnName("CustomerId");
+
+                entity.Property(e => e.PostID).HasColumnName("PostID");
+
+                entity.HasOne(d => d.Tintuc)
+                    .WithMany(p => p.PostComments)
+                    .HasForeignKey(d => d.PostID)
+                    .HasConstraintName("FK_PostComment_Tintuc");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.PostComments)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PostComment_AspNetUsers");
             });
 
             modelBuilder.Entity<Order>(entity =>

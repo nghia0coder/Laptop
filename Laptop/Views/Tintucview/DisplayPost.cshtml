@@ -1,8 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
     @model Laptop.Models.Tintuc
+    @using Microsoft.AspNetCore.Http.Extensions
 @{
     IEnumerable<Brand> Brandname = ViewBag.Brandname as IEnumerable<Brand>;
+    string currentUrl = Context.Request.GetDisplayUrl();
 }
 <head>
     <meta charset="UTF-8" />
@@ -374,11 +376,86 @@
 
     
     </div>
+                                                    <p></p>
+                                                    <b>Nếu bạn đang tìm kiếm một chiếc laptop cho nhu cầu giải trí, hãy tham khảo thêm các sản phẩm hiện đang được bán tại <a href='https://localhost:7266'><b>SiuLaptop</b></a></b>
+                                                    <p></p>
+                                                    
+                                                                <div class="d-flex flex-column comment-section">
+                                                        @foreach (var item in Model.PostComments.OrderBy(n => n.CreatedDate))
+                                                        {
+                                                            <div class="bg-white p-2" style="box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);">
+                                                                <div class="d-flex flex-row user-info">
+
+                                                                    <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">@Model.Customer.UserName</span><span class="date text-black-50">Created Date : @item.CreatedDate</span></div>
+                                                                </div>
+                                                                <div class="mt-2">
+                                                                    <p class="comment-text">@item.Comment</p>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        <div class="bg-white">
+                                                                        <div class="d-flex flex-row fs-12">
+                                                                            
+                                                                            <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                    <form asp-controller="PostComment" asp-action="Create" method="post" asp-route-currentUrl="@currentUrl">
+                                                                        <input type="hidden" name="PostID" value="@Model.PostID"/>
+                                                                    <div class="bg-light p-2">
+                                                                        
+                                                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="~/contents/img/siulaptop.png" width="80">
+                                                               
+                                                                    <textarea name="Comment" class="input form-control ml-1 shadow-none textarea"></textarea>
+                                                                    
+                                                                </div>
+                                                                        <div class="mt-2 text-right">
+                                                                            <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
+                                                                            <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    </form>
+                                                                </div>
+                                                         
+                                                    <style>
+                                                        
+
+                                                        .date {
+                                                            font-size: 15px
+                                                        }
+
+                                                        .comment-text {
+                                                            font-size: 17px
+                                                        }
+
+                                                        .fs-12 {
+                                                            font-size: 17px
+                                                        }
+
+                                                        .shadow-none {
+                                                            box-shadow: none
+                                                        }
+
+                                                        .name {
+                                                            color: #007bff
+                                                        }
+
+                                                        .cursor:hover {
+                                                            color: blue
+                                                        }
+
+                                                        .cursor {
+                                                            cursor: pointer
+                                                        }
+
+                                                        .textarea {
+                                                            resize: none
+                                                        }
+                                                    </style>
     </div>
-                                                <p></p>
-                                                <b>Nếu bạn đang tìm kiếm một chiếc laptop cho nhu cầu giải trí, hãy tham khảo thêm các sản phẩm hiện đang được bán tại <a href='https://localhost:7266'><b>SiuLaptop</b></a></b>
-                                                <p></p>
+                                                
     </div>
+
     </div>
     </div>
     </section>

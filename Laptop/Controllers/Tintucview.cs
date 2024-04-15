@@ -57,13 +57,17 @@ namespace Laptop.Controllers
         {
 
             ViewBag.Brandname = _context.Brands.ToList();
+            
             // Truy vấn lấy bài viết theo ID
             var post = _context.Tintucs
                 .Where(p => p.PostID == postid)
                 .Include(p => p.Brand)
+                .Include(p=> p.PostComments)
+                .Include(p=> p.Customer)
                 .OrderByDescending(p => p.CreatedDate)
                 .FirstOrDefault();
-   
+            
+            
             //var laptopContext = _context.Tintucs.Include(t => t.Brand);
             return View(post);
         }
