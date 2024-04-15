@@ -5,7 +5,7 @@
 @using X.PagedList
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
-	IEnumerable<ProductItem> ListColor = ViewBag.Color ;
+	IEnumerable<ProductItem> ListColor = ViewBag.Color;
 	IEnumerable<ProductVariation> ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
 
@@ -30,26 +30,19 @@
 		<div class="close-btn">×</div>
 		<div class="custom-model-wrap">
 			<div class="pop-up-content-wrap">
-				<p>Thêm Vào Giỏ Hàng Thành Công</p>
+				<strong>Add To Cart Success</strong>
 			</div>
 		</div>
 	</div>
 	<div class="bg-overlay"></div>
 </div>
-@* <section>
-	<span class="overlay"></span>
-	<div class="modal-box">
-		<i class="fa-regular fa-circle-check"></i>
-		<h2>Completed</h2>
-		<h3>You have sucessfully downloaded all the source code files.</h3>
 
-		<div class="buttons">
-			<button class="close-btn">Ok, Close</button>
-		</div>
-	</div>
-</section> *@
 <!-- SECTION -->
 <div class="section">
+	<div class="alert" style="display:none;">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		Exceeding stock quantity
+	</div>
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
@@ -58,19 +51,19 @@
 			<div class="col-md-5 col-md-push-2">
 				<div id="product-main-img">
 					<div class="product-preview">
-						<img  src="~/Contents/img/@Model.ProductItems.Image1" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image1" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img  src="~/Contents/img/@Model.ProductItems.Image2" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image2" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img  src="~/Contents/img/@Model.ProductItems.Image3" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image3" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img   src="~/Contents/img/@Model.ProductItems.Image4" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image4" alt="">
 					</div>
 				</div>
 			</div>
@@ -79,19 +72,19 @@
 			<div class="col-md-2  col-md-pull-5">
 				<div id="product-imgs">
 					<div class="product-preview">
-						<img  src="~/Contents/img/@Model.ProductItems.Image1" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image1" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img  src="~/Contents/img/@Model.ProductItems.Image2" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image2" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img   src="~/Contents/img/@Model.ProductItems.Image3" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image3" alt="">
 					</div>
 
 					<div class="product-preview">
-						<img  src="~/Contents/img/@Model.ProductItems.Image4" alt="">
+						<img src="~/Contents/img/@Model.ProductItems.Image4" alt="">
 					</div>
 				</div>
 			</div>
@@ -102,7 +95,7 @@
 					<h2 class="product-name">@Model.ProductItems.Product.ProductName.ToUpper() @Model.Ram.RamName.ToUpper() @Model.Ssd.Ssdname</h2>
 					<div>
 						<div class="product-rating">
-							<i class="fa fa-star"></i>	
+							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
@@ -129,7 +122,7 @@
 							Color
 							<select id="colorId" class="input-select">
 							</select>
-						</label>				
+						</label>
 					</div>
 					<div class="product-options">
 						<label>
@@ -150,7 +143,7 @@
 								</div>
 							</div>
 						}
-						@if(Model.QtyinStock > 0)
+						@if (Model.QtyinStock > 0)
 						{
 							<div class="add-to-cart">
 								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
@@ -223,50 +216,50 @@
 									<div id="rating">
 										<div class="rating-avg">
 											@{
-		
+
 												int totalComments1 = Model.ProductItems.Product.ProductComments.Count();
 												if (totalComments1 > 0)
 												{
-												
+
 													int totalRating = 0;
 													foreach (var comment in Model.ProductItems.Product.ProductComments)
 													{
 														totalRating += comment.Ratings;
 													}
-												
+
 													double averageRating = (double)totalRating / totalComments1;
 
 													int roundedAverageRating = (int)Math.Round(averageRating);
 
-																		<span>@roundedAverageRating</span>
-																		<div class="rating-stars">
-																			@for (int i = 1; i <= 5; i++)
+													<span>@roundedAverageRating</span>
+													<div class="rating-stars">
+														@for (int i = 1; i <= 5; i++)
 														{
-																				@if (i <= roundedAverageRating)
+															@if (i <= roundedAverageRating)
 															{
-																					<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
 															}
 															else
 															{
-																					<i class="fa fa-star-o"></i>
+																<i class="fa fa-star-o"></i>
 															}
 														}
-																		</div>
+													</div>
 												}
 												else
 												{
-																		<span>No ratings available</span>
+													<span>No ratings available</span>
 												}
 											}
-										
-										
+
+
 										</div>
 										<ul class="rating">
 											@foreach (var rating in Enumerable.Range(1, 5).Reverse())
 											{
 												<li>
 													<div class="rating-stars">
-														@for (int i = 1; i <=5; i++)
+														@for (int i = 1; i <= 5; i++)
 														{
 															<i class="fa fa-star@(i <= rating ? "" : "-o")"></i>
 														}
@@ -289,7 +282,7 @@
 								</div>
 								<!-- /Rating -->
 								<!-- Reviews -->
-								<div  class="col-md-6">
+								<div class="col-md-6">
 									<div id="records">
 										<ul class="reviews">
 											@foreach (var comment in Model.ProductItems.Product.ProductComments.Take(3).OrderBy(n => n.CreateDate))
@@ -315,7 +308,7 @@
 
 										</ul>
 									</div>
-								
+
 									<button id="showMore" class="center-button btn">Show More</button>
 								</div>
 								<!-- /Reviews -->
@@ -334,24 +327,24 @@
 												</div>
 											</div>
 											<input type="hidden" name="ProductId" value="@Model.ProductItems.Product.ProductId" />
-		
+
 											<textarea name="Detail" class="input" placeholder="Your Review"></textarea>
 											<button type="submit" class="btn">Post Comment</button>
 										</form>
-									
-									@* 	<form class="review-form">
-											<textarea class="input" placeholder="Your Review"></textarea>
-											<div class="input-rating">
-												<span>Your Rating: </span>
-												<div class="stars">
-													<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-													<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-													<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-													<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-													<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-												</div>
-											</div>
-											<button class="primary-btn">Submit</button>
+
+										@* 	<form class="review-form">
+										<textarea class="input" placeholder="Your Review"></textarea>
+										<div class="input-rating">
+										<span>Your Rating: </span>
+										<div class="stars">
+										<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+										<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+										<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+										<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+										<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+										</div>
+										</div>
+										<button class="primary-btn">Submit</button>
 										</form> *@
 									</div>
 								</div>
@@ -411,11 +404,7 @@
 								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 							</div>
 						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn">
-								<i class="fa fa-shopping-cart"></i> add to cart
-							</button>
-						</div>
+
 					</div>
 				</div>
 			}
@@ -429,7 +418,6 @@
 	<!-- /container -->
 </div>
 <!-- /Section -->
-
 @section Scripts
 {
 	<script>
@@ -450,7 +438,7 @@
 			// var selectedRam = @Model.RamId;
 			// var selectedSSD = @Model.Ssdid;
 			// var selectedColor = $(this).val();
-			
+
 			// var url = '@Url.Action("XemChiTiet", "ProductView")'
 			// 	+ `?id=${selectedColor}&ramId=${selectedRam}&ssdId=${selectedSSD}`;
 
@@ -480,7 +468,7 @@
 					if (currentSelection && addedValues[currentSelection]) {
 						$('#colorId').val(currentSelection);
 					}
-			
+
 				}
 			});
 		}
@@ -529,41 +517,40 @@
 			})
 		}
 
-	
-
-		// $('.add-to-cart-btn').click(function (e) {
-		// 	var productId = $('#colorId').val();
-		// 	var quanTity = $('#quantityInput').val();
-		// 	var ram = @Model.RamId;
-		// 	var ssd = @Model.Ssdid;
-		// 	var returnUrl = "@currentUrl";
-
-		// 	$.ajax({
-		// 		url: '@Url.Action("ThemGioHang","ShoppingCart")',
-		// 		type: "GET", Hoặc "POST", tuỳ vào cấu hình của controller
-		// 		data: {
-		// 			masp: productId,
-		// 			ramId: ram,
-		// 			ssdId : ssd,
-		// 			quantity: quanTity,
-		// 			strURL: returnUrl
-		// 		},
-		// 		success: function (response) {
-
-		// 			$(".custom-model-main").addClass('model-open');
-		// 		},
-		// 		error: function (xhr) {
-		// 			if (xhr.status === 400) {
-		// 				alert(xhr.statusText);
-		// 			} else {
-		// 				alert("Vượt quá số lượng tồn!");
-		// 			}
-		// 		}
-		// 	});
-		// });
 
 
-		
+		$('.add-to-cart-btn').click(function (e) {
+			var productId = $('#colorId').val();
+			var quanTity = $('#quantityInput').val();
+			var ram = @Model.RamId;
+			var ssd = @Model.Ssdid;
+			var returnUrl = "@currentUrl";
+
+			$.ajax({
+				url: '@Url.Action("ThemGioHang", "ShoppingCart")',
+				type: "GET", // Hoặc "POST", tuỳ vào cấu hình của controller
+				data: {
+					masp: productId,
+					ramId: ram,
+					ssdId: ssd,
+					quantity: quanTity,
+					strURL: returnUrl
+				},
+				success: function (response) {
+
+					$(".custom-model-main").addClass('model-open');
+				},
+				error: function () {
+					$(".alert").css({
+						"display": "block",
+						"opacity": 1
+					});
+				}
+			});
+		});
+
+
+
 
 		$('#unique-item-qty-up').click(function () {
 
@@ -573,9 +560,12 @@
 			if (currentValue < qtyInStock) {
 				currentValue = currentValue + 1;
 				$('#quantityInput').val(currentValue);
-			} 
+			}
 			else {
-				alert("Số lượng vượt quá số lượng trong kho!");
+				$(".alert").css({
+					"display": "block",
+					"opacity": 1
+				});
 			}
 		});
 
@@ -637,25 +627,43 @@
 				}
 			});
 		});
-
 		$(".close-btn, .bg-overlay").click(function () {
 			$(".custom-model-main").removeClass('model-open');
 		});
 
+
+
+
+
 	</script>
 	<script>
-		const section = document.querySelector("section"),
-			overlay = document.querySelector(".overlay"),
-			showBtn = document.querySelector(".add-to-cart-btn"),
-			closeBtn = document.querySelector(".close-btn");
-		showBtn.addEventListener("click", () => section.classList.add("active"));
-		overlay.addEventListener("click", () =>
-			section.classList.remove("active")
-		);
-		closeBtn.addEventListener("click", () =>
-			section.classList.remove("active")
-		);
+		// Get all elements with class="closebtn"
+		var close = document.getElementsByClassName("closebtn");
+		var i;
+
+		// Loop through all close buttons
+		for (i = 0; i < close.length; i++) {
+			// When someone clicks on a close button
+			close[i].onclick = function () {
+
+				// Get the parent of <span class="closebtn"> (<div class="alert">)
+				var div = this.parentElement;
+
+				// Set the opacity of div to 0 (transparent)
+				div.style.opacity = "0";
+
+				// Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+				setTimeout(function () { div.style.display = "none"; }, 600);
+			}
+		}
 	</script>
+
+	<style>
+		.alert {
+			opacity: 1;
+			transition: opacity 0.6s; /* 600ms to fade out */
+		}
+	</style>
 	<style>
 		.center-button {
 			display: block;
@@ -697,7 +705,23 @@
 		}
 
 	</style>
+	<style>
+		.product-img {
+			width: 100%; /* Giả sử bạn muốn khung hình chiếm 100% chiều rộng của container cha */
+			height: auto; /* Chiều cao tự động tính toán theo tỷ lệ hình ảnh */
+			position: relative; /* Để label có thể được định vị tương đối */
+			overflow: hidden; /* Ngăn không cho hình ảnh tràn ra ngoài khung */
+		}
+
+			.product-img img {
+				width: 100%; /* Chiều rộng của hình ảnh bằng với container */
+				height: 100%; /* Chiều cao của hình ảnh bằng với container */
+				object-fit: cover; /* Giữ nguyên tỷ lệ, che đầy khung, có thể cắt bớt các cạnh */
+				display: block; /* Loại bỏ khoảng cách dưới cùng do thuộc tính inline gây ra */
+			}
+
+	</style>
 }
-	
+
 
 
