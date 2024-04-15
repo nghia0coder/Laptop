@@ -25,24 +25,31 @@
 	ViewData["Title"] = "Chi Tiết Sản Phẩm";
 	Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
-<div class="custom-model-main">
+@* <div class="custom-model-main">
 	<div class="custom-model-inner">
 		<div class="close-btn">×</div>
 		<div class="custom-model-wrap">
 			<div class="pop-up-content-wrap">
-				<strong>Add To Cart Success</strong>
+				<p>Thêm Vào Giỏ Hàng Thành Công</p>
 			</div>
 		</div>
 	</div>
 	<div class="bg-overlay"></div>
-</div>
+</div> *@
+<section>
+	<span class="overlay"></span>
+	<div class="modal-box">
+		<i class="fa-regular fa-circle-check"></i>
+		<h2>Completed</h2>
+		<h3>You have sucessfully downloaded all the source code files.</h3>
 
-<!-- SECTION -->
-<div class="section" >
-	<div class="alert" style="display:none;">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-		Exceeding stock quantity
+		<div class="buttons">
+			<button class="close-btn">Ok, Close</button>
+		</div>
 	</div>
+</section>
+<!-- SECTION -->
+<div class="section">
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
@@ -404,7 +411,11 @@
 								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 							</div>
 						</div>
-					
+						<div class="add-to-cart">
+							<button class="add-to-cart-btn">
+								<i class="fa fa-shopping-cart"></i> add to cart
+							</button>
+						</div>
 					</div>
 				</div>
 			}
@@ -520,35 +531,36 @@
 
 	
 
-		$('.add-to-cart-btn').click(function (e) {
-			var productId = $('#colorId').val();
-			var quanTity = $('#quantityInput').val();
-			var ram = @Model.RamId;
-			var ssd = @Model.Ssdid;
-			var returnUrl = "@currentUrl";
+		// $('.add-to-cart-btn').click(function (e) {
+		// 	var productId = $('#colorId').val();
+		// 	var quanTity = $('#quantityInput').val();
+		// 	var ram = @Model.RamId;
+		// 	var ssd = @Model.Ssdid;
+		// 	var returnUrl = "@currentUrl";
 
-			$.ajax({
-				url: '@Url.Action("ThemGioHang","ShoppingCart")',
-				type: "GET", // Hoặc "POST", tuỳ vào cấu hình của controller
-				data: {
-					masp: productId,
-					ramId: ram,
-					ssdId : ssd,
-					quantity: quanTity,
-					strURL: returnUrl
-				},
-				success: function (response) {
+		// 	$.ajax({
+		// 		url: '@Url.Action("ThemGioHang","ShoppingCart")',
+		// 		type: "GET", Hoặc "POST", tuỳ vào cấu hình của controller
+		// 		data: {
+		// 			masp: productId,
+		// 			ramId: ram,
+		// 			ssdId : ssd,
+		// 			quantity: quanTity,
+		// 			strURL: returnUrl
+		// 		},
+		// 		success: function (response) {
 
-					$(".custom-model-main").addClass('model-open');
-				},
-				error: function () {
-					$(".alert").css({
-						"display": "block",
-						"opacity": 1
-					});
-				}
-			});
-		});
+		// 			$(".custom-model-main").addClass('model-open');
+		// 		},
+		// 		error: function (xhr) {
+		// 			if (xhr.status === 400) {
+		// 				alert(xhr.statusText);
+		// 			} else {
+		// 				alert("Vượt quá số lượng tồn!");
+		// 			}
+		// 		}
+		// 	});
+		// });
 
 
 		
@@ -563,10 +575,7 @@
 				$('#quantityInput').val(currentValue);
 			} 
 			else {
-				$(".alert").css({
-					"display": "block",
-					"opacity": 1
-				});
+				alert("Số lượng vượt quá số lượng trong kho!");
 			}
 		});
 
@@ -628,43 +637,25 @@
 				}
 			});
 		});
+
 		$(".close-btn, .bg-overlay").click(function () {
 			$(".custom-model-main").removeClass('model-open');
 		});
 
-
-
-
-
 	</script>
 	<script>
-		// Get all elements with class="closebtn"
-		var close = document.getElementsByClassName("closebtn");
-		var i;
-
-		// Loop through all close buttons
-		for (i = 0; i < close.length; i++) {
-			// When someone clicks on a close button
-			close[i].onclick = function () {
-
-				// Get the parent of <span class="closebtn"> (<div class="alert">)
-				var div = this.parentElement;
-
-				// Set the opacity of div to 0 (transparent)
-				div.style.opacity = "0";
-
-				// Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
-				setTimeout(function () { div.style.display = "none"; }, 600);
-			}
-		}
+		const section = document.querySelector("section"),
+			overlay = document.querySelector(".overlay"),
+			showBtn = document.querySelector(".add-to-cart-btn"),
+			closeBtn = document.querySelector(".close-btn");
+		showBtn.addEventListener("click", () => section.classList.add("active"));
+		overlay.addEventListener("click", () =>
+			section.classList.remove("active")
+		);
+		closeBtn.addEventListener("click", () =>
+			section.classList.remove("active")
+		);
 	</script>
-
-	<style>
-		.alert {
-			opacity: 1;
-			transition: opacity 0.6s; /* 600ms to fade out */
-		}
-	</style>
 	<style>
 		.center-button {
 			display: block;
@@ -704,22 +695,6 @@
 			right: 0;
 			left: 89px;
 		}
-
-	</style>
-	<style>
-		.product-img {
-			width: 100%; /* Giả sử bạn muốn khung hình chiếm 100% chiều rộng của container cha */
-			height: auto; /* Chiều cao tự động tính toán theo tỷ lệ hình ảnh */
-			position: relative; /* Để label có thể được định vị tương đối */
-			overflow: hidden; /* Ngăn không cho hình ảnh tràn ra ngoài khung */
-		}
-
-			.product-img img {
-				width: 100%; /* Chiều rộng của hình ảnh bằng với container */
-				height: 100%; /* Chiều cao của hình ảnh bằng với container */
-				object-fit: cover; /* Giữ nguyên tỷ lệ, che đầy khung, có thể cắt bớt các cạnh */
-				display: block; /* Loại bỏ khoảng cách dưới cùng do thuộc tính inline gây ra */
-			}
 
 	</style>
 }
