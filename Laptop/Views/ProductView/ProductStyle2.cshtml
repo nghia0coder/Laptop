@@ -46,7 +46,7 @@
 										<div class="product-body">
 											<p class="product-category">@item.Category.CategoryName</p>
 											<h3 class="product-name"><a href="#">@item.ProductName @item.ProductItems.First().ProductVariations.First().Ram.RamName.ToUpper() @item.ProductItems.First().ProductVariations.First().Ssd.Ssdname</a></h3>
-											<h4 class="product-price">@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().Price <del class="product-old-price">@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().OriginPrice</del></h4>
+											<h4 class="product-price">@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().Price.ToString("#,##0") VNĐ <del class="product-old-price">@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().OriginPrice</del></h4>
 											<div class="product-rating">
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>

@@ -273,7 +273,8 @@
                                                 <div class="elementor-element elementor-element-3d1d4533 elementor-widget elementor-widget-shortcode elementor-element elementor-element" data-id="3d1d4533" data-element_type="widget" data-widget_type="shortcode.default">
                                                     <div class="elementor-widget-container category-title-label">
                                                         <div class="elementor-shortcode">
-                                                            <div class="sf-post-category">
+                                                            <div class="sf-post-category" style="color:white">
+                                                                Bài viết của bạn
                                                             </div>
                                                         </div>
                                                     </div>
@@ -315,9 +316,12 @@
                                                                                             </div>
                                                                                         </a>
                                                                                     </div>
-                                                                                    <div class="sf_right_featured--box-content"><a asp-action="DisplayPost" asp-route-postid="@item.PostID">@item.Title</a></div>
+                                                                                    <div class="sf_right_featured--box-content">
+                                                                                        <a asp-action="DisplayPost" asp-route-postid="@item.PostID">@item.Title</a>
+                                                                                        <a style="position:absolute;bottom: 0;right: 0;font-size: 10px;" asp-action="DisplayPost" asp-route-postid="@item.PostID">@item.CreatedDate</a>
+                                                                                    </div>
 
-                                                                                    <div class="sf_right_featured--box-content"><a asp-action="DisplayPost" asp-route-postid="@item.PostID">@item.CreatedDate</a></div>
+                                                                                    
                                                                                 </div>
 
                                                                             }
