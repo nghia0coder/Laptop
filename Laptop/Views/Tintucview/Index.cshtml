@@ -15,6 +15,12 @@
     }
 }
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,7 +91,7 @@
                 "sameAs": ["https:\/\/www.facebook.com\/CellphoneSVietnam", "https:\/\/www.youtube.com\/c\/CellphoneSOfficial", "https:\/\/www.linkedin.com\/company\/cellphones\/", "https:\/\/twitter.com\/cellphonesvn", "https:\/\/www.pinterest.com\/cellphonesvn\/", "https:\/\/www.tiktok.com\/$cellphones.official", "https:\/\/www.instagram.com\/cellphonesvn\/", "https:\/\/cellphones.com.vn\/"]
             }
         }
-    </script>
+    </s>
 
     <script type="application/ld+json">
         {
@@ -251,6 +257,7 @@
                 </div>
             </div>
             <div id="right-content" class="right-content-index" style="z-index: 999;">
+               
                 <div class="elementor-widget-container tag-head detail-head">
                     <div class="jeg_custom_breadcrumb_wrapper">
                         <div id="breadcrumbs">
@@ -261,19 +268,15 @@
                     </div>
                 </div>
     
-    <div class="elementor-row gap-eles">
-        <div class="elementor-column gap-ele">
-
-        </div>
-        <div class="elementor-column gap-ele">
-
-        </div>
-    </div>
-            <div class="elementor-widget-container_tintuccapnhat__index " >
+    
+            <div class="elementor-widget-container_tintuccapnhat__index" >
                 <a href="https://localhost:7266/Tintucview">
-            <h2 class="elementor-heading-title">Tin mới nhất</h2>
+                        <h2 class="elementor-heading-title" style="width:300px;">Tin mới nhất</h2>
+                        <img style="position: absolute; right: 60px;top: 25px;" width="160" height="auto" src="~/img/siulogo.png" />
+
         </a>
     </div>
+    
     <div class="elementor-row">
         <div class="elementor-column wdg-left" style="width: 68%">
             <div style="width: 100%">
@@ -307,45 +310,69 @@
                                             </article>
                                             }
                                         }
-                                            <div class=" container">
-                                            @if (pager.TotalItems > 0)
-                                            {
-                                                <ul class="pagination justify-content-end">
+                                            <div class="container">
+                                                @if (pager.TotalItems > 0)
+                                                {
+                                                    <ul class="pagination justify-content-center">
+                                                        <!-- Sử dụng justify-content-center để căn giữa nút tiến, lùi và số trang -->
+                                                        @if (pager.CurrentPage > 1)
+                                                        {
+                                                            <li class="page-item">
+                                                                <a class="page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                                                                    </svg>
+                                                                </a>
+                                                            </li>
+                                                        }
 
-                                                    @if (pager.CurrentPage > 1)
-                                                    {
-                                                        <li class="page-item">
-                                                            <a class=" page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="1">First</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class=" page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
-                                                        </li>
+                                                        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                                                        {
+                                                            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                                                <a class="page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                                                            </li>
+                                                        }
+
+                                                        @if (pager.CurrentPage < pager.TotalPages)
+                                                        {
+                                                            <li class="page-item">
+                                                                <a class="page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@(pager.CurrentPage+1)">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                                                                    </svg>
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </div>
+
+
+                                            <style>
+                                                .page-item {
+                                                    margin: 0 2px;
+                                                }
+
+                                                .page-link {
+                                                    color: black; /* Màu chữ mặc định */
+                                                    border: 1px solid transparent; /* Viền mặc định */
+                                                }
+
+                                                    .page-link:hover {
+                                                        background-color: #ddd;
                                                     }
-                                                    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
-                                                    {
-                                                        <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                                                            <a class="page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@pge">@pge </a>
-                                                        </li>
-                                                    }
 
-                                                    @if (pager.CurrentPage < pager.TotalPages)
-                                                    {
-                                                        <li class="page-item">
-                                                                <a class="page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@(pager.CurrentPage+1)">Next</a>
-                                                        </li>
-                                                        <li>
-                                                                <a class="page-link" asp-controller="Tintucview" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
-                                                        </li>
-                                                    }
+                                                .page-item.active .page-link {
+                                                    background-color: red; /* Nền đỏ khi được chọn */
+                                                    color: white; /* Chữ trắng khi được chọn */
+                                                    border-color: red; /* Viền đỏ khi được chọn */
+                                                }
 
-                                                </ul>
+                                                .page-link:focus {
+                                                    box-shadow: none;
+                                                }
 
-                                            }
-                                            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
-                                            {
-
-                                            }
-                                        </div>
+                                            </style>
                                     </div>
                         </div>
                         <div class="navigation_overlay">
