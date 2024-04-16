@@ -11,6 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Admin\Views\Tintucs\Create.cshtml" />
+    <Content Remove="Areas\Admin\Views\Tintucs\Delete.cshtml" />
+    <Content Remove="Areas\Admin\Views\Tintucs\Details.cshtml" />
+    <Content Remove="Areas\Admin\Views\Tintucs\Displayindex.cshtml" />
+    <Content Remove="Areas\Admin\Views\Tintucs\Edit.cshtml" />
+    <Content Remove="Areas\Admin\Views\Tintucs\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_WebToolingArtifacts Remove="Properties\serviceDependencies.json" />
     <_WebToolingArtifacts Remove="Properties\serviceDependencies.local.json" />
   </ItemGroup>
@@ -64,6 +73,12 @@
     <None Include="Areas\Admin\Views\Suppliers\Details.cshtml" />
     <None Include="Areas\Admin\Views\Suppliers\Edit.cshtml" />
     <None Include="Areas\Admin\Views\Suppliers\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Tintucs\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Tintucs\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Tintucs\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Tintucs\Displayindex.cshtml" />
+    <None Include="Areas\Admin\Views\Tintucs\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Tintucs\Index.cshtml" />
     <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Properties\serviceDependencies.local.json.user" />

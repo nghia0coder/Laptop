@@ -1,66 +1,66 @@
-﻿@model Laptop.Models.News
+﻿@model Laptop.Models.Tintuc
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class ="mt-3">DELETE NEWS</h2>
+<h2 class ="mt-3">Xóa tin tức</h2>
 
 <div class="p-lg-3">
    
     <hr />
     <dl class="dl-horizontal">
         <h4>
-            Title
+            Tiêu đề
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Title)
         </dd>
         <h4>
-            Opening
+            Mở đầu
         </h4>
         <dd>
-            @Html.DisplayFor(model => model.ContentPreview)
+            @Html.DisplayFor(model => model.Contentspreview)
         </dd>
         <h4>
-            Content
+            Nội dung
         </h4>
         <dd>
             @Html.Raw(Model.Contents)
         </dd>     
         <h4>
-            Author
+            Tác giả
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Author)
         </dd>
         <h4>
-            Create date
+            Thời điểm tạo tin
         </h4>
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
         <h4>
-            Status
+            Trạng thái
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Status)
         </dd>
         <h4>
-            Hot news
+            Tin Hot
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Hot)
         </dd>
         <h4>
-            News
+            Tin Mới
         </h4>
         <dd>
             @Html.DisplayFor(model => model.New)
         </dd>
         <h4>
-            Brand news
+            Tin của hãng
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Brand.BrandName)
@@ -68,8 +68,8 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="PostId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="btn btn-primary" asp-action="Index">Back</a>
+        <input type="hidden" asp-for="PostID" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a class="btn btn-primary" asp-action="Index">Quay lại</a>
     </form>
 </div>
