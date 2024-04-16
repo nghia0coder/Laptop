@@ -1,33 +1,29 @@
-﻿@model IEnumerable<Laptop.Models.Tintuc>
+﻿@model IEnumerable<Laptop.Models.News>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="mt-3 p-lg-3 mb-0">Quản lý tin tức</h2>
+<h2 class="mt-3 p-lg-3 mb-0">MANAGE NEWS</h2>
 
 <p class="p-lg-3">
-    <a class="btn btn-success " asp-action="Create">Tạo tin mới</a>
+    <a class="btn btn-success " asp-action="Create">Create news</a>
 </p>
-<table class="table" id="myTable">
+<table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
+            </th>         
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
             </th>
-            
-            
-            
-            
             <th>
                 @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hot)
@@ -49,16 +45,15 @@
             </td>
             
             
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Hot)
             </td>
@@ -69,53 +64,12 @@
                 @Html.DisplayFor(modelItem => item.Brand.BrandName)
             </td>
             <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PostID">Edit</a> |
-                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.PostID">Details</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PostID">Delete</a>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.PostId">Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-<div id="pagination">
-    <button id="prevPage">Previous</button>
-    <button id="nextPage">Next</button>
-</div>
 
-<script>
-    var currentPage = 1; // Trang hiện tại
-    var itemsPerPage = 10; // Số mục trên mỗi trang
-
-    // Hiển thị dữ liệu cho trang hiện tại
-    function displayPage(page) {
-        // Tính chỉ số bắt đầu và kết thúc của mục cần hiển thị trên trang này
-        var startIndex = (page - 1) * itemsPerPage;
-        var endIndex = startIndex + itemsPerPage;
-
-        // Ẩn tất cả các mục trong bảng
-        $("#myTable tbody tr").hide();
-
-        // Hiển thị các mục thuộc trang hiện tại
-        $("#myTable tbody tr").slice(startIndex, endIndex).show();
-    }
-
-    // Hiển thị trang tiếp theo
-    $("#nextPage").click(function () {
-        currentPage++;
-        displayPage(currentPage);
-    });
-
-    // Hiển thị trang trước đó
-    $("#prevPage").click(function () {
-        currentPage--;
-        if (currentPage < 1) {
-            currentPage = 1;
-        }
-        displayPage(currentPage);
-    });
-
-    // Hiển thị trang đầu tiên khi trang được load
-    $(document).ready(function () {
-        displayPage(currentPage);
-    });
-</script>

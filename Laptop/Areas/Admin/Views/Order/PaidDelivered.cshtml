@@ -15,22 +15,22 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ĐÃ ĐƯỢC GIAO, ĐÃ ĐƯỢC THANH TOÁN</h1>
+<h1>DELIVERED, PAID</h1>
 <div class="card">
     <div class="card-body">
-        <h2 class="col-md-8">Quản lí đơn hàng (Đã thanh toán & đã giao )</h2>
+        <h2 class="col-md-8">Manage orders (delivered & paid)</h2>
         @if (Model != null && Model.Any())
         {
             <div id="list" class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Họ tên KH</th>
-                            <th scope="col">Ngày đặt</th>
-                            <th scope="col">Tình trạng giao hàng</th>
-                            <th scope="col">Ngày giao</th>
-                            <th scope="col">Đã thanh toán</th>
-                            <th scope="col">Ưu đãi</th>                        
+                            <th scope="col">Customer name</th>
+                            <th scope="col">Order date</th>
+                            <th scope="col">Delivered status</th>
+                            <th scope="col">Delivered date</th>
+                            <th scope="col">Paid</th>
+                            <th scope="col">Incentives</th>                        
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,7 @@
         }
         else
         {
-            <p>Không có đơn hàng nào để hiển thị.</p>
+            <p>No order to display</p>
         }
     </div>
 </div>

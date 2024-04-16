@@ -1,4 +1,4 @@
-﻿@model Laptop.Models.Tintuc
+﻿@model Laptop.Models.News
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 }
 
 
-<h2 class="mt-3">Tạo tin mới</h2>
+<h2 class="mt-3">CREATE NEWS</h2>
 
 
 <div class="row p-lg-3" >
@@ -14,64 +14,63 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"><h4>Tiêu đề</h4></label>
+                <label asp-for="Title" class="control-label"><h4>Title</h4></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contentspreview" class="control-label"><h4>Mở đầu</h4></label>
-                <input asp-for="Contentspreview" class="form-control" />
-                <span asp-validation-for="Contentspreview" class="text-danger"></span>
+                <label asp-for="ContentPreview" class="control-label"><h4>Opening</h4></label>
+                <input asp-for="ContentPreview" class="form-control" />
+                <span asp-validation-for="ContentPreview" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contents" class="control-label"><h4>Nội dung</h4></label>
-                <textarea asp-for="Contents" class="form-control" style="width: 500px"></textarea>
+                <label asp-for="Contents" class="control-label"><h4>Content</h4></label>
+                <textarea asp-for="Contents" class="form-control"></textarea>
                 <span asp-validation-for="Contents" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Img1" class="control-label"><h4 class="mt-2">Ảnh thumbnail</h4></label>
+                <label asp-for="Img1" class="control-label"><h4 class="mt-2">Image thumbnail</h4></label>
                 <input asp-for="Img1" class="form-control-file" />
             </div>
                       
             <div class="form-group">
-                <label asp-for="Author" class="control-label"><h4>Tác giả</h4></label>
+                <label asp-for="Author" class="control-label"><h4>Author</h4></label>
                 <input asp-for="Author" class="form-control" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"><h4>Thời điểm tạo</h4></label>
+                <label asp-for="CreatedDate" class="control-label"><h4>Create date</h4></label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <h4>Trạng thái</h4><input asp-for="Status" />
+                        <h4>Status</h4><input asp-for="Status" />
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <h4>Tin hot</h4><input asp-for="Hot" /> 
+                        <h4>Hot news</h4><input asp-for="Hot" /> 
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <h4>Tin new</h4><input asp-for="New" />
+                        <h4>News</h4><input asp-for="New" />
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="BrandID" class="control-label"><h4>Tên hãng</h4></label>
-                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+                <label asp-for="BrandId" class="control-label"><h4>Brand name</h4></label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
             </div>
-            <input type="hidden" asp-for="CustomerId" value="@User.Identity"/>
             <div class="form-group mt-4">
                 <input type="submit" value="Tạo tin" class="btn btn-success" />
-                <a class="btn btn-primary" asp-action="Index">Quay lại</a>
+                <a class="btn btn-primary" asp-action="Index">Back</a>
             </div>
         </form>
     </div>

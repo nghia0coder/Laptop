@@ -6,7 +6,7 @@
     ProductVariation product = ViewBag.Product as ProductVariation;
 }
 
-<h1>Nhập hàng</h1>
+<h1>IMPORT PRODUCT</h1>
 
 <div class="card">
     <div class="card-body">
@@ -18,10 +18,10 @@
             </div>
             <div class="col-md-9">
                 <div class="ttSP">
-                    <h3>Sản phẩm: @product.ProductItems.Product.ProductName</h3>
-                    <h3>Hãng sản xuất: @product.ProductItems.Product.Brand</h3>
-                    <h3>Loại sản phẩm: @product.ProductItems.Product.Category</h3>
-                    <h3>Màu: @product.ProductItems.Color.ColorName</h3>
+                    <h3>Product: @product.ProductItems.Product.ProductName</h3>
+                    <h3>Brand: @product.ProductItems.Product.Brand</h3>
+                    <h3>Category: @product.ProductItems.Product.Category</h3>
+                    <h3>Color: @product.ProductItems.Color.ColorName</h3>
                     <h3>Ram: @product.Ram.RamName</h3>
                     <h3>Ssd: @product.Ssd.Ssdname</h3>
                   @*   <h3>Màu: @product.Size.Size1</h3> *@
@@ -31,7 +31,7 @@
         </div>
         <br />
         <hr />
-        <h3>Thông tin nhập hàng</h3>
+        <h3>Invoice information</h3>
         <br />
     
   
@@ -40,21 +40,21 @@
             <div class="row">
 
                 <div class="col-md-4">
-                    Thương Hiệu: <select asp-for="SupplierId" asp-items="ViewBag.Suppliers"></select>
+                    Supplier: <select asp-for="SupplierId" asp-items="ViewBag.Suppliers"></select>
                 </div>
                <div class="col-md-4">
-                    Số lượng nhập: <input asp-for="Quantity" />
+                    Import quantity: <input asp-for="Quantity" />
                 </div>
                 <div class="col-md-4">
-                    Đơn giá nhập: <input asp-for="Price" />
+                    Unit price import: <input asp-for="Price" />
                 </div>
                 <div class="col-md-4">
                 </div>
             </div>
             <div class="clear right mr-3" style="text-align:right;">
                 <br />
-                <input type="submit" class="btn btn-success" value="Nhập hàng" />
-                <a asp-controller="Invoice" asp-action="DSSPHetHang" class="btn btn-sm btn-secondary font-weight-bold">Trở về</a>
+                <input type="submit" class="btn btn-success" value="Import" />
+                <a asp-controller="Invoice" asp-action="DSSPHetHang" class="btn btn-sm btn-secondary font-weight-bold">Back</a>
             </div>
         </form>
     </div>

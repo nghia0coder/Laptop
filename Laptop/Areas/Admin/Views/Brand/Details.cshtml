@@ -5,14 +5,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CHI TIẾT NHÀ SẢN XUẤT</h1>
+<h1>BRAND DETAIL</h1>
 
 <div>
 
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Tên nhà sản xuất 
+            Brand name 
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.BrandName)
@@ -22,6 +22,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.BrandId">Chỉnh sửa</a> |
-    <a class="btn btn-danger" asp-action="Index">Trở về</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.BrandId">Edit</a> |
+    <a class="btn btn-danger" asp-action="Index">Back</a>
 </div>

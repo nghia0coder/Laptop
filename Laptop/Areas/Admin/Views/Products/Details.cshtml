@@ -7,31 +7,31 @@
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-<h2 class="text-center">THÔNG TIN MỤC SẢN PHẨM </h2>
+<h2 class="text-center">PRODUCT DETAIL</h2>
 
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            Tên sản phẩm:
+            Product name
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ProductName)
         </dd>           
         <dt class="col-sm-2">
-            Loại Sản Phẩm
+            Category
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
         <dt class="col-sm-2">
-            Thương Hiệu
+            Brand
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.BrandNavigation.BrandName)
         </dd>
         <dt class="col-sm-2">
-            Mô Tả
+            Description
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
@@ -41,8 +41,8 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-primary">Sửa</a> |
-    <a asp-action="Index" class="btn btn-dark">Trở về</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-dark">back</a>
 </div>
 
 <style>

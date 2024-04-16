@@ -4,14 +4,14 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>XÓA RAM</h2>
+<h2>DELETE RAM</h2>
 
-<h3>Bạn có chắc chắn muốn xóa</h3>
+<h3>Are you sure you want to delete?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Loại Ram
+            Ram name
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RamName)
@@ -20,8 +20,8 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="RamId" />
-        <input type="submit" value="Xóa" class="btn btn-danger" /> 
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
         <br>
-        <a class="btn btn-dark" asp-action="Index">Trở về</a>
+        <a class="btn btn-dark" asp-action="Index">Back</a>
     </form>
 </div>

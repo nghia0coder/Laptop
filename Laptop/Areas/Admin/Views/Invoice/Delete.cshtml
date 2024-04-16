@@ -5,15 +5,15 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Xóa</h1>
+<h1>DELETE INVOICE</h1>
 
-<h3>Bạn có chắc chắn muốn xóa?</h3>
+<h3>Are you sure you want to delete?</h3>
 <div>
-    <h4>Phiếu nhập</h4>
+    <h4>Invoice</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-           Ngày nhập
+           Import date
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreateDate)
@@ -29,6 +29,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="InvoiceId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Trở về</a>
+        <a asp-action="Index">Back</a>
     </form>
 </div>
