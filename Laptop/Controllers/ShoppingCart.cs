@@ -42,7 +42,7 @@ namespace Laptop.Controllers
 			{
 				CartItems = cartItems,
 				Quanity = cartItems.Count(),
-				Total = cartItems.Sum(x => (x.Quanity ?? 0) * (x.Price ?? 0))
+				Total = cartItems.Sum(x => x.Quanity  * x.Price)
 			};
 			ViewBag.TongTien = cart.Total;
 			ViewBag.TongQuanity = cart.Quanity;

@@ -6,8 +6,8 @@ namespace Laptop.Models
 	{
 		public int ProductID { get; set; }
 		public string? ProductName { get; set; }
-		public int? Quanity { get; set; }
-		public int? Price { get; set; }
+		public int Quanity { get; set; }
+		public int Price { get; set; }
 		public long? Total
 		{
 			get { return Price * Quanity; }

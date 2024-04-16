@@ -56,7 +56,7 @@ else
                                                     <a class="btn btn-success btn-sm" asp-controller="ShoppingCart" asp-action="Increase" asp-route-id="@item.ProductID"> + </a>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 class="mb-0">€ @item.Price</h6>
+                                                    <h6 class="mb-0"> @item.Price.ToString("#,##0") VNĐ</h6>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <a class="btn btn-danger btn-sm" asp-controller="ShoppingCart" asp-action="Removed" asp-route-id="@item.ProductID"> Remove </a>
@@ -91,9 +91,10 @@ else
                                         <div class="order-products">
                                             @foreach (var item in Model.CartItems)
                                             {
+                                                var totalPrice = item.Price * item.Quanity;
                                                 <div class="order-col">
                                                     @item.Quanity<span style="margin-right: 0.2em;">x</span>@item.ProductName
-                                                    <div>$@(item.Price * item.Quanity)</div>
+                                                    <div>@totalPrice.ToString("#,##0") VNĐ</div>
                                                 </div>
                                             }
                                         </div>
@@ -101,9 +102,14 @@ else
                                             <div>Shiping</div>
                                             <div><strong>FREE</strong></div>
                                         </div>
+                                        <style>
+                                            #total {
+                                                white-space: nowrap; /* Ngăn chặn xuống dòng */
+                                            }
+                                        </style>
                                         <div class="order-col">
                                             <div><strong>TOTAL</strong></div>
-                                            <div><strong id="total" class="order-total">$@Model.Total</strong></div>
+                                            <div><strong id="total" class="order-total">@Model.Total.ToString("#,##0") VNĐ</strong></div>
                                         </div>
                                     </div>
                                     <div class="payment-method">

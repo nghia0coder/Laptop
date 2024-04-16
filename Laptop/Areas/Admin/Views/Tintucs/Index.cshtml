@@ -10,7 +10,7 @@
 <p class="p-lg-3">
     <a class="btn btn-success " asp-action="Create">Tạo tin mới</a>
 </p>
-<table class="table">
+<table class="table" id="myTable">
     <thead>
         <tr>
             <th>
@@ -77,4 +77,45 @@
 }
     </tbody>
 </table>
+<div id="pagination">
+    <button id="prevPage">Previous</button>
+    <button id="nextPage">Next</button>
+</div>
 
+<script>
+    var currentPage = 1; // Trang hiện tại
+    var itemsPerPage = 10; // Số mục trên mỗi trang
+
+    // Hiển thị dữ liệu cho trang hiện tại
+    function displayPage(page) {
+        // Tính chỉ số bắt đầu và kết thúc của mục cần hiển thị trên trang này
+        var startIndex = (page - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+
+        // Ẩn tất cả các mục trong bảng
+        $("#myTable tbody tr").hide();
+
+        // Hiển thị các mục thuộc trang hiện tại
+        $("#myTable tbody tr").slice(startIndex, endIndex).show();
+    }
+
+    // Hiển thị trang tiếp theo
+    $("#nextPage").click(function () {
+        currentPage++;
+        displayPage(currentPage);
+    });
+
+    // Hiển thị trang trước đó
+    $("#prevPage").click(function () {
+        currentPage--;
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+        displayPage(currentPage);
+    });
+
+    // Hiển thị trang đầu tiên khi trang được load
+    $(document).ready(function () {
+        displayPage(currentPage);
+    });
+</script>
