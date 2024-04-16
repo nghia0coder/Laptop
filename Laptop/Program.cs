@@ -45,7 +45,14 @@ namespace Laptop
 						options.AppSecret = builder.Configuration["Facebook:AppSecret"];
 						options.SaveTokens = true;
 						options.CallbackPath = builder.Configuration["Facebook:CallbackPath"];
-					});
+					})
+					.AddGoogle(options =>
+					 {
+						 options.ClientId = builder.Configuration["Google:AppId"];
+						 options.ClientSecret = builder.Configuration["Google:AppSecret"];
+						 options.SaveTokens = true;
+						 options.CallbackPath = builder.Configuration["Google:CallbackPath"];
+					 });
             builder.Services.AddScoped<IVnPayService, VnPayService>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddIdentity<AppUserModel, IdentityRole>()
