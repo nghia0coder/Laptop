@@ -42,7 +42,7 @@ namespace Laptop.Controllers
 			{
 				CartItems = cartItems,
 				Quanity = cartItems.Count(),
-				Total = cartItems.Sum(x => (x.Quanity ?? 0) * (x.Price ?? 0))
+				Total = cartItems.Sum(x => x.Quanity  * x.Price)
 			};
 			ViewBag.TongTien = cart.Total;
 			ViewBag.TongQuanity = cart.Quanity;
@@ -323,7 +323,7 @@ namespace Laptop.Controllers
             long? dicount = (total * voucher.Discount) / 100;
 
             long? newtotal = total - dicount;
-            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal });
+            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal ,discount = dicount});
         }
        
 

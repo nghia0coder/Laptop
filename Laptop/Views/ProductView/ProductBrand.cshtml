@@ -202,7 +202,7 @@
 								<div class="product-body">
 									<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
 									<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()</a></h3>
-									<h4 class="product-price">$@item.Price<del class="product-old-price">@item.OriginPrice</del></h4>
+									<h4 class="product-price">@item.Price.ToString("#,##0") VNĐ<del class="product-old-price">@item.OriginPrice</del></h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
 										<i class="fa fa-star"></i>

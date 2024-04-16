@@ -56,7 +56,7 @@ else
                                                     <a class="btn btn-success btn-sm" asp-controller="ShoppingCart" asp-action="Increase" asp-route-id="@item.ProductID"> + </a>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 class="mb-0">€ @item.Price</h6>
+                                                    <h6 class="mb-0"> @item.Price.ToString("#,##0") VNĐ</h6>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <a class="btn btn-danger btn-sm" asp-controller="ShoppingCart" asp-action="Removed" asp-route-id="@item.ProductID"> Remove </a>
@@ -91,9 +91,10 @@ else
                                         <div class="order-products">
                                             @foreach (var item in Model.CartItems)
                                             {
+                                                var totalPrice = item.Price * item.Quanity;
                                                 <div class="order-col">
                                                     @item.Quanity<span style="margin-right: 0.2em;">x</span>@item.ProductName
-                                                    <div>$@(item.Price * item.Quanity)</div>
+                                                    <div>@totalPrice.ToString("#,##0") VNĐ</div>
                                                 </div>
                                             }
                                         </div>
@@ -101,9 +102,22 @@ else
                                             <div>Shiping</div>
                                             <div><strong>FREE</strong></div>
                                         </div>
+                                        <style>
+                                            #total {
+                                                white-space: nowrap; /* Ngăn chặn xuống dòng */
+                                            }
+                                        </style>
                                         <div class="order-col">
+                                            
+                                            <div><strong>DISCOUNT</strong></div>
+                                            <div><strong class="discount-total">0 VND</strong></div>
+                                           
+                                        </div>
+                                        <div class="order-col">
+                                            
+                                            
                                             <div><strong>TOTAL</strong></div>
-                                            <div><strong id="total" class="order-total">$@Model.Total</strong></div>
+                                            <div><strong id="total" class="order-total">@Model.Total.ToString("#,##0") VND</strong></div>
                                         </div>
                                     </div>
                                     <div class="payment-method">
@@ -114,7 +128,7 @@ else
                                                 MOMO
                                             </label>
                                             <div class="caption">
-                                                <p>Direct Transfer via MOMO</p>
+                                                <p>Direct transfer via MOMO</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
@@ -124,7 +138,7 @@ else
                                                     VNPAY
                                             </label>
                                             <div class="caption">
-                                                <p>Pay By Bank Card</p>
+                                                <p>Direct transfer via Banking</p>
                                             </div>
                                         </div>
                                         <div class="input-radio">
@@ -186,8 +200,9 @@ else
                 // Nếu voucher chưa được áp dụng trước đó, tiếp tục thực hiện hành động
                 var Code = document.getElementById("voucher-input").value;
                 var totalText = document.getElementById("total").innerText;
-                var totalInt = parseInt(totalText.replace('$', '').trim());
+                var totalInt = parseInt(totalText.replace(/\D/g, ''));
 
+                
                 $.ajax({
                     url: '/ShoppingCart/ApplyVoucher',
                     type: 'POST',
@@ -197,7 +212,11 @@ else
                     },
                     success: function (response) {
                         if (response.success) {
-                            $('.order-total').text('$' + response.newTotal);
+                            
+                            var newTotalFormatted = response.newTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
+                            var discountvnd = response.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
+                            $('.order-total').text(newTotalFormatted);
+                            $('.discount-total').text('-' + discountvnd);
                             alert(response.message);
                             voucherApplied = true; // Đặt biến cờ thành true để chỉ ra rằng voucher đã được áp dụng
                         } else {
