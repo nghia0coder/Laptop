@@ -108,8 +108,16 @@ else
                                             }
                                         </style>
                                         <div class="order-col">
+                                            
+                                            <div><strong>DISCOUNT</strong></div>
+                                            <div><strong class="discount-total">0 VND</strong></div>
+                                           
+                                        </div>
+                                        <div class="order-col">
+                                            
+                                            
                                             <div><strong>TOTAL</strong></div>
-                                            <div><strong id="total" class="order-total">@Model.Total.ToString("#,##0") VNĐ</strong></div>
+                                            <div><strong id="total" class="order-total">@Model.Total.ToString("#,##0") VND</strong></div>
                                         </div>
                                     </div>
                                     <div class="payment-method">
@@ -192,8 +200,9 @@ else
                 // Nếu voucher chưa được áp dụng trước đó, tiếp tục thực hiện hành động
                 var Code = document.getElementById("voucher-input").value;
                 var totalText = document.getElementById("total").innerText;
-                var totalInt = parseInt(totalText.replace('$', '').trim());
+                var totalInt = parseInt(totalText.replace(/\D/g, ''));
 
+                
                 $.ajax({
                     url: '/ShoppingCart/ApplyVoucher',
                     type: 'POST',
@@ -203,7 +212,11 @@ else
                     },
                     success: function (response) {
                         if (response.success) {
-                            $('.order-total').text('$' + response.newTotal);
+                            
+                            var newTotalFormatted = response.newTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
+                            var discountvnd = response.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
+                            $('.order-total').text(newTotalFormatted);
+                            $('.discount-total').text('-' + discountvnd);
                             alert(response.message);
                             voucherApplied = true; // Đặt biến cờ thành true để chỉ ra rằng voucher đã được áp dụng
                         } else {

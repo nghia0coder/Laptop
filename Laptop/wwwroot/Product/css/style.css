@@ -1908,7 +1908,7 @@ textarea.input {
                 text-align: right;
             }
 
-        .order-summary .order-col .order-total {
+        .order-summary .order-col .order-total .discount-total {
             font-size: 24px;
             color: #D10024;
         }
