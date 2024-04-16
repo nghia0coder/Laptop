@@ -323,7 +323,7 @@ namespace Laptop.Controllers
             long? dicount = (total * voucher.Discount) / 100;
 
             long? newtotal = total - dicount;
-            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal });
+            return Json(new { success = true, message = "Áp dụng mã giảm giá thành công!", newTotal = newtotal ,discount = dicount});
         }
        
 
