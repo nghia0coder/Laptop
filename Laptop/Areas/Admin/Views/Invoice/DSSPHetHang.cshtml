@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ProductVariation>
 @{
-    ViewData["Title"] = "Sản phẩm gần hết hàng";
+    ViewData["Title"] = "Products almost out of stock";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,10 +22,10 @@
                 <table class="table table-bordered table-hover" id="tbl">
                     <thead>
                         <tr>
-                            <th>Tên Sản Phẩm</th>
-                            <th>Cấu Hình</th>
-                            <th>Số Lượng</th>
-                            <th>Hình ảnh</th>
+                            <th>Product name</th>
+                            <th>Configuration</th>
+                            <th>Quantity</th>
+                            <th>Image</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -38,7 +38,7 @@
                                 <td>@item.QtyinStock</td>
                                 <td><img class="scaled-image" src="~/Contents/img/@item.ProductItems.Image1" /></td>
                                 <td>
-                                    <a class="btn btn-primary" asp-action="NhapHangDon" asp-route-id="@item.ProductVarId">Nhập hàng</a>
+                                    <a class="btn btn-primary" asp-action="NhapHangDon" asp-route-id="@item.ProductVarId">Import</a>
                                 </td>
                             </tr>
                         }
@@ -48,7 +48,7 @@
         }
         else
         {
-            <h2>HIỆN TẠI KHÔNG CÓ SẢN PHẨM NÀO GẦN HÊT HÀNG</h2>
+            <h2>NONE OF PRODUCT NEED TO BE IMPORT</h2>
         }
     </div>
 </div>

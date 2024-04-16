@@ -6,10 +6,10 @@
     IEnumerable<OrdersDetail> lstChiTietDH = ViewBag.ListChiTietDH as IEnumerable<OrdersDetail>;
 }
 
-<h1>Duyệt đơn hàng </h1>
+<h1>REVIEW ORDER</h1>
 <div class="card">
     <div class="card-body">
-        <h2 class="col-md-8">Thông tin đơn hàng</h2>
+        <h2 class="col-md-8">Order information</h2>
         <form asp-action="ApproveOrders" method="post">
             <div class="ChiTietDonHang table">
                 <table class="table table-bordered" id="table">
@@ -19,16 +19,16 @@
                             <table style="width:100%" class="table-borderless">
                                 <tr>
                                     <input type="hidden" asp-for="OrderId" />
-                                    <td>Mã đơn hàng: <b>@Model.OrderId <input type="hidden" name="MaDDH" value="@Model.OrderId" /></b></td>
-                                    <td>Email Khách Hàng: <b>@Model.Customer.UserName </b></td>
-                                    <td>Ngày đặt: <b>@Model.OrderDate</b></td>
+                                    <td>Order ID: <b>@Model.OrderId <input type="hidden" name="MaDDH" value="@Model.OrderId" /></b></td>
+                                    <td>Email customer: <b>@Model.Customer.UserName </b></td>
+                                    <td>Order date: <b>@Model.OrderDate</b></td>
                                     <td>
-                                        Đã thanh toán:
+                                        Paid:
                                         <input type="hidden" asp-for="Status" value="false" />
                                         <input readonly type="checkbox" asp-for="Status" onchange="updateCheckboxValue(this)" />
                                     </td>
                                     <td>
-                                        Đã giao:
+                                        Delivered:
                                         <input type="hidden" asp-for="Delivered" value="false" />
                                         <input type="checkbox" asp-for="Delivered" onchange="updateCheckboxValue(this)" />
                                     </td>
@@ -41,10 +41,10 @@
                     </tr>
                     @* Thông tin chi tiết đơn hàng *@
                     <tr>
-                        <td><b>Sản phẩm</b></td>
-                        <td><b>Hình ảnh</b></td>
-                        <td><b>Số lượng đặt</b></td>
-                        <td><b>Đơn giá đặt</b></td>
+                        <td><b>Product</b></td>
+                        <td><b>Image</b></td>
+                        <td><b>Order quantity</b></td>
+                        <td><b>Unit price order</b></td>
                     </tr>
                     @foreach (var item in lstChiTietDH)
                     {
@@ -58,7 +58,7 @@
                     }
                     <tr>
                         <td align="right" colspan="4">
-                            <span class="mr-5">Tổng số lượng: @Model.OrdersDetails.Sum(n => n.Quanity) Sản phẩm</span>
+                            <span class="mr-5">Total amount: @Model.OrdersDetails.Sum(n => n.Quanity) product</span>
                          @*    <span>Tổng tiền: @Model.OrdersDetails.Sum(n => n.ProductVar.ProductItems.Product.Price).Value.ToString("#,##") VNĐ</span> *@
                         </td>
                     </tr>
@@ -66,8 +66,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-offset-2 col-sm-6">
-                    <input type="button" value="In đơn hàng" class="btn btn-sm btn-success font-weight-bold" id="btnInDonHang" />
-                    <input type="submit" value="Lưu đơn hàng" class="btn btn-sm btn-primary font-weight-bold" id="btnLuuDonHang" />
+                    <input type="button" value="Print order" class="btn btn-sm btn-success font-weight-bold" id="btnInDonHang" />
+                    <input type="submit" value="Save order" class="btn btn-sm btn-primary font-weight-bold" id="btnLuuDonHang" />
                 </div>
             </div>
         </form>

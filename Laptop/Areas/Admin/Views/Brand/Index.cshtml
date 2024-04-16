@@ -15,11 +15,11 @@
 
 }
 
-<h2>CÁC THƯƠNG HIỆU</h2>
+<h2>BRAND</h2>
 <div class="card">
     <div class="card-body">
         <p>
-            <a asp-action="Create" class="btn btn-sm btn-warning font-weight-bold">Thêm mới</a>
+            <a asp-action="Create" class="btn btn-sm btn-warning font-weight-bold">Add new</a>
         </p>
         @if (Model != null && Model.Any())
         {
@@ -28,8 +28,8 @@
                     <thead>
                         <tr>
                           
-                            <th>Tên nhà SX</th>
-                            <th>Thông tin</th>
+                            <th>Brand name</th>
+                            <th>Information</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -42,10 +42,10 @@
                      
                              
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-info">Chỉnh sửa</a>
+                                    <a asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-info">Edit</a>
                                 </td>
                                 <td>
-                                    <a asp-action="Delete" asp-route-id="@item.BrandId" class="btn btn-danger">Xóa</a>
+                                    <a asp-action="Delete" asp-route-id="@item.BrandId" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         }
@@ -55,7 +55,7 @@
         }
         else
         {
-            <p>Hiện không có dữ liệu</p>
+            <p>No data</p>
         }
     </div>
 </div>

@@ -6,46 +6,136 @@
 
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Dashboard</h1>
+        <h1 class="mt-4">Home</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Home</li>
         </ol>
         <div class="row">
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white mb-4">
-                    <div class="card-body">Primary Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                <a href="@Url.Action("Index", "Vouchers", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body"><strong>Voucher</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white">Amount: @ViewBag.VoucherCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
                     </div>
-                </div>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("Index", "Colors", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body"><strong>Color</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Type: @ViewBag.ColorCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-warning text-white mb-4">
-                    <div class="card-body">Warning Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                <a href="@Url.Action("Index", "Brand", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body"><strong>Brand</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Type: @ViewBag.BrandCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-body">Success Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                <a href="@Url.Action("Index", "Rams", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body"><strong>Ram</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <spam class="small text-white stretched-link" href="#">Type: @ViewBag.RamCount</spam>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
                     </div>
-                </div>
+                    </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("Index", "Ssd", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body"><strong>SSD</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Type: @ViewBag.SSDCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-danger text-white mb-4">
-                    <div class="card-body">Danger Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                <a href="@Url.Action("Index", "Suppliers", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body"><strong>Supplier</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Amount: @ViewBag.SupplierCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
                     </div>
-                </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("Index", "Categories", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body"><strong>Category</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Amount: @ViewBag.CategoryCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("Index", "Product", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body"><strong>Product</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Amount: @ViewBag.ProductCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("Index", "Invoice", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body"><strong>Import history</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Amount: @ViewBag.InvoiceCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("DSSPHetHang", "Invoice", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body"><strong>Products almost out of stock</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Amount: @ViewBag.ProVarCount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <a href="@Url.Action("Index", "ProductItems", new { area = "Admin" })" class="text-decoration-none">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body"><strong>Product item</strong></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span class="small text-white stretched-link" href="#">Amount: @ViewBag.PICount</span>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="row">
@@ -68,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-4">
+        @* <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 DataTable Example
@@ -555,7 +645,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div>  *@
     </div>
 </main>
 

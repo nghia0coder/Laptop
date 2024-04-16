@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CHỈNH SỬA</h1>
+<h1>EDIT BRAND</h1>
 
 <hr />
 <div class="row">
@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="BrandId" />
             <div class="form-group">
-                <label asp-for="BrandName" class="control-label">Tên nhà sản xuất</label>
+                <label asp-for="BrandName" class="control-label">Brand name</label>
                 <input asp-for="BrandName" class="form-control" />
                 <span asp-validation-for="BrandName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -27,6 +27,6 @@
 
 <div>
     <br>
-    <a class="btn btn-danger" asp-action="Index">Trở về</a>
+    <a class="btn btn-danger" asp-action="Index">Back</a>
 </div>
 

@@ -5,19 +5,19 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>NHÀ CUNG CẤP</h1>
+<h1>SUPPLIER</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
+    <a class="btn btn-primary" asp-action="Create">Add new</a>
 </p>
 
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Tên nhà cung cấp</th>
-                <th>Địa chỉ</th>
-                <th>Số điện thoại</th>
+                <th>Supplier name</th>
+                <th>Address</th>
+                <th>Phone number</th>
                 <th>Email</th>
                 <th></th>
             </tr>
@@ -31,9 +31,9 @@
                     <td>@Html.DisplayFor(modelItem => item.Phone)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>
-                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.SupplierId">Chỉnh sửa</a>
-                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.SupplierId">Chi tiết</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SupplierId">Xóa</a>
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.SupplierId">Edit</a>
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.SupplierId">Detail</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SupplierId">Delete</a>
                     </td>
                 </tr>
             }

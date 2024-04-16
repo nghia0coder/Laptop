@@ -13,7 +13,7 @@
     // }
 }
 
-<h2>Danh Sách Sản Phẩm</h2>
+<h2>PRODUCTITEM LIST</h2>
 
 <form class="d-flex" role="search">
     <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
@@ -34,7 +34,7 @@
                     @Html.DisplayNameFor(model => model.Product.ProductName)
                 </th>
                 <th>
-                    Chức Năng
+                    Operation
                 </th>
             </tr>
         </thead>
@@ -55,7 +55,7 @@
                         <a asp-action="Edit" asp-route-id="@item.ProductItemsId" class="btn btn-primary">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.ProductItemsId" class="btn btn-info">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ProductItemsId" class="btn btn-danger">Delete</a>
-                        <a asp-action="Create" asp-controller="ProductVariations" asp-route-id="@item.ProductItemsId" class="btn btn-success">Thêm Cấu Hình</a>
+                        <a asp-action="Create" asp-controller="ProductVariations" asp-route-id="@item.ProductItemsId" class="btn btn-success">Add new configuration</a>
                     </td>
                 </tr>
             }

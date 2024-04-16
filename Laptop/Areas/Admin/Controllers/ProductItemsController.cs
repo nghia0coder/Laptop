@@ -32,8 +32,7 @@ namespace Laptop.Areas.Admin.Controllers
                 .Include(p => p.Color)
                 .Include(p => p.Product)
                 .OrderBy(p => p.ProductItemsId)
-                //.Skip((pg - 1) * pageSize)
-                //.Take(pageSize)
+                
                 .ToListAsync();
 
             //var totalProductItems = await _context.ProductItems.CountAsync();

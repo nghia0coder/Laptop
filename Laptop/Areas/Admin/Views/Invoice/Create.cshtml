@@ -1,6 +1,6 @@
 ﻿@model Invoice
 @{
-    ViewData["Title"] = "Quản lý phiếu nhập";
+    ViewData["Title"] = "Manage invoice";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
     IEnumerable<ProductItem> lstProduct = ViewBag.ListProduct as IEnumerable<ProductItem>;
@@ -24,11 +24,11 @@
         {
             <div class="form-group row pb-2">
                 <div class=" col-md-6">
-                    <label class="col-form-label font-weight-bold" asp-for="SupplierId">Nhà cung cấp</label>
+                    <label class="col-form-label font-weight-bold" asp-for="SupplierId">Supplier</label>
                     <select  asp-for="SupplierId" class="form-control" asp-items="@ViewBag.Supplier"></select>
                 </div>
                 <div class="col-md-6">
-                    <label class="col-form-label font-weight-bold">Ngày nhập</label>
+                    <label class="col-form-label font-weight-bold">Import date</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
