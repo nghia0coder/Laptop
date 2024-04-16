@@ -36,11 +36,42 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-primary" />
+                    <input type="submit" value="LOGIN" class="btn btn-primary" />
                 </div>
 
             </form>
-            <div >
+            <div class="form-group">
+                @{
+                    var loginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                    <form asp-controller="Account" asp-action="ExternalLogin" method="POST" class="form-horizontal" style="text-align: center">
+                        @foreach (var provider in loginProviders)
+                        {
+                            if (string.Equals(provider.Name, "facebook", StringComparison.OrdinalIgnoreCase))
+                            {
+                                
+                                    <button  style="width:342px;height:55px;" type="submit" class="btn btn-facebook text-uppercase" name="provider" value="@provider.Name"
+                                        title="Sử dụng tài khoản của bạn để đăng nhập hoặc đăng ký">
+                                    <i style="height:14px;width:14px;" class="fab fa-facebook mr-2"></i>
+                                    @provider.DisplayName
+                                    </button>
+                                   
+                             
+
+                            }
+                            else if (string.Equals(provider.Name, "google", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <button style="width:342px;height:55px;" type="submit" class="btn btn-google text-uppercase mt-3" name="provider" value="@provider.Name"
+                                        title="Sử dụng tài khoản của bạn để đăng nhập hoặc đăng ký">
+                                    <i style="height:14px;width:14px;" class="fab fa-google mr-2"></i>
+                                    @provider.DisplayName
+                                </button>
+                            }
+                        }
+                    </form>
+
+                }
+            </div>
+            <div style="margin-top : 30px">
                 <span >
                     Don't have an account?
                     <a asp-action="Register">
@@ -49,49 +80,38 @@
                    
                 </span>
                 <br />
-                 <span>Other sign-in methods</span>
+              
             </div>
         </div>
         
-        <div class="text-center">
-            @{
-                var loginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();    
-               <form asp-controller="Account" asp-action="ExternalLogin" method="POST" class="form-horizontal" style="text-align: center">
-                        @foreach (var provider in loginProviders)
-                        {
-                            if (string.Equals(provider.Name, "facebook", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <button type="submit"
-                                    class="btn btn-lg btn-facebook btn-block text-uppercase"
-                                    name="provider" value="@provider.Name"
-                                    title="Sử dụng tài khoản @provider.DisplayName của bạn để đăng nhập hoặc đăng ký">
-                                <i class="fab fa-facebook-f mr-2"></i> Login Facebook
-                                </button>
-
-                            }
-                            else if (string.Equals(provider.Name, "google", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <button type="submit"
-                                        class="btn btn-lg btn-google btn-block text-uppercase"
-                                        name="provider" value="@provider.Name"
-                                        title="sử dụng tài khoản @provider.DisplayName của bạn để đăng nhập hoặc đăng ký">
-                                    <i class="fab fa-google mr-2"></i> Login Google
-                                </button>
-                            }
-                        }
-                    </form>
-                
-            }
-        </div>
+        
     </div>
 </body>
 </html>
 
 <style>
+    .btn-primary, .btn-facebook {
+        font-size: 16px; /* Thiết lập kích thước phông chữ tương đồng */
+        padding: 10px 24px; /* Thiết lập padding để nút có kích thước giống nhau */
+        border-radius: 5px; /* Làm tròn góc */
+        border: none; /* Bỏ đường viền */
+        width: 100%; /* Chiều rộng tối đa */
+        cursor: pointer; /* Hiệu ứng con trỏ khi di chuột */
+    }
+
     .btn-facebook {
         background-color: #3b5998;
         color: white;
+        text-transform: uppercase; /* Viết hoa chữ */
     }
+
+    /* Bổ sung thêm cho các nút khác nếu cần */
+    .btn-google {
+        background-color: #dd4b39;
+        color: white;
+        text-transform: uppercase;
+    }
+
 
 </style>
                                      
