@@ -11,6 +11,7 @@ using Laptop.Repository;
 using Laptop.Service;
 using Laptop.Models.Momo;
 using Laptop.Services;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Laptop
 {
@@ -46,13 +47,15 @@ namespace Laptop
 						options.SaveTokens = true;
 						options.CallbackPath = builder.Configuration["Facebook:CallbackPath"];
 					})
-					.AddGoogle(options =>
-					 {
-						 options.ClientId = builder.Configuration["Google:AppId"];
-						 options.ClientSecret = builder.Configuration["Google:AppSecret"];
-						 options.SaveTokens = true;
-						 options.CallbackPath = builder.Configuration["Google:CallbackPath"];
-					 });
+                    .AddGoogle(options =>
+                    {
+                        options.ClientId = builder.Configuration["Google:AppId"];
+                        options.ClientSecret = builder.Configuration["Google:AppSecret"];
+                        options.ClaimActions.MapJsonKey("Picture", "picture", "url");
+                        options.SaveTokens = true;
+                        options.CallbackPath = builder.Configuration["Google:CallbackPath"];
+                    });
+
             builder.Services.AddScoped<IVnPayService, VnPayService>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddIdentity<AppUserModel, IdentityRole>()

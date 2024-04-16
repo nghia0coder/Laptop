@@ -48,14 +48,14 @@
                         {
                             if (string.Equals(provider.Name, "facebook", StringComparison.OrdinalIgnoreCase))
                             {
-
-                                <button style="width:342px;height:55px;" type="submit" class="btn btn-facebook text-uppercase" name="provider" value="@provider.Name"
+                                
+                                    <button  style="width:342px;height:55px;" type="submit" class="btn btn-facebook text-uppercase" name="provider" value="@provider.Name"
                                         title="Sử dụng tài khoản của bạn để đăng nhập hoặc đăng ký">
                                     <i style="height:14px;width:14px;" class="fab fa-facebook mr-2"></i>
                                     @provider.DisplayName
-                                </button>
-
-
+                                    </button>
+                                   
+                             
 
                             }
                             else if (string.Equals(provider.Name, "google", StringComparison.OrdinalIgnoreCase))
@@ -72,19 +72,19 @@
                 }
             </div>
             <div style="margin-top : 30px">
-                <span>
+                <span >
                     Don't have an account?
                     <a asp-action="Register">
                         <label>Register</label>
                     </a>
-
+                   
                 </span>
                 <br />
-
+              
             </div>
         </div>
-
-
+        
+        
     </div>
 </body>
 </html>
@@ -112,4 +112,6 @@
         text-transform: uppercase;
     }
 
+
 </style>
+                                     
