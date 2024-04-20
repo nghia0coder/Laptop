@@ -25,12 +25,12 @@ namespace Laptop.Service
             Order model = new Order();
 
             model.OrderId = DateTime.UtcNow.Ticks.ToString();
-            model.Total = total;
+            model.PriceTotal = total;
 
             string infor = "Thacong";
 
             var rawData =
-                $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.OrderId}&amount={model.Total}&orderId={model.OrderId}&orderInfo={infor}&returnUrl={_options.Value.ReturnUrl}&notifyUrl={_options.Value.NotifyUrl}&extraData=";
+                $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.OrderId}&amount={model.PriceTotal}&orderId={model.OrderId}&orderInfo={infor}&returnUrl={_options.Value.ReturnUrl}&notifyUrl={_options.Value.NotifyUrl}&extraData=";
 
             var signature = ComputeHmacSha256(rawData, _options.Value.SecretKey);
 
@@ -48,7 +48,7 @@ namespace Laptop.Service
                 returnUrl = _options.Value.ReturnUrl,
                 orderId = model.OrderId,
                 orderInfo = infor,
-                amount = model.Total.ToString(),
+                amount = model.PriceTotal.ToString(),
                 requestId = model.OrderId,
                 extraData = "",
                 signature = signature

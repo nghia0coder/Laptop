@@ -6,11 +6,12 @@ namespace Laptop.Models
     {
         public string Address { get; set; }
 
-		public virtual ICollection<Order> Orders { get; } = new List<Order>();
-        public virtual ICollection<Tintuc> Tintucs { get; } = new List<Tintuc>();
+		//public virtual ICollection<Order> Orders { get; } = new List<Order>();
+  //      public virtual ICollection<Tintuc> Tintucs { get; } = new List<Tintuc>();
 
-        public virtual ICollection<PostComment> PostComments { get; } = new List<PostComment>();
+		public virtual ICollection<Customer> Customers { get; } = new List<Customer>();
 
-        public virtual ICollection<ProductComment> Comments { get; } = new List<ProductComment>();
+		public virtual ICollection<Employee> Employees { get; } = new List<Employee>();
+
     }
 }

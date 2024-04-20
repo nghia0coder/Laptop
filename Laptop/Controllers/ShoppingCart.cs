@@ -175,10 +175,10 @@ namespace Laptop.Controllers
 			Order ddh = new Order();
 			ddh.OrderId = id;
 			ddh.OrderDate = DateTime.Now;
-			ddh.Delivered = false;
-			ddh.Status = true;
-			ddh.CustomerId = userId;
-			ddh.Total = int.Parse(total);
+			//ddh.Delivered = false;
+			//ddh.Status = true;
+			//ddh.CustomerId = userId;
+			//ddh.Total = int.Parse(total);
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 
@@ -237,10 +237,10 @@ namespace Laptop.Controllers
 			Order ddh = new Order();
 			ddh.OrderId = DateTime.UtcNow.Ticks.ToString();
 			ddh.OrderDate = DateTime.Now;
-			ddh.Delivered = false;
-			ddh.Status = false;
-			ddh.CustomerId = userId;
-			ddh.Total = int.Parse(total);
+			//ddh.Delivered = false;
+			//ddh.Status = false;
+			//ddh.CustomerId = userId;
+			//ddh.Total = int.Parse(total);
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 

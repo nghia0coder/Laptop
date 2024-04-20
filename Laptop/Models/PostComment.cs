@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Laptop.Models
 {
     public partial class PostComment
     {
-        public PostComment()
-        {
-            
-        }
-        [Key]
-        public int PostCommentID { get; set; }
-        public string Comment { get; set; }
-
-        public int PostID { get; set; }
-
-        public virtual Tintuc? Tintuc { get; set; }
+        public int PostCommentId { get; set; }
+        public string Comment { get; set; } = null!;
+        public int PostId { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int CustomerId { get; set; }
 
-        public string CustomerId { get; set; }
-        public virtual AppUserModel? Customer { get; set; }
+        public virtual Customer Customer { get; set; } = null!;
+        public virtual Tintuc Post { get; set; } = null!;
     }
 }

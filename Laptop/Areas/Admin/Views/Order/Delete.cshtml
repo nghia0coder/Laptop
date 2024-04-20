@@ -5,51 +5,51 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>DELETE</h1>
+<h1>Xóa</h1>
 
-<h3>Are you sure you wwant to delete</h3>
+<h3>Bạn có chắc chắn muốn xóa?</h3>
 <div>
-    <h4>Receipt</h4>
+    <h4>Hóa đơn</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Pay date
+            Ngày thanh toán 
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.OrderDate)
         </dd>
         <dt class = "col-sm-2">
-            Delivered status
+            Tình trạng giao hàng 
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Delivered)
+            @Html.DisplayFor(model => model.OrderStatus)
         </dd>
         <dt class = "col-sm-2">
-            Delivered date 
+            Ngày giao 
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DeliveryDate)
         </dd>
         <dt class = "col-sm-2">
-            Paid 
+            Đã thanh toán 
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+            @Html.DisplayFor(model => model.StatusPayment)
         </dd>
         <dt class = "col-sm-2">
-            Canceled
+            Đã hủy 
         </dt>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Customer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Id)
+            @Html.DisplayFor(model => model.Customer.CustomerId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="OrderId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back</a>
+        <a asp-action="Index">Trở về</a>
     </form>
 </div>

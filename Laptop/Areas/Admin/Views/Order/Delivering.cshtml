@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "Đang Giao";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h2>Đơn Hàng Đang Giao</h2>
+        @if (Model != null)
+        {   
+            <div id="list" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Họ tên KH</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng giao hàng</th>
+                            <th>Ngày giao</th>
+                            <th>Đã thanh toán</th>
+                            <th>Xác nhận</th>
+                            <th>Hủy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="order-row" data-order-id="@item.OrderId">
+                         
+                                <td>@(item.Customer != null ? item.Customer.Name : "N/A")</td>
+                                <td>@item.OrderDate</td>
+                                <td>@item.StatusNaviagtion.StatusName</td>
+                                <td>@item.DeliveryDate</td>
+                                <td>@item.StatusPayment</td>
+
+                                <td>
+                                    @if (item.OrderId != null)
+                                    {
+                                        <a class="btn btn-primary" href="@Url.Action("DeliveredConfirm", "Order", new { id = item.OrderId })">Đã Giao</a>
+                                     @*    <a class="btn btn-primary" asp-action="DeliveredConfirm" asp-route-id="item.OrderId">Đã Giao</a> *@
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.OrderId != null)
+                                    {
+                                        <a class="btn btn-danger" href="@Url.Action("OrderCancel", "Order", new { id = item.OrderId })" >Xác Nhận Hủy</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".order-row").click(function () {
+                var orderId = $(this).data("order-id");
+
+                window.location.href = "/Admin/Order/DeliveryConfirm/" + orderId;
+            });
+        });
+    </script>
+}

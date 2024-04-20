@@ -78,7 +78,7 @@ namespace Laptop.Controllers
                 ViewBag.Brandname = _context.Brands.ToList();
                 // Truy vấn lấy bài viết theo ID
                 var post = _context.Tintucs
-                    .Where(p => p.BrandID == brandid)
+                    .Where(p => p.BrandId == brandid)
                     .Include(p => p.Brand)
                     .OrderByDescending(p => p.CreatedDate)
                     .ToList();              
@@ -101,24 +101,24 @@ namespace Laptop.Controllers
             var laptopContext = _context.Tintucs.Include(t => t.Brand);
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> Createpost (Tintuc tintuc)
-        {
-            string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            tintuc.CustomerId = userId;
-            tintuc.Thumburl = uniqueFileName1;
-            tintuc.Status = false;
-            tintuc.Hot = false;
-            tintuc.New = false;
-            tintuc.CreatedDate = DateTime.Now;
-            await _context.AddAsync(tintuc);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+        //[HttpPost]
+        //public async Task<IActionResult> Createpost (Tintuc tintuc)
+        //{
+        //    string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    tintuc.Customer.CustomerId = userId;
+        //    tintuc.Thumburl = uniqueFileName1;
+        //    tintuc.Status = false;
+        //    tintuc.Hot = false;
+        //    tintuc.New = false;
+        //    tintuc.CreatedDate = DateTime.Now;
+        //    await _context.AddAsync(tintuc);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
 
 
-            return View(tintuc);
-        }
+        //    return View(tintuc);
+        //}
 
         private string GetProfilePhotoFileName1(Tintuc Product)
         {
@@ -136,33 +136,33 @@ namespace Laptop.Controllers
             }
             return uniqueFileName;
         }
-        public async Task<IActionResult> Displayuserpost()
-        {
-            ViewBag.Brandname = _context.Brands.ToList();
-            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //public async Task<IActionResult> Displayuserpost()
+        //{
+        //    ViewBag.Brandname = _context.Brands.ToList();
+        //    var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
            
-            // Truy vấn lấy bài viết theo ID
-            var post = _context.Tintucs
-                .Where(p => p.CustomerId == customerid && p.Status)
-                .Include(p => p.Brand)
-                .OrderByDescending(p => p.CreatedDate)
-                .ToList();
+        //    // Truy vấn lấy bài viết theo ID
+        //    var post = _context.Tintucs
+        //        .Where(p => p.CustomerId == customerid && p.Status)
+        //        .Include(p => p.Brand)
+        //        .OrderByDescending(p => p.CreatedDate)
+        //        .ToList();
 
-            return View(post);
-        }
-        public async Task<IActionResult> Displayuserunpost()
-        {
-            ViewBag.Brandname = _context.Brands.ToList();
-            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    return View(post);
+        //}
+        //public async Task<IActionResult> Displayuserunpost()
+        //{
+        //    ViewBag.Brandname = _context.Brands.ToList();
+        //    var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Truy vấn lấy bài viết theo ID
-            var post = _context.Tintucs
-                .Where(p => p.CustomerId == customerid && !p.Status)
-                .Include(p => p.Brand)
-                .OrderByDescending(p => p.CreatedDate)
-                .ToList();
+        //    // Truy vấn lấy bài viết theo ID
+        //    var post = _context.Tintucs
+        //        .Where(p => p.CustomerId == customerid && !p.Status)
+        //        .Include(p => p.Brand)
+        //        .OrderByDescending(p => p.CreatedDate)
+        //        .ToList();
 
-            return View(post);
-        }
+        //    return View(post);
+        //}
     }
 }

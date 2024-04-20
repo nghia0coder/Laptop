@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "ChuaThanhToan";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h2>Đơn Hàng Chưa Duyệt</h2>
+        @if (Model != null && Model.Any())
+        {
+            <div id="list" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tên Khách Hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng đơn hàng</th>
+                            <th>Đã thanh toán</th>
+                            <th>Ngày giao</th>
+                            <th>Xác Nhận</th>
+                            <th>Hủy Đơn Hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Customer.Name</td>
+                                <td>@item.OrderDate</td>
+                                <td>@item.StatusNaviagtion.StatusName</td>
+                                <td>@item.StatusPayment</td>
+                                <td>@item.DeliveryDate</td>
+                              
+                                <td>
+                                    @if (item.OrderId != null)
+                                    {
+                                        <a class ="btn btn-primary" href="@Url.Action("ApproveOrders", "Order", new { id = item.OrderId })" >Duyệt đơn</a>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.OrderId != null)
+                                    {
+                                        <a class="btn btn-danger" href="@Url.Action("OrderCancel", "Order", new { id = item.OrderId })" >Xác Nhận Hủy</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

@@ -6,148 +6,222 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Laptop.Models;
+using System.Security.Claims;
 
 namespace Laptop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class OrderController : Controller
-    {
-        private readonly LaptopContext _context;
+	public class OrderController : Controller
+	{
+		private readonly LaptopContext _context;
 
-        public OrderController(LaptopContext context)
-        {
-            _context = context;
-        }
+		public OrderController(LaptopContext context)
+		{
+			_context = context;
+		}
 
-        public IActionResult Unpaid(int pg = 1)
-        {
-            var lst = _context.Orders.Include(n => n.Customer).Where(n => !n.Status).OrderBy(n => n.OrderDate).ToList();
+		public IActionResult OrderConfirm()
+		{
+			var lst = _context.Orders
+				.Include(n => n.StatusNaviagtion)
+				.Include(n => n.Customer)
+				.Where(n => n.OrderStatus == 1)
+				.OrderBy(n => n.OrderDate)
+				.ToList();
+			return View(lst);
+		}
+		[HttpGet]
+		public IActionResult Delivering()
+		{
+			var lstDSDHCG = _context.Orders
+				.Include(n => n.Customer)
+				.Where(n => n.OrderStatus == 2)
+				.Include(n => n.StatusNaviagtion)
+				.OrderBy(n => n.DeliveryDate)
+				.ToList();
+			return View(lstDSDHCG);
+		}
+		[HttpGet]
+		public IActionResult Cancel()
+		{
+			var lstDSDHCG = _context.Orders
+				.Include(n => n.Customer)
+				.Where(n => n.OrderStatus == 4)
+				.Include(n => n.StatusNaviagtion)
+				.OrderBy(n => n.DeliveryDate)
+				.ToList();
+			return View(lstDSDHCG);
+		}
+		public IActionResult Delivered(int id)
+		{
+			var lstDSDHCG = _context.Orders
+				.Include(n => n.Customer)
+				.Include(n => n.StatusNaviagtion)
+				.Where(n => n.OrderStatus == 3)
+				.OrderBy(n => n.DeliveryDate)
+				.ToList();
+			return View(lstDSDHCG);
+		}
+		public async Task<IActionResult> DeliveredConfirm(int id)
+		{
+			var order = await _context.Orders.FindAsync(id);
+			order.OrderStatus = 3;
 
-            const int pageSize = 5;
-            if (pg < 1)
-                pg = 1;
-            int recsCount = lst.Count();
+			_context.Orders.Update(order);
+			await _context.SaveChangesAsync();
+			return RedirectToAction("Delivered");
+		}
+		[HttpGet]
+		public IActionResult PaidDelivered()
+		{
+			var lstDSDHCG = _context.Orders
+				.Include(n => n.Customer)
+				.Where(n => n.StatusPayment)
+				.OrderBy(n => n.DeliveryDate)
+				.ToList();
+			return View(lstDSDHCG);
+		}
 
-            var pager = new Pager(recsCount, pg, pageSize);
+		[HttpGet]
+		public IActionResult ApproveOrders(string? id)
+		{
+			if (id == null)
+			{
+				return new BadRequestResult();
+			}
 
-            int recSkip = (pg - 1) * pageSize;
+			Order model = _context.Orders
+				.Include(n => n.Customer.Account)
+				.SingleOrDefault(n => n.OrderId == id);
 
-            var data = lst.Skip(recSkip).Take(pageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            //return View(lst);
-
-            return View(data);
-        }
-        [HttpGet]
-        public IActionResult PaidUndelivered(int pg = 1)
-        {
-            var lstDSDHCG = _context.Orders.Include(n => n.Customer).Where(n => n.Status && !n.Delivered).OrderBy(n => n.OrderDate).ToList();
-
-            const int pageSize = 5;
-            if (pg < 1)
-                pg = 1;
-            int recsCount = lstDSDHCG.Count();
-
-            var pager = new Pager(recsCount, pg, pageSize);
-
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = lstDSDHCG.Skip(recSkip).Take(pageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            //return View(lst);
-
-            return View(data);
-        }
-        [HttpGet]
-        public IActionResult PaidDelivered(int pg=1)
-        {
-            var lstDSDHCG = _context.Orders.Include(n => n.Customer)
-                .Where(n => n.Status && n.Delivered).OrderBy(n => n.OrderDate).ToList();
-
-            const int pageSize = 5;
-            if (pg < 1)
-                pg = 1;
-            int recsCount = lstDSDHCG.Count();
-
-            var pager = new Pager(recsCount, pg, pageSize);
-
-            int recSkip = (pg - 1) * pageSize;
-
-            var data = lstDSDHCG.Skip(recSkip).Take(pageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            //return View(lst);
-
-            return View(data);
-        }
-
-        [HttpGet]
-        public IActionResult ApproveOrders(string? id)
-        {
-            if (id == null)
-            {
-                return new BadRequestResult();
-            }
-
-            Order model = _context.Orders
-                .Include(n => n.Customer)
-                .SingleOrDefault(n => n.OrderId == id);
-
-            if (model == null)
-            {
-                return NotFound();
-            }
+			if (model == null)
+			{
+				return NotFound();
+			}
 
 
-            ViewBag.ListChiTietDH = _context.OrdersDetails
-                .Where(n => n.OrderId == id)
-                .Include(n => n.ProductVar.ProductItems.Product)
-                .ToList(); 
+			ViewBag.ListChiTietDH = _context.OrdersDetails
+				.Where(n => n.OrderId == id)
+				.Include(n => n.ProductVar.ProductItems.Product)
+				.ToList();
 
-            ViewBag.TenKH = model.Customer.UserName;
+			ViewBag.TenKH = model.Customer.Name;
 
-            return View(model);
-        }
+			return View(model);
+		}
+		[HttpGet]
+		public IActionResult DeliveryConfirm(string? id)
+		{
+			if (id == null)
+			{
+				return new BadRequestResult();
+			}
 
-        [HttpPost]
-        public IActionResult ApproveOrders(Order ddh)
-        {
-            Order ddhUpdate = _context.Orders.FirstOrDefault(n => n.OrderId == ddh.OrderId);
-            if (ddhUpdate == null)
-            {
-                return Content("Contet");
-            }
-            ddhUpdate.Status = ddh.Status;
-            ddhUpdate.Delivered = ddh.Delivered;
-            _context.Orders.Update(ddhUpdate);
-            _context.SaveChanges();
+			Order model = _context.Orders
+				.Include(n => n.Customer.Account)
+				.SingleOrDefault(n => n.OrderId == id);
 
-            //var lstChiTietDH = _context.OrdersDetails
-            //    .Where(n => n.OrderId == ddh.OrderId)
-            //    .Include(n => n.ProductVar)
-            //    .ToList();
+			if (model == null)
+			{
+				return NotFound();
+			}
 
-            //ViewBag.ListChiTietDH = lstChiTietDH;
 
-            return RedirectToAction("PaidUndelivered","Order");
-        }
+			ViewBag.ListChiTietDH = _context.OrdersDetails
+				.Where(n => n.OrderId == id)
+				.Include(n => n.ProductVar.ProductItems.Product)
+				.ToList();
 
-        // Dispose method
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_context != null)
-                {
-                    _context.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-    }
+			ViewBag.TenKH = model.Customer.Name;
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public IActionResult ApproveOrders(Order ddh)
+		{
+
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var employeeeID = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.EmployeeId).FirstOrDefault();
+
+
+			Order ddhUpdate = _context.Orders.FirstOrDefault(n => n.OrderId == ddh.OrderId);
+
+			ddhUpdate.StatusPayment = ddh.StatusPayment;
+			ddhUpdate.OrderStatus = 2;
+			ddhUpdate.EmployeeId = employeeeID;
+			_context.Orders.Update(ddhUpdate);
+			_context.SaveChanges();
+
+			//var lstChiTietDH = _context.OrdersDetails
+			//    .Where(n => n.OrderId == ddh.OrderId)
+			//    .Include(n => n.ProductVar)
+			//    .ToList();
+
+			//ViewBag.ListChiTietDH = lstChiTietDH;
+
+			return RedirectToAction("Delivering", "Order");
+		}
+		[HttpGet]
+		public IActionResult OrderCancel(string? id)
+		{
+			if (id == null)
+			{
+				return new BadRequestResult();
+			}
+
+			Order model = _context.Orders
+				.Include(n => n.Customer.Account)
+				.SingleOrDefault(n => n.OrderId == id);
+
+			if (model == null)
+			{
+				return NotFound();
+			}
+
+
+			ViewBag.ListChiTietDH = _context.OrdersDetails
+				.Where(n => n.OrderId == id)
+				.Include(n => n.ProductVar.ProductItems.Product)
+				.ToList();
+
+			ViewBag.TenKH = model.Customer.Name;
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public IActionResult OrderCancel(Order ddh)
+		{
+			Order ddhUpdate = _context.Orders.FirstOrDefault(n => n.OrderId == ddh.OrderId);
+
+			ddhUpdate.StatusPayment = ddh.StatusPayment;
+			ddhUpdate.OrderStatus = 4;
+			_context.Orders.Update(ddhUpdate);
+			_context.SaveChanges();
+
+			//var lstChiTietDH = _context.OrdersDetails
+			//    .Where(n => n.OrderId == ddh.OrderId)
+			//    .Include(n => n.ProductVar)
+			//    .ToList();
+
+			//ViewBag.ListChiTietDH = lstChiTietDH;
+
+			return RedirectToAction("Cancel", "Order");
+		}
+
+		// Dispose method
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				if (_context != null)
+				{
+					_context.Dispose();
+				}
+			}
+			base.Dispose(disposing);
+		}
+	}
 }
