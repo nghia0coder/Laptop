@@ -10,6 +10,7 @@
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 
+
 @Html.Partial("_NotificationPartial")
 @if (Model == null) // Check if the list is null or empty
 {
@@ -17,7 +18,19 @@
 }
 else
 {
+       <div class="custom-model-main">
+        <div class="custom-model-inner">
+            <div class="close-btn">×</div>
+            <div class="custom-model-wrap">
+                <div class="pop-up-content-wrap">
+                    <strong>Applied Voucher Success</strong>
+                </div>
+            </div>
+        </div>
+        <div class="bg-overlay"></div>
+    </div>
     <section class="h-100 h-custom" style="background-color: #fff;">
+
         <div class="alert" style="display:none;">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             Please Select A Payment Method
@@ -152,11 +165,26 @@ else
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Your Voucher Code" aria-label="Nhập mã giảm giá" aria-describedby="button-addon2" id="voucher-input">
+                                    <div class="input-group mb-3 row">
+                                        <input style="display:block" type="text" class="form-control" placeholder="Your Voucher Code" aria-label="Nhập mã giảm giá" aria-describedby="button-addon2" id="voucher-input">
                                         <button class="btn btn-outline-secondary margin-bottom-20" type="button" id="apply-voucher-btn">Apply</button>
                                     </div>
-                                    <div class="input-checkbox">
+                                    <style>
+                                        .input-group {
+                                            display: flex; /* Ensures elements are inline */
+                                            align-items: center; /* Centers the items vertically */
+                                        }
+
+                                            .input-group .form-control {
+                                                flex-grow: 1; /* Input takes up remaining space */
+                                            }
+
+                                            .input-group .btn {
+                                                margin-left: 10px; /* Adds space between the input and the button */
+                                            }
+
+                                    </style>
+                                    <div class="input-checkbox" style="margin-top : 5px">
                                         <input type="checkbox" id="terms">
                                         <label for="terms">
                                             <span></span>
@@ -167,7 +195,7 @@ else
                                     {   
                                         if (Model.CartItems.Count > 0)
                                         {
-                                            <a class="primary-btn order-submit" id="place-order-btn">Place order</a>
+                                            <a class="primary-btn order-submit" style="cursor : pointer" id="place-order-btn">Place order</a>
                                         }
                                         else
                                         {
@@ -217,8 +245,8 @@ else
                             var discountvnd = response.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
                             $('.order-total').text(newTotalFormatted);
                             $('.discount-total').text('-' + discountvnd);
-                            alert(response.message);
-                            voucherApplied = true; // Đặt biến cờ thành true để chỉ ra rằng voucher đã được áp dụng
+                            voucherApplied = true;
+                            $(".custom-model-main").addClass('model-open');// Đặt biến cờ thành true để chỉ ra rằng voucher đã được áp dụng
                         } else {
                             alert("Lỗi: " + response.message);
                         }
@@ -231,6 +259,9 @@ else
                 // Nếu voucher đã được áp dụng trước đó, bạn có thể thông báo cho người dùng hoặc bỏ qua hành động
                 alert("Voucher đã được áp dụng trước đó.");
             }
+            $(".close-btn, .bg-overlay").click(function () {
+                $(".custom-model-main").removeClass('model-open');
+            });
         });
        
          

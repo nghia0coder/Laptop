@@ -28,7 +28,9 @@ namespace Laptop.Models
         public virtual DbSet<ProductComment> ProductComments { get; set; } = null!;
         public virtual DbSet<ProductItem> ProductItems { get; set; } = null!;
         public virtual DbSet<ProductVariation> ProductVariations { get; set; } = null!;
-        public virtual DbSet<Ram> Rams { get; set; } = null!;
+		public virtual DbSet<Employee> Employees { get; set; } = null!;
+		public virtual DbSet<Customer> Customers { get; set; } = null!;
+		public virtual DbSet<Ram> Rams { get; set; } = null!;
         public virtual DbSet<Setting> Settings { get; set; } = null!;
         public virtual DbSet<Ssd> Ssds { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
@@ -46,18 +48,9 @@ namespace Laptop.Models
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
-            modelBuilder.Entity<Setting>(entity =>
-            {
-                entity.ToTable("Setting");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
-            });
-
-
-
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
             modelBuilder.Entity<Brand>(entity =>
             {
                 entity.ToTable("Brand");
@@ -66,352 +59,436 @@ namespace Laptop.Models
 
                 entity.Property(e => e.BrandName).HasMaxLength(50);
             });
-
             modelBuilder.Entity<Category>(entity =>
-            {
-                entity.ToTable("Category");
+			{
+				entity.ToTable("Category");
 
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+				entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.CategoryName).HasMaxLength(50);
-            });
+				entity.Property(e => e.CategoryName).HasMaxLength(50);
+			});
 
-            modelBuilder.Entity<Color>(entity =>
-            {
-                entity.ToTable("Color");
+			modelBuilder.Entity<Color>(entity =>
+			{
+				entity.ToTable("Color");
 
-                entity.Property(e => e.ColorId).HasColumnName("ColorID");
+				entity.Property(e => e.ColorId).HasColumnName("ColorID");
 
-                entity.Property(e => e.ColorName).HasMaxLength(50);
-            });
+				entity.Property(e => e.ColorName).HasMaxLength(50);
+			});
 
-            modelBuilder.Entity<Invoice>(entity =>
-            {
-                entity.ToTable("Invoice");
+			modelBuilder.Entity<Customer>(entity =>
+			{
+				entity.ToTable("Customer");
 
-                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+				entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
-                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+				entity.Property(e => e.AccountId)
+					.HasMaxLength(450)
+					.HasColumnName("AccountID");
 
-                entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.SupplierId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Import_Note_Suppiler");
-            });
+				entity.Property(e => e.Address).HasMaxLength(150);
 
-            modelBuilder.Entity<InvoiceDetail>(entity =>
-            {
-                entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
+				entity.Property(e => e.DateOfBirth).HasColumnType("date");
+				
 
-                entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
+				entity.Property(e => e.Name).HasMaxLength(150);
 
-                entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
+				entity.HasOne(d => d.Account)
+					.WithMany(p => p.Customers)
+					.HasForeignKey(d => d.AccountId)
+					.HasConstraintName("FK_Customer_AspNetUsers");
+			});
 
-                entity.HasOne(d => d.Invoice)
-                    .WithMany(p => p.InvoiceDetails)
-                    .HasForeignKey(d => d.InvoiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_InvoiceDetails_Invoice1");
+			modelBuilder.Entity<Employee>(entity =>
+			{
+				entity.ToTable("Employee");
 
-                entity.HasOne(d => d.ProductVar)
-                    .WithMany(p => p.InvoiceDetails)
-                    .HasPrincipalKey(p => p.ProductVarId)
-                    .HasForeignKey(d => d.ProductVarId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_InvoiceDetails_ProductVariation");
-            });
+				entity.Property(e => e.EmployeeId)
+					.ValueGeneratedNever()
+					.HasColumnName("EmployeeID");
 
-            modelBuilder.Entity<Tintuc>(entity =>
-            {
-                entity.ToTable("Tintuc");
+				entity.Property(e => e.AccountId)
+					.HasMaxLength(450)
+					.HasColumnName("AccountID");
 
-                entity.Property(e => e.PostID).HasColumnName("PostID");
+				entity.Property(e => e.Address).HasMaxLength(150);
 
-                entity.Property(e => e.Title).HasMaxLength(500);
+				entity.Property(e => e.DateOfBirth).HasColumnType("date");
 
-                entity.Property(e => e.Thumburl).HasMaxLength(500);
+				entity.Property(e => e.Identification).HasMaxLength(50);
 
-                entity.Property(e => e.BrandID).HasColumnName("BrandID");
+				entity.Property(e => e.Name).HasMaxLength(150);
 
-                entity.Property(e => e.CreatedDate).HasColumnType("date2");
+				entity.HasOne(d => d.Account)
+					.WithMany(p => p.Employees)
+					.HasForeignKey(d => d.AccountId)
+					.HasConstraintName("FK_Employee_AspNetUsers");
+			});
 
+			modelBuilder.Entity<Invoice>(entity =>
+			{
+				entity.ToTable("Invoice");
 
-                
+				entity.Property(e => e.InvoiceId)
+					.ValueGeneratedNever()
+					.HasColumnName("InvoiceID");
 
+				entity.Property(e => e.EmployeeId)
+					.ValueGeneratedOnAdd()
+					.HasColumnName("EmployeeID");
 
-                entity.Property(e => e.CustomerId)
-                    .HasMaxLength(450)
-                    .HasColumnName("CustomerId");
+				entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Tintucs)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Invoice_AspNetUsers");
+				entity.HasOne(d => d.Employee)
+					.WithMany(p => p.Invoices)
+					.HasForeignKey(d => d.EmployeeId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Invoice_Employee");
 
-                entity.HasOne(d => d.Brand)
-                    .WithMany(p => p.Tintucs)
-                    .HasForeignKey(d => d.BrandID)
-                    .HasConstraintName("FK_Tintuc_Brand");
+				entity.HasOne(d => d.Supplier)
+					.WithMany(p => p.Invoices)
+					.HasForeignKey(d => d.SupplierId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Import_Note_Suppiler");
+			});
 
+			modelBuilder.Entity<InvoiceDetail>(entity =>
+			{
+				entity.HasKey(e => new { e.ProductVarId, e.InvoiceId });
 
-            });
-            modelBuilder.Entity<PostComment>(entity =>
-            {
-                entity.HasKey(e => e.PostCommentID);
+				entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 
-                entity.ToTable("PostComment");
+				entity.Property(e => e.InvoiceId).HasColumnName("InvoiceID");
 
-                entity.Property(e => e.PostCommentID).HasColumnName("PostCommentID");
+				entity.HasOne(d => d.Invoice)
+					.WithMany(p => p.InvoiceDetails)
+					.HasForeignKey(d => d.InvoiceId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_InvoiceDetails_Invoice1");
 
-                entity.Property(e => e.Comment).HasColumnName("Comment");
+				entity.HasOne(d => d.ProductVar)
+					.WithMany(p => p.InvoiceDetails)
+					.HasPrincipalKey(p => p.ProductVarId)
+					.HasForeignKey(d => d.ProductVarId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_InvoiceDetails_ProductVariation");
+			});
 
-                entity.Property(e => e.CreatedDate).HasColumnType("date2");
+			modelBuilder.Entity<Order>(entity =>
+			{
+				entity.Property(e => e.OrderId)
+					.HasMaxLength(300)
+					.HasColumnName("OrderID");
 
-                entity.Property(e => e.CustomerId)
-                     .HasMaxLength(450)
-                     .HasColumnName("CustomerId");
+				entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
-                entity.Property(e => e.PostID).HasColumnName("PostID");
+				entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
-                entity.HasOne(d => d.Tintuc)
-                    .WithMany(p => p.PostComments)
-                    .HasForeignKey(d => d.PostID)
-                    .HasConstraintName("FK_PostComment_Tintuc");
+				entity.Property(e => e.Voucher).HasMaxLength(50);
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.PostComments)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PostComment_AspNetUsers");
-            });
+				entity.HasOne(d => d.Customer)
+					.WithMany(p => p.Orders)
+					.HasForeignKey(d => d.CustomerId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Orders_Customer");
 
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.Property(e => e.OrderId).HasColumnName("OrderID").HasMaxLength(300);
+				entity.HasOne(d => d.Employee)
+					.WithMany(p => p.Orders)
+					.HasForeignKey(d => d.EmployeeId)
+					.HasConstraintName("FK_Orders_Employee");
 
-				entity.Property(e => e.Total).HasColumnName("PriceTotal");
+				entity.HasOne(d => d.StatusNaviagtion)
+					.WithMany(p => p.Orders)
+					.HasForeignKey(d => d.OrderStatus)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Orders_OrderStatus");
 
-				entity.Property(e => e.CustomerId)
-                    .HasMaxLength(450)
-                    .HasColumnName("CustomerID");
+				entity.HasOne(d => d.VoucherNavigation)
+					.WithMany(p => p.Orders)
+					.HasForeignKey(d => d.Voucher)
+					.HasConstraintName("FK_Orders_Voucher1");
+			});
 
-                entity.Property(e => e.Voucher).HasMaxLength(50);
+			modelBuilder.Entity<OrderStatus>(entity =>
+			{
+				entity.ToTable("OrderStatus");
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Invoice_AspNetUsers");
+				entity.Property(e => e.OrderStatusId).HasColumnName("OrderStatusID");
 
-                entity.HasOne(d => d.VoucherNavigation)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.Voucher)
-                    .HasConstraintName("FK_Orders_Voucher1");
-            });
+				entity.Property(e => e.StatusName).HasMaxLength(50);
+			});
 
-            modelBuilder.Entity<OrdersDetail>(entity =>
-            {
-                entity.HasKey(e => new { e.OrderId, e.ProductVarId })
-                    .HasName("PK_OrdersDetails_1");
+			modelBuilder.Entity<OrdersDetail>(entity =>
+			{
+				entity.HasKey(e => new { e.OrderId, e.ProductVarId });
 
-                entity.Property(e => e.OrderId).HasColumnName("OrderID").HasMaxLength(300);
+				entity.Property(e => e.OrderId)
+					.HasMaxLength(300)
+					.HasColumnName("OrderID");
 
-                entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
+				entity.Property(e => e.ProductVarId).HasColumnName("ProductVarID");
 
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrdersDetails)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Invoice_Details_Invoice");
+				entity.Property(e => e.Quanity)
+					.HasMaxLength(10)
+					.IsFixedLength();
 
-                entity.HasOne(d => d.ProductVar)
-                    .WithMany(p => p.OrdersDetails)
-                    .HasPrincipalKey(p => p.ProductVarId)
-                    .HasForeignKey(d => d.ProductVarId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OrdersDetails_ProductVariation");
-            });
+				entity.HasOne(d => d.Order)
+					.WithMany(p => p.OrdersDetails)
+					.HasForeignKey(d => d.OrderId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_OrdersDetails_Orders");
 
-            modelBuilder.Entity<Product>(entity =>
-            {
-                entity.ToTable("Product");
+				entity.HasOne(d => d.ProductVar)
+					.WithMany(p => p.OrdersDetails)
+					.HasPrincipalKey(p => p.ProductVarId)
+					.HasForeignKey(d => d.ProductVarId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_OrdersDetails_ProductVariation");
+			});
 
-                entity.HasIndex(e => e.ProductId, "ProductName")
-                    .IsUnique();
+			modelBuilder.Entity<PostComment>(entity =>
+			{
+				entity.ToTable("PostComment");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+				entity.HasIndex(e => e.CustomerId, "IX_PostComment_CustomerId");
 
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+				entity.HasIndex(e => e.PostId, "IX_PostComment_PostID");
 
-                entity.Property(e => e.ProductName).HasMaxLength(50);
+				entity.Property(e => e.PostCommentId).HasColumnName("PostCommentID");
 
-                entity.HasOne(d => d.BrandNavigation)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.Brand)
-                    .HasConstraintName("FK_Product_Brand");
+				entity.Property(e => e.PostId).HasColumnName("PostID");
 
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK_Product_Category");
-            });
+				entity.HasOne(d => d.Customer)
+					.WithMany(p => p.PostComments)
+					.HasForeignKey(d => d.CustomerId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_PostComment_Customer");
 
-            modelBuilder.Entity<ProductComment>(entity =>
-            {
-                entity.HasKey(e => e.CommentId);
+				entity.HasOne(d => d.Post)
+					.WithMany(p => p.PostComments)
+					.HasForeignKey(d => d.PostId)
+					.HasConstraintName("FK_PostComment_Tintuc");
+			});
 
-                entity.ToTable("ProductComment");
+			modelBuilder.Entity<Product>(entity =>
+			{
+				entity.ToTable("Product");
 
-                entity.Property(e => e.CommentId).HasColumnName("CommentID");
-
-                entity.Property(e => e.Detail).HasMaxLength(150);
-
-                entity.Property(e => e.Ratings).HasColumnName("Rating");
-
-				entity.Property(e => e.CreatedBy)
-				  .HasMaxLength(450)
-				  .HasColumnName("CreatedBy");
+				entity.HasIndex(e => e.ProductId, "ProductName")
+					.IsUnique();
 
 				entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductComments)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_ProductComment_Product");
+				entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.HasOne(e => e.Customer)
-                       .WithMany(n => n.Comments)
-                       .HasForeignKey(p => p.CreatedBy)
-                       .OnDelete(DeleteBehavior.NoAction)
-                       .HasConstraintName("FK_ProductComment_AspNetUsers");
+				entity.Property(e => e.ProductName).HasMaxLength(50);
+
+				entity.HasOne(d => d.BrandNavigation)
+					.WithMany(p => p.Products)
+					.HasForeignKey(d => d.Brand)
+					.HasConstraintName("FK_Product_Brand");
+
+				entity.HasOne(d => d.Category)
+					.WithMany(p => p.Products)
+					.HasForeignKey(d => d.CategoryId)
+					.HasConstraintName("FK_Product_Category");
+			});
+
+			modelBuilder.Entity<ProductComment>(entity =>
+			{
+				entity.HasKey(e => e.CommentId);
+
+				entity.ToTable("ProductComment");
+
+				entity.Property(e => e.CommentId).HasColumnName("CommentID");
+
+				entity.Property(e => e.Detail).HasMaxLength(150);
+
+				entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+				entity.HasOne(d => d.CreatedByNavigation)
+					.WithMany(p => p.ProductComments)
+					.HasForeignKey(d => d.CreatedBy)
+					.HasConstraintName("FK_ProductComment_Customer");
+
+				entity.HasOne(d => d.Product)
+					.WithMany(p => p.ProductComments)
+					.HasForeignKey(d => d.ProductId)
+					.HasConstraintName("FK_ProductComment_Product");
+			});
+
+			modelBuilder.Entity<ProductItem>(entity =>
+			{
+				entity.HasKey(e => new { e.ProductId, e.ColorId })
+					.HasName("PK_ProductItems_1");
+
+				entity.HasIndex(e => e.ProductItemsId, "IX_ProductItems")
+					.IsUnique();
+
+				entity.HasIndex(e => e.ProductCode, "ProductCode")
+					.IsUnique();
+
+				entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+				entity.Property(e => e.ColorId).HasColumnName("ColorID");
+
+				entity.Property(e => e.ProductCode).HasMaxLength(50);
+
+				entity.Property(e => e.ProductItemsId)
+					.ValueGeneratedOnAdd()
+					.HasColumnName("ProductItemsID");
+
+				entity.HasOne(d => d.Color)
+					.WithMany(p => p.ProductItems)
+					.HasForeignKey(d => d.ColorId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_ProductItems_Color");
+
+				entity.HasOne(d => d.Product)
+					.WithMany(p => p.ProductItems)
+					.HasForeignKey(d => d.ProductId)
+					.HasConstraintName("FK_ProductItems_Product");
+			});
+
+			modelBuilder.Entity<ProductVariation>(entity =>
+			{
+				entity.HasKey(e => new { e.ProductItemsId, e.RamId, e.Ssdid })
+					.HasName("PK_ProductVariation_1");
+
+				entity.ToTable("ProductVariation");
+
+				entity.HasIndex(e => e.ProductVarId, "IX_ProductVariation")
+					.IsUnique();
+
+				entity.Property(e => e.ProductItemsId).HasColumnName("ProductItemsID");
+
+				entity.Property(e => e.RamId).HasColumnName("RamID");
+
+				entity.Property(e => e.Ssdid).HasColumnName("SSDID");
+
+				entity.Property(e => e.ProductVarId)
+					.ValueGeneratedOnAdd()
+					.HasColumnName("ProductVarID");
+
+				entity.HasOne(d => d.ProductItems)
+					.WithMany(p => p.ProductVariations)
+					.HasPrincipalKey(p => p.ProductItemsId)
+					.HasForeignKey(d => d.ProductItemsId)
+					.HasConstraintName("FK_ProductVariation_ProductItems");
+
+				entity.HasOne(d => d.Ram)
+					.WithMany(p => p.ProductVariations)
+					.HasForeignKey(d => d.RamId)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_ProductVariation_Size");
+
+				entity.HasOne(d => d.Ssd)
+					.WithMany(p => p.ProductVariations)
+					.HasForeignKey(d => d.Ssdid)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_ProductVariation_SSD");
+			});
+
+			modelBuilder.Entity<Ram>(entity =>
+			{
+				entity.ToTable("Ram");
+
+				entity.Property(e => e.RamId).HasColumnName("RamID");
+
+				entity.Property(e => e.RamName).HasMaxLength(50);
+			});
+
+			modelBuilder.Entity<Setting>(entity =>
+			{
+				entity.ToTable("Setting");
+
+				entity.Property(e => e.Id).HasColumnName("ID");
+			});
+
+			modelBuilder.Entity<Ssd>(entity =>
+			{
+				entity.ToTable("SSD");
+
+				entity.Property(e => e.SsdId).HasColumnName("SsdID");
+
+				entity.Property(e => e.Ssdname)
+					.HasMaxLength(50)
+					.HasColumnName("SSDName");
+			});
+
+			modelBuilder.Entity<Supplier>(entity =>
+			{
+				entity.ToTable("Supplier");
+
+				entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
+				entity.Property(e => e.Address).HasMaxLength(50);
+
+				entity.Property(e => e.Email).HasMaxLength(50);
+
+				entity.Property(e => e.Phone).HasMaxLength(30);
+
+				entity.Property(e => e.SupplierName).HasMaxLength(50);
+			});
+
+			modelBuilder.Entity<Tintuc>(entity =>
+			{
+				entity.HasKey(e => e.PostID);
+
+				entity.ToTable("Tintuc");
+
+				entity.Property(e => e.PostID).HasColumnName("PostID");
+
+				entity.Property(e => e.BrandId).HasColumnName("BrandID");
+
+				entity.Property(e => e.Contentspreview).HasMaxLength(255);
+
+				entity.Property(e => e.EmployeeId)
+					.HasMaxLength(10)
+					.HasColumnName("EmployeeID")
+					.IsFixedLength();
+
+				entity.Property(e => e.Thumburl).HasMaxLength(255);
+
+				entity.Property(e => e.Title).HasMaxLength(255);
+
+				entity.HasOne(d => d.Brand)
+					.WithMany(p => p.Tintucs)
+					.HasForeignKey(d => d.BrandId)
+					.HasConstraintName("FK_Tintuc_Brand");
+
+
+				entity.HasOne(d => d.Customer)
+				   .WithMany(p => p.Post)
+				   .HasForeignKey(d => d.Author)
+				   .OnDelete(DeleteBehavior.ClientSetNull)
+				   .HasConstraintName("FK_Tintuc_Customer1");
+
+
+                entity.HasOne(d => d.Employee)
+                   .WithMany(p => p.Post)
+                   .HasForeignKey(d => d.EmployeeId)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_Tintuc_Employee");
             });
 
+			modelBuilder.Entity<Voucher>(entity =>
+			{
+				entity.HasKey(e => e.VoucherCode);
 
-            modelBuilder.Entity<ProductItem>(entity =>
-            {
-                entity.HasKey(e => new { e.ProductId, e.ColorId })
-                    .HasName("PK_ProductItems_1");
+				entity.ToTable("Voucher");
 
-                entity.HasIndex(e => e.ProductItemsId, "IX_ProductItems")
-                    .IsUnique();
+				entity.Property(e => e.VoucherCode).HasMaxLength(50);
 
-                entity.HasIndex(e => e.ProductCode, "ProductCode")
-                    .IsUnique();
+				entity.Property(e => e.EndDate).HasColumnType("date");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+				entity.Property(e => e.StartDate).HasColumnType("date");
+			});
 
-                entity.Property(e => e.ColorId).HasColumnName("ColorID");
+			base.OnModelCreating(modelBuilder);
+		}
 
-                entity.Property(e => e.ProductCode).HasMaxLength(50);
-
-                entity.Property(e => e.ProductItemsId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("ProductItemsID");
-
-                entity.HasOne(d => d.Color)
-                    .WithMany(p => p.ProductItems)
-                    .HasForeignKey(d => d.ColorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductItems_Color");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductItems)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_ProductItems_Product");
-            });
-
-            modelBuilder.Entity<ProductVariation>(entity =>
-            {
-                entity.HasKey(e => new { e.ProductItemsId, e.RamId, e.Ssdid })
-                    .HasName("PK_ProductVariation_1");
-
-                entity.ToTable("ProductVariation");
-
-                entity.HasIndex(e => e.ProductVarId, "IX_ProductVariation")
-                    .IsUnique();
-
-                entity.Property(e => e.ProductItemsId).HasColumnName("ProductItemsID");
-
-                entity.Property(e => e.RamId).HasColumnName("RamID");
-
-                entity.Property(e => e.Ssdid).HasColumnName("SSDID");
-
-                entity.Property(e => e.ProductVarId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("ProductVarID");
-
-                entity.HasOne(d => d.ProductItems)
-                    .WithMany(p => p.ProductVariations)
-                    .HasPrincipalKey(p => p.ProductItemsId)
-                    .HasForeignKey(d => d.ProductItemsId)
-                    .HasConstraintName("FK_ProductVariation_ProductItems");
-
-                entity.HasOne(d => d.Ram)
-                    .WithMany(p => p.ProductVariations)
-                    .HasForeignKey(d => d.RamId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductVariation_Size");
-
-                entity.HasOne(d => d.Ssd)
-                    .WithMany(p => p.ProductVariations)
-                    .HasForeignKey(d => d.Ssdid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductVariation_SSD");
-            });
-
-            modelBuilder.Entity<Ram>(entity =>
-            {
-                entity.ToTable("Ram");
-
-                entity.Property(e => e.RamId).HasColumnName("RamID");
-
-                entity.Property(e => e.RamName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Ssd>(entity =>
-            {
-                entity.ToTable("SSD");
-
-                entity.Property(e => e.SsdId).HasColumnName("SsdID");
-
-                entity.Property(e => e.Ssdname)
-                    .HasMaxLength(50)
-                    .HasColumnName("SSDName");
-            });
-
-            modelBuilder.Entity<Supplier>(entity =>
-            {
-                entity.ToTable("Supplier");
-
-                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
-
-                entity.Property(e => e.Address).HasMaxLength(50);
-
-                entity.Property(e => e.Email).HasMaxLength(50);
-
-                entity.Property(e => e.Phone).HasMaxLength(30);
-
-                entity.Property(e => e.SupplierName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Voucher>(entity =>
-            {
-                entity.HasKey(e => e.VoucherCode);
-
-                entity.ToTable("Voucher");
-
-                entity.Property(e => e.VoucherCode).HasMaxLength(50);
-
-                entity.Property(e => e.EndDate).HasColumnType("date");
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
-            });
-
-            base.OnModelCreating(modelBuilder);
-        }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+		partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

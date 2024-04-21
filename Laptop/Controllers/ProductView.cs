@@ -41,7 +41,7 @@ namespace Laptop.Controllers
 
 			var sp = await _context.ProductVariations
 				.Include(n => n.ProductItems.Product.ProductComments)
-					.ThenInclude(n => n.Customer)
+					.ThenInclude(n => n.CreatedByNavigation)
 				.Include(n => n.ProductItems.Product.Category)
 				.Include(n => n.Ram)
 				.Include(n => n.Ssd)
@@ -196,7 +196,7 @@ namespace Laptop.Controllers
 		public IActionResult GetMoreRecord (int id,int page = 1, int pageSize = 3)
 		{
 			var record = _context.ProductComments.Where(n => n.ProductId == id).Skip((page - 1) * pageSize).Take(pageSize)
-				.Include(n => n.Customer)
+				.Include(n => n.CreatedByNavigation)
 				.ToList();
 
 			return PartialView("_CommentPartial", record);

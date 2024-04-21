@@ -7,12 +7,12 @@
 			<li>
 				<div class="review-heading">
 				
-					<h5 class="name">@comment.Customer.UserName</h5>
+					<h5 class="name">@comment.CreatedByNavigation.Account.UserName</h5>
 					<p class="date">@comment.CreateDate</p>
 					<div class="review-rating">
 						@for (int i = 1; i <= 5; i++)
 						{
-							<i class="fa fa-star@(comment.Ratings >= i ? "" : "-o")"></i>
+							<i class="fa fa-star@(comment.Rating >= i ? "" : "-o")"></i>
 						}
 					</div>
 

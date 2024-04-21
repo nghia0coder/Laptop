@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Laptop.Models
 {
-    public partial class OrdersDetail
+    public partial class OrdersDetail  
     {
-        public string OrderId { get; set; }
+        public string OrderId { get; set; } = null!;
         public int ProductVarId { get; set; }
         public int Quanity { get; set; }
 

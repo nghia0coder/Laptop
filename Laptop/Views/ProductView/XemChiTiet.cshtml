@@ -224,7 +224,7 @@
 													int totalRating = 0;
 													foreach (var comment in Model.ProductItems.Product.ProductComments)
 													{
-														totalRating += comment.Ratings;
+														totalRating += comment.Rating;
 													}
 
 													double averageRating = (double)totalRating / totalComments1;
@@ -268,7 +268,7 @@
 														@{
 															// Tính toán tiến độ xếp hạng cho mỗi xếp hạng
 															int totalComments = Model.ProductItems.Product.ProductComments.Count();
-															int ratingCount = Model.ProductItems.Product.ProductComments.Count(n => n.Ratings == rating);
+															int ratingCount = Model.ProductItems.Product.ProductComments.Count(n => n.Rating == rating);
 															double ratingProgress = totalComments == 0 ? 0 : (double)ratingCount / totalComments * 100;
 														}
 														<div style="width: @ratingProgress%"></div>
@@ -290,12 +290,12 @@
 												<li>
 													<div class="review-heading">
 
-														<h5 class="name">@comment.Customer.UserName</h5>
+														<h5 class="name">@comment.CreatedByNavigation.Account.UserName</h5>
 														<p class="date">@comment.CreateDate</p>
 														<div class="review-rating">
 															@for (int i = 1; i <= 5; i++)
 															{
-																<i class="fa fa-star@(comment.Ratings >= i ? "" : "-o")"></i>
+																<i class="fa fa-star@(comment.Rating >= i ? "" : "-o")"></i>
 															}
 														</div>
 

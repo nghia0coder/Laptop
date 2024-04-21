@@ -66,7 +66,7 @@ namespace Laptop
 				// Password settings.
 				options.Password.RequireDigit = true;
 				options.Password.RequireLowercase = true;
-				options.Password.RequireNonAlphanumeric = true;
+				options.Password.RequireNonAlphanumeric = false;
 				options.Password.RequireUppercase = true;
 				options.Password.RequiredLength = 4;
 
@@ -131,13 +131,13 @@ namespace Laptop
 				string email = "admin@gmail.com";
 				string emailtStaff = "staff@gmail.com";
 				string password = "Test@1234";
-				string address = "SG";
+			
 				if (await userManager.FindByEmailAsync(email) == null)
 				{
 					var user = new AppUserModel();
 					user.UserName = email;
 					user.Email = email;
-					user.Address = address;
+
 					await userManager.CreateAsync(user, password);
 					await userManager.AddToRoleAsync(user, "Manager");
 				}
@@ -146,7 +146,7 @@ namespace Laptop
 					var user = new AppUserModel();
 					user.UserName = emailtStaff;
 					user.Email = emailtStaff;
-					user.Address = address;
+
 					await userManager.CreateAsync(user, password);
 					await userManager.AddToRoleAsync(user, "Staff");
 				}

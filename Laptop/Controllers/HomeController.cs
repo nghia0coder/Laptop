@@ -40,7 +40,7 @@ namespace Laptop.Controllers
                  .Select(group => group.First())
                  .ToList();
 
- 			//Gán vào viewbag
+            //Gán vào viewbag
 			ViewBag.ListLTM = lstLTM;
 
             var lstSelling = _context.Products
@@ -52,7 +52,7 @@ namespace Laptop.Controllers
                     .ThenInclude(pi => pi.ProductVariations)
                         .ThenInclude(pv => pv.Ssd)
                 .Include(n => n.Category)
-                .Include (p => p.BrandNavigation)
+                .Include(p => p.BrandNavigation)
                 .ToList()
                   .GroupBy(p => p.ProductName)
                  .Select(group => group.First())
@@ -81,7 +81,7 @@ namespace Laptop.Controllers
 
 
             ViewBag.News = _context.Tintucs.
-                Where(n => n.Hot)
+                    Where(n => n.Hot)
                 .Include(n => n.Brand)
                 .OrderBy(n => n.CreatedDate)
                 .ToList();

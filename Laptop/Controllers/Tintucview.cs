@@ -78,7 +78,7 @@ namespace Laptop.Controllers
                 ViewBag.Brandname = _context.Brands.ToList();
                 // Truy vấn lấy bài viết theo ID
                 var post = _context.Tintucs
-                    .Where(p => p.BrandID == brandid)
+                    .Where(p => p.BrandId == brandid)
                     .Include(p => p.Brand)
                     .OrderByDescending(p => p.CreatedDate)
                     .ToList();              
@@ -102,11 +102,13 @@ namespace Laptop.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Createpost (Tintuc tintuc)
+        public async Task<IActionResult> Createpost(Tintuc tintuc)
         {
             string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            tintuc.CustomerId = userId;
+            var customerId = _context.Customers.Where(n => n.AccountId ==  userId).Select(n => n.CustomerId).FirstOrDefault();
+            tintuc.Customer.CustomerId = customerId;
+
             tintuc.Thumburl = uniqueFileName1;
             tintuc.Status = false;
             tintuc.Hot = false;
@@ -139,11 +141,13 @@ namespace Laptop.Controllers
         public async Task<IActionResult> Displayuserpost()
         {
             ViewBag.Brandname = _context.Brands.ToList();
-            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customerId = _context.Customers.Where(n => n.AccountId == userID).Select(n => n.CustomerId).FirstOrDefault();
+
+
             // Truy vấn lấy bài viết theo ID
             var post = _context.Tintucs
-                .Where(p => p.CustomerId == customerid && p.Status)
+                .Where(p => p.Author == customerId && p.Status)
                 .Include(p => p.Brand)
                 .OrderByDescending(p => p.CreatedDate)
                 .ToList();
@@ -153,11 +157,11 @@ namespace Laptop.Controllers
         public async Task<IActionResult> Displayuserunpost()
         {
             ViewBag.Brandname = _context.Brands.ToList();
-            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customerId = _context.Customers.Where(n => n.AccountId == userID).Select(n => n.CustomerId).FirstOrDefault();
             // Truy vấn lấy bài viết theo ID
             var post = _context.Tintucs
-                .Where(p => p.CustomerId == customerid && !p.Status)
+                .Where(p => p.Author == customerId && !p.Status)
                 .Include(p => p.Brand)
                 .OrderByDescending(p => p.CreatedDate)
                 .ToList();

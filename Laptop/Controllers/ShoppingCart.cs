@@ -25,13 +25,14 @@ namespace Laptop.Controllers
         private readonly IEmailSender _emailSender;
         private readonly SendMailService _sendMailService;
       
-		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, SendMailService sendMailService, IMomoService momoService, IVnPayService vnPayService)
+		public ShoppingCart(LaptopContext context, IHttpContextAccessor httpContextAccessor, UserManager<AppUserModel> userManager,SendMailService sendMailService, IMomoService momoService, IVnPayService vnPayService)
 		{
 			_context = context;
 			_httpContextAccessor = httpContextAccessor;
             _sendMailService = sendMailService;
 			_momoService = momoService;
             _vnPayService = vnPayService;
+			_userManager = userManager;
         }
 
 
@@ -168,17 +169,20 @@ namespace Laptop.Controllers
 		}
 		public async Task<IActionResult> DatHangAsync(string id,string total)
 		{
-			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			// Check if the shopping cart session exists
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
+            // Check if the shopping cart session exists
+            
+		
 			// Add a new order
 			Order ddh = new Order();
 			ddh.OrderId = id;
 			ddh.OrderDate = DateTime.Now;
-			ddh.Delivered = false;
-			ddh.Status = true;
-			ddh.CustomerId = userId;
-			ddh.Total = int.Parse(total);
+			ddh.OrderStatus = 1;
+			ddh.StatusPayment = true;
+			ddh.CustomerId = customerId;
+			ddh.PriceTotal = int.Parse(total);
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 
@@ -230,17 +234,17 @@ namespace Laptop.Controllers
         }
 		public async Task<IActionResult> Payment(string total)
 		{
-			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			// Check if the shopping cart session exists
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
 
-			// Add a new order
-			Order ddh = new Order();
+            // Add a new order
+            Order ddh = new Order();
 			ddh.OrderId = DateTime.UtcNow.Ticks.ToString();
 			ddh.OrderDate = DateTime.Now;
-			ddh.Delivered = false;
-			ddh.Status = false;
-			ddh.CustomerId = userId;
-			ddh.Total = int.Parse(total);
+            ddh.OrderStatus = 1;
+            ddh.StatusPayment = false;
+            ddh.CustomerId = customerId;
+			ddh.PriceTotal = int.Parse(total);
 			_context.Orders.Add(ddh);
 			_context.SaveChanges();
 

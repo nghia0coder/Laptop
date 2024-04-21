@@ -6,11 +6,11 @@
     IEnumerable<OrdersDetail> lstChiTietDH = ViewBag.ListChiTietDH as IEnumerable<OrdersDetail>;
 }
 
-<h1>Duyệt đơn hàng </h1>
+<h1>Xác Nhận Đơn Hàng Đã Giao</h1>
 <div class="card">
     <div class="card-body">
         <h2 class="col-md-8">Thông tin đơn hàng</h2>
-        <form asp-action="ApproveOrders" method="post">
+        <form asp-action="DeliveredConfirm" asp-route-id="@Model.OrderId" method="post">
             <div class="ChiTietDonHang table">
                 <table class="table table-bordered" id="table">
                     @* Thông tin đơn hàng *@

@@ -1,4 +1,5 @@
-﻿using Laptop.Models;
+﻿using Laptop.ViewModels;
+using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace Laptop.Controllers
     {
         private UserManager<AppUserModel> _userManager;
         private SignInManager<AppUserModel> _signInManager;
-        public AccountController(UserManager<AppUserModel> userManager, SignInManager<AppUserModel> signInManager) 
+        private readonly LaptopContext _context;
+        public AccountController(UserManager<AppUserModel> userManager, SignInManager<AppUserModel> signInManager, LaptopContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
         [HttpGet]
         public async Task<IActionResult> Login()
@@ -27,7 +30,7 @@ namespace Laptop.Controllers
             {
                 ModelState.AddModelError(string.Empty, "");
                 return View("Login");
-            }    
+            }
             var result = await _signInManager.PasswordSignInAsync(user.UserName, user.Password, false, false);
             if (result.Succeeded)
             {
@@ -36,7 +39,7 @@ namespace Laptop.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
-                return View("Login"); 
+                return View("Login");
             }
         }
         [HttpGet]
@@ -45,96 +48,56 @@ namespace Laptop.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(UserModel user)
+        public async Task<IActionResult> Register(RegisterViewModel user)
         {
 
-                if (user == null || string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Address) || string.IsNullOrEmpty(user.Password))
-                {
-                    ModelState.AddModelError(string.Empty, "");
-                    return View("Register");
-                }
-                AppUserModel newUser = new AppUserModel { UserName = user.UserName, Email = user.Email , Address = user.Address};
-				IdentityResult result = await _userManager.CreateAsync(newUser,user.Password);
-				
-                
-				if (result.Succeeded)
-                {
-                    IdentityResult addToRoleResult = await _userManager.AddToRoleAsync(newUser, "User");
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (IdentityError error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                return View("Register");
-            }    
-        
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult ExternalLogin(string provider, string returnUrl = "")
-        {
-            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return Challenge(properties, provider);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "")
-        {
-            try
+            if (user == null || string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Address) || string.IsNullOrEmpty(user.Password))
             {
-                var external = await _signInManager.GetExternalLoginInfoAsync();
+                ModelState.AddModelError(string.Empty, "");
+                return View("Register");
+            }
+            AppUserModel newUser = new AppUserModel { UserName = user.UserName, Email = user.Email };
 
-                var user = new UserFromExternalDto()
+
+            IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
                 {
-                    Email = external.Principal.FindFirstValue(ClaimTypes.Email),
-                    Provider = external.ProviderDisplayName,
-                    Name = external.Principal.Identity?.Name ?? ""
-                };
-
-                var userExists = await _userManager.FindByEmailAsync(user.Email);
-
-                if (userExists != null)
-                {
-                    await _signInManager.SignInAsync(userExists, true);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
-                else
-                {
-                    var identityUser = new AppUserModel()
-                    {
-                        Email = user.Email,
-                        UserName = user.Email.Split("@")[0],
-                        NormalizedEmail = user.Email.ToUpper(),
-                        NormalizedUserName = user.Email.Split("@")[0].ToUpper(),
-                        Address = ""
-                    };
+                return View("Register");
+            }
 
-                    const string defaultPassword = "CodeMega@123";
+            Customer customer = new Customer
+            {
+                Name = user.Name,
+                Address = user.Address,
+                DateOfBirth = user.DateOfBirth,
+                AccountId = newUser.Id,
+            };
 
-                    await _userManager.CreateAsync(identityUser, defaultPassword);
+            await _context.Customers.AddAsync(customer);
+            await _context.SaveChangesAsync();
 
-                    IdentityResult addToRoleResult = await _userManager.AddToRoleAsync(identityUser, "User");
 
-                    var newUser = await _userManager.FindByEmailAsync(user.Email);
-
-                    await _signInManager.SignInAsync(newUser, true);
-                }
-
-                // TO DO HERE
-                // Code tiếp phần lưu các thông tin khác người dùng ở đây
-
+            if (result.Succeeded)
+            {
+                IdentityResult addToRoleResult = await _userManager.AddToRoleAsync(newUser, "User");
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception)
+            else
             {
-                return new RedirectResult($"~/#error-oauth2");
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View("Register");
             }
+
         }
-            public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");

@@ -5,8 +5,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>EDIT RECEIPT</h1>
+<h1>Chỉnh sửa </h1>
 
+<h4>Hóa đơn </h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,24 +15,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label">Pay date</label>
+                <label asp-for="OrderDate" class="control-label">Ngày thanh toán </label>
                 <input asp-for="OrderDate" class="form-control" />
                 <span asp-validation-for="OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Delivered" class="control-label">Delivered status</label>
-                <input asp-for="Delivered" class="form-control" />
-                <span asp-validation-for="Delivered" class="text-danger"></span>
+                <label asp-for="OrderStatus" class="control-label">Tình trạng giao hàng </label>
+                <input asp-for="OrderStatus" class="form-control" />
+                <span asp-validation-for="OrderStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeliveryDate" class="control-label">Delivered date</label>
+                <label asp-for="DeliveryDate" class="control-label">Ngày giao </label>
                 <input asp-for="DeliveryDate" class="form-control" />
                 <span asp-validation-for="DeliveryDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Status" class="control-label">Paid</label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <label asp-for="StatusPayment" class="control-label">Đã thanh toán</label>
+                <input asp-for="StatusPayment" class="form-control" />
+                <span asp-validation-for="StatusPayment" class="text-danger"></span>
             </div>
    
             <div class="form-group">
@@ -42,6 +43,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back</a>
+    <a asp-action="Index">Trở về</a>
 </div>
 
