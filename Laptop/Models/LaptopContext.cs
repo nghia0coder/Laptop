@@ -89,9 +89,8 @@ namespace Laptop.Models
 
 				entity.Property(e => e.Address).HasMaxLength(150);
 
-				entity.Property(e => e.DateOfBirth)
-					.HasMaxLength(10)
-					.IsFixedLength();
+				entity.Property(e => e.DateOfBirth).HasColumnType("date");
+				
 
 				entity.Property(e => e.Name).HasMaxLength(150);
 

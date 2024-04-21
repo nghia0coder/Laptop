@@ -62,7 +62,7 @@ namespace Laptop.Areas.Admin.Controllers
 				.ToList();
 			return View(lstDSDHCG);
 		}
-		public async Task<IActionResult> DeliveredConfirm(int id)
+		public async Task<IActionResult> DeliveredConfirm(string id)
 		{
 			var order = await _context.Orders.FindAsync(id);
 			order.OrderStatus = 3;
@@ -102,6 +102,7 @@ namespace Laptop.Areas.Admin.Controllers
 
 			ViewBag.ListChiTietDH = _context.OrdersDetails
 				.Where(n => n.OrderId == id)
+				.Include(n => n.Order)
 				.Include(n => n.ProductVar.ProductItems.Product)
 				.ToList();
 

@@ -56,9 +56,10 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a asp-controller="Order" asp-action="Unpaid" class="nav-link">Unpaid</a>
-                                <a asp-controller="Order" asp-action="PaidUndelivered" class="nav-link">Paid and Undelivered</a>
-                                <a asp-controller="Order" asp-action="PaidDelivered" class="nav-link">Paid and Delivered</a>
+                                <a asp-controller="Order" asp-action="OrderConfirm" class="nav-link">Đang Chờ Duyệt</a>
+                                <a asp-controller="Order" asp-action="Delivering" class="nav-link">Đang Giao</a>
+                                <a asp-controller="Order" asp-action="Delivered" class="nav-link">Đã Giao</a>
+                                <a asp-controller="Order" asp-action="Cancel" class="nav-link">Đã Hủy</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
