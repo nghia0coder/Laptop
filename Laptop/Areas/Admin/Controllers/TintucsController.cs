@@ -38,15 +38,15 @@ namespace Laptop.Areas.Admin.Controllers
             var laptopContext =  _context.Tintucs.Include(t => t.Brand).OrderByDescending(p=>p.CreatedDate).ToList();
             return View(laptopContext);
         }
-        //public async Task<IActionResult> Displayindex()
-        //{
-        //    var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    var laptopContext = _context.Tintucs
-        //        .Where(t=> t.Author != customerid)
-        //        .Include(t => t.Brand)
-        //        .ToList();
-        //    return View(laptopContext);
-        //}
+        public async Task<IActionResult> Displayindex()
+        {
+            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var laptopContext = _context.Tintucs
+                //.Where(t => t.Author != customerid)
+                .Include(t => t.Brand)
+                .ToList();
+            return View(laptopContext);
+        }
         // GET: Admin/Tintucs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -76,21 +76,21 @@ namespace Laptop.Areas.Admin.Controllers
         // POST: Admin/Tintucs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create( Tintuc tintuc)
-        //{
-        //    string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
-        //    tintuc.Thumburl = uniqueFileName1;
-        //    var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    tintuc.Author = userId;
-        //    await _context.AddAsync(tintuc);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-            
-       
-        //    return View(tintuc);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Tintuc tintuc)
+        {
+            string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
+            tintuc.Thumburl = uniqueFileName1;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            await _context.AddAsync(tintuc);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
+            return View(tintuc);
+        }
 
         private string GetProfilePhotoFileName1(Tintuc Product)
         {
