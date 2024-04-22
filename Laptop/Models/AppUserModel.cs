@@ -9,5 +9,10 @@ namespace Laptop.Models
 
 		public virtual ICollection<Employee> Employees { get; } = new List<Employee>();
 
+        
+
+        public virtual ICollection<Tintuc> Post { get; set; } = new List<Tintuc>();
+
+
     }
 }

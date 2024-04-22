@@ -98,7 +98,20 @@ namespace Laptop.Controllers
         {
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName");
             ViewBag.Brandname = _context.Brands.ToList();
-            var laptopContext = _context.Tintucs.Include(t => t.Brand);
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            string customerid = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.Name).FirstOrDefault();
+
+            if (customerid == null)
+            {
+                customerid = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.Name).FirstOrDefault();
+       
+            }
+
+            var laptopContext = _context.Tintucs.Include(t => t.Brand).Include(p => p.Customer);
+
+            ViewBag.NameAutor = customerid;
             return View();
         }
         [HttpPost]
@@ -106,9 +119,7 @@ namespace Laptop.Controllers
         {
             string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customerId = _context.Customers.Where(n => n.AccountId ==  userId).Select(n => n.CustomerId).FirstOrDefault();
-            tintuc.Customer.CustomerId = customerId;
-
+            tintuc.Author = userId;
             tintuc.Thumburl = uniqueFileName1;
             tintuc.Status = false;
             tintuc.Hot = false;
@@ -118,8 +129,6 @@ namespace Laptop.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
-
-            return View(tintuc);
         }
 
         private string GetProfilePhotoFileName1(Tintuc Product)
@@ -147,7 +156,7 @@ namespace Laptop.Controllers
 
             // Truy vấn lấy bài viết theo ID
             var post = _context.Tintucs
-                .Where(p => p.Author == customerId && p.Status)
+                .Where(p => p.Author == userID && p.Status)
                 .Include(p => p.Brand)
                 .OrderByDescending(p => p.CreatedDate)
                 .ToList();
@@ -161,7 +170,7 @@ namespace Laptop.Controllers
             var customerId = _context.Customers.Where(n => n.AccountId == userID).Select(n => n.CustomerId).FirstOrDefault();
             // Truy vấn lấy bài viết theo ID
             var post = _context.Tintucs
-                .Where(p => p.Author == customerId && !p.Status)
+                .Where(p => p.Author == userID && !p.Status)
                 .Include(p => p.Brand)
                 .OrderByDescending(p => p.CreatedDate)
                 .ToList();
