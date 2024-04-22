@@ -70,6 +70,10 @@ namespace Laptop.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string customerid = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.Name).FirstOrDefault();
+            
+            ViewBag.NameAutor = customerid;
             return View();
         }
 
@@ -83,13 +87,13 @@ namespace Laptop.Areas.Admin.Controllers
             string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
             tintuc.Thumburl = uniqueFileName1;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+            tintuc.Author = userId;
+            var employid = _context.Employees.Where(p=> p.AccountId == userId).Select(p=>p.EmployeeId).FirstOrDefault();
+            tintuc.EmployeeId = employid;
             await _context.AddAsync(tintuc);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
-
-            return View(tintuc);
         }
 
         private string GetProfilePhotoFileName1(Tintuc Product)
@@ -163,9 +167,12 @@ namespace Laptop.Areas.Admin.Controllers
 
 
             }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employid = _context.Employees.Where(p => p.AccountId == userId).Select(p => p.EmployeeId).FirstOrDefault();
+            tintuc.EmployeeId = employid;
             _context.Update(tintuc);
             _context.SaveChanges();
-
+            
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandId);
             return RedirectToAction(nameof(Index));
         }
