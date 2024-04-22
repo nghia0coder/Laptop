@@ -35,14 +35,18 @@ namespace Laptop.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             
-            var laptopContext =  _context.Tintucs.Include(t => t.Brand).OrderByDescending(p=>p.CreatedDate).ToList();
+            var laptopContext =  _context.Tintucs
+                .Include(t => t.Brand)
+                .Where(p => p.Status)
+                .OrderByDescending(p=>p.CreatedDate)
+                .ToList();
             return View(laptopContext);
         }
         public async Task<IActionResult> Displayindex()
         {
             var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var laptopContext = _context.Tintucs
-                //.Where(t => t.Author != customerid)
+                .Where(t => t.Author != customerid && !t.Status)
                 .Include(t => t.Brand)
                 .ToList();
             return View(laptopContext);
@@ -127,7 +131,7 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandId);
+            
             return View(tintuc);
         }
         public async Task<IActionResult> Userpost(int? id)
@@ -152,7 +156,7 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandID,CustomerId")] Tintuc tintuc)
+        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandId,CustomerId")] Tintuc tintuc)
         {
             if (id != tintuc.PostID)
             {

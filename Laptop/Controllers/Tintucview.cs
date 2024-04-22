@@ -27,6 +27,7 @@ namespace Laptop.Controllers
        
             var lst = _context.Tintucs
                 .Include(t => t.Brand)
+                .Where(t => t.Status)
                 .OrderByDescending(p => p.CreatedDate)
                 .ToList();
 
@@ -78,7 +79,7 @@ namespace Laptop.Controllers
                 ViewBag.Brandname = _context.Brands.ToList();
                 // Truy vấn lấy bài viết theo ID
                 var post = _context.Tintucs
-                    .Where(p => p.BrandId == brandid)
+                    .Where(p => p.BrandId == brandid && p.Status)
                     .Include(p => p.Brand)
                     .OrderByDescending(p => p.CreatedDate)
                     .ToList();              
