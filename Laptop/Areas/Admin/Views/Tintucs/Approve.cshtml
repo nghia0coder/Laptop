@@ -11,7 +11,7 @@
 <hr />
 <div class="row p-lg-3">
     <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data" >
+        <form asp-action="Approve" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PostID" />
             <input type="hidden" asp-for="Author" />
@@ -42,14 +42,7 @@
                 <label asp-for="CreatedDate" class="control-label"><h4>Created Date</h4></label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <h4>Status</h4> <input asp-for="Status" />
-                    </label>
-                </div>
-            </div>
+            </div
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -69,9 +62,9 @@
                 <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandId" style="vertical-align: top;"></select>
                 <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group mt-4">
-                <input type="submit" value="Edit" class="btn btn-success" />
+                <input type="submit" value="Approve" class="btn btn-success" />
                 <a class="btn btn-primary" asp-action="Index">Return</a>
             </div>
         </form>
@@ -97,7 +90,9 @@
             ]
         });
     });
-   </script>
+</script>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

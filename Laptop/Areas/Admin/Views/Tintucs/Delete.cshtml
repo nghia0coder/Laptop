@@ -6,62 +6,62 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class ="mt-3">Xóa tin tức</h2>
+<h2 class ="mt-3">Delete new</h2>
 
 <div class="p-lg-3">
    
     <hr />
     <dl class="dl-horizontal">
         <h4>
-            Tiêu đề
+            Title
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Title)
         </dd>
         <h4>
-            Mở đầu
+            Preview
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Contentspreview)
         </dd>
         <h4>
-            Nội dung
+            Contents
         </h4>
         <dd>
             @Html.Raw(Model.Contents)
         </dd>     
         <h4>
-            Tác giả
+            Author
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Author)
         </dd>
         <h4>
-            Thời điểm tạo tin
+            Created Date
         </h4>
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
         <h4>
-            Trạng thái
+            Status
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Status)
         </dd>
         <h4>
-            Tin Hot
+            Hot
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Hot)
         </dd>
         <h4>
-            Tin Mới
+            Recently
         </h4>
         <dd>
             @Html.DisplayFor(model => model.New)
         </dd>
         <h4>
-            Tin của hãng
+            Brand
         </h4>
         <dd>
             @Html.DisplayFor(model => model.Brand.BrandName)
@@ -70,7 +70,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="PostID" />
-        <input type="submit" value="Xóa" class="btn btn-danger" /> |
-        <a class="btn btn-primary" asp-action="Index">Quay lại</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a class="btn btn-primary" asp-action="Index">Return</a>
     </form>
 </div>

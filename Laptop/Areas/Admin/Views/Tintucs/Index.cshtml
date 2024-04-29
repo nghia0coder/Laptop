@@ -5,38 +5,38 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="mt-3 p-lg-3 mb-0">Quản lý tin tức</h2>
+<h2 class="mt-3 p-lg-3 mb-0">Admin's news management</h2>
 
 <p class="p-lg-3">
-    <a class="btn btn-success " asp-action="Create">Tạo tin mới</a>
+    <a class="btn btn-success " asp-action="Create">Create new</a>
 </p>
 <table class="table" id="myTable">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title
             </th>
             
             
             
             
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                Author
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                Created Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Status
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hot)
+                Hot
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.New)
+                Recently
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                Brand
             </th>
             <th></th>
         </tr>

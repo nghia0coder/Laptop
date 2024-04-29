@@ -116,7 +116,10 @@
     <!-- time running -->
     <div class="time"></div>
 </div>
-
+<video id="loopbackVideo" autoplay loop muted>
+    <source src="~/video/New XPS 13 Plus Laptop (2022).mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 <script src="app.js"></script>
 
 <!-- SECTION -->
@@ -228,6 +231,10 @@
 <div class="container">
 	@await Html.PartialAsync("~/Views/ProductView/ProductStyle3.cshtml", lstSelling)
 </div>
+<video id="loopbackVideo" autoplay loop muted>
+    <source src="~/video/2022 Helios 300 Gaming Laptop - Predator.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 <div class="container">
 	@await Html.PartialAsync("~/Views/ProductView/News.cshtml", news)
 </div>
@@ -282,3 +289,4 @@
         }
     }, 1000);
 </script>
+
