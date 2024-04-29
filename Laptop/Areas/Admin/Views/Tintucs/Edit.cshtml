@@ -14,7 +14,7 @@
         <form asp-action="Edit" enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PostID" />
-            <input type="hidden" asp-for="CustomerId" />
+            <input type="hidden" asp-for="Customer.CustomerId" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"><h4>Tiêu đề</h4></label>
                 <input asp-for="Title" class="form-control" />
@@ -65,9 +65,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="BrandID" class="control-label">Tên hãng</label>
-                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
-                <span asp-validation-for="BrandID" class="text-danger"></span>
+                <label asp-for="BrandId" class="control-label">Tên hãng</label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
             
             <div class="form-group mt-4">
