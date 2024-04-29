@@ -44,7 +44,7 @@ namespace Laptop.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=Laptop4;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-B5FIP5M\\SQLEXPRESS01;Initial Catalog=Laptop8;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
@@ -447,9 +447,9 @@ namespace Laptop.Models
 				entity.Property(e => e.EmployeeId)
 					.HasMaxLength(10)
 					.HasColumnName("EmployeeID")
-					.IsFixedLength();
+					.IsFixedLength();              
 
-				entity.Property(e => e.Thumburl).HasMaxLength(255);
+                entity.Property(e => e.Thumburl).HasMaxLength(255);
 
 				entity.Property(e => e.Title).HasMaxLength(255);
 
@@ -458,12 +458,11 @@ namespace Laptop.Models
 					.HasForeignKey(d => d.BrandId)
 					.HasConstraintName("FK_Tintuc_Brand");
 
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Post)
+                    .HasForeignKey(d => d.Author)
+                    .HasConstraintName("FK_Tintuc_AspNetUsers");
 
-				entity.HasOne(d => d.Customer)
-				   .WithMany(p => p.Post)
-				   .HasForeignKey(d => d.Author)
-				   .OnDelete(DeleteBehavior.ClientSetNull)
-				   .HasConstraintName("FK_Tintuc_Customer1");
 
 
                 entity.HasOne(d => d.Employee)

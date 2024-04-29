@@ -21,7 +21,6 @@ namespace Laptop.Models
         public virtual AppUserModel? Account { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<PostComment> PostComments { get; set; }
-        public virtual ICollection<Tintuc> Post { get; set; }
         public virtual ICollection<ProductComment> ProductComments { get; set; }
     }
 }

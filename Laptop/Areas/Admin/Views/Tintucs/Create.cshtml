@@ -6,7 +6,9 @@
 }
 
 
-<h2 class="mt-3">Create News</h2>
+
+<h2 class="mt-3">Create new</h2>
+
 
 
 <div class="row p-lg-3" >
@@ -19,12 +21,16 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contentspreview" class="control-label"><h4>Short Content</h4></label>
+
+                <label asp-for="Contentspreview" class="control-label"><h4>Preview</h4></label>
+
                 <input asp-for="Contentspreview" class="form-control" />
                 <span asp-validation-for="Contentspreview" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contents" class="control-label"><h4>Content</h4></label>
+
+                <label asp-for="Contents" class="control-label"><h4>Contents</h4></label>
+
                 <textarea asp-for="Contents" class="form-control" style="width: 500px"></textarea>
                 <span asp-validation-for="Contents" class="text-danger"></span>
             </div>
@@ -34,9 +40,10 @@
             </div>
                       
             <div class="form-group">
-                <label asp-for="Author" class="control-label"><h4>Author</h4></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+
+                <label class="control-label"><h4>Author</h4></label>
+                <input readonly class="form-control" value="@ViewBag.NameAutor" />
+
             </div>
             <div class="form-group">
                 <label asp-for="CreatedDate" class="control-label"><h4>Created Date</h4></label>
@@ -53,22 +60,28 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <h4>Hot New</h4><input asp-for="Hot" /> 
+
+                        <h4>Hot</h4><input asp-for="Hot" /> 
+
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <h4>New or not</h4><input asp-for="New" />
+
+                        <h4>Recently</h4><input asp-for="New" />
+
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="BrandID" class="control-label"><h4>Brand Name</h4></label>
-                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+
+                <label asp-for="BrandId" class="control-label"><h4>Brand</h4></label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandID" style="vertical-align: top;"></select>
+
             </div>
-            <input type="hidden" asp-for="CustomerId" value="@User.Identity"/>
+            <input type="hidden" asp-for="Author" value="@User.Identity"/>
             <div class="form-group mt-4">
                 <input type="submit" value="Create" class="btn btn-success" />
                 <a class="btn btn-primary" asp-action="Index">Return</a>

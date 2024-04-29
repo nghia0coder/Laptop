@@ -319,9 +319,8 @@
                                                                                     </div>
 
                                                                                     <div class="form-group">
-                                                                                        <label asp-for="Author" class="control-label"><h4>Tác giả</h4></label>
-                                                                                        <input readonly asp-for="Author" class="form-control" value="@User.Identity.Name"/>
-                                                                                        <span asp-validation-for="Author" class="text-danger"></span>
+                                                                                        <label class="control-label"><h4>Tác giả</h4></label>
+                                                                                        <input readonly class="form-control" value="@ViewBag.NameAutor" />
                                                                                     </div>
                                                                                     
                                                                           

@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="mt-3 p-lg-3 mb-0">SiuMember's news approval</h2>
+<h2 class="mt-3 p-lg-3 mb-0">SiuMember's news management</h2>
 
 
 <table class="table">
@@ -14,6 +14,9 @@
             <th>
                 Title
             </th>
+
+
+
 
             <th>
                 Author
@@ -65,7 +68,7 @@
                     @Html.DisplayFor(modelItem => item.Brand.BrandName)
                 </td>
                 <td>
-                    <a class="btn btn-primary" asp-action="Approve" asp-route-id="@item.PostID">Approve</a> |
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PostID">Edit</a> |
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PostID">Delete</a>
                 </td>
             </tr>

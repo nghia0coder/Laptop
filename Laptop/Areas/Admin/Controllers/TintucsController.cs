@@ -34,19 +34,34 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Tintucs
         public async Task<IActionResult> Index()
         {
-            
-            var laptopContext =  _context.Tintucs.Include(t => t.Brand).OrderByDescending(p=>p.CreatedDate).ToList();
+            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var laptopContext =  _context.Tintucs
+                .Include(t => t.Brand)
+                .Where(t => t.Author == customerid)
+                .Where(p => p.Status)
+                .OrderByDescending(p=>p.CreatedDate)
+                .ToList();
             return View(laptopContext);
         }
         public async Task<IActionResult> Displayindex()
         {
             var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var laptopContext = _context.Tintucs
-                //.Where(t => t.Author != customerid)
+                .Where(t => t.Author != customerid && !t.Status)
                 .Include(t => t.Brand)
                 .ToList();
             return View(laptopContext);
         }
+        public async Task<IActionResult> Displayuserindex()
+        {
+            var customerid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var laptopContext = _context.Tintucs
+                .Where(t => t.Author != customerid && t.Status)
+                .Include(t => t.Brand)
+                .ToList();
+            return View(laptopContext);
+        }
+
         // GET: Admin/Tintucs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,6 +85,10 @@ namespace Laptop.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string customerid = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.Name).FirstOrDefault();
+            
+            ViewBag.NameAutor = customerid;
             return View();
         }
 
@@ -83,13 +102,13 @@ namespace Laptop.Areas.Admin.Controllers
             string uniqueFileName1 = GetProfilePhotoFileName1(tintuc);
             tintuc.Thumburl = uniqueFileName1;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+            tintuc.Author = userId;
+            var employid = _context.Employees.Where(p=> p.AccountId == userId).Select(p=>p.EmployeeId).FirstOrDefault();
+            tintuc.EmployeeId = employid;
             await _context.AddAsync(tintuc);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
-
-            return View(tintuc);
         }
 
         private string GetProfilePhotoFileName1(Tintuc Product)
@@ -111,6 +130,22 @@ namespace Laptop.Areas.Admin.Controllers
 
         // GET: Admin/Tintucs/Edit/5
         public async Task<IActionResult> Edit(int? id)
+        {
+
+            if (id == null || _context.Tintucs == null)
+            {
+                return NotFound();
+            }
+
+            var tintuc = await _context.Tintucs.FindAsync(id);
+            if (tintuc == null)
+            {
+                return NotFound();
+            }
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandId);
+            return View(tintuc);
+        }
+        public async Task<IActionResult> Approve(int? id)
         {
 
             if (id == null || _context.Tintucs == null)
@@ -148,7 +183,7 @@ namespace Laptop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandID,CustomerId")] Tintuc tintuc)
+        public async Task<IActionResult> Edit(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandId,CustomerId")] Tintuc tintuc)
         {
             if (id != tintuc.PostID)
             {
@@ -163,6 +198,38 @@ namespace Laptop.Areas.Admin.Controllers
 
 
             }
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);    
+            var employid = _context.Employees.Where(p => p.AccountId == userId).Select(p => p.EmployeeId).FirstOrDefault();
+            tintuc.EmployeeId = employid;
+            _context.Update(tintuc);
+            _context.SaveChanges();
+            
+            ViewData["BrandID"] = new SelectList(_context.Brands, "BrandId", "BrandName", tintuc.BrandId);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Approve(int id, [Bind("PostID,Title,Contentspreview,Contents,Thumb,Thumburl,Status,Author,CreatedDate,Hot,New,BrandId,CustomerId")] Tintuc tintuc)
+        {
+            if (id != tintuc.PostID)
+            {
+                return NotFound();
+            }
+
+            string image1 = GetProfilePhotoFileName1(tintuc);
+            if (!String.IsNullOrEmpty(image1))
+            {
+                string uniqueFileName1 = image1;
+                tintuc.Thumburl = uniqueFileName1;
+
+
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employid = _context.Employees.Where(p => p.AccountId == userId).Select(p => p.EmployeeId).FirstOrDefault();
+            tintuc.EmployeeId = employid;
+            tintuc.Status = true;
             _context.Update(tintuc);
             _context.SaveChanges();
 
