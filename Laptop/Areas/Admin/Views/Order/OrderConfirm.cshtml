@@ -1,47 +1,81 @@
-﻿@model IEnumerable<Order>
+﻿@using Laptop.Models
+@model IEnumerable<Order>
 @{
     ViewData["Title"] = "ChuaThanhToan";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    int pageNo = 0;
+
+    Page page = new Page();
+
+    if (ViewBag.Page != null)
+    {
+        page = ViewBag.Page;
+        pageNo = page.CurrentPage;
+    }
 }
+
 
 <div class="card">
     <div class="card-body">
         <h2>Đơn Hàng Chưa Duyệt</h2>
+  
         @if (Model != null && Model.Any())
         {
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-controller="Order" asp-action="OrderConfirm" method="get">
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Tìm kiếm theo mã đơn hàng" name="orderId" min="1">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div id="list" class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Customer Name</th>
-                            <th>Order Date</th>
-                            <th>Order Status</th>
-                            <th>Payment Status</th>
-                            <th>Delivery Date</th>
-                            <th>Confirm</th>
-                            <th>Cancel</th>
+                            <th>Mã Đơn Hàng</th>
+                            <th>Tên Khách Hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Tình trạng đơn hàng</th>
+                            <th>Đã thanh toán</th>
+                            <th>Xác Nhận</th>
+                            <th>Hủy Đơn Hàng</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@item.Customer.Name</td>
+                            <tr class="order-row" style="cursor : pointer" data-order-id="@item.OrderId">
+                                <td>@item.OrderId</td>
+                                <td>@(item.Customer?.Name != null ? item.Customer.Name : "Nhân Viên")</td>
                                 <td>@item.OrderDate</td>
-                                <td>@item.StatusNaviagtion.StatusName</td>
-                                <td>@item.StatusPayment</td>
-                                <td>@item.DeliveryDate</td>
-                              
+                                <td>@item.StatusNaviagtion?.StatusName</td>
+                                <td>
+                                    @if (item.StatusPayment)
+                                    {
+                                        <span class="status-icon success">&#10004;</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-icon failure">&#10006;</span>
+                                    }
+                                </td>
+
                                 <td>
                                     @if (item.OrderId != null)
                                     {
-                                        <a class ="btn btn-primary" href="@Url.Action("ApproveOrders", "Order", new { id = item.OrderId })" >Approve Order</a>
+                                        <a class ="btn btn-primary" href="@Url.Action("ApproveOrders", "Order", new { id = item.OrderId })" >Duyệt đơn</a>
                                     }
                                 </td>
                                 <td>
                                     @if (item.OrderId != null)
                                     {
-                                        <a class="btn btn-danger" href="@Url.Action("OrderCancel", "Order", new { id = item.OrderId })" >Cancel Order</a>
+                                        <a class="btn btn-danger" href="@Url.Action("OrderCancel", "Order", new { id = item.OrderId })" >Xác Nhận Hủy</a>
                                     }
                                 </td>
                             </tr>
@@ -50,5 +84,90 @@
                 </table>
             </div>
         }
+        else
+        {
+            if(ViewBag.Search != null)
+            {
+                <h1>Không tìm thấy đơn hàng nào</h1>
+
+            }
+            else
+            {
+                <h1>Hiện Tại Chưa Có Đơn Hàng Mới</h1>
+            }
+
+        }
     </div>
+
 </div>
+<div class=" container">
+    @if (page.TotalItems > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (page.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Order" asp-action="OrderConfirm" asp-route-pg="1">Trang Đầu</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-controller="Order" asp-action="OrderConfirm" asp-route-pg="@(page.CurrentPage - 1)">Trước</a>
+                </li>
+            }
+            @for (var pge = page.StartPage; pge <= page.EndPage; pge++)
+            {
+                <li class="page-item @(pge == page.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Order" asp-action="OrderConfirm" asp-route-pg="@pge">@pge </a>
+                </li>
+            }
+
+            @if (page.CurrentPage < page.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Order" asp-action="OrderConfirm" asp-route-pg="@(page.CurrentPage+1)">Tiếp</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-controller="Order" asp-action="OrderConfirm" asp-route-pg="@(page.TotalPages)">Trang Cuối</a>
+                </li>
+            }
+
+        </ul>
+
+    }
+    @for (var pge = page.StartPage; pge <= page.EndPage; pge++)
+    {
+
+    }
+</div>
+
+<style>
+    .status-icon {
+        font-size: 20px; /* Cỡ chữ của biểu tượng */
+        line-height: 1; /* Dòng chữ chiếm toàn bộ chiều cao của span */
+        display: inline-block; /* Hiển thị là một khối inline để có thể canh chỉnh dễ dàng */
+        width: 20px; /* Chiều rộng của khối */
+        height: 20px; /* Chiều cao của khối */
+        text-align: center; /* Căn giữa nội dung */
+    }
+
+    .success {
+        color: green; /* Màu xanh cho trạng thái thành công */
+    }
+
+    .failure {
+        color: red; /* Màu đỏ cho trạng thái thất bại */
+    }
+
+</style>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".order-row").click(function () {
+                var orderId = $(this).data("order-id");
+                window.location.href = "/orders/" + orderId;
+            });
+        });
+    </script>
+}

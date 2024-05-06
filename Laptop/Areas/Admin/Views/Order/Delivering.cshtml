@@ -1,23 +1,47 @@
-﻿@model IEnumerable<Order>
+﻿@using Laptop.Models
+@model IEnumerable<Order>
 @{
     ViewData["Title"] = "Đang Giao";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    int pageNo = 0;
+
+    Page page = new Page();
+
+    if (ViewBag.Page != null)
+    {
+        page = ViewBag.Page;
+        pageNo = page.CurrentPage;
+    }
 }
 
 <div class="card">
     <div class="card-body">
         <h2>Đơn Hàng Đang Giao</h2>
         @if (Model != null)
-        {   
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-controller="Order" asp-action="Delivering" method="get">
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Tìm kiếm theo mã đơn hàng" name="orderId" min="1">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div id="list" class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>Mã Đơn Hàng</th>
                             <th>Họ tên KH</th>
                             <th>Ngày đặt</th>
                             <th>Tình trạng giao hàng</th>
-                            <th>Ngày giao</th>
                             <th>Đã thanh toán</th>
+                            <th>Người Duyệt Đơn</th>
                             <th>Xác nhận</th>
                             <th>Hủy</th>
                         </tr>
@@ -25,14 +49,13 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr class="order-row" data-order-id="@item.OrderId">
-                         
-                                <td>@(item.Customer != null ? item.Customer.Name : "N/A")</td>
+                            <tr class="order-row" style="cursor : pointer" data-order-id="@item.OrderId">
+                                <td>@item.OrderId</td>
+                                <td>@(item.Customer != null ? item.Customer.Name : "Nhân Viên")</td>
                                 <td>@item.OrderDate</td>
                                 <td>@item.StatusNaviagtion.StatusName</td>
-                                <td>@item.DeliveryDate</td>
                                 <td>@item.StatusPayment</td>
-
+                                <td>@item.Employee.Name</td>
                                 <td>
                                     @if (item.OrderId != null)
                                     {
@@ -66,3 +89,44 @@
         });
     </script>
 }
+
+
+<div class=" container">
+    @if (page.TotalItems > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (page.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Order" asp-action="Delivering" asp-route-pg="1">Trang Đầu</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-controller="Order" asp-action="Delivering" asp-route-pg="@(page.CurrentPage - 1)">Trước</a>
+                </li>
+            }
+            @for (var pge = page.StartPage; pge <= page.EndPage; pge++)
+            {
+                <li class="page-item @(pge == page.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Order" asp-action="Delivering" asp-route-pg="@pge">@pge </a>
+                </li>
+            }
+
+            @if (page.CurrentPage < page.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Order" asp-action="Delivering" asp-route-pg="@(page.CurrentPage+1)">Tiếp</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-controller="Order" asp-action="Delivering" asp-route-pg="@(page.TotalPages)">Trang Cuối</a>
+                </li>
+            }
+
+        </ul>
+
+    }
+    @for (var pge = page.StartPage; pge <= page.EndPage; pge++)
+    {
+
+    }
+</div>

@@ -34,7 +34,8 @@ namespace Laptop
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
 
 			});
-		
+
+             
 			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
             builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));

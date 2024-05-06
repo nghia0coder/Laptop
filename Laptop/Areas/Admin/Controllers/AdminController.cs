@@ -81,6 +81,56 @@ namespace Laptop.Areas.Admin.Controllers
             await _signInManager.SignOutAsync();
 			return Redirect("/Home/Index");
         }
+        [HttpPost]
+        public SalesDataViewModel GetSalesData()
+        {
+            List<string> labels = new List<string>();
+            List<long?> total = new List<long?>();
+          
+          
+                for (int month = 1; month <= 12; month++)
+                {
+                    labels.Add(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month));
+
+                    var totalRevenue = _context.Orders
+                        .Where(order => order.OrderDate.Month == month)
+                        .Sum(order => order.PriceTotal);
+                    total.Add(totalRevenue);
+                }
+
+
+            return new SalesDataViewModel { Labels = labels, TotalRevenue = total };
+
+
+        }
+        [HttpPost]
+        public SalesDataViewModel GetSalesPieData(int? monthSale)
+        {
+
+            List<string> labels = new List<string>();
+            List<long?> total = new List<long?>();
+            var brands = _context.Brands.ToList();
+
+            foreach (var brand in brands)
+            {
+                labels.Add(brand.BrandName);
+
+                var rev = _context.OrdersDetails
+                 .Where(n => n.Order.OrderDate.Month == monthSale && n.ProductVar.ProductItems.Product.Brand == brand.BrandId)
+                 .Sum(n => n.Order.PriceTotal);
+                total.Add(rev);
+
+            }
+
+            return new SalesDataViewModel { Labels = labels, TotalRevenue = total };
+        }
+
+        public class SalesDataViewModel
+        {
+            public List<string> Labels { get; set; }
+            public List<long?> TotalRevenue { get; set; }
+        }
+
 
     }
 }

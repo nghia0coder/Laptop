@@ -1,0 +1,315 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Quản lý tài khoản của bạn";
+  
+}
+
+<div  id="popup">
+    
+        <label for="txtName">UserName:</label>
+        <input type="text" id="txtName" class="form-control mb-2">
+        <label for="txtAddress">Address:</label>
+        <input type="text" id="txtAddress" class="form-control mb-2">
+        <label for="txtPhone">Phone Number:</label>
+        <input type="text" id="txtPhone" class="form-control mb-4">
+        <button id="btnSave" class="btn btn-primary btn-block">Save</button>
+        <button href="" class="close-btn" onclick="toggle()">&times;</button>
+      
+   
+</div>
+    <div class="container" id="blur">
+    <div id="overlay"></div>
+        <h1>@ViewData["Title"]</h1>
+        <p class="text-success">@ViewData["StatusMessage"]</p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Cập nhật thông tin tài khoản</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-4">
+                    Profile Detail:
+@*                     <md-card-content>
+                        <div class="user text-center">
+                            <img src="https://lh3.googleusercontent.com/-W2XryVdi-lA/U6tSAh3SsbI/AAAAAAAAFGY/ZHJiUEcR_Zs/w480-h480/avatar%2Bmaterial%2Bdesign.png" alt="user avatar" class="user-avatar" />
+                            <md-button class="md-icon-button user-avatar-edit" ng-click="browserAvatar()">
+                                <md-icon class="text-center">photo_camera</md-icon>
+                            </md-button>
+                        </div>
+                    </md-card-content> *@
+                </dt>
+                  
+                    <dd class="col-sm-8">
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.UserName)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.UserName == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.UserName</span>
+                            }
+                        </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.UserEmail)</dt>
+                            <dd class="col-sm-6">@Html.DisplayFor(m => Model.profile.UserEmail)</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.PhoneNumber)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.PhoneNumber == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.PhoneNumber</span>
+                            }
+                        </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.HomeAdress)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.HomeAdress == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.HomeAdress</span>
+                            }
+                        </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.BirthDate)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.BirthDate == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.BirthDate</span>
+                            }
+                        </dd>
+                        </dl>
+                        <a asp-action="EditProfile" class="btn btn-primary btn-sm">Edit</a>
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Mật khẩu:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.HasPassword)
+                        {
+                            <a asp-controller="Manage" asp-action="ChangePassword" class="btn btn-sm btn-primary">Đổi mật khẩu</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Manage" asp-action="SetPassword" class="btn btn-sm btn-success">Tạo mật khẩu</a>
+                        }
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Liên kết tài khoản ngoài:</dt>
+                    <dd class="col-sm-8">
+                        Có @Model.Logins.Count liên kết. <a asp-controller="Manage" asp-action="ManageLogins" class="btn btn-sm btn-info">Quản lý liên kết ngoài</a>
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Số điện thoại:</dt>
+                    <dd class="col-sm-8">
+                        <p>
+                            Số điện thoại dùng để xác thực hai yếu tố
+                        </p>
+                        @(Model.PhoneNumber ?? "không có")
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <text>:</text>
+                            <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-sm btn-warning">Thay đổi</a>
+                            <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post" role="form">
+                                <button type="submit" class="btn btn-danger btn-sm">Loại bỏ số điện thoại</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-sm btn-success">Thêm số điện thoại</a>
+                        }
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Xác thực hai yếu tố:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.TwoFactor)
+                        {
+                            <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
+                                (Đang kích hoạt) <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
+                                <button type="submit" class="btn btn-primary btn-sm">Kích hoạt</button>
+                            </form>
+                        }
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Xác thực ứng dụng:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.AuthenticatorKey == null)
+                        {
+                            <form asp-controller="Manage" asp-action="ResetAuthenticatorKey" method="post" class="form-horizontal" role="form">
+                                <button type="submit" class="btn btn-sm btn-primary">Phát sinh mã</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <p>Mã xác thực là: @Model.AuthenticatorKey</p>
+                            <p>Nhập mã này khi yêu cầu xác thực 2 yếu tố</p>
+                            <form asp-controller="Manage" asp-action="GenerateRecoveryCode" method="post" class="form-horizontal" role="form">
+                                <button type="submit" class="btn btn-sm btn-primary">Phát sinh mã phục hồi</button>
+                            </form>
+                        }
+                    </dd>
+                </dl>
+
+            </div>
+
+    @*     <div id="popupAddress" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông tin địa chỉ</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="txtName">Tên:</label>
+                        <input type="text" id="txtName" class="form-control mb-2">
+                        <label for="txtAddress">Địa chỉ:</label>
+                        <input type="text" id="txtAddress" class="form-control mb-2">
+                        <label for="txtPhone">Số điện thoại:</label>
+                        <input type="text" id="txtPhone" class="form-control mb-4">
+                        <button id="btnSave" class="btn btn-primary btn-block">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div> *@
+   
+
+
+
+
+
+        <!-- Order Details -->
+        <div class="col-md-5 order-details mt-lg-5" style="margin-left:90px;">
+
+        
+            <div class="section-title text-center">
+                <h3 class="title">Sổ Địa Chỉ</h3>
+            </div>
+            <div class="order-summary">
+
+                <div class="order-col">
+                    <div><strong>PRODUCT</strong></div>
+                    <div><strong>TOTAL</strong></div>
+                </div>
+                <div class="order-products">
+                </div>
+                <div class="order-col">
+                    <div>Shiping</div>
+                    <div><strong>FREE</strong></div>
+                </div>
+                <style>
+                    #total {
+                        white-space: nowrap; /* Ngăn chặn xuống dòng */
+                    }
+                </style>
+                <div class="order-col">
+
+                    <div><strong>DISCOUNT</strong></div>
+                    <div><strong class="discount-total">0 VND</strong></div>
+
+                </div>
+                <div class="order-col">
+
+
+                    <div><strong>TOTAL</strong></div>
+
+                </div>
+            </div>
+            <div class="input-checkbox" style="margin-top : 5px">
+                <input type="checkbox" id="terms">
+                <label for="terms">
+                    <span></span>
+                    I've read and accept the <a href="#">terms & conditions</a>
+                </label>
+            </div>
+            <a class="primary-btn order-submit" style="cursor : pointer" onclick="toggle()" id="btnOpenPopup">Add New Address</a>
+        </div>
+        <!-- /Order Details -->
+        </div>
+    </div>
+
+<style>
+  
+    .container#blur.active {
+        filter : blur(20px);
+        pointer-events : none;
+        user-select : none;
+    }
+    #popup
+    {
+        position : fixed;
+        top : 40%;
+        left : 50%;
+        transform : translate(-50%,-20%);
+        width : 600px;
+        padding : 50px;
+        box-shadow : 0 5px 30px rgba(0,0,0,.30);
+        background : #fff;
+        visibility : hidden;
+        opacity : 0;
+        transition : 0.5s;
+    }
+    #popup .close-btn
+    {
+        position : absolute;
+        top : 1px;
+        right : 10px;
+        
+        height : 20px;
+        background : #fff;
+        color: #111;
+        border : none;
+        outline : none;
+       
+    }
+    #popup.active
+    {
+        visibility : visible;
+        opacity : 1;
+        transition : 0.5s;
+    }
+</style>
+@section scripts
+{
+    <script type="text/javascript">
+
+        function toggle() { 
+            var blur = document.getElementById('blur');
+            blur.classList.toggle('active')
+            var popup = document.getElementById('popup');
+            popup.classList.toggle('active')
+        }
+    </script>
+
+
+}

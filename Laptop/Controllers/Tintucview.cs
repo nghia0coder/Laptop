@@ -36,13 +36,13 @@ namespace Laptop.Controllers
                 pg = 1;
             int recsCount = lst.Count();
 
-            var pager = new Pager(recsCount, pg, pageSize);
+            var Page = new Page(recsCount, pg, pageSize);
 
             int recSkip = (pg - 1) * pageSize;
 
             var data = lst.Skip(recSkip).Take(pageSize).ToList();
 
-            this.ViewBag.Pager = pager;
+            this.ViewBag.Page = Page;
             return View(data);
         }
         public IActionResult GetBrandNames()
