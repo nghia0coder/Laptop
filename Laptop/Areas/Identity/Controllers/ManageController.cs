@@ -9,6 +9,7 @@ using Laptop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Laptop.Areas.Identity.Controllers
@@ -23,17 +24,20 @@ namespace Laptop.Areas.Identity.Controllers
         private readonly SignInManager<AppUserModel> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
+        private readonly LaptopContext _context;
 
         public ManageController(
         UserManager<AppUserModel> userManager,
         SignInManager<AppUserModel> signInManager,
         IEmailSender emailSender,
-        ILogger<ManageController> logger)
+        ILogger<ManageController> logger,
+        LaptopContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         //
@@ -393,6 +397,22 @@ namespace Laptop.Areas.Identity.Controllers
             await _signInManager.RefreshSignInAsync(user);
             return RedirectToAction(nameof(Index), "Manage");
 
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetDistrict(int? province) { 
+        
+             var districts = await _context.Districts.Where(n => n.ProvinceId  == province).ToListAsync();
+
+            return Json(districts);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetWard(int? district)
+        {
+
+            var wards = await _context.Wards.Where(n => n.DistrictId == district).ToListAsync();
+
+            return Json(wards);
         }
 
 

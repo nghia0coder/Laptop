@@ -1,28 +1,55 @@
 ﻿@model IndexViewModel
+@inject LaptopContext context
 @{
     ViewData["Title"] = "Quản lý tài khoản của bạn";
-  
+
+    var provinces = context.Provinces.ToList();
 }
 
 <div  id="popup">
-    
-        <label for="txtName">UserName:</label>
-        <input type="text" id="txtName" class="form-control mb-2">
-        <label for="txtAddress">Address:</label>
-        <input type="text" id="txtAddress" class="form-control mb-2">
-        <label for="txtPhone">Phone Number:</label>
-        <input type="text" id="txtPhone" class="form-control mb-4">
-        <button id="btnSave" class="btn btn-primary btn-block">Save</button>
+
+    <div class="form-group">
+        <label for="province">Họ Và Tên</label>
+        <input type="text" name="Name" class="form-control"/>
+        <label for="province">Số Điện Thoại</label>
+        <input type="text" name="PhoneNum" class="form-control" />
         <button href="" class="close-btn" onclick="toggle()">&times;</button>
-      
-   
+        <label for="province">Tỉnh/Thành phố</label>
+        <select id="province" name="province" class="form-control">
+            <option value="">Chọn một tỉnh</option>
+            <!-- populate options with data from your database or API -->
+            @foreach (var row in provinces)
+            {
+                <option value="@row.ProvinceId">@row.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="district">Quận/Huyện</label>
+        <select id="district" name="district" class="form-control">
+            <option value="">Chọn một quận/huyện</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="wards">Phường/Xã</label>
+        <select id="wards" name="wards" class="form-control">
+            <option value="">Chọn một xã</option>
+        </select>
+    </div>
+    <label for="province">Địa Chỉ</label>
+    <input type="text" name="PhoneNum" class="form-control" />
+    <input type="submit" name="add_sale" class="btn btn-primary w-100 form-input my-3" value="Đặt hàng">
+
+
+
 </div>
-    <div class="container" id="blur">
+
+<div class="container" id="blur">
     <div id="overlay"></div>
         <h1>@ViewData["Title"]</h1>
         <p class="text-success">@ViewData["StatusMessage"]</p>
 
-        <div class="row">
+    <div class="row" >
             <div class="col-md-6">
                 <h4>Cập nhật thông tin tài khoản</h4>
                 <hr />
@@ -182,32 +209,6 @@
                 </dl>
 
             </div>
-
-    @*     <div id="popupAddress" class="modal fade">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Thông tin địa chỉ</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <label for="txtName">Tên:</label>
-                        <input type="text" id="txtName" class="form-control mb-2">
-                        <label for="txtAddress">Địa chỉ:</label>
-                        <input type="text" id="txtAddress" class="form-control mb-2">
-                        <label for="txtPhone">Số điện thoại:</label>
-                        <input type="text" id="txtPhone" class="form-control mb-4">
-                        <button id="btnSave" class="btn btn-primary btn-block">Lưu</button>
-                    </div>
-                </div>
-            </div>
-        </div> *@
-   
-
-
-
-
-
         <!-- Order Details -->
         <div class="col-md-5 order-details mt-lg-5" style="margin-left:90px;">
 
@@ -259,11 +260,23 @@
     </div>
 
 <style>
-  
+ 
+
     .container#blur.active {
-        filter : blur(20px);
+        filter : blur(40px);
         pointer-events : none;
         user-select : none;
+    }
+
+    #popup label {
+        font-size: 90%;
+        font-weight: 600;
+        margin-top: 1em;
+    }
+
+    #popup input {
+        padding: 5px;
+        border: 1px solid #D5D5D5;
     }
     #popup
     {
@@ -279,12 +292,25 @@
         opacity : 0;
         transition : 0.5s;
     }
+
+    .container#blur {
+        background-size: cover;
+        background-repeat: no-repeat;
+        inset: -40px;
+        z-index: -10;
+    }
+    #popup {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+    }
+
+   
     #popup .close-btn
     {
         position : absolute;
         top : 1px;
         right : 10px;
-        
         height : 20px;
         background : #fff;
         color: #111;
@@ -298,10 +324,70 @@
         opacity : 1;
         transition : 0.5s;
     }
-</style>
+
+    .empty-italic
+    {
+        font-style : italic;
+    }
+ </style>
 @section scripts
-{
+{   
+
     <script type="text/javascript">
+
+        $('#province').change(function () {
+            var provinceId = $(this).val();
+
+
+            if (provinceId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetDistrict", "Manage")',
+                    data: { province: provinceId },
+                    dataType: 'json', 
+                    success: function (data) {
+                        if (data) {
+                            $('#district').empty();
+                            $('#district').append('<option value="">Chọn một quận/huyện</option>');
+                            $('#wards').empty();
+                            $('#wards').append('<option value="">Chọn một xã</option>');
+                            $.each(data["$values"], function (key, value) {
+                                $('#district').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                            }); 
+                        } else {
+                            $('#district').empty().append('<option value="">Không có quận/huyện</option>');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#district').change(function () {
+
+            var districtId = $(this).val();
+
+
+            if (districtId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetWard", "Manage")',
+                    data: { district: districtId },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            $('#wards').empty();
+                            $('#wards').append('<option value="">Chọn một xã</option>');
+                            $.each(data["$values"], function (key, value) {
+                                $('#wards').append('<option value="' + value.wardId + '">' + value.name + '</option>');
+                            });
+                        } else {
+                            $('#wards').empty().append('<option value="">Không có xã</option>');
+                        }
+                    }
+                });
+            }
+        });
+
 
         function toggle() { 
             var blur = document.getElementById('blur');

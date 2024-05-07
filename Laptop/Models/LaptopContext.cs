@@ -37,6 +37,9 @@ namespace Laptop.Models
         public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
+        public virtual DbSet<District> Districts { get; set; } = null!;
+        public virtual DbSet<Province> Provinces { get; set; } = null!;
+        public virtual DbSet<Ward> Wards { get; set; } = null!;
         public virtual DbSet<PostComment> PostComments { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -76,8 +79,45 @@ namespace Laptop.Models
 
 				entity.Property(e => e.ColorName).HasMaxLength(50);
 			});
+            modelBuilder.Entity<Ward>(entity =>
+            {
+                entity.HasKey(e => e.WardsId)
+                    .HasName("PK_wards_wards_id");
 
-			modelBuilder.Entity<Customer>(entity =>
+                entity.ToTable("wards", "test");
+
+                entity.Property(e => e.WardsId).HasColumnName("wards_id");
+
+                entity.Property(e => e.DistrictId).HasColumnName("district_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(64)
+                    .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Province>(entity =>
+            {
+                entity.ToTable("province", "test");
+
+                entity.Property(e => e.ProvinceId).HasColumnName("province_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(64)
+                    .HasColumnName("name");
+            });
+            modelBuilder.Entity<District>(entity =>
+            {
+                entity.ToTable("district", "test");
+
+                entity.Property(e => e.DistrictId).HasColumnName("district_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(64)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.ProvinceId).HasColumnName("province_id");
+            });
+            modelBuilder.Entity<Customer>(entity =>
 			{
 				entity.ToTable("Customer");
 
