@@ -12,6 +12,7 @@ using Laptop.Service;
 using Laptop.Models.Momo;
 using Laptop.Services;
 using Microsoft.AspNetCore.Authentication;
+using System.Text;
 
 namespace Laptop
 {
@@ -27,6 +28,7 @@ namespace Laptop
 			{
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.MaxDepth = 64;
+                
             });
 
 			builder.Services.AddDbContext<LaptopContext>(options =>

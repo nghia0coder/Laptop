@@ -16,7 +16,8 @@ namespace Laptop.Models
             : base(options)
         {
         }
-
+        public virtual DbSet<AddressNotebook> AddressNotebooks { get; set; } = null!;
+        public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
@@ -54,6 +55,54 @@ namespace Laptop.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+            modelBuilder.Entity<AddressNotebook>(entity =>
+            {
+                entity.HasKey(e => e.AddressNoteId);
+
+                entity.ToTable("AddressNotebook");
+
+                entity.Property(e => e.AddressNoteId).HasColumnName("AddressNoteID");
+
+                entity.Property(e => e.AddressId).HasColumnName("AddressID");
+
+                entity.HasOne(d => d.Address)
+                    .WithMany(p => p.AddressNotebooks)
+                    .HasForeignKey(d => d.AddressId)
+                    .HasConstraintName("FK_AddressNotebook_wards");
+            });
+            modelBuilder.Entity<CustomerAddress>(entity =>
+            {
+                entity.HasKey(e => new { e.CustomerId, e.AddressNoteId });
+
+                entity.ToTable("CustomerAddress");
+
+                entity.HasIndex(e => e.CustomerId, "foobar")
+                    .IsUnique()
+                    .HasFilter("([isdefault]=(1))");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.AddressNoteId).HasColumnName("AddressNoteID");
+
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+
+                entity.HasOne(d => d.AddressNote)
+                    .WithMany(p => p.CustomerAddresses)
+                    .HasForeignKey(d => d.AddressNoteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomerAddress_AddressNotebook");
+
+                entity.HasOne(d => d.Customer)
+                    .WithOne(p => p.CustomerAddress)
+                    .HasForeignKey<CustomerAddress>(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomerAddress_Customer");
+            });
+
             modelBuilder.Entity<Brand>(entity =>
             {
                 entity.ToTable("Brand");

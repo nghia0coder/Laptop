@@ -4,43 +4,115 @@
     ViewData["Title"] = "Quản lý tài khoản của bạn";
 
     var provinces = context.Provinces.ToList();
+
+    IEnumerable<CustomerAddress> address = ViewBag.Address as IEnumerable<CustomerAddress>;
 }
 
 <div  id="popup">
+    <button href="" class="close-btn" onclick="update(event)">&times;</button>
+    <div class="row">
+        <form asp-action="UpdateAddress"  method="post">
+            <div class="col-md-6">
+                <input type="hidden" id="idInput" name="id" value="">
+                <div class="form-group">
+                    <label for="Name">Họ Và Tên</label>
+                    <input id="NameUser" type="text" name="Name"  class="form-control rounded" />
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNumber">Số Điện Thoại</label>
+                    <input id="Phone" type="text" name="PhoneNumber" class="form-control rounded" />
+                </div>
+                <div class="form-group">
+                    <label for="Address">Địa Chỉ</label>
+                    <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
+                </div>
+                <label>
+                    <input type="checkbox" name="IsDefault" value="true"> Set Default Address
+                </label>
 
-    <div class="form-group">
-        <label for="province">Họ Và Tên</label>
-        <input type="text" name="Name" class="form-control"/>
-        <label for="province">Số Điện Thoại</label>
-        <input type="text" name="PhoneNum" class="form-control" />
-        <button href="" class="close-btn" onclick="toggle()">&times;</button>
-        <label for="province">Tỉnh/Thành phố</label>
-        <select id="province" name="province" class="form-control">
-            <option value="">Chọn một tỉnh</option>
-            <!-- populate options with data from your database or API -->
-            @foreach (var row in provinces)
-            {
-                <option value="@row.ProvinceId">@row.Name</option>
-            }
-        </select>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="province">Tỉnh/Thành phố</label>
+                    <select id="province" name="province" class="form-control rounded">
+                        <option value="">Chọn một tỉnh</option>
+                        <!-- populate options with data from your database or API -->
+                        @foreach (var row in provinces)
+                        {
+                            <option value="@row.ProvinceId">@row.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="district">Quận/Huyện</label>
+                    <select id="district" name="district" class="form-control rounded">
+                        <option value="">Chọn một quận/huyện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="wards">Phường/Xã</label>
+                    <select id="wards" name="AddressID" class="form-control rounded">
+                        <option value="">Chọn một xã</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Lưu Sổ Địa Chỉ">
+        </form>
     </div>
-    <div class="form-group">
-        <label for="district">Quận/Huyện</label>
-        <select id="district" name="district" class="form-control">
-            <option value="">Chọn một quận/huyện</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="wards">Phường/Xã</label>
-        <select id="wards" name="wards" class="form-control">
-            <option value="">Chọn một xã</option>
-        </select>
-    </div>
-    <label for="province">Địa Chỉ</label>
-    <input type="text" name="PhoneNum" class="form-control" />
-    <input type="submit" name="add_sale" class="btn btn-primary w-100 form-input my-3" value="Đặt hàng">
 
+</div>
 
+<div id="popup1">
+    <button href="" class="close-btn" onclick="toggle1()">&times;</button>
+    <div class="row">
+        <form asp-action="SaveAddress" method="post">
+            <div class="col-md-6">
+                <input type="hidden" id="idInput" name="id" value="">
+                <div class="form-group">
+                    <label for="Name">Họ Và Tên</label>
+                    <input id="NameUser" type="text" name="Name" class="form-control rounded" />
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNumber">Số Điện Thoại</label>
+                    <input id="Phone" type="text" name="PhoneNumber" class="form-control rounded" />
+                </div>
+                <div class="form-group">
+                    <label for="Address">Địa Chỉ</label>
+                    <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
+                </div>
+                <label>
+                    <input type="checkbox" name="IsDefault" value="true"> Set Default Address
+                </label>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="province">Tỉnh/Thành phố</label>
+                    <select id="province1" name="province" class="form-control rounded">
+                        <option value="">Chọn một tỉnh</option>
+                        <!-- populate options with data from your database or API -->
+                        @foreach (var row in provinces)
+                        {
+                            <option value="@row.ProvinceId">@row.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="district">Quận/Huyện</label>
+                    <select id="district1" name="district" class="form-control rounded">
+                        <option value="">Chọn một quận/huyện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="wards">Phường/Xã</label>
+                    <select id="wards1" name="AddressID" class="form-control rounded">
+                        <option value="">Chọn một xã</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Lưu Sổ Địa Chỉ">
+        </form>
+    </div>
 
 </div>
 
@@ -212,48 +284,38 @@
         <!-- Order Details -->
         <div class="col-md-5 order-details mt-lg-5" style="margin-left:90px;">
 
-        
+      
             <div class="section-title text-center">
                 <h3 class="title">Sổ Địa Chỉ</h3>
             </div>
             <div class="order-summary">
+                @foreach(var item in address)
+                {
 
-                <div class="order-col">
-                    <div><strong>PRODUCT</strong></div>
-                    <div><strong>TOTAL</strong></div>
-                </div>
-                <div class="order-products">
-                </div>
-                <div class="order-col">
-                    <div>Shiping</div>
-                    <div><strong>FREE</strong></div>
-                </div>
-                <style>
-                    #total {
-                        white-space: nowrap; /* Ngăn chặn xuống dòng */
-                    }
-                </style>
-                <div class="order-col">
+                    <div class="order" style="margin-bottom: 10px;">
+                        <div style="margin-bottom: 10px;">
+                            <strong>
+                                @item.Name @if (item.IsDefault == true)
+                                {
+                                    <span class="rounded-span fa fa-star">Default</span>
+                                }
+                            </strong>
+                        </div>
 
-                    <div><strong>DISCOUNT</strong></div>
-                    <div><strong class="discount-total">0 VND</strong></div>
+                    </div>
+                    <div class="order-products" style="margin-bottom: 10px;">
+                    </div>
+                    <div class="order-col">
+                        <div style="margin-bottom: 10px;">@item.Address</div>
+                        <div style="margin-bottom: 10px;">
+                            <button onclick="update(event)" value="@item.AddressNoteId" class="btn btn-primary">Cập nhật</button>
+                            <button  class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div>
+                }
 
-                </div>
-                <div class="order-col">
 
-
-                    <div><strong>TOTAL</strong></div>
-
-                </div>
-            </div>
-            <div class="input-checkbox" style="margin-top : 5px">
-                <input type="checkbox" id="terms">
-                <label for="terms">
-                    <span></span>
-                    I've read and accept the <a href="#">terms & conditions</a>
-                </label>
-            </div>
-            <a class="primary-btn order-submit" style="cursor : pointer" onclick="toggle()" id="btnOpenPopup">Add New Address</a>
+            <a class="primary-btn order-submit" style="cursor : pointer" onclick="toggle1()" id="btnOpenPopup">Add New Address</a>
         </div>
         <!-- /Order Details -->
         </div>
@@ -271,7 +333,6 @@
     #popup label {
         font-size: 90%;
         font-weight: 600;
-        margin-top: 1em;
     }
 
     #popup input {
@@ -284,7 +345,7 @@
         top : 40%;
         left : 50%;
         transform : translate(-50%,-20%);
-        width : 600px;
+        width : 1000px;
         padding : 50px;
         box-shadow : 0 5px 30px rgba(0,0,0,.30);
         background : #fff;
@@ -302,7 +363,7 @@
     #popup {
         display: flex;
         flex-direction: column;
-        max-width: 600px;
+        max-width: 1000px;
     }
 
    
@@ -325,20 +386,82 @@
         transition : 0.5s;
     }
 
+            #popup1 label {
+                font-size: 90%;
+                font-weight: 600;
+            }
+
+            #popup1 input {
+                padding: 5px;
+                border: 1px solid #D5D5D5;
+            }
+
+        #popup1 {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-20%);
+            width: 1000px;
+            padding: 50px;
+            box-shadow: 0 5px 30px rgba(0,0,0,.30);
+            background: #fff;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+       
+
+        #popup1 {
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px;
+        }
+
+
+            #popup1 .close-btn {
+                position: absolute;
+                top: 1px;
+                right: 10px;
+                height: 20px;
+                background: #fff;
+                color: #111;
+                border: none;
+                outline: none;
+            }
+
+        #popup1.active {
+            visibility: visible;
+            opacity: 1;
+            transition: 0.5s;
+        }
+
+         
+
     .empty-italic
     {
         font-style : italic;
     }
- </style>
+
+    .rounded {
+        border-radius: 20px;
+    }
+
+        .rounded-span {
+            
+            display: inline-block;
+            padding: 5px 10px; /* Căn lề và kích thước padding tùy ý */
+            border-radius: 20px; /* Điều chỉnh giá trị để tạo hình dạng ô tròn */
+            background-color: #f0f0f0; /* Màu nền tùy ý */
+            color: #333; /* Màu chữ tùy ý */
+        }
+    </style>
 @section scripts
 {   
-
     <script type="text/javascript">
 
-        $('#province').change(function () {
+        $('#province1').change(function () {
             var provinceId = $(this).val();
-
-
             if (provinceId) {
                 $.ajax({
                     type: 'GET',
@@ -347,22 +470,22 @@
                     dataType: 'json', 
                     success: function (data) {
                         if (data) {
-                            $('#district').empty();
-                            $('#district').append('<option value="">Chọn một quận/huyện</option>');
-                            $('#wards').empty();
-                            $('#wards').append('<option value="">Chọn một xã</option>');
+                            $('#district1').empty();
+                            $('#district1').append('<option value="">Chọn một quận/huyện</option>');
+                            $('#wards1').empty();
+                            $('#wards1').append('<option value="">Chọn một xã</option>');
                             $.each(data["$values"], function (key, value) {
-                                $('#district').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                                $('#district1').append('<option value="' + value.districtId + '">' + value.name + '</option>');
                             }); 
                         } else {
-                            $('#district').empty().append('<option value="">Không có quận/huyện</option>');
+                            $('#district1').empty().append('<option value="">Không có quận/huyện</option>');
                         }
                     }
                 });
             }
         });
 
-        $('#district').change(function () {
+        $('#district1').change(function () {
 
             var districtId = $(this).val();
 
@@ -375,13 +498,13 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data) {
-                            $('#wards').empty();
-                            $('#wards').append('<option value="">Chọn một xã</option>');
+                            $('#wards1').empty();
+                            $('#wards1').append('<option value="">Chọn một xã</option>');
                             $.each(data["$values"], function (key, value) {
-                                $('#wards').append('<option value="' + value.wardId + '">' + value.name + '</option>');
+                                $('#wards1').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
                             });
                         } else {
-                            $('#wards').empty().append('<option value="">Không có xã</option>');
+                            $('#wards1').empty().append('<option value="">Không có xã</option>');
                         }
                     }
                 });
@@ -389,11 +512,116 @@
         });
 
 
-        function toggle() { 
+        function toggle1() { 
             var blur = document.getElementById('blur');
             blur.classList.toggle('active')
-            var popup = document.getElementById('popup');
+            var popup = document.getElementById('popup1');
             popup.classList.toggle('active')
+        }
+
+
+        function update(event) {
+                var value = event.target.value; 
+                var blur = document.getElementById('blur');
+                blur.classList.toggle('active')
+                var popup = document.getElementById('popup');
+                popup.classList.toggle('active')
+             
+            $.ajax({
+                type : 'GET',
+                url: '@Url.Action("GetAddress", "Manage")',
+                data: { addId : value },
+                dataType: 'json',
+                success: function (data) {
+
+
+                        $('#province').empty();
+                        $('#province').append('<option value=' + data["city"].provinceId + '>' + data["city"].name + '</option>');
+                        $('#district').empty();
+                        $('#district').append('<option value=' + data["state"].districtId + '>' + data["state"].name + '</option>');
+                        $('#wards').empty();
+                        $('#wards').append('<option value=' + data.address.addressNote.addressId + '>' + data.address.addressNote.address.name + '</option>');
+                        const userNameInput = document.getElementById('NameUser');
+                        userNameInput.value = data.address.name;
+                        const phoneInput = document.getElementById('Phone');
+                        phoneInput.value = data.address.phoneNumber;
+                        const addressInput = document.getElementById('AddressDetail');
+                        addressInput.value = data.address.address;
+
+
+                        var idInput = document.getElementById('idInput');
+                        idInput.value = data.address.addressNoteId;;
+
+                        if (data.address.isDefault === true) {
+                            $('input[name="IsDefault"]').prop('checked', true); // Check the checkbox if data.IsDefault is true
+                        } else {
+                            $('input[name="IsDefault"]').prop('checked', false); // Uncheck the checkbox if data.IsDefault is false
+                        }
+
+
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetProvince", "Manage")',
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data) {
+                                    $.each(data["$values"], function (key, value) {
+                                            $('#province').append('<option value="' + value.provinceId + '">' + value.name + '</option>');
+                                        
+                                    });
+
+
+                                } else {
+                                    $('#wardprovinces').empty().append('<option value="">Không có xã</option>');
+                                }
+                            }
+                        });
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetDistrict", "Manage")',
+                            dataType: 'json',
+                            data: { province: data["city"].provinceId },
+                            success: function (data) {
+                                if (data) {
+
+                                    $.each(data["$values"], function (key, value) {
+
+                                        
+                                            $('#district').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                                        
+                                    });
+
+                                } else {
+                                    $('#district').empty().append('<option value="">Không có quận/huyện</option>');
+                                }
+                            }
+                        });
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetWard", "Manage")',
+                            data: { district: data["state"].districtId },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data) {
+                                    $.each(data["$values"], function (key, value) {
+                
+                                            $('#wards').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
+                                        
+                                    });
+
+                                } else {
+                                    $('#wards').empty().append('<option value="">Không có xã</option>');
+                                }
+                            }
+                        });
+
+
+                    
+
+                }
+            });
         }
     </script>
 

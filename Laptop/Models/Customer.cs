@@ -19,6 +19,7 @@ namespace Laptop.Models
         public string? AccountId { get; set; }
 
         public virtual AppUserModel? Account { get; set; }
+        public virtual CustomerAddress? CustomerAddress { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<PostComment> PostComments { get; set; }
         public virtual ICollection<ProductComment> ProductComments { get; set; }
