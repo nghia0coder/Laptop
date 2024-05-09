@@ -7,6 +7,28 @@
 
     IEnumerable<CustomerAddress> address = ViewBag.Address as IEnumerable<CustomerAddress>;
 }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+@if (TempData["error"] != null)
+{
+    <div id="createPopup" class="alert alert-success" role="alert">
+        @TempData["error"]
+    </div>
+}
+<div id="successPopup" style="display:none;" class="deletePopup">
+    <p>Đã xóa địa chỉ thành công</p>
+</div>
+
+
 
 <div  id="popup">
     <button href="" class="close-btn" onclick="update(event)">&times;</button>
@@ -71,14 +93,17 @@
                 <div class="form-group">
                     <label for="Name">Họ Và Tên</label>
                     <input id="NameUser" type="text" name="Name" class="form-control rounded" />
+                    <span id="nameError" class="text-danger" style="display: none;">Vui lòng nhập Họ và Tên</span>
                 </div>
                 <div class="form-group">
                     <label for="PhoneNumber">Số Điện Thoại</label>
                     <input id="Phone" type="text" name="PhoneNumber" class="form-control rounded" />
+                    <span id="phoneError" class="text-danger" style="display: none;">Vui lòng nhập số điện thoại</span>
                 </div>
                 <div class="form-group">
                     <label for="Address">Địa Chỉ</label>
                     <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
+                    <span id="addressError" class="text-danger" style="display: none;">Vui lòng nhập thông tin này</span>
                 </div>
                 <label>
                     <input type="checkbox" name="IsDefault" value="true"> Set Default Address
@@ -309,7 +334,7 @@
                         <div style="margin-bottom: 10px;">@item.Address</div>
                         <div style="margin-bottom: 10px;">
                             <button onclick="update(event)" value="@item.AddressNoteId" class="btn btn-primary">Cập nhật</button>
-                            <button  class="btn btn-danger">Xóa</button>
+                            <button onclick="deleteAddress(event)" value="@item.AddressNoteId" class="btn btn-danger">Xóa</button>
                         </div>
                     </div>
                 }
@@ -455,10 +480,69 @@
             background-color: #f0f0f0; /* Màu nền tùy ý */
             color: #333; /* Màu chữ tùy ý */
         }
+
+        .deletePopup {
+            position: fixed;
+            top: 139px; /* Điều chỉnh khoảng cách từ đỉnh trên của màn hình */
+            left: 50%;
+            transform: translateX(300%);
+            background-color: #15161D;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            color : #fff;
+            width : 250px;
+            text-align: center;
+        }
     </style>
 @section scripts
 {   
     <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#createPopup').fadeIn();
+
+                setTimeout(function () {
+                    $('#createPopup').fadeOut();
+                }, 1000);
+
+
+                $('form').submit(function (e) {
+                    e.preventDefault(); // Ngăn chặn form submit mặc định
+
+                    // Lấy giá trị từ các trường input
+                    var name = $('#NameUser').val();
+                    var phone = $('#Phone').val();
+                    var address = $('#AddressDetail').val();
+
+                    // Kiểm tra xem các trường đã được điền đầy đủ hay không
+                    if (name.trim() === '') {
+                        $('#nameError').show(); // Hiển thị span cảnh báo
+                        return;
+                    }
+                    if (phone.trim() === '') {
+                        $('#phoneError').show(); // Hiển thị span cảnh báo
+                        return;
+                    }
+                    if (address.trim() === '') {
+                        $('#addressError').show(); // Hiển thị span cảnh báo
+                        return;
+                    }
+
+                    // Nếu tất cả các trường đã được điền đầy đủ, submit form
+                    this.submit();
+                });
+
+                // Ẩn span cảnh báo khi trường input được điền
+                $('#NameUser, #Phone, #AddressDetail').on('input', function () {
+                    $(this).next('span').hide();
+                });
+            });
+
+
 
         $('#province1').change(function () {
             var provinceId = $(this).val();
@@ -623,6 +707,26 @@
                 }
             });
         }
+
+            function deleteAddress(event) {
+                var value = event.target.value;
+
+                $.ajax({
+                    type: 'POST',
+                    data: { id: value },
+                    url: '@Url.Action("DeleteAddress", "Manage")',
+                    success: function (data) {
+                        $('#successPopup').fadeIn();
+                        setTimeout(function () {
+                            location.reload();
+                        },1000)
+                    },
+                    error: function (xhr, status, error) {
+                      
+                    }
+                });
+            }
+
     </script>
 
 

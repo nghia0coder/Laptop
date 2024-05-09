@@ -415,6 +415,8 @@ namespace Laptop.Areas.Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveAddress(AddressViewModel add)
         {
+
+         
             var user = await GetCurrentUserAsync();
             var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
 
@@ -460,6 +462,7 @@ namespace Laptop.Areas.Identity.Controllers
             }    
             _context.CustomerAddresses.Add(customerAddress);
 
+            TempData["error"] = "Tạo Thành Công";
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index), "Manage");
@@ -567,6 +570,39 @@ namespace Laptop.Areas.Identity.Controllers
             }    
           
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteAddress(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var address = await _context.AddressNotebooks.FindAsync(id);
+
+                if (address != null)
+                {
+                    _context.Remove(address);
+                    await _context.SaveChangesAsync();
+                    TempData["error"] = "Xóa Địa Chỉ Thành Công";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["error"] = "Địa chỉ không tồn tại";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception somewhere or handle it appropriately
+                TempData["error"] = "Đã xảy ra lỗi khi xóa địa chỉ";
+                return RedirectToAction("Index");
+            }
+        }
+
 
         [HttpGet]
         public async Task<JsonResult> GetAddress(int addId)

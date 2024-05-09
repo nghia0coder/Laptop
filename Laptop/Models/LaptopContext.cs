@@ -93,7 +93,7 @@ namespace Laptop.Models
                 entity.HasOne(d => d.AddressNote)
                     .WithMany(p => p.CustomerAddresses)
                     .HasForeignKey(d => d.AddressNoteId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_CustomerAddress_AddressNotebook");
 
                 entity.HasOne(d => d.Customer)
