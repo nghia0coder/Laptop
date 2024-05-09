@@ -1,0 +1,733 @@
+﻿@model IndexViewModel
+@inject LaptopContext context
+@{
+    ViewData["Title"] = "Quản lý tài khoản của bạn";
+
+    var provinces = context.Provinces.ToList();
+
+    IEnumerable<CustomerAddress> address = ViewBag.Address as IEnumerable<CustomerAddress>;
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+@if (TempData["error"] != null)
+{
+    <div id="createPopup" class="alert alert-success" role="alert">
+        @TempData["error"]
+    </div>
+}
+<div id="successPopup" style="display:none;" class="deletePopup">
+    <p>Đã xóa địa chỉ thành công</p>
+</div>
+
+
+
+<div  id="popup">
+    <button href="" class="close-btn" onclick="update(event)">&times;</button>
+    <div class="row">
+        <form asp-action="UpdateAddress"  method="post">
+            <div class="col-md-6">
+                <input type="hidden" id="idInput" name="id" value="">
+                <div class="form-group">
+                    <label for="Name">Họ Và Tên</label>
+                    <input id="NameUser" type="text" name="Name"  class="form-control rounded" />
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNumber">Số Điện Thoại</label>
+                    <input id="Phone" type="text" name="PhoneNumber" class="form-control rounded" />
+                </div>
+                <div class="form-group">
+                    <label for="Address">Địa Chỉ</label>
+                    <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
+                </div>
+                <label>
+                    <input type="checkbox" name="IsDefault" value="true"> Set Default Address
+                </label>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="province">Tỉnh/Thành phố</label>
+                    <select id="province" name="province" class="form-control rounded">
+                        <option value="">Chọn một tỉnh</option>
+                        <!-- populate options with data from your database or API -->
+                        @foreach (var row in provinces)
+                        {
+                            <option value="@row.ProvinceId">@row.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="district">Quận/Huyện</label>
+                    <select id="district" name="district" class="form-control rounded">
+                        <option value="">Chọn một quận/huyện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="wards">Phường/Xã</label>
+                    <select id="wards" name="AddressID" class="form-control rounded">
+                        <option value="">Chọn một xã</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Lưu Sổ Địa Chỉ">
+        </form>
+    </div>
+
+</div>
+
+<div id="popup1">
+    <button href="" class="close-btn" onclick="toggle1()">&times;</button>
+    <div class="row">
+        <form asp-action="SaveAddress" method="post">
+            <div class="col-md-6">
+                <input type="hidden" id="idInput" name="id" value="">
+                <div class="form-group">
+                    <label for="Name">Họ Và Tên</label>
+                    <input id="NameUser" type="text" name="Name" class="form-control rounded" />
+                    <span id="nameError" class="text-danger" style="display: none;">Vui lòng nhập Họ và Tên</span>
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNumber">Số Điện Thoại</label>
+                    <input id="Phone" type="text" name="PhoneNumber" class="form-control rounded" />
+                    <span id="phoneError" class="text-danger" style="display: none;">Vui lòng nhập số điện thoại</span>
+                </div>
+                <div class="form-group">
+                    <label for="Address">Địa Chỉ</label>
+                    <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
+                    <span id="addressError" class="text-danger" style="display: none;">Vui lòng nhập thông tin này</span>
+                </div>
+                <label>
+                    <input type="checkbox" name="IsDefault" value="true"> Set Default Address
+                </label>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="province">Tỉnh/Thành phố</label>
+                    <select id="province1" name="province" class="form-control rounded">
+                        <option value="">Chọn một tỉnh</option>
+                        <!-- populate options with data from your database or API -->
+                        @foreach (var row in provinces)
+                        {
+                            <option value="@row.ProvinceId">@row.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="district">Quận/Huyện</label>
+                    <select id="district1" name="district" class="form-control rounded">
+                        <option value="">Chọn một quận/huyện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="wards">Phường/Xã</label>
+                    <select id="wards1" name="AddressID" class="form-control rounded">
+                        <option value="">Chọn một xã</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Lưu Sổ Địa Chỉ">
+        </form>
+    </div>
+
+</div>
+
+<div class="container" id="blur">
+    <div id="overlay"></div>
+        <h1>@ViewData["Title"]</h1>
+        <p class="text-success">@ViewData["StatusMessage"]</p>
+
+    <div class="row" >
+            <div class="col-md-6">
+                <h4>Cập nhật thông tin tài khoản</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-4">
+                    Profile Detail:
+@*                     <md-card-content>
+                        <div class="user text-center">
+                            <img src="https://lh3.googleusercontent.com/-W2XryVdi-lA/U6tSAh3SsbI/AAAAAAAAFGY/ZHJiUEcR_Zs/w480-h480/avatar%2Bmaterial%2Bdesign.png" alt="user avatar" class="user-avatar" />
+                            <md-button class="md-icon-button user-avatar-edit" ng-click="browserAvatar()">
+                                <md-icon class="text-center">photo_camera</md-icon>
+                            </md-button>
+                        </div>
+                    </md-card-content> *@
+                </dt>
+                  
+                    <dd class="col-sm-8">
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.UserName)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.UserName == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.UserName</span>
+                            }
+                        </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.UserEmail)</dt>
+                            <dd class="col-sm-6">@Html.DisplayFor(m => Model.profile.UserEmail)</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.PhoneNumber)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.PhoneNumber == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.PhoneNumber</span>
+                            }
+                        </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.HomeAdress)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.HomeAdress == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.HomeAdress</span>
+                            }
+                        </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-6">@Html.DisplayNameFor(m => Model.profile.BirthDate)</dt>
+                        <dd class="col-sm-6">
+                            @if (Model.profile.BirthDate == null)
+                            {
+                                <span class="empty-italic">empty</span>
+                            }
+                            else
+                            {
+                                <span>@Model.profile.BirthDate</span>
+                            }
+                        </dd>
+                        </dl>
+                        <a asp-action="EditProfile" class="btn btn-primary btn-sm">Edit</a>
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Mật khẩu:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.HasPassword)
+                        {
+                            <a asp-controller="Manage" asp-action="ChangePassword" class="btn btn-sm btn-primary">Đổi mật khẩu</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Manage" asp-action="SetPassword" class="btn btn-sm btn-success">Tạo mật khẩu</a>
+                        }
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Liên kết tài khoản ngoài:</dt>
+                    <dd class="col-sm-8">
+                        Có @Model.Logins.Count liên kết. <a asp-controller="Manage" asp-action="ManageLogins" class="btn btn-sm btn-info">Quản lý liên kết ngoài</a>
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Số điện thoại:</dt>
+                    <dd class="col-sm-8">
+                        <p>
+                            Số điện thoại dùng để xác thực hai yếu tố
+                        </p>
+                        @(Model.PhoneNumber ?? "không có")
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <text>:</text>
+                            <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-sm btn-warning">Thay đổi</a>
+                            <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post" role="form">
+                                <button type="submit" class="btn btn-danger btn-sm">Loại bỏ số điện thoại</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-sm btn-success">Thêm số điện thoại</a>
+                        }
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Xác thực hai yếu tố:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.TwoFactor)
+                        {
+                            <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
+                                (Đang kích hoạt) <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
+                                <button type="submit" class="btn btn-primary btn-sm">Kích hoạt</button>
+                            </form>
+                        }
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Xác thực ứng dụng:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.AuthenticatorKey == null)
+                        {
+                            <form asp-controller="Manage" asp-action="ResetAuthenticatorKey" method="post" class="form-horizontal" role="form">
+                                <button type="submit" class="btn btn-sm btn-primary">Phát sinh mã</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <p>Mã xác thực là: @Model.AuthenticatorKey</p>
+                            <p>Nhập mã này khi yêu cầu xác thực 2 yếu tố</p>
+                            <form asp-controller="Manage" asp-action="GenerateRecoveryCode" method="post" class="form-horizontal" role="form">
+                                <button type="submit" class="btn btn-sm btn-primary">Phát sinh mã phục hồi</button>
+                            </form>
+                        }
+                    </dd>
+                </dl>
+
+            </div>
+        <!-- Order Details -->
+        <div class="col-md-5 order-details mt-lg-5" style="margin-left:90px;">
+
+      
+            <div class="section-title text-center">
+                <h3 class="title">Sổ Địa Chỉ</h3>
+            </div>
+            <div class="order-summary">
+                @foreach(var item in address)
+                {
+
+                    <div class="order" style="margin-bottom: 10px;">
+                        <div style="margin-bottom: 10px;">
+                            <strong>
+                                @item.Name @if (item.IsDefault == true)
+                                {
+                                    <span class="rounded-span fa fa-star">Default</span>
+                                }
+                            </strong>
+                        </div>
+
+                    </div>
+                    <div class="order-products" style="margin-bottom: 10px;">
+                    </div>
+                    <div class="order-col">
+                        <div style="margin-bottom: 10px;">@item.Address</div>
+                        <div style="margin-bottom: 10px;">
+                            <button onclick="update(event)" value="@item.AddressNoteId" class="btn btn-primary">Cập nhật</button>
+                            <button onclick="deleteAddress(event)" value="@item.AddressNoteId" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </div>
+                }
+
+
+            <a class="primary-btn order-submit" style="cursor : pointer" onclick="toggle1()" id="btnOpenPopup">Add New Address</a>
+        </div>
+        <!-- /Order Details -->
+        </div>
+    </div>
+
+<style>
+ 
+
+    .container#blur.active {
+        filter : blur(40px);
+        pointer-events : none;
+        user-select : none;
+    }
+
+    #popup label {
+        font-size: 90%;
+        font-weight: 600;
+    }
+
+    #popup input {
+        padding: 5px;
+        border: 1px solid #D5D5D5;
+    }
+    #popup
+    {
+        position : fixed;
+        top : 40%;
+        left : 50%;
+        transform : translate(-50%,-20%);
+        width : 1000px;
+        padding : 50px;
+        box-shadow : 0 5px 30px rgba(0,0,0,.30);
+        background : #fff;
+        visibility : hidden;
+        opacity : 0;
+        transition : 0.5s;
+    }
+
+    .container#blur {
+        background-size: cover;
+        background-repeat: no-repeat;
+        inset: -40px;
+        z-index: -10;
+    }
+    #popup {
+        display: flex;
+        flex-direction: column;
+        max-width: 1000px;
+    }
+
+   
+    #popup .close-btn
+    {
+        position : absolute;
+        top : 1px;
+        right : 10px;
+        height : 20px;
+        background : #fff;
+        color: #111;
+        border : none;
+        outline : none;
+       
+    }
+    #popup.active
+    {
+        visibility : visible;
+        opacity : 1;
+        transition : 0.5s;
+    }
+
+            #popup1 label {
+                font-size: 90%;
+                font-weight: 600;
+            }
+
+            #popup1 input {
+                padding: 5px;
+                border: 1px solid #D5D5D5;
+            }
+
+        #popup1 {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-20%);
+            width: 1000px;
+            padding: 50px;
+            box-shadow: 0 5px 30px rgba(0,0,0,.30);
+            background: #fff;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+       
+
+        #popup1 {
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px;
+        }
+
+
+            #popup1 .close-btn {
+                position: absolute;
+                top: 1px;
+                right: 10px;
+                height: 20px;
+                background: #fff;
+                color: #111;
+                border: none;
+                outline: none;
+            }
+
+        #popup1.active {
+            visibility: visible;
+            opacity: 1;
+            transition: 0.5s;
+        }
+
+         
+
+    .empty-italic
+    {
+        font-style : italic;
+    }
+
+    .rounded {
+        border-radius: 20px;
+    }
+
+        .rounded-span {
+            
+            display: inline-block;
+            padding: 5px 10px; /* Căn lề và kích thước padding tùy ý */
+            border-radius: 20px; /* Điều chỉnh giá trị để tạo hình dạng ô tròn */
+            background-color: #f0f0f0; /* Màu nền tùy ý */
+            color: #333; /* Màu chữ tùy ý */
+        }
+
+        .deletePopup {
+            position: fixed;
+            top: 139px; /* Điều chỉnh khoảng cách từ đỉnh trên của màn hình */
+            left: 50%;
+            transform: translateX(300%);
+            background-color: #15161D;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            color : #fff;
+            width : 250px;
+            text-align: center;
+        }
+    </style>
+@section scripts
+{   
+    <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#createPopup').fadeIn();
+
+                setTimeout(function () {
+                    $('#createPopup').fadeOut();
+                }, 1000);
+
+
+                $('form').submit(function (e) {
+                    e.preventDefault(); // Ngăn chặn form submit mặc định
+
+                    // Lấy giá trị từ các trường input
+                    var name = $('#NameUser').val();
+                    var phone = $('#Phone').val();
+                    var address = $('#AddressDetail').val();
+
+                    // Kiểm tra xem các trường đã được điền đầy đủ hay không
+                    if (name.trim() === '') {
+                        $('#nameError').show(); // Hiển thị span cảnh báo
+                        return;
+                    }
+                    if (phone.trim() === '') {
+                        $('#phoneError').show(); // Hiển thị span cảnh báo
+                        return;
+                    }
+                    if (address.trim() === '') {
+                        $('#addressError').show(); // Hiển thị span cảnh báo
+                        return;
+                    }
+
+                    // Nếu tất cả các trường đã được điền đầy đủ, submit form
+                    this.submit();
+                });
+
+                // Ẩn span cảnh báo khi trường input được điền
+                $('#NameUser, #Phone, #AddressDetail').on('input', function () {
+                    $(this).next('span').hide();
+                });
+            });
+
+
+
+        $('#province1').change(function () {
+            var provinceId = $(this).val();
+            if (provinceId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetDistrict", "Manage")',
+                    data: { province: provinceId },
+                    dataType: 'json', 
+                    success: function (data) {
+                        if (data) {
+                            $('#district1').empty();
+                            $('#district1').append('<option value="">Chọn một quận/huyện</option>');
+                            $('#wards1').empty();
+                            $('#wards1').append('<option value="">Chọn một xã</option>');
+                            $.each(data["$values"], function (key, value) {
+                                $('#district1').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                            }); 
+                        } else {
+                            $('#district1').empty().append('<option value="">Không có quận/huyện</option>');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#district1').change(function () {
+
+            var districtId = $(this).val();
+
+
+            if (districtId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetWard", "Manage")',
+                    data: { district: districtId },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            $('#wards1').empty();
+                            $('#wards1').append('<option value="">Chọn một xã</option>');
+                            $.each(data["$values"], function (key, value) {
+                                $('#wards1').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
+                            });
+                        } else {
+                            $('#wards1').empty().append('<option value="">Không có xã</option>');
+                        }
+                    }
+                });
+            }
+        });
+
+
+        function toggle1() { 
+            var blur = document.getElementById('blur');
+            blur.classList.toggle('active')
+            var popup = document.getElementById('popup1');
+            popup.classList.toggle('active')
+        }
+
+
+        function update(event) {
+                var value = event.target.value; 
+                var blur = document.getElementById('blur');
+                blur.classList.toggle('active')
+                var popup = document.getElementById('popup');
+                popup.classList.toggle('active')
+             
+            $.ajax({
+                type : 'GET',
+                url: '@Url.Action("GetAddress", "Manage")',
+                data: { addId : value },
+                dataType: 'json',
+                success: function (data) {
+
+
+                        $('#province').empty();
+                        $('#province').append('<option value=' + data["city"].provinceId + '>' + data["city"].name + '</option>');
+                        $('#district').empty();
+                        $('#district').append('<option value=' + data["state"].districtId + '>' + data["state"].name + '</option>');
+                        $('#wards').empty();
+                        $('#wards').append('<option value=' + data.address.addressNote.addressId + '>' + data.address.addressNote.address.name + '</option>');
+                        const userNameInput = document.getElementById('NameUser');
+                        userNameInput.value = data.address.name;
+                        const phoneInput = document.getElementById('Phone');
+                        phoneInput.value = data.address.phoneNumber;
+                        const addressInput = document.getElementById('AddressDetail');
+                        addressInput.value = data.address.address;
+
+
+                        var idInput = document.getElementById('idInput');
+                        idInput.value = data.address.addressNoteId;;
+
+                        if (data.address.isDefault === true) {
+                            $('input[name="IsDefault"]').prop('checked', true); // Check the checkbox if data.IsDefault is true
+                        } else {
+                            $('input[name="IsDefault"]').prop('checked', false); // Uncheck the checkbox if data.IsDefault is false
+                        }
+
+
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetProvince", "Manage")',
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data) {
+                                    $.each(data["$values"], function (key, value) {
+                                            $('#province').append('<option value="' + value.provinceId + '">' + value.name + '</option>');
+                                        
+                                    });
+
+
+                                } else {
+                                    $('#wardprovinces').empty().append('<option value="">Không có xã</option>');
+                                }
+                            }
+                        });
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetDistrict", "Manage")',
+                            dataType: 'json',
+                            data: { province: data["city"].provinceId },
+                            success: function (data) {
+                                if (data) {
+
+                                    $.each(data["$values"], function (key, value) {
+
+                                        
+                                            $('#district').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                                        
+                                    });
+
+                                } else {
+                                    $('#district').empty().append('<option value="">Không có quận/huyện</option>');
+                                }
+                            }
+                        });
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetWard", "Manage")',
+                            data: { district: data["state"].districtId },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data) {
+                                    $.each(data["$values"], function (key, value) {
+                
+                                            $('#wards').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
+                                        
+                                    });
+
+                                } else {
+                                    $('#wards').empty().append('<option value="">Không có xã</option>');
+                                }
+                            }
+                        });
+
+
+                    
+
+                }
+            });
+        }
+
+            function deleteAddress(event) {
+                var value = event.target.value;
+
+                $.ajax({
+                    type: 'POST',
+                    data: { id: value },
+                    url: '@Url.Action("DeleteAddress", "Manage")',
+                    success: function (data) {
+                        $('#successPopup').fadeIn();
+                        setTimeout(function () {
+                            location.reload();
+                        },1000)
+                    },
+                    error: function (xhr, status, error) {
+                      
+                    }
+                });
+            }
+
+    </script>
+
+
+}

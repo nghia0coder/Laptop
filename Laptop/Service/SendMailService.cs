@@ -15,7 +15,7 @@ namespace Laptop.Service
             _mailSettings = mailSettings.Value;
         }
 
-        public async Task SendMail(MailContent mailContent)
+        public async Task SendMailAsync(MailContent mailContent)
         {
             
                 var email = new MimeMessage();
@@ -41,9 +41,12 @@ namespace Laptop.Service
                     await smtp.DisconnectAsync(true);
                 }
             }
-          
-            
+
+        internal Task SendMail(MailContent mailContent)
+        {
+            throw new NotImplementedException();
         }
+    }
     }
     public class MailContent
     {

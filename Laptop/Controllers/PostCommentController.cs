@@ -16,17 +16,24 @@ namespace Laptop.Controllers
             _userManager = userManager;
         }
         [HttpPost]
-        //public async Task<IActionResult> Create(PostComment postComment, string currentUrl)
-        //{
+        public async Task<IActionResult> Create(PostComment postComment, string currentUrl)
+        {
 
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    postComment.CustomerId = userId;
-        //    postComment.CreatedDate = DateTime.Now;
-        //    _context.PostComments.Add(postComment);
-        //    await _context.SaveChangesAsync();
-        //    return Redirect(currentUrl);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        //}
+            var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
+
+            if (customerId == null || customerId == 0)
+            {
+                customerId = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.EmployeeId).FirstOrDefault();
+            }
+            postComment.CustomerId = customerId;
+            postComment.CreatedDate = DateTime.Now;
+            _context.PostComments.Add(postComment);
+            await _context.SaveChangesAsync();
+            return Redirect(currentUrl);
+
+        }
         public IActionResult Index()
         {
             return View();

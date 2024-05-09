@@ -11,7 +11,7 @@ namespace Laptop.Models
         }
 
         public string OrderId { get; set; } = null!;
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public long? PriceTotal { get; set; }
         public int OrderStatus { get; set; }
         public DateTime? DeliveryDate { get; set; }

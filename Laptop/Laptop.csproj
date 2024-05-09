@@ -17,6 +17,8 @@
     <Content Remove="Areas\Admin\Views\Tintucs\Displayindex.cshtml" />
     <Content Remove="Areas\Admin\Views\Tintucs\Edit.cshtml" />
     <Content Remove="Areas\Admin\Views\Tintucs\Index.cshtml" />
+    <Content Remove="Areas\Identity\Views\Shared\_Layout.cshtml" />
+    <Content Remove="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +32,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Identity\Views\Manage\AddPhoneNumber.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\ChangePassword.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\DisplayRecoveryCodes.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\EditProfile.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\Error.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\Index.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\ManageLogins.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\SetPassword.cshtml" />
+    <None Include="Areas\Identity\Views\Manage\VerifyPhoneNumber.cshtml" />
+    <None Include="Areas\Identity\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
+    <None Include="Areas\Identity\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Views\_ViewStart.cshtml" />
     <None Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <None Include="Areas\Admin\Views\Admin\Login.cshtml" />
     <None Include="Areas\Admin\Views\Brand\Create.cshtml" />
@@ -261,19 +276,20 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.29" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.28" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.29" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.29" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.28" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.28">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.29" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.29">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.28" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.28" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.28">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.29" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.29" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.29">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

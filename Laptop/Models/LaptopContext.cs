@@ -16,7 +16,8 @@ namespace Laptop.Models
             : base(options)
         {
         }
-
+        public virtual DbSet<AddressNotebook> AddressNotebooks { get; set; } = null!;
+        public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Color> Colors { get; set; } = null!;
@@ -37,6 +38,9 @@ namespace Laptop.Models
         public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
+        public virtual DbSet<District> Districts { get; set; } = null!;
+        public virtual DbSet<Province> Provinces { get; set; } = null!;
+        public virtual DbSet<Ward> Wards { get; set; } = null!;
         public virtual DbSet<PostComment> PostComments { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -44,13 +48,61 @@ namespace Laptop.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-B5FIP5M\\SQLEXPRESS01;Initial Catalog=Laptop8;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=Laptop4;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+            modelBuilder.Entity<AddressNotebook>(entity =>
+            {
+                entity.HasKey(e => e.AddressNoteId);
+
+                entity.ToTable("AddressNotebook");
+
+                entity.Property(e => e.AddressNoteId).HasColumnName("AddressNoteID");
+
+                entity.Property(e => e.AddressId).HasColumnName("AddressID");
+
+                entity.HasOne(d => d.Address)
+                    .WithMany(p => p.AddressNotebooks)
+                    .HasForeignKey(d => d.AddressId)
+                    .HasConstraintName("FK_AddressNotebook_wards");
+            });
+            modelBuilder.Entity<CustomerAddress>(entity =>
+            {
+                entity.HasKey(e => new { e.CustomerId, e.AddressNoteId });
+
+                entity.ToTable("CustomerAddress");
+
+                entity.HasIndex(e => e.CustomerId, "foobar")
+                    .IsUnique()
+                    .HasFilter("([isdefault]=(1))");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.AddressNoteId).HasColumnName("AddressNoteID");
+
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+
+                entity.HasOne(d => d.AddressNote)
+                    .WithMany(p => p.CustomerAddresses)
+                    .HasForeignKey(d => d.AddressNoteId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_CustomerAddress_AddressNotebook");
+
+                entity.HasOne(d => d.Customer)
+                    .WithOne(p => p.CustomerAddress)
+                    .HasForeignKey<CustomerAddress>(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomerAddress_Customer");
+            });
+
             modelBuilder.Entity<Brand>(entity =>
             {
                 entity.ToTable("Brand");
@@ -76,8 +128,45 @@ namespace Laptop.Models
 
 				entity.Property(e => e.ColorName).HasMaxLength(50);
 			});
+            modelBuilder.Entity<Ward>(entity =>
+            {
+                entity.HasKey(e => e.WardsId)
+                    .HasName("PK_wards_wards_id");
 
-			modelBuilder.Entity<Customer>(entity =>
+                entity.ToTable("wards", "test");
+
+                entity.Property(e => e.WardsId).HasColumnName("wards_id");
+
+                entity.Property(e => e.DistrictId).HasColumnName("district_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(64)
+                    .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Province>(entity =>
+            {
+                entity.ToTable("province", "test");
+
+                entity.Property(e => e.ProvinceId).HasColumnName("province_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(64)
+                    .HasColumnName("name");
+            });
+            modelBuilder.Entity<District>(entity =>
+            {
+                entity.ToTable("district", "test");
+
+                entity.Property(e => e.DistrictId).HasColumnName("district_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(64)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.ProvinceId).HasColumnName("province_id");
+            });
+            modelBuilder.Entity<Customer>(entity =>
 			{
 				entity.ToTable("Customer");
 

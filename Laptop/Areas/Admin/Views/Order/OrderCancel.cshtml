@@ -20,7 +20,7 @@
                                 <tr>
                                     <input type="hidden" asp-for="OrderId" />
                                     <td>Mã đơn hàng: <b>@Model.OrderId <input type="hidden" name="MaDDH" value="@Model.OrderId" /></b></td>
-                                    <td>Email Khách Hàng: <b>@Model.Customer.Account.Email </b></td>
+                                    <td>Email Khách Hàng: <b>@Model.Customer?.Account?.Email </b></td>
                                     <td>Ngày đặt: <b>@Model.OrderDate</b></td>
                                     <td>
                                         Đã thanh toán:
@@ -58,7 +58,7 @@
                     <tr>
                         <td align="right" colspan="4">
                             <span class="mr-5">Tổng số lượng: @Model.OrdersDetails.Sum(n => n.Quanity) Sản phẩm</span>
-                            <span>Tổng tiền: @Model.PriceTotal.Value.ToString("#,##") VNĐ</span>
+                            <span>Tổng tiền: @Model.OrdersDetails.Sum(n => n.ProductVar.Price).ToString("#,##") VNĐ</span>
                         </td>
                     </tr>
                 </table>

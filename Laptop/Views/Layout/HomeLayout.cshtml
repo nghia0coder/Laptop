@@ -17,13 +17,14 @@
     <script src="~/js/thickbox.js"></script>
     <link rel="stylesheet" href="~/css/thickbox.css" type="text/css" media="screen" />
 
-    <link href="~/popup/addtocart/demo.css" rel="stylesheet" />
-    <link href="~/popup/addtocart/style.css" rel="stylesheet" />
 
-    <script src="~/Contents/Material/js/simpleCart.min.js"></script>
-    <script src="~/Contents/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="~/popup/addtocart/demo.css" rel="stylesheet" />
+
+
     <link href="~/popup/addtocart/style.css" rel="stylesheet" />
     <!-- Google font -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
@@ -43,10 +44,11 @@
     <link type="text/css" rel="stylesheet" href="~/Product/css/style.css" />
     <!-- Slider-->
     <link href="~/slider/style.css" rel="stylesheet" />
+
 </head>
 
 
-<body>
+<body >
 
     <!--header-->
     <div class="header">
@@ -73,18 +75,25 @@
     <div class="footer">
         @await Component.InvokeAsync("Footer")
     </div>
+
+
+
     @RenderSection("scripts", required: false)
-
-
-
     <!-- #endregion -->
     <!-- jQuery Plugins -->
+
     <script src="~/Product/js/jquery.min.js"></script>
+ 
+
+
     <script src="~/Product/js/bootstrap.min.js"></script>
     <script src="~/Product/js/slick.min.js"></script>
     <script src="~/Product/js/nouislider.min.js"></script>
     <script src="~/Product/js/jquery.zoom.min.js"></script>
     <script src="~/Product/js/main.js"></script>
     <script src="~/slider/app.js"></script>
+
+
+
 </body>
 </html>

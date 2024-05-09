@@ -9,7 +9,7 @@
 	IEnumerable<ProductVariation> ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
 
-	Pager pager = new Pager();
+	Page pager = new Page();
 
 	int pageNo = 0;
 
@@ -329,7 +329,15 @@
 											<input type="hidden" name="ProductId" value="@Model.ProductItems.Product.ProductId" />
 
 											<textarea name="Detail" class="input" placeholder="Your Review"></textarea>
-											<button type="submit" class="btn">Post Comment</button>
+											@if (User.Identity?.IsAuthenticated ?? false)
+											{
+												<button type="submit" class="btn">Post Comment</button>
+											}
+											else
+											{
+												<button class="btn" disabled>Login For Post Comment</button>
+											}
+										
 										</form>
 
 										@* 	<form class="review-form">

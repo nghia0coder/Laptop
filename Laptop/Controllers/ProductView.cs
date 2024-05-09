@@ -48,6 +48,8 @@ namespace Laptop.Controllers
 				.FirstOrDefaultAsync(n => n.ProductVarId == id);
 			
 			ViewBag.Comment = await _context.ProductComments
+				.Include(n => n.CreatedByNavigation)
+					.ThenInclude(n => n.Account)
 				.Where(n => n.ProductId  == sp.ProductItems.ProductId)
 				.ToListAsync();
 
