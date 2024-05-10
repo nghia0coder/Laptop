@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
      <AssemblyName>Laptopp</AssemblyName>
-         <AssemblyName>Laptop</AssemblyName>
+         <AssemblyName>LaptopShop</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
