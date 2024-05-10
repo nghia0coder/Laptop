@@ -11,9 +11,12 @@
  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="C:\Users\nghia\.nuget\packages\microsoft.net.compilers\1.0.0\build\..\tools\**" />
-  </ItemGroup>
+ <Content Remove="compilerconfig.json;package.json"/>
+<None Include="compilerconfig.json;package.json">
+  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+  <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+</None>
+
 
   <ItemGroup>
     <Content Remove="Areas\Admin\Views\Tintucs\Create.cshtml" />
