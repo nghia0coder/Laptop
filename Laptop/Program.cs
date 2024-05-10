@@ -22,6 +22,18 @@ namespace Laptop
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
+			builder.Services.AddDbContext<LaptopContext>(options =>
+			{
+				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
+
+			});
+
+				builder.Services.AddStackExchangeRedisCache(options =>
+				{
+				options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
+				options.InstanceName = "SampleInstance";
+				});
+
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
@@ -29,20 +41,12 @@ namespace Laptop
                 
             });
 
-			builder.Services.AddDbContext<LaptopContext>(options =>
-			{
-				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
-
-			});
+	
             // Add services to the container.
             builder.Services.AddMvc().AddRazorRuntimeCompilation();
       
 
-			builder.Services.AddStackExchangeRedisCache(options =>
-				{
-				options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
-				options.InstanceName = "SampleInstance";
-				});
+		
 
              
 			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
