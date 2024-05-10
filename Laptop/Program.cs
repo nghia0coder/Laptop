@@ -43,10 +43,6 @@ namespace Laptop
             // Add services to the container.
             builder.Services.AddMvc().AddRazorRuntimeCompilation();
       
-
-		
-
-             
 			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
             builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
