@@ -33,15 +33,11 @@ namespace Laptop
 
 			builder.Services.AddDbContext<LaptopContext>(options =>
 			{
-				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
+				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
 
 			});
 
-			builder.Services.AddStackExchangeRedisCache(options =>
-				{
-				options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
-				options.InstanceName = "SampleInstance";
-				});
+
 
              
 			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
