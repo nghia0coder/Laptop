@@ -22,16 +22,14 @@ namespace Laptop
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			builder.Services.AddDbContext<LaptopContext>(options =>
-			{
-				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
+			services.AddDbContext<ApplicationDbContext>(options =>
+    				options.UseSqlServer(Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 
-			});
 
 				builder.Services.AddStackExchangeRedisCache(options =>
 				{
-				options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
-				options.InstanceName = "SampleInstance";
+					options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
+					options.InstanceName = "SampleInstance";
 				});
 
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
