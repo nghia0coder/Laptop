@@ -32,7 +32,7 @@ jobs:
         run : dotnet tool install -g dotnet-ef --version 6.0.29
 
       - name : dotnet bundle migration
-        run : dotnet ef migrations bundle --runtime linux-x64 -p Laptop/Laptop/Laptop.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate. 
+        run : dotnet ef migrations bundle --runtime linux-x64 -p Laptop/LaptopShop.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate. 
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
