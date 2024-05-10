@@ -8,9 +8,10 @@ namespace Laptop.Models
 {
     public partial class LaptopContext : IdentityDbContext<AppUserModel>
     {
-        public LaptopContext()
-        {
-        }
+        public LaptopContext(DbContextOptions<LaptopContext> options)
+    : base(options)
+{
+}
 
      
         public virtual DbSet<AddressNotebook> AddressNotebooks { get; set; } = null!;
