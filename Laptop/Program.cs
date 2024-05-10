@@ -85,7 +85,7 @@ namespace Laptop
 				// User settings.
 				options.User.RequireUniqueEmail = true;
 			});
-			builder.Services.AddDistributedMemoryCache();
+	
 			builder.Services.AddSession(options =>
 			{
 				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as needed
