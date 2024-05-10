@@ -7,6 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup>
+ <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+</PropertyGroup>
+
   <ItemGroup>
     <None Remove="C:\Users\nghia\.nuget\packages\microsoft.net.compilers\1.0.0\build\..\tools\**" />
   </ItemGroup>
