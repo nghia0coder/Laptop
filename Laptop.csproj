@@ -22,15 +22,6 @@
     <Content Remove="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_WebToolingArtifacts Remove="Properties\serviceDependencies.json" />
-    <_WebToolingArtifacts Remove="Properties\serviceDependencies.local.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Properties\serviceDependencies.json" />
-    <Content Include="Properties\serviceDependencies.local.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="Areas\Identity\Views\Manage\AddPhoneNumber.cshtml" />
