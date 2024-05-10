@@ -22,9 +22,7 @@ namespace Laptop
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddMvc().AddRazorRuntimeCompilation();
-            builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.MaxDepth = 64;
@@ -36,6 +34,9 @@ namespace Laptop
 				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
 
 			});
+            // Add services to the container.
+            builder.Services.AddMvc().AddRazorRuntimeCompilation();
+      
 
 			builder.Services.AddStackExchangeRedisCache(options =>
 				{
