@@ -22,7 +22,7 @@ namespace Laptop
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			services.AddDbContext<ApplicationDbContext>(options =>
+			services.AddDbContext<LaptopContext>(options =>
     				options.UseSqlServer(Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 
 
