@@ -6,9 +6,8 @@
       "connectionId": "ConnectionStrings:Laptop_IdentityContextConnection"
     },
     "mssql2": {
-      "serviceConnectorResourceId": "",
-      "secretStore": "AzureAppSettings",
-      "type": "mssql.onprem",
+      "ignored": "true",
+      "type": "mssql",
       "connectionId": "ConnectionStrings:AZURE_SQL_CONNECTIONSTRING",
       "dynamicId": null
     }
