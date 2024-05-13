@@ -26,7 +26,7 @@ namespace Laptop
 			builder.Services.AddDbContext<LaptopContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
-      }
+			});
     
 
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
