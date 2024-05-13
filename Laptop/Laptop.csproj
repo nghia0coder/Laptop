@@ -32,15 +32,6 @@
 
 
   <ItemGroup>
-    <None Include="Areas\Identity\Views\Manage\AddPhoneNumber.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\ChangePassword.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\DisplayRecoveryCodes.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\EditProfile.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\Error.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\Index.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\ManageLogins.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\SetPassword.cshtml" />
-    <None Include="Areas\Identity\Views\Manage\VerifyPhoneNumber.cshtml" />
     <None Include="Areas\Identity\Views\Shared\_Layout.cshtml" />
     <None Include="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
     <None Include="Areas\Identity\Views\_ViewImports.cshtml" />

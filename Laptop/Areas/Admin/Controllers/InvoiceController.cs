@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Text;
 using Laptop.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Laptop.Areas.Admin.Controllers
 {   
@@ -19,10 +20,11 @@ namespace Laptop.Areas.Admin.Controllers
     public class InvoiceController : Controller
     {
         private readonly LaptopContext _context;
-
-        public InvoiceController(LaptopContext context)
+        private readonly UserManager<AppUserModel> _userManager;
+        public InvoiceController(LaptopContext context, UserManager<AppUserModel> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Admin/Invoice
@@ -70,16 +72,24 @@ namespace Laptop.Areas.Admin.Controllers
             ViewBag.CreateDate = DateTime.Today;
             return View();
         }
+        private Task<AppUserModel> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
         [Authorize(Roles = "Manager")]
         // POST: Admin/Invoice/Create
         // To protect from overposting attacks, enable the specific proper ties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind("InvoiceId,CreateDate,SupplierId")] Invoice model, IEnumerable<InvoiceDetail> lstModel)
+        public async Task<ActionResult> CreateAsync([Bind("InvoiceId,CreateDate,SupplierId")] Invoice model, IEnumerable<InvoiceDetail> lstModel)
         {
 
+            var user = await GetCurrentUserAsync();
+          
+            var customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
+            model.EmployeeId = customerId;
+          _context.Invoices.Add(model);
 
-            _context.Invoices.Add(model);
             _context.SaveChanges();
           
             ProductVariation product;

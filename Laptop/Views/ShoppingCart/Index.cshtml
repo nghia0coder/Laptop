@@ -2,8 +2,10 @@
 
 @model Item
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject LaptopContext context
 @{
     var httpContext = HttpContextAccessor.HttpContext;
+    var address = context.CustomerAddresses.FirstOrDefault();
 }
 @{
     ViewData["Title"] = "XemGioHang";
@@ -131,6 +133,13 @@ else
                                             
                                             <div><strong>TOTAL</strong></div>
                                             <div><strong id="total" class="order-total">@Model.Total.ToString("#,##0") VND</strong></div>
+                                        </div>
+                                        <div class="order-col">
+                                            <div><strong>Address</strong></div>
+
+                                        </div>
+                                        <div class="order-col">
+                                            <div><strong>@address.Address</strong></div>
                                         </div>
                                     </div>
                                     <div class="payment-method">

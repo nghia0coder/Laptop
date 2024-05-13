@@ -22,21 +22,12 @@ namespace Laptop
 		{
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.WebHost.ConfigureKestrel((context, serverOptions) =>
-            {
-                // 5270 is the port number
-                serverOptions.Listen(System.Net.IPAddress.Loopback, 8080);
-            });
 
-            builder.Services.AddDbContext<LaptopContext>(options =>
-    				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
-
-
-				builder.Services.AddStackExchangeRedisCache(options =>
-				{
-					options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
-					options.InstanceName = "SampleInstance";
-				});
+			builder.Services.AddDbContext<LaptopContext>(options =>
+			{
+				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
+      }
+    
 
 			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
@@ -86,11 +77,11 @@ namespace Laptop
 
 
 
-
+https://github.com/nghia0coder/Laptop/pull/74/conflict?name=Laptop%252Fappsettings.json&ancestor_oid=1f8d7a022f8a8a85624e37bdde0d671088696b79&base_oid=1afaa7461b984103b5c06516e014cca8bf4b75ea&head_oid=d9d0a1cd92dfd8f2ac9e5641c94860838d23997e
 				// User settings.
 				options.User.RequireUniqueEmail = true;
 			});
-	
+	  	builder.Services.AddDistributedMemoryCache();
 			builder.Services.AddSession(options =>
 			{
 				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as needed

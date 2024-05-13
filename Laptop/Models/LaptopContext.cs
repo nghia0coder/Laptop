@@ -218,7 +218,6 @@ namespace Laptop.Models
 				entity.ToTable("Invoice");
 
 				entity.Property(e => e.InvoiceId)
-					.ValueGeneratedNever()
 					.HasColumnName("InvoiceID");
 
 				entity.Property(e => e.EmployeeId)

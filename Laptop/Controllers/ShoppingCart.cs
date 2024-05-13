@@ -12,6 +12,7 @@ using Laptop.ViewModels;
 using Laptop.Service;
 using Laptop.Interface;
 using Laptop.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Laptop.Controllers
 {
@@ -36,7 +37,7 @@ namespace Laptop.Controllers
         }
 
 
-		public IActionResult Index()
+		public async Task<IActionResult> IndexAsync()
 		{
 			List<CartItemsModel> cartItems = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
 			Item cart = new()
@@ -45,12 +46,30 @@ namespace Laptop.Controllers
 				Quanity = cartItems.Count(),
 				Total = cartItems.Sum(x => x.Quanity  * x.Price)
 			};
-			ViewBag.TongTien = cart.Total;
+            var user = await GetCurrentUserAsync();
+            var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
+
+            if (customerId == 0)
+            {
+                customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
+            }
+
+			var customerAddress = _context.CustomerAddresses.Where(n => n.CustomerId == customerId).ToList();
+
+	
+
+            ViewBag.TongTien = cart.Total;
 			ViewBag.TongQuanity = cart.Quanity;
-			return View(cart);
+            ViewData["Address"] = new SelectList(customerAddress, "AddressNoteID", "Address");
+            return View(cart);
 		}
 
-		public async Task<IActionResult> ThemGioHang(int masp,int ramId,int ssdId ,int quantity, string strURL)
+        private Task<AppUserModel> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+        public async Task<IActionResult> ThemGioHang(int masp,int ramId,int ssdId ,int quantity, string strURL)
 		{
 
 			var id =await _context.ProductVariations
