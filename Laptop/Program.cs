@@ -20,9 +20,15 @@ namespace Laptop
 	{
 		public static async Task Main(string[] args)
 		{
-			var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args);
 
-			builder.Services.AddDbContext<LaptopContext>(options =>
+            builder.WebHost.ConfigureKestrel((context, serverOptions) =>
+            {
+                // 5270 is the port number
+                serverOptions.Listen(System.Net.IPAddress.Loopback, 8080);
+            });
+
+            builder.Services.AddDbContext<LaptopContext>(options =>
     				options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")));
 
 
