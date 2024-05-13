@@ -20,26 +20,26 @@ namespace Laptop
 	{
 		public static async Task Main(string[] args)
 		{
-			var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddMvc().AddRazorRuntimeCompilation();
-            builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+
+			builder.Services.AddDbContext<LaptopContext>(options =>
+			{
+				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
+      }
+    
+
+			builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.MaxDepth = 64;
                 
             });
 
-			builder.Services.AddDbContext<LaptopContext>(options =>
-			{
-				options.UseSqlServer(builder.Configuration.GetConnectionString("Store"));
-
-			});
-
-
-
-             
+	
+            // Add services to the container.
+            builder.Services.AddMvc().AddRazorRuntimeCompilation();
+      
 			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
             builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
@@ -77,11 +77,11 @@ namespace Laptop
 
 
 
-
+https://github.com/nghia0coder/Laptop/pull/74/conflict?name=Laptop%252Fappsettings.json&ancestor_oid=1f8d7a022f8a8a85624e37bdde0d671088696b79&base_oid=1afaa7461b984103b5c06516e014cca8bf4b75ea&head_oid=d9d0a1cd92dfd8f2ac9e5641c94860838d23997e
 				// User settings.
 				options.User.RequireUniqueEmail = true;
 			});
-			builder.Services.AddDistributedMemoryCache();
+	  	builder.Services.AddDistributedMemoryCache();
 			builder.Services.AddSession(options =>
 			{
 				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as needed

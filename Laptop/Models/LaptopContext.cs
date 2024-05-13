@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,14 +8,12 @@ namespace Laptop.Models
 {
     public partial class LaptopContext : IdentityDbContext<AppUserModel>
     {
-        public LaptopContext()
-        {
-        }
-
         public LaptopContext(DbContextOptions<LaptopContext> options)
-            : base(options)
-        {
-        }
+    : base(options)
+{
+}
+
+     
         public virtual DbSet<AddressNotebook> AddressNotebooks { get; set; } = null!;
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
         public virtual DbSet<Brand> Brands { get; set; } = null!;
