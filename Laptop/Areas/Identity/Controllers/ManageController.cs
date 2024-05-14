@@ -84,7 +84,7 @@ namespace Laptop.Areas.Identity.Controllers
                     PhoneNumber = user.PhoneNumber,
                 }
             };
-            ViewBag.Address = _context.CustomerAddresses.Where(n => n.CustomerId == customerId).OrderByDescending(a => a.IsDefault).ToList();
+            ViewBag.Address = _context.CustomerAddresses.Where(n => n.CustomerId == customerId).ToList();
             return View(model);
         }
         public enum ManageMessageId
@@ -416,7 +416,7 @@ namespace Laptop.Areas.Identity.Controllers
         public async Task<IActionResult> SaveAddress(AddressViewModel add)
         {
 
-         
+
             var user = await GetCurrentUserAsync();
             var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
 
@@ -425,41 +425,21 @@ namespace Laptop.Areas.Identity.Controllers
                 customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
             }
 
-            if (add.IsDefault)
-            {
-                var addressDefault = _context.CustomerAddresses.Where(n => n.CustomerId == customerId && n.IsDefault == true).FirstOrDefault();
+          
 
-                addressDefault.IsDefault = false;
-                _context.CustomerAddresses.Update(addressDefault);
-                await _context.SaveChangesAsync();
-
-
-            }
-            var addressNotebook = new AddressNotebook()
-            {
-                AddressId = add.AddressID
-            };
-
-            _context.AddressNotebooks.Add(addressNotebook);
-            await _context.SaveChangesAsync();
 
             var customerAddress = new CustomerAddress()
             {
                 CustomerId = customerId,
-                AddressNoteId = addressNotebook.AddressNoteId,
+                City = add.City,
+                Ward = add.Ward,
+                District = add.District,
                 PhoneNumber = add.PhoneNumber,
                 Name = add.Name,
-                Address = add.Address,
+                AddressLine = add.Address,
             };
 
-            if (_context.CustomerAddresses.Where(n => n.CustomerId == customerId).ToList().Count() == 0)
-            {
-                customerAddress.IsDefault = true;
-            }
-            else
-            {
-                customerAddress.IsDefault = add.IsDefault;
-            }    
+         
             _context.CustomerAddresses.Add(customerAddress);
 
             TempData["error"] = "Tạo Thành Công";
@@ -470,69 +450,69 @@ namespace Laptop.Areas.Identity.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateAddress(int? id,AddressViewModel add)
-        {
-            var user = await GetCurrentUserAsync();
-            var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
+        //[HttpPost]
+        //public async Task<IActionResult> UpdateAddress(int? id,AddressViewModel add)
+        //{
+        //    var user = await GetCurrentUserAsync();
+        //    var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
 
-            if (customerId == 0)
-            {
-                customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
-            }
+        //    if (customerId == 0)
+        //    {
+        //        customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
+        //    }
 
-            if(id != null)
-            {
-                var updateAddress = _context.AddressNotebooks.Where(n => n.AddressNoteId == id).FirstOrDefault();
+        //    if(id != null)
+        //    {
+        //        var updateAddress = _context.AddressNotebooks.Where(n => n.AddressNoteId == id).FirstOrDefault();
 
-                updateAddress.AddressId = add.AddressID;
+        //        updateAddress.AddressId = add.AddressID;
 
-                _context.AddressNotebooks.Update(updateAddress);
-                await _context.SaveChangesAsync();
-            }    
+        //        _context.AddressNotebooks.Update(updateAddress);
+        //        await _context.SaveChangesAsync();
+        //    }    
 
-            if (add.IsDefault)
-            {
-                var addressDefault = _context.CustomerAddresses.Where(n => n.CustomerId == customerId && n.IsDefault == true).FirstOrDefault();
-                if (addressDefault != null)
-                {
-                    addressDefault.IsDefault = false;
-                    _context.CustomerAddresses.Update(addressDefault);
-                    await _context.SaveChangesAsync();
-                }
+        //    if (add.IsDefault)
+        //    {
+        //        var addressDefault = _context.CustomerAddresses.Where(n => n.CustomerId == customerId && n.IsDefault == true).FirstOrDefault();
+        //        if (addressDefault != null)
+        //        {
+        //            addressDefault.IsDefault = false;
+        //            _context.CustomerAddresses.Update(addressDefault);
+        //            await _context.SaveChangesAsync();
+        //        }
 
-            }
-           
-
-
-            var customerAddress = _context.CustomerAddresses.Where(n => n.CustomerId == customerId && n.AddressNoteId == id).FirstOrDefault();
-
-            if(customerAddress == null)
-            {
-                return Json(id);
-            }
-
-            customerAddress.PhoneNumber = add.PhoneNumber;
-            customerAddress.Name = add.Name;
-            customerAddress.Address = add.Address;
-            customerAddress.IsDefault = add.IsDefault;
+        //    }
 
 
-            if (_context.CustomerAddresses.Where(n => n.CustomerId == customerId).ToList().Count() == 0)
-            {
-                customerAddress.IsDefault = true;
-            }
-            else
-            {
-                customerAddress.IsDefault = add.IsDefault;
-            }
-            _context.CustomerAddresses.Update(customerAddress);
 
-            await _context.SaveChangesAsync();
+        //    var customerAddress = _context.CustomerAddresses.Where(n => n.CustomerId == customerId && n.AddressNoteId == id).FirstOrDefault();
 
-            return RedirectToAction(nameof(Index), "Manage");
+        //    if(customerAddress == null)
+        //    {
+        //        return Json(id);
+        //    }
 
-        }
+        //    customerAddress.PhoneNumber = add.PhoneNumber;
+        //    customerAddress.Name = add.Name;
+        //    customerAddress.Address = add.Address;
+        //    customerAddress.IsDefault = add.IsDefault;
+
+
+        //    if (_context.CustomerAddresses.Where(n => n.CustomerId == customerId).ToList().Count() == 0)
+        //    {
+        //        customerAddress.IsDefault = true;
+        //    }
+        //    else
+        //    {
+        //        customerAddress.IsDefault = add.IsDefault;
+        //    }
+        //    _context.CustomerAddresses.Update(customerAddress);
+
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToAction(nameof(Index), "Manage");
+
+        //}
         [HttpGet]
         public async Task<JsonResult> GetProvince()
         {
@@ -542,21 +522,22 @@ namespace Laptop.Areas.Identity.Controllers
             return Json(provinces);
         }
         [HttpGet]
-        public async Task<JsonResult> GetDistrict(int? province) { 
-            
+        public async Task<JsonResult> GetDistrict(int? province)
+        {
 
-         
-            
-                var districts = await _context.Districts.Where(n => n.ProvinceId == province).ToListAsync();
-                return Json(districts);
-            
-          
+
+
+
+            var districts = await _context.Districts.Where(n => n.ProvinceId == province).ToListAsync();
+            return Json(districts);
+
+
         }
 
         [HttpGet]
         public async Task<JsonResult> GetWard(int? district)
         {
-            if(district == null)
+            if (district == null)
             {
                 var wards = await _context.Wards.ToListAsync();
 
@@ -567,8 +548,8 @@ namespace Laptop.Areas.Identity.Controllers
                 var wards = await _context.Wards.Where(n => n.DistrictId == district).ToListAsync();
 
                 return Json(wards);
-            }    
-          
+            }
+
         }
         [HttpPost]
         public async Task<IActionResult> DeleteAddress(int? id)
@@ -580,7 +561,7 @@ namespace Laptop.Areas.Identity.Controllers
 
             try
             {
-                var address = await _context.AddressNotebooks.FindAsync(id);
+                var address = await _context.CustomerAddresses.FindAsync(id);
 
                 if (address != null)
                 {
@@ -616,27 +597,19 @@ namespace Laptop.Areas.Identity.Controllers
                 customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
             }
 
-            var getAddress = _context.CustomerAddresses.Where(n => n.CustomerId == customerId && n.AddressNoteId == addId).FirstOrDefault();
+            var getAddress = await _context.CustomerAddresses.FindAsync(addId);
 
-            var addNote = await _context.AddressNotebooks.FindAsync(getAddress.AddressNoteId);
-            
+            var getProvince = await _context.Provinces.FindAsync(getAddress.City);
 
-            var distrinct2  = await _context.Wards.Where(n => n.WardsId == addNote.AddressId).Select(n => n.DistrictId).FirstOrDefaultAsync();
+            var getDistrinct = await _context.Districts.FindAsync(getAddress.District);
 
-            var province = await _context.Districts.Where(n => n.DistrictId == distrinct2).Select(n => n.ProvinceId).FirstOrDefaultAsync();
-
-
-            var distrinct = await _context.Wards.FindAsync(addNote.AddressId);
-
-            var getProvince = await _context.Provinces.Where(n => n.ProvinceId == province).FirstOrDefaultAsync();
-
-            var getDistrinct = await _context.Districts.Where(n => n.DistrictId == distrinct2).FirstOrDefaultAsync();
+            var getWard = await _context.Wards.FindAsync(getAddress.Ward);
 
 
 
 
 
-            return Json(new { address = getAddress, city = getProvince, state = getDistrinct});
+            return Json(new { address = getAddress, city = getProvince, state = getDistrinct, ward = getWard });
         }
 
 

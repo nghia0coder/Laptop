@@ -16,10 +16,10 @@ namespace Laptop.Models
         public int OrderStatus { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public int? EmployeeId { get; set; }
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public bool StatusPayment { get; set; }
         public string? Voucher { get; set; }
-
+        public string? DeliveryAddress { get; set; }
         public virtual Customer Customer { get; set; } = null!;
         public virtual Employee? Employee { get; set; }
         public virtual OrderStatus StatusNaviagtion { get; set; } = null!;

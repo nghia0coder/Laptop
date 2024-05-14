@@ -129,18 +129,13 @@ else
                                            
                                         </div>
                                         <div class="order-col">
-                                            
-                                            
+                                           
                                             <div><strong>TOTAL</strong></div>
                                             <div><strong id="total" class="order-total">@Model.Total.ToString("#,##0") VND</strong></div>
-                                        </div>
-                                        <div class="order-col">
-                                            <div><strong>Address</strong></div>
 
                                         </div>
-                                        <div class="order-col">
-                                            <div><strong>@address.Address</strong></div>
-                                        </div>
+                                        <div><strong>Select Address</strong></div>
+                                        <select id="addressSelect" class="form-select" asp-items="ViewBag.Address"></select>
                                     </div>
                                     <div class="payment-method">
                                         <div class="input-radio">
@@ -281,13 +276,17 @@ else
       
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            var addressOption = document.getElementById("addressSelect");
+            var value = addressOption.value;
+
+
             var placeOrderBtn = document.getElementById("place-order-btn");
             var momoRadio = document.getElementById("payment-1");
             var vnPayRadio = document.getElementById("payment-2");
             var paylater = document.getElementById("payment-3");
             var urlMomo = "ShoppingCart/CreatePaymentUrl?total=@Model.Total";
             var urlVNPAY = "ShoppingCart/CreatePaymentVNPAYUrl?total=@Model.Total";
-            var urlPay = "ShoppingCart/Payment?total=@Model.Total";
+            var urlPay = "ShoppingCart/Payment?total=@Model.Total&addressId=" + value ;
             placeOrderBtn.addEventListener("click", function (event) {
                 if (momoRadio.checked) {
           

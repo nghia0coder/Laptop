@@ -5,14 +5,15 @@ namespace Laptop.Models
 {
     public partial class CustomerAddress
     {
-        public int CustomerId { get; set; }
-        public int AddressNoteId { get; set; }
+        public int CustomerAddressId { get; set; }
+        public int? CustomerId { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Name { get; set; }
-        public bool? IsDefault { get; set; }
-        public string Address { get; set; } = null!;
+        public int? City { get; set; }
+        public int? Ward { get; set; }
+        public int? District { get; set; }
+        public string AddressLine { get; set; } = null!;
 
-        public virtual AddressNotebook AddressNote { get; set; } = null!;
-        public virtual Customer Customer { get; set; } = null!;
+        public virtual Customer? Customer { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Laptop.Models
 }
 
      
-        public virtual DbSet<AddressNotebook> AddressNotebooks { get; set; } = null!;
+
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
@@ -53,53 +53,7 @@ namespace Laptop.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-            modelBuilder.Entity<AddressNotebook>(entity =>
-            {
-                entity.HasKey(e => e.AddressNoteId);
-
-                entity.ToTable("AddressNotebook");
-
-                entity.Property(e => e.AddressNoteId).HasColumnName("AddressNoteID");
-
-                entity.Property(e => e.AddressId).HasColumnName("AddressID");
-
-                entity.HasOne(d => d.Address)
-                    .WithMany(p => p.AddressNotebooks)
-                    .HasForeignKey(d => d.AddressId)
-                    .HasConstraintName("FK_AddressNotebook_wards");
-            });
-            modelBuilder.Entity<CustomerAddress>(entity =>
-            {
-                entity.HasKey(e => new { e.CustomerId, e.AddressNoteId });
-
-                entity.ToTable("CustomerAddress");
-
-                entity.HasIndex(e => e.CustomerId, "foobar")
-                    .IsUnique()
-                    .HasFilter("([isdefault]=(1))");
-
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-
-                entity.Property(e => e.AddressNoteId).HasColumnName("AddressNoteID");
-
-                entity.Property(e => e.Address).HasMaxLength(50);
-
-                entity.Property(e => e.Name).HasMaxLength(50);
-
-                entity.Property(e => e.PhoneNumber).HasMaxLength(50);
-
-                entity.HasOne(d => d.AddressNote)
-                    .WithMany(p => p.CustomerAddresses)
-                    .HasForeignKey(d => d.AddressNoteId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_CustomerAddress_AddressNotebook");
-
-                entity.HasOne(d => d.Customer)
-                    .WithOne(p => p.CustomerAddress)
-                    .HasForeignKey<CustomerAddress>(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CustomerAddress_Customer");
-            });
+           
 
             modelBuilder.Entity<Brand>(entity =>
             {
@@ -165,29 +119,60 @@ namespace Laptop.Models
                 entity.Property(e => e.ProvinceId).HasColumnName("province_id");
             });
             modelBuilder.Entity<Customer>(entity =>
-			{
-				entity.ToTable("Customer");
+            {
+                entity.ToTable("Customer");
 
-				entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+                entity.Property(e => e.CustomerId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("CustomerID");
 
-				entity.Property(e => e.AccountId)
-					.HasMaxLength(450)
-					.HasColumnName("AccountID");
+                entity.Property(e => e.AccountId)
+                    .HasMaxLength(450)
+                    .HasColumnName("AccountID");
 
-				entity.Property(e => e.Address).HasMaxLength(150);
+                entity.Property(e => e.Address)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
-				entity.Property(e => e.DateOfBirth).HasColumnType("date");
-				
+                entity.Property(e => e.DateOfBirth)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
-				entity.Property(e => e.Name).HasMaxLength(150);
+                entity.Property(e => e.Name).HasMaxLength(150);
 
-				entity.HasOne(d => d.Account)
-					.WithMany(p => p.Customers)
-					.HasForeignKey(d => d.AccountId)
-					.HasConstraintName("FK_Customer_AspNetUsers");
-			});
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.AccountId)
+                    .HasConstraintName("FK_Customer_AspNetUsers");
+            });
 
-			modelBuilder.Entity<Employee>(entity =>
+            modelBuilder.Entity<CustomerAddress>(entity =>
+            {
+                entity.ToTable("CustomerAddress");
+
+                entity.Property(e => e.CustomerAddressId)
+                    .HasColumnName("CustomerAddressID");
+
+                entity.Property(e => e.AddressLine).HasMaxLength(50);
+
+            
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+              
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.CustomerAddresses)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("FK_CustomerAddress_Customer");
+            });
+
+            modelBuilder.Entity<Employee>(entity =>
 			{
 				entity.ToTable("Employee");
 
@@ -273,7 +258,9 @@ namespace Laptop.Models
 
 				entity.Property(e => e.Voucher).HasMaxLength(50);
 
-				entity.HasOne(d => d.Customer)
+                entity.Property(e => e.DeliveryAddress).HasColumnName("DeliveryAddress").HasMaxLength(150);
+
+                entity.HasOne(d => d.Customer)
 					.WithMany(p => p.Orders)
 					.HasForeignKey(d => d.CustomerId)
 					.OnDelete(DeleteBehavior.ClientSetNull)
