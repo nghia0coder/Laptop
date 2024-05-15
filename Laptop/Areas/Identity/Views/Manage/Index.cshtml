@@ -48,15 +48,12 @@
                     <label for="Address">Địa Chỉ</label>
                     <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
                 </div>
-                <label>
-                    <input type="checkbox" name="IsDefault" value="true"> Set Default Address
-                </label>
 
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="province">Tỉnh/Thành phố</label>
-                    <select id="province" name="province" class="form-control rounded">
+                    <select id="province" name="City" class="form-control rounded">
                         <option value="">Chọn một tỉnh</option>
                         <!-- populate options with data from your database or API -->
                         @foreach (var row in provinces)
@@ -67,13 +64,13 @@
                 </div>
                 <div class="form-group">
                     <label for="district">Quận/Huyện</label>
-                    <select id="district" name="district" class="form-control rounded">
+                    <select id="district" name="District" class="form-control rounded">
                         <option value="">Chọn một quận/huyện</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="wards">Phường/Xã</label>
-                    <select id="wards" name="AddressID" class="form-control rounded">
+                    <select id="wards" name="Ward" class="form-control rounded">
                         <option value="">Chọn một xã</option>
                     </select>
                 </div>
@@ -93,49 +90,43 @@
                 <div class="form-group">
                     <label for="Name">Họ Và Tên</label>
                     <input id="NameUser" type="text" name="Name" class="form-control rounded" />
-                    <span id="nameError" class="text-danger" style="display: none;">Vui lòng nhập Họ và Tên</span>
                 </div>
                 <div class="form-group">
                     <label for="PhoneNumber">Số Điện Thoại</label>
                     <input id="Phone" type="text" name="PhoneNumber" class="form-control rounded" />
-                    <span id="phoneError" class="text-danger" style="display: none;">Vui lòng nhập số điện thoại</span>
                 </div>
                 <div class="form-group">
                     <label for="Address">Địa Chỉ</label>
                     <input id="AddressDetail" type="text" name="Address" class="form-control rounded" />
-                    <span id="addressError" class="text-danger" style="display: none;">Vui lòng nhập thông tin này</span>
                 </div>
-                <label>
-                    <input type="checkbox" name="IsDefault" value="true"> Set Default Address
-                </label>
 
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="province">Tỉnh/Thành phố</label>
-                    <select id="province1" name="province" class="form-control rounded">
+                    <select id="province1" name="City" class="form-control rounded">
                         <option value="">Chọn một tỉnh</option>
                         <!-- populate options with data from your database or API -->
                         @foreach (var row in provinces)
                         {
                             <option value="@row.ProvinceId">@row.Name</option>
-                        }
+                        }   
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="district">Quận/Huyện</label>
-                    <select id="district1" name="district" class="form-control rounded">
+                    <select id="district1" name="District" class="form-control rounded">
                         <option value="">Chọn một quận/huyện</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="wards">Phường/Xã</label>
-                    <select id="wards1" name="AddressID" class="form-control rounded">
+                    <select id="wards1" name="Ward" class="form-control rounded">
                         <option value="">Chọn một xã</option>
                     </select>
                 </div>
             </div>
-            <input type="submit" value="Lưu Sổ Địa Chỉ">
+            <input class="btn btn-primary" type="submit" value="Lưu Sổ Địa Chỉ">
         </form>
     </div>
 
@@ -143,12 +134,12 @@
 
 <div class="container" id="blur">
     <div id="overlay"></div>
-        <h1>@ViewData["Title"]</h1>
+    <h1 style="margin-left: 360px; margin-bottom : 10px; margin-top: 15px;">@ViewData["Title"]</h1>
         <p class="text-success">@ViewData["StatusMessage"]</p>
 
-    <div class="row" >
+    <div class="row" style="margin-top : 50px;" >
             <div class="col-md-6">
-                <h4>Cập nhật thông tin tài khoản</h4>
+                <h4 >Cập nhật thông tin tài khoản</h4>
                 <hr />
                 <dl class="row">
                     <dt class="col-sm-4">
@@ -320,10 +311,7 @@
                     <div class="order" style="margin-bottom: 10px;">
                         <div style="margin-bottom: 10px;">
                             <strong>
-                                @item.Name @if (item.IsDefault == true)
-                                {
-                                    <span class="rounded-span fa fa-star">Default</span>
-                                }
+                                @item.Name 
                             </strong>
                         </div>
 
@@ -331,10 +319,10 @@
                     <div class="order-products" style="margin-bottom: 10px;">
                     </div>
                     <div class="order-col">
-                        <div style="margin-bottom: 10px;">@item.Address</div>
+                        <div style="margin-bottom: 10px;">@item.AddressLine</div>
                         <div style="margin-bottom: 10px;">
-                            <button onclick="update(event)" value="@item.AddressNoteId" class="btn btn-primary">Cập nhật</button>
-                            <button onclick="deleteAddress(event)" value="@item.AddressNoteId" class="btn btn-danger">Xóa</button>
+                            <button onclick="update(event)" value="@item.CustomerAddressId" class="btn btn-primary">Cập nhật</button>
+                            <button onclick="deleteAddress(event)" value="@item.CustomerAddressId" class="btn btn-danger">Xóa</button>
                         </div>
                     </div>
                 }
@@ -345,6 +333,7 @@
         <!-- /Order Details -->
         </div>
     </div>
+</div>
 
 <style>
  
@@ -485,7 +474,7 @@
             position: fixed;
             top: 139px; /* Điều chỉnh khoảng cách từ đỉnh trên của màn hình */
             left: 50%;
-            transform: translateX(300%);
+            transform: translateX(260%);
             background-color: #15161D;
             padding: 20px;
             border: 1px solid #ccc;
@@ -508,44 +497,13 @@
                 setTimeout(function () {
                     $('#createPopup').fadeOut();
                 }, 1000);
-
-
-                $('form').submit(function (e) {
-                    e.preventDefault(); // Ngăn chặn form submit mặc định
-
-                    // Lấy giá trị từ các trường input
-                    var name = $('#NameUser').val();
-                    var phone = $('#Phone').val();
-                    var address = $('#AddressDetail').val();
-
-                    // Kiểm tra xem các trường đã được điền đầy đủ hay không
-                    if (name.trim() === '') {
-                        $('#nameError').show(); // Hiển thị span cảnh báo
-                        return;
-                    }
-                    if (phone.trim() === '') {
-                        $('#phoneError').show(); // Hiển thị span cảnh báo
-                        return;
-                    }
-                    if (address.trim() === '') {
-                        $('#addressError').show(); // Hiển thị span cảnh báo
-                        return;
-                    }
-
-                    // Nếu tất cả các trường đã được điền đầy đủ, submit form
-                    this.submit();
-                });
-
-                // Ẩn span cảnh báo khi trường input được điền
-                $('#NameUser, #Phone, #AddressDetail').on('input', function () {
-                    $(this).next('span').hide();
-                });
             });
 
 
 
-        $('#province1').change(function () {
+        $('#province').change(function () {
             var provinceId = $(this).val();
+            console.log(provinceId)
             if (provinceId) {
                 $.ajax({
                     type: 'GET',
@@ -554,22 +512,22 @@
                     dataType: 'json', 
                     success: function (data) {
                         if (data) {
-                            $('#district1').empty();
-                            $('#district1').append('<option value="">Chọn một quận/huyện</option>');
-                            $('#wards1').empty();
-                            $('#wards1').append('<option value="">Chọn một xã</option>');
+                            $('#district').empty();
+                            $('#district').append('<option value="">Chọn một quận/huyện</option>');
+                            $('#wards').empty();
+                            $('#wards').append('<option value="">Chọn một xã</option>');
                             $.each(data["$values"], function (key, value) {
-                                $('#district1').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                                $('#district').append('<option value="' + value.districtId + '">' + value.name + '</option>');
                             }); 
                         } else {
-                            $('#district1').empty().append('<option value="">Không có quận/huyện</option>');
+                            $('#district').empty().append('<option value="">Không có quận/huyện</option>');
                         }
                     }
                 });
             }
         });
 
-        $('#district1').change(function () {
+        $('#district').change(function () {
 
             var districtId = $(this).val();
 
@@ -582,18 +540,70 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data) {
-                            $('#wards1').empty();
-                            $('#wards1').append('<option value="">Chọn một xã</option>');
+                            $('#wards').empty();
+                            $('#wards').append('<option value="">Chọn một xã</option>');
                             $.each(data["$values"], function (key, value) {
-                                $('#wards1').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
+                                $('#wards').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
                             });
                         } else {
-                            $('#wards1').empty().append('<option value="">Không có xã</option>');
+                            $('#wards').empty().append('<option value="">Không có xã</option>');
                         }
                     }
                 });
             }
         });
+
+            $('#province1').change(function () {
+                var provinceId = $(this).val();
+                console.log(provinceId)
+                if (provinceId) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetDistrict", "Manage")',
+                        data: { province: provinceId },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data) {
+                                $('#district1').empty();
+                                $('#district1').append('<option value="">Chọn một quận/huyện</option>');
+                                $('#wards').empty();
+                                $('#wards').append('<option value="">Chọn một xã</option>');
+                                $.each(data["$values"], function (key, value) {
+                                    $('#district1').append('<option value="' + value.districtId + '">' + value.name + '</option>');
+                                });
+                            } else {
+                                $('#district1').empty().append('<option value="">Không có quận/huyện</option>');
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('#district1').change(function () {
+
+                var districtId = $(this).val();
+
+
+                if (districtId) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetWard", "Manage")',
+                        data: { district: districtId },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data) {
+                                $('#wards1').empty();
+                                $('#wards1').append('<option value="">Chọn một xã</option>');
+                                $.each(data["$values"], function (key, value) {
+                                    $('#wards1').append('<option value="' + value.wardsId + '">' + value.name + '</option>');
+                                });
+                            } else {
+                                $('#wards1').empty().append('<option value="">Không có xã</option>');
+                            }
+                        }
+                    });
+                }
+            });
 
 
         function toggle1() { 
@@ -620,30 +630,21 @@
 
 
                         $('#province').empty();
-                        $('#province').append('<option value=' + data["city"].provinceId + '>' + data["city"].name + '</option>');
+                        $('#province').append('<option value=' + data.city.provinceId + '>' + data.city.name + '</option>');
                         $('#district').empty();
-                        $('#district').append('<option value=' + data["state"].districtId + '>' + data["state"].name + '</option>');
+                        $('#district').append('<option value=' + data.state.districtId + '>' + data.state.name + '</option>');
                         $('#wards').empty();
-                        $('#wards').append('<option value=' + data.address.addressNote.addressId + '>' + data.address.addressNote.address.name + '</option>');
+                        $('#wards').append('<option value=' + data.ward.wardsId + '>' + data.ward.name + '</option>');
+
                         const userNameInput = document.getElementById('NameUser');
                         userNameInput.value = data.address.name;
                         const phoneInput = document.getElementById('Phone');
                         phoneInput.value = data.address.phoneNumber;
                         const addressInput = document.getElementById('AddressDetail');
-                        addressInput.value = data.address.address;
+                        addressInput.value = data.address.addressLine;
 
 
-                        var idInput = document.getElementById('idInput');
-                        idInput.value = data.address.addressNoteId;;
-
-                        if (data.address.isDefault === true) {
-                            $('input[name="IsDefault"]').prop('checked', true); // Check the checkbox if data.IsDefault is true
-                        } else {
-                            $('input[name="IsDefault"]').prop('checked', false); // Uncheck the checkbox if data.IsDefault is false
-                        }
-
-
-
+            
                         $.ajax({
                             type: 'GET',
                             url: '@Url.Action("GetProvince", "Manage")',
@@ -661,11 +662,12 @@
                                 }
                             }
                         });
+
                         $.ajax({
                             type: 'GET',
                             url: '@Url.Action("GetDistrict", "Manage")',
                             dataType: 'json',
-                            data: { province: data["city"].provinceId },
+                            data: { province: data.city.provinceId },
                             success: function (data) {
                                 if (data) {
 
@@ -685,7 +687,7 @@
                     $.ajax({
                         type: 'GET',
                         url: '@Url.Action("GetWard", "Manage")',
-                            data: { district: data["state"].districtId },
+                            data: { district: data.state.districtId },
                             dataType: 'json',
                             success: function (data) {
                                 if (data) {
@@ -728,6 +730,5 @@
             }
 
     </script>
-
 
 }

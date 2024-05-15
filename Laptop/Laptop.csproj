@@ -23,7 +23,7 @@
     <Content Remove="Areas\Admin\Views\Tintucs\Index.cshtml" />
     <Content Remove="Areas\Identity\Views\Shared\_Layout.cshtml" />
     <Content Remove="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
-    <Content Remove="compilerconfig.json;package.json"/>
+    <Content Remove="compilerconfig.json;package.json" />
     <None Include="compilerconfig.json;package.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -103,7 +103,6 @@
     <None Include="Views\ProductView\ProductStyle2.cshtml" />
     <None Include="Views\ProductView\XemChiTiet.cshtml" />
     <None Include="Views\Shared\Components\Cart\Default.cshtml" />
-    <None Include="Views\Shared\Components\Menu\Default.cshtml" />
     <None Include="Views\Shared\Components\Nav\Default.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\Partial\_FooterPartial.cshtml" />
