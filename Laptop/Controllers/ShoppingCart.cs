@@ -188,9 +188,74 @@ namespace Laptop.Controllers
 		{
 			return View();
 		}
-	
 
-		public async Task<IActionResult> Payment(string total,int addressId)
+        public async Task<IActionResult> DatHangAsync(string id, string total,string address)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
+            // Check if the shopping cart session exists
+
+
+            // Add a new order
+            Order ddh = new Order();
+            ddh.OrderId = id;
+            ddh.OrderDate = DateTime.Now;
+            ddh.OrderStatus = 1;
+            ddh.StatusPayment = true;
+            ddh.CustomerId = customerId;
+			ddh.DeliveryAddress = address;
+            ddh.PriceTotal = int.Parse(total);
+            _context.Orders.Add(ddh);
+            _context.SaveChanges();
+
+            List<string> sanphams = new List<string>();
+            // Add order details
+            List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
+
+            if (cart == null)
+            {
+                return Content("jdsjad");
+            }
+            foreach (var item in cart)
+            {
+                OrdersDetail ctdh = new OrdersDetail();
+                ctdh.OrderId = ddh.OrderId;
+                ctdh.ProductVarId = item.ProductID;
+                ctdh.Quanity = item.Quanity;
+
+                var product = _context.ProductVariations.FirstOrDefault(x => x.ProductVarId == ctdh.ProductVarId);
+
+                product.QtyinStock -= item.Quanity;
+
+
+                _context.OrdersDetails.Add(ctdh);
+
+                await _context.Entry(ctdh).Reference(p => p.ProductVar).LoadAsync();
+                await _context.Entry(ctdh.ProductVar).Reference(pv => pv.ProductItems).LoadAsync();
+                await _context.Entry(ctdh.ProductVar.ProductItems).Reference(pv => pv.Product).LoadAsync();
+                await _context.Entry(ctdh.ProductVar.ProductItems).Reference(pv => pv.Color).LoadAsync();
+                await _context.Entry(ctdh.ProductVar).Reference(pv => pv.Ram).LoadAsync();
+                await _context.Entry(ctdh.ProductVar).Reference(pv => pv.Ssd).LoadAsync();
+
+                string productInfo = $"Name: {ctdh.ProductVar.ProductItems.Product.ProductName} {ctdh.ProductVar.Ram.RamName} " +
+                  $"{ctdh.ProductVar.Ssd.Ssdname},Màu : {ctdh.ProductVar.ProductItems.Color.ColorName}, Quantity: {ctdh.Quanity} , Price: {ctdh.ProductVar.Price} VNĐ";
+                sanphams.Add(productInfo);
+            }
+            _context.SaveChanges();
+
+            var mailContent = new MailContent
+            {
+                To = "nghialmao@gmail.com",
+                Subject = "Đơn hàng mới",
+                Body = "Thông tin sản phẩm:\n" + string.Join("\n", sanphams)
+            };
+            await _sendMailService.SendMail(mailContent);
+            HttpContext.Session.Remove("Cart");
+            return PartialView("Success", ddh);
+
+        }
+        public async Task<IActionResult> Payment(string total,int addressId)
 		{
             var customerId = await GetCurrentUserAsync();
 
