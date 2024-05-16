@@ -11,6 +11,7 @@ namespace Laptop.Models
             Orders = new HashSet<Order>();
             PostComments = new HashSet<PostComment>();
             ProductComments = new HashSet<ProductComment>();
+            WishLists = new HashSet<WishList>();
         }
 
         public int CustomerId { get; set; }
@@ -24,5 +25,6 @@ namespace Laptop.Models
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<PostComment> PostComments { get; set; }
         public virtual ICollection<ProductComment> ProductComments { get; set; }
+        public virtual ICollection<WishList> WishLists { get; set; }
     }
 }

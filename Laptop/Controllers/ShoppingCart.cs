@@ -121,7 +121,50 @@ namespace Laptop.Controllers
 			HttpContext.Session.SetJson("Cart", cart);
 			return Redirect(strURL);
 		}
-		public async Task<IActionResult> Decrease(int Id)
+        public async Task<IActionResult> AddToCart(int productID, string strURL,int quantity = 1)
+        {
+
+			var id = await _context.ProductVariations
+					.Where(n=>n.ProductVarId == productID).FirstOrDefaultAsync();
+
+            ProductVariation productVariation = await _context.ProductVariations
+                .Include(n => n.Ram)
+                .Include(n => n.Ssd)
+                .Include(n => n.ProductItems)
+                .Include(n => n.ProductItems.Color)
+                .Include(n => n.ProductItems.Product)
+                .FirstOrDefaultAsync(n => n.ProductVarId == productID);
+
+       
+            List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart") ?? new List<CartItemsModel>();
+            CartItemsModel cartItems = cart.Where(c => c.ProductID == id.ProductVarId).FirstOrDefault();
+            if (cartItems == null)
+            {
+                if (quantity > productVariation.QtyinStock)
+                {
+                    return BadRequest("Số lượng vượt quá số lượng trong kho!");
+
+                }
+                else
+                {
+                    cart.Add(new CartItemsModel(productVariation, quantity));
+                }
+            }
+            else
+            {
+                cartItems.Quanity += quantity;
+                if (cartItems.Quanity > productVariation.QtyinStock)
+                {
+                    cartItems.Quanity -= quantity;
+                    return BadRequest("Số lượng vượt quá số lượng trong kho!");
+
+                }
+            }
+            HttpContext.Session.SetJson("Cart", cart);
+			TempData["error"] = "Add To Cart Success";
+            return Redirect(strURL);
+        }
+        public async Task<IActionResult> Decrease(int Id)
 		{
 
 			List<CartItemsModel> cart = HttpContext.Session.GetJson<List<CartItemsModel>>("Cart");
@@ -365,6 +408,29 @@ namespace Laptop.Controllers
 			}
 			return cart.Sum(n => n.Total);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> WishList()
+		{
+			var customerId = await GetCurrentUserAsync();
+
+			var wishList = await _context.WishLists.Where(n => n.CustomerId == customerId)
+				.Include(n => n.Product)
+					.ThenInclude(n => n.ProductItems)
+				.Include(n => n.Product)
+					.ThenInclude(n => n.ProductItems)
+						.ThenInclude(n => n.Product)
+							.ThenInclude(n => n.Category)
+				.ToListAsync();
+
+			if (wishList == null)
+			{
+				return NotFound();
+			}
+			return View(wishList);
+		}
+
+
 
 
 	}

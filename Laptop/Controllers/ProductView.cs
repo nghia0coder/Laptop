@@ -1,4 +1,5 @@
 ﻿using Laptop.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace Laptop.Controllers
 	public class ProductView : Controller
 	{
 		private readonly LaptopContext _context;
+		private readonly UserManager<AppUserModel> _userManager;
 
-		public ProductView(LaptopContext context)
+		public ProductView(LaptopContext context, UserManager<AppUserModel> userManager)
 		{
 			_context = context;
+			_userManager = userManager;
 		}
 		public IActionResult Index()
 		{
@@ -72,12 +75,12 @@ namespace Laptop.Controllers
 			return View(sp);
 		}
 		[HttpGet]
-		public async Task<IActionResult> ProductSearch(string s, int categoryId)
-		{	
+		public IActionResult ProductSearch(string s, int categoryId)
+		{
 
-			
+
 			if (!string.IsNullOrEmpty(s))
-			{	
+			{
 				if (categoryId != 0)
 				{
 					var product = _context.Products
@@ -86,21 +89,21 @@ namespace Laptop.Controllers
 					.Include(x => x.ProductItems)
 					.ThenInclude(x => x.ProductVariations)
 					.ToList();
-                    return View(product);
-                }
+					return View(product);
+				}
 				else
 				{
-                    var product = _context.Products
-                    .Where(x => x.ProductName.Contains(s))
-                    .Include(n => n.Category)
-                    .Include(x => x.ProductItems)
-                    .ThenInclude(x => x.ProductVariations)
-                    .ToList();
-                    return View(product);
-                }	
-				
+					var product = _context.Products
+					.Where(x => x.ProductName.Contains(s))
+					.Include(n => n.Category)
+					.Include(x => x.ProductItems)
+					.ThenInclude(x => x.ProductVariations)
+					.ToList();
+					return View(product);
+				}
 
-			
+
+
 			}
 			return View();
 		}
@@ -163,7 +166,67 @@ namespace Laptop.Controllers
 			// Return the view with paginated products
 			return View(lstSP.OrderBy(n => n.ProductVarId));
 		}
+		private async Task<int> GetCurrentUserAsync()
+		{
+			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
 
+			if (customerId == 0)
+			{
+				customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
+			}
+			return customerId;
+		}
+		[HttpPost]
+		public async Task<IActionResult> AddWishList(int? id)
+		{
+			if(id == null)
+			{
+				return BadRequest();
+			}
+			var product = await _context.ProductVariations.FirstOrDefaultAsync(n => n.ProductVarId == id);
+
+			if(product == null)
+			{
+				return NotFound();
+			}
+
+			var wish = new WishList()
+			{
+				ProductId = product.ProductVarId,
+				CustomerId = await GetCurrentUserAsync(),
+			};
+			
+			_context.WishLists.Add(wish);
+			await _context.SaveChangesAsync();
+
+			return Ok();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> RemoveWishList(int? id)
+		{
+			if (id == null)
+			{
+				return BadRequest();
+			}
+			var product = await _context.ProductVariations.FirstOrDefaultAsync(n => n.ProductVarId == id);
+
+			if (product == null)
+			{
+				return NotFound();
+			}
+			var user = await GetCurrentUserAsync();
+			var wish = await _context.WishLists.FirstOrDefaultAsync(n => n.ProductId == id && n.CustomerId == user);
+
+			if (wish == null)
+			{
+				return NotFound();
+			}
+			_context.WishLists.Remove(wish);
+			await _context.SaveChangesAsync();
+			return Ok();
+		}
 		public async Task<JsonResult> GetColorAsync(int id)
 		{
 			var list = await _context.ProductItems
@@ -203,7 +266,25 @@ namespace Laptop.Controllers
 
 			return PartialView("_CommentPartial", record);
 		}
-	
 
-	}
+        [HttpPost]
+        public async Task<IActionResult> DeleteWishList(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var wish = await _context.WishLists.FindAsync(id);	
+
+            if (wish == null)
+            {
+                return NotFound();
+            }
+           
+            _context.WishLists.Remove(wish);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+    }
 }
