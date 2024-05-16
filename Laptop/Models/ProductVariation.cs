@@ -22,6 +22,8 @@ namespace Laptop.Models
         public virtual ProductItem ProductItems { get; set; } = null!;
         public virtual Ram Ram { get; set; } = null!;
         public virtual Ssd Ssd { get; set; } = null!;
+
+        public virtual ICollection<WishList> WishLists { get; set; }
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual ICollection<OrdersDetail> OrdersDetails { get; set; }
     }

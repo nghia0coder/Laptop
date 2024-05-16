@@ -36,6 +36,7 @@ namespace Laptop.Models
         public virtual DbSet<Tintuc> Tintucs { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
+        public virtual DbSet<WishList> WishLists { get; set; } = null!;
         public virtual DbSet<District> Districts { get; set; } = null!;
         public virtual DbSet<Province> Provinces { get; set; } = null!;
         public virtual DbSet<Ward> Wards { get; set; } = null!;
@@ -545,7 +546,35 @@ namespace Laptop.Models
                    .HasConstraintName("FK_Tintuc_Employee");
             });
 
-			modelBuilder.Entity<Voucher>(entity =>
+
+            modelBuilder.Entity<WishList>(entity =>
+            {
+                entity.ToTable("WishList");
+
+                entity.HasIndex(e => new { e.CustomerId, e.ProductId }, "AK_Product_ProductCodeAndStamp")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.WishlistId, "IX_WishList");
+
+                entity.Property(e => e.WishlistId).HasColumnName("WishlistID");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.WishLists)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("FK_WishList_Customer");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.WishLists)
+                    .HasPrincipalKey(p => p.ProductVarId)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_WishList_ProductVariation");
+            });
+
+            modelBuilder.Entity<Voucher>(entity =>
 			{
 				entity.HasKey(e => e.VoucherCode);
 
