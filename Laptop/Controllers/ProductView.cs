@@ -118,12 +118,16 @@ namespace Laptop.Controllers
 			}
 
 			// Load products based on the specified criteria
-			var lstSP = _context.ProductVariations
-				.Where(n => n.ProductItems.Product.BrandNavigation.BrandId == Id)
-				.Include(n => n.ProductItems.Product.Category)
-				.Include(n => n.ProductItems.Product.BrandNavigation)
-				.GroupBy(n => n.ProductItems.Product.ProductName)
-				.Select(group => group.First())
+			var lstSP = _context.Products
+				.Where(n => n.Brand == Id)
+				.Include(n => n.ProductItems)
+					.ThenInclude(n => n.ProductVariations)
+						.ThenInclude(n => n.Ram)
+				.Include(n => n.ProductItems)
+					.ThenInclude(n => n.ProductVariations)
+						.ThenInclude(n => n.Ssd)
+				.Include(n => n.Category)
+				.Include(n => n.BrandNavigation)
 				.ToList();
 
 
@@ -135,7 +139,7 @@ namespace Laptop.Controllers
 			ViewBag.CategoryId = Id;
 
 			// Return the view with paginated products
-			return View(lstSP.OrderBy(n => n.ProductVarId));
+			return View(lstSP);
 		}
 		[Route("category/{slug}-{id:int}")]
 		public IActionResult ProductCate(int? Id)
@@ -147,12 +151,16 @@ namespace Laptop.Controllers
 			}
 
 			// Load products based on the specified criteria
-			var lstSP = _context.ProductVariations
-				.Where(n => n.ProductItems.Product.Category.CategoryId == Id)
-				.Include(n => n.ProductItems.Product.Category)
-				.Include(n => n.ProductItems.Product.BrandNavigation)
-				.GroupBy(n => n.ProductItems.Product.ProductName)
-				.Select(group => group.First())
+			var lstSP = _context.Products
+				.Where(n => n.Brand == Id)
+				.Include(n => n.ProductItems)
+					.ThenInclude(n => n.ProductVariations)
+						.ThenInclude(n => n.Ram)
+				.Include(n => n.ProductItems)
+					.ThenInclude(n => n.ProductVariations)
+						.ThenInclude(n => n.Ssd)
+				.Include(n => n.Category)
+				.Include(n => n.BrandNavigation)
 				.ToList();
 
 
@@ -164,7 +172,7 @@ namespace Laptop.Controllers
 			ViewBag.CategoryId = Id;
 
 			// Return the view with paginated products
-			return View(lstSP.OrderBy(n => n.ProductVarId));
+			return View(lstSP);
 		}
 		private async Task<int> GetCurrentUserAsync()
 		{

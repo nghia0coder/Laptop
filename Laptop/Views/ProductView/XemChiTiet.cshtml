@@ -1,29 +1,27 @@
 ﻿@model ProductVariation
+
 @using Microsoft.AspNetCore.Http.Extensions
-@using PagedList
-@using PagedList.Core
-@using X.PagedList
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@inject LaptopContext _context
+@inject UserManager<AppUserModel> _user
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
 	IEnumerable<ProductItem> ListColor = ViewBag.Color;
-	IEnumerable<ProductVariation> ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
+	IEnumerable<ProductVariation>? ListSP = ViewBag.ListSP as IEnumerable<ProductVariation>;
 	IEnumerable<Product> ListSize = ViewBag.ListSizes;
-
-	Page pager = new Page();
-
-	int pageNo = 0;
-
-	if (ViewBag.Pager != null)
-	{
-		pager = ViewBag.Pager;
-		pageNo = pager.CurrentPage;
-	}
 
 }
 
 @{
 	ViewData["Title"] = "Chi Tiết Sản Phẩm";
 	Layout = "~/Views/Layout/ProductLayout.cshtml";
+
+	string? userId = null;
+	@if (User.Identity.IsAuthenticated)
+	{
+		userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+	}
 }
 <div class="custom-model-main">
 	<div class="custom-model-inner">
@@ -92,7 +90,7 @@
 			<!-- Product details -->
 			<div class="col-md-5">
 				<div class="product-details">
-					<h2 class="product-name">@Model.ProductItems.Product.ProductName.ToUpper() @Model.Ram.RamName.ToUpper() @Model.Ssd.Ssdname</h2>
+					<h2 class="product-name">@Model.ProductItems?.Product?.ProductName?.ToUpper() @Model.Ram?.RamName?.ToUpper() @Model.Ssd.Ssdname</h2>
 					<div>
 						<div class="product-rating">
 							<i class="fa fa-star"></i>
@@ -101,11 +99,11 @@
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star-o"></i>
 						</div>
-						<a class="review-link" href="#">@Model.ProductItems.Product.ProductComments.Count() Review(s) | Add your review</a>
+						<a class="review-link" href="#">@Model.ProductItems?.Product.ProductComments.Count() Review(s) | Add your review</a>
 					</div>
 					<div>
 						<h4 class="product-price">@Model.Price.ToString("#,##0") VNĐ <del class="product-old-price">@Model.OriginPrice</del></h4>
-						@if (Model.QtyinStock <= 0 || Model.QtyinStock == null)
+						@if (Model.QtyinStock <= 0 || Model.QtyinStock == 0)
 						{
 							<span class="product-available">Out Of Stock</span>
 						}
@@ -115,7 +113,7 @@
 						}
 
 					</div>
-					<p>@Model.ProductItems.Product.Description</p>
+					<p>@Model.ProductItems?.Product.Description</p>
 
 					<div class="product-options">
 						<label>
@@ -157,15 +155,35 @@
 						}
 
 					</div>
+					@{
+						var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
+						if (customerId == 0)
+						{
+							customerId = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.EmployeeId).FirstOrDefault();
+						}
+					}
 
 					<ul class="product-btns">
-						<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+						@if (Model.ProductVarId != 0 && customerId != 0)
+						{
+							var wish = _context.WishLists.FirstOrDefault(n => n.ProductId == Model.ProductVarId && n.CustomerId == customerId);
+							@if(wish != null)
+							{
+								<li id="wishlist-button" data-product-id="@Model.ProductVarId" style="color: red;" class="add-to-wishlist"><a href="#"><i class="fa fa-heart" style="color: red;display: none; display : inline;"></i> add to wishlist</a></li>
+							}
+							else
+							{
+								<li id="wishlist-button" data-product-id="@Model.ProductVarId" class="add-to-wishlist"><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+							}
+
+						}
+
 						<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
 					</ul>
 
 					<ul class="product-links">
 						<li>Category:</li>
-						<li><a href="#">@Model.ProductItems.Product.Category.CategoryName</a></li>
+						<li><a href="#">@Model.ProductItems?.Product?.Category?.CategoryName</a></li>
 					</ul>
 
 					<ul class="product-links">
@@ -185,7 +203,7 @@
 					<!-- product tab nav -->
 					<ul class="tab-nav">
 						<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-						<li><a data-toggle="tab" href="#tab3">Reviews (@Model.ProductItems.Product.ProductComments.Count())</a></li>
+						<li><a data-toggle="tab" href="#tab3">Reviews (@Model.ProductItems?.Product.ProductComments.Count())</a></li>
 					</ul>
 					<!-- /product tab nav -->
 					<!-- product tab content -->
@@ -194,7 +212,7 @@
 						<div id="tab1" class="tab-pane fade in active">
 							<div class="row">
 								<div class="col-md-12">
-									<p>@Model.ProductItems.Product.Description</p>
+									<p>@Model.ProductItems?.Product.Description</p>
 								</div>
 							</div>
 						</div>
@@ -203,7 +221,7 @@
 						<div id="tab2" class="tab-pane fade in">
 							<div class="row">
 								<div class="col-md-12">
-									<p>@Model.ProductItems.Product.Description</p>
+									<p>@Model.ProductItems?.Product.Description</p>
 								</div>
 							</div>
 						</div>
@@ -215,7 +233,10 @@
 								<div class="col-md-3">
 									<div id="rating">
 										<div class="rating-avg">
-											@{
+											@if(Model.ProductItems != null)
+											{
+
+										
 
 												int totalComments1 = Model.ProductItems.Product.ProductComments.Count();
 												if (totalComments1 > 0)
@@ -407,9 +428,25 @@
 							<h4 class="product-price">@item.Price.ToString("#,##0") VNĐ <del class="product-old-price">@item.OriginPrice</del></h4>
 							<div class="product-rating"></div>
 							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+								@if (customerId != 0)
+								{
+									var wish = _context.WishLists.FirstOrDefault(n => n.ProductId == @item.ProductVarId && n.CustomerId == customerId);
+
+									if (wish != null)
+									{
+										<button id="wishlist-button" data-product-id="@item.ProductVarId" class="add-to-wishlist">
+											<i class="fa fa-heart" style="color: red; display: none; display : inline;"></i><span class="tooltipp">add to wishlist</span>
+										</button>
+									}
+									else
+									{
+										<button id="wishlist-button" data-product-id="@item.ProductVarId" class="add-to-wishlist">
+											<i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
+										</button>
+									}
+
+									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+								}
 							</div>
 						</div>
 
@@ -425,6 +462,74 @@
 	</div>
 	<!-- /container -->
 </div>
+
+
+<style>
+	
+
+	.add-to-wishlist .fa.fa-heart {
+		display: none; /* Ẩn icon trái tim rỗng */
+	}
+
+	.add-to-wishlist.active .fa.fa-heart-o {
+		display: none; /* Ẩn icon trái tim rỗng khi active */
+	}
+
+	.add-to-wishlist.active .fa.fa-heart {
+		display: inline; /* Hiện icon trái tim đầy khi active */
+	}
+
+</style>
+
+<script>
+	document.querySelectorAll('.add-to-wishlist').forEach(function (button) {
+		button.addEventListener('click', function () {
+
+			this.classList.toggle('active');
+
+			const icon = this.querySelector('i');
+			if (this.classList.contains('active')) {
+				icon.classList.remove('fa-heart-o');
+				icon.classList.add('fa-heart');
+
+				var productId = this.getAttribute('data-product-id');
+				addWishlist(productId);
+
+			} else {
+				icon.classList.remove('fa-heart');
+				icon.classList.add('fa-heart-o');
+
+				var productId = this.getAttribute('data-product-id');
+				removeWishlist(productId);
+			}
+		});
+	});
+
+
+	function addWishlist(productId) {
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("AddWishList", "ProductView")',
+			data: { id: productId },
+			success: function (data) {
+
+			},
+		});
+	}
+
+	function removeWishlist(productId) {
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("RemoveWishList", "ProductView")',
+			data: { id: productId },
+			success: function (data) {
+
+			},
+		});
+	}
+</script>
+
+
 <!-- /Section -->
 @section Scripts
 {
