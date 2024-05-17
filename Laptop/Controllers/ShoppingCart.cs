@@ -410,7 +410,7 @@ namespace Laptop.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> WishList()
+		public async Task<IActionResult> WishList(int pg = 1)
 		{
 			var customerId = await GetCurrentUserAsync();
 
@@ -427,7 +427,24 @@ namespace Laptop.Controllers
 			{
 				return NotFound();
 			}
-			return View(wishList);
+
+            const int pageSize = 5;
+
+
+
+            if (pg < 1)
+                pg = 1;
+
+            var totalProduct = await _context.WishLists.Where(n => n.CustomerId == customerId).CountAsync();
+
+            var pager = new Page(totalProduct, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = wishList.Skip(recSkip).Take(pageSize).ToList();
+
+            ViewBag.Page = pager;
+            return View(data);
 		}
 
 
