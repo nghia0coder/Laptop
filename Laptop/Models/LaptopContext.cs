@@ -40,7 +40,9 @@ namespace Laptop.Models
         public virtual DbSet<District> Districts { get; set; } = null!;
         public virtual DbSet<Province> Provinces { get; set; } = null!;
         public virtual DbSet<Ward> Wards { get; set; } = null!;
-        public virtual DbSet<PostComment> PostComments { get; set; } = null!;
+
+		public virtual DbSet<Warranty> Warranties { get; set; } = null!;
+		public virtual DbSet<PostComment> PostComments { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -97,7 +99,34 @@ namespace Laptop.Models
                     .HasColumnName("name");
             });
 
-            modelBuilder.Entity<Province>(entity =>
+			modelBuilder.Entity<Warranty>(entity =>
+			{
+				entity.ToTable("Warranty");
+
+				entity.Property(e => e.WarrantyId).HasColumnName("WarrantyID");
+
+				entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+				entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+				entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+				entity.Property(e => e.OrderId)
+					.HasMaxLength(300)
+					.HasColumnName("OrderID");
+
+				entity.HasOne(d => d.Customer)
+					.WithMany(p => p.Warranties)
+					.HasForeignKey(d => d.CustomerId)
+					.HasConstraintName("FK_Warranty_Customer");
+
+				entity.HasOne(d => d.Order)
+					.WithMany(p => p.Warranties)
+					.HasForeignKey(d => d.OrderId)
+					.HasConstraintName("FK_Warranty_Orders");
+			});
+
+			modelBuilder.Entity<Province>(entity =>
             {
                 entity.ToTable("province", "test");
 

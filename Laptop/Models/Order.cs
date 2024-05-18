@@ -8,6 +8,7 @@ namespace Laptop.Models
         public Order()
         {
             OrdersDetails = new HashSet<OrdersDetail>();
+            Warranties = new HashSet<Warranty>();
         }
 
         public string OrderId { get; set; } = null!;
@@ -25,5 +26,6 @@ namespace Laptop.Models
         public virtual OrderStatus StatusNaviagtion { get; set; } = null!;
         public virtual Voucher? VoucherNavigation { get; set; }
         public virtual ICollection<OrdersDetail> OrdersDetails { get; set; }
+        public virtual ICollection<Warranty> Warranties { get; set; }
     }
 }
