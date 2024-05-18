@@ -13,6 +13,7 @@ using Laptop.Service;
 using Laptop.Interface;
 using Laptop.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Laptop.Controllers
 {
@@ -46,6 +47,8 @@ namespace Laptop.Controllers
 				Quanity = cartItems.Count(),
 				Total = cartItems.Sum(x => x.Quanity  * x.Price)
 			};
+
+
             var user = await GetCurrentUserAsync();
          
 
@@ -62,6 +65,10 @@ namespace Laptop.Controllers
         private async Task<int> GetCurrentUserAsync()
         {	
 			var user = await _userManager.GetUserAsync(HttpContext.User);
+			if (user == null)
+			{
+				return 0;
+			}	
             var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
 
             if (customerId == 0)
@@ -410,6 +417,7 @@ namespace Laptop.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> WishList(int pg = 1)
 		{
 			var customerId = await GetCurrentUserAsync();

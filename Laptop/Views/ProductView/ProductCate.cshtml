@@ -1,15 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Http.Extensions
-@model IEnumerable<ProductVariation>
-
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@model IEnumerable<Product>
+@inject LaptopContext _context
+@inject UserManager<AppUserModel> _user
 @{
 	ViewData["Title"] = "LoaiProduct";
 	Layout = "~/Views/Layout/_CategoryLayout.cshtml";
 }
 @{
 	string currentUrl = Context.Request.GetDisplayUrl();
+	string? userId = null;
+	@if (User.Identity.IsAuthenticated)
+	{
+		userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+	}
 }
 
-<input type="hidden" id="category-id" value="@Model.FirstOrDefault()." />
 <!-- SECTION -->
 <div class="section">
 	<!-- container -->
@@ -154,7 +161,6 @@
 				</div>
 				<!-- /aside Widget -->
 				<!-- aside Widget -->
-				
 				<!-- /aside Widget -->
 			</div>
 			<!-- /ASIDE -->
@@ -190,20 +196,26 @@
 					<!-- product -->
 					@foreach (var item in Model.Take(6))
 					{
+						var productId = item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault();
+						var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
+						if (customerId == 0)
+						{
+							customerId = _context.Employees.Where(n => n.AccountId == userId).Select(n => n.EmployeeId).FirstOrDefault();
+						}
 						<div class="col-md-4 col-xs-6">
 							<div class="product">
-								@* <a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductItems.Product.ProductName)-@item.ProductVarId" /> *@
+								<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductName)-@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.ProductVarId" />
 								<div class="product-img">
-									<img class="scaled-image" src="~/Contents/img/@item.ProductItems.Image1" alt="">
+									<img src="~/Contents/img/@item.ProductItems.FirstOrDefault()?.Image1" alt="">
 									<div class="product-label">
 										<span class="sale">-30%</span>
 										<span class="new">NEW</span>
 									</div>
 								</div>
 								<div class="product-body">
-									<p class="product-category">@item.ProductItems.Product.Category.CategoryName.ToUpper()</p>
-									<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName.ToUpper()</a></h3>
-									<h4 class="product-price">@item.Price.ToString("#,##0") VNĐ<del class="product-old-price">@item.OriginPrice</del></h4>
+									<p class="product-category">@item.Category?.CategoryName</p>
+									<h3 class="product-name"><a href="#">@item.ProductName @item.ProductItems.First()?.ProductVariations.First()?.Ram?.RamName?.ToUpper() @item.ProductItems.First().ProductVariations.First().Ssd.Ssdname</a></h3>
+									<h4 class="product-price">@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.Price.ToString("#,##0") VNĐ <del class="product-old-price">@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.OriginPrice</del></h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
 										<i class="fa fa-star"></i>
@@ -212,9 +224,26 @@
 										<i class="fa fa-star"></i>
 									</div>
 									<div class="product-btns">
-										<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+										@if (productId != null && customerId != 0)
+										{
+											var wish = _context.WishLists.FirstOrDefault(n => n.ProductId == productId.ProductVarId && n.CustomerId == customerId);
+
+											if (wish != null)
+											{
+												<button id="wishlist-button" data-product-id="@productId.ProductVarId" style="color : red;" class="add-to-wishlist">
+													<i class="fa fa-heart" style="display: none; display : inline;"></i><span class="tooltipp">add to wishlist</span>
+												</button>
+											}
+											else
+											{
+												<button id="wishlist-button" data-product-id="@productId.ProductVarId" class="add-to-wishlist">
+													<i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
+												</button>
+											}
+
+
+										}
 										<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-										<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 									</div>
 								</div>
 							</div>
@@ -243,3 +272,73 @@
 	<!-- /container -->
 </div>
 <!-- /SECTION -->
+
+<style>
+	.add-to-wishlist.active {
+		color: red; /* Màu sắc hoặc bất kỳ thay đổi nào bạn muốn khi button được active */
+	}
+
+	.add-to-wishlist .fa.fa-heart {
+		display: none; /* Ẩn icon trái tim rỗng */
+	}
+
+	.add-to-wishlist.active .fa.fa-heart-o {
+		display: none; /* Ẩn icon trái tim rỗng khi active */
+	}
+
+	.add-to-wishlist.active .fa.fa-heart {
+		display: inline; /* Hiện icon trái tim đầy khi active */
+	}
+
+</style>
+
+
+<script>
+
+	document.querySelectorAll('.add-to-wishlist').forEach(function (button) {
+		button.addEventListener('click', function () {
+
+			this.classList.toggle('active');
+
+			const icon = this.querySelector('i');
+			if (this.classList.contains('active')) {
+				icon.classList.remove('fa-heart-o');
+				icon.classList.add('fa-heart');
+
+				var productId = this.getAttribute('data-product-id');
+				addWishlist(productId);
+
+			} else {
+				icon.classList.remove('fa-heart');
+				icon.classList.add('fa-heart-o');
+
+				var productId = this.getAttribute('data-product-id');
+				removeWishlist(productId);
+			}
+		});
+	});
+
+
+	function addWishlist(productId) {
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("AddWishList", "ProductView")',
+			data: { id: productId },
+			success: function (data) {
+
+			},
+		});
+	}
+
+	function removeWishlist(productId) {
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("RemoveWishList", "ProductView")',
+			data: { id: productId },
+			success: function (data) {
+
+			},
+		});
+	}
+
+</script>
