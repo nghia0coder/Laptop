@@ -13,6 +13,7 @@ using Laptop.Models.Momo;
 using Laptop.Services;
 using Microsoft.AspNetCore.Authentication;
 using System.Text;
+using Laptop.ViewModels;
 
 namespace Laptop
 {
@@ -39,7 +40,7 @@ namespace Laptop
 	
             // Add services to the container.
             builder.Services.AddMvc().AddRazorRuntimeCompilation();
-      
+			builder.Services.AddHttpContextAccessor();
 			builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
             builder.Services.AddScoped<IMomoService, MomoService>();
             builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
@@ -87,7 +88,7 @@ https://github.com/nghia0coder/Laptop/pull/74/conflict?name=Laptop%252Fappsettin
 				options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as needed
 				options.Cookie.IsEssential = true;
 			});
-
+			builder.Services.AddTransient<Item>();
 			builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddHttpContextAccessor();

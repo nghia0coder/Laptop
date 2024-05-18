@@ -1,4 +1,5 @@
-﻿
+﻿@using Laptop.Utility
+@inject IHttpContextAccessor HttpContextAccessor
 <!-- MAIN HEADER -->
 <div id="header">
 	<!-- container -->
@@ -38,6 +39,10 @@
 						<a asp-action="WishList" asp-controller="ShoppingCart" asp-area="">
 							<i class="fa fa-heart-o"></i>
 							<span>Your Wishlist</span>
+                         @*    @if(HttpContextAccessor.HttpContext.Session.GetInt32(CartCount.sessionCount) != null)
+							{
+								
+							} *@
 							<div class="qty">2</div>
 						</a>
 					</div>
