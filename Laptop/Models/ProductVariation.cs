@@ -19,6 +19,8 @@ namespace Laptop.Models
         public int? OriginPrice { get; set; }
         public int Price { get; set; }
 
+        public int WarrantyTime { get; set; }
+
         public virtual ProductItem ProductItems { get; set; } = null!;
         public virtual Ram Ram { get; set; } = null!;
         public virtual Ssd Ssd { get; set; } = null!;

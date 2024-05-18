@@ -1,4 +1,4 @@
-﻿@model Laptop.Models.Order
+﻿@model Laptop.Models.Warranty
 
 @{
     ViewData["Title"] = "Details";
@@ -8,40 +8,60 @@
 <h1>Chi tiết</h1>
 
 <div>
-    <h4>Hóa đơn</h4>
+    <h4>Bảo hành</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-          Ngày thanh toán 
+        <dt class="col-sm-2">
+            Ngày tạo
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreateDate)
         </dd>
-        <dt class = "col-sm-2">
-          Tình trạng giao hàng 
+        <dt class="col-sm-2">
+            Ngày kết thúc
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderStatus)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
         </dd>
-        <dt class = "col-sm-2">
-            Ngày giao 
+        <dt class="col-sm-2">
+            Lý do
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeliveryDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reason)
         </dd>
-        <dt class = "col-sm-2">
-           Đã thanh toán 
+        <dt class="col-sm-2">
+            Dịch vụ
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StatusPayment)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service)
         </dd>
-
-        <dd class = "col-sm-10">
+        <dt class="col-sm-2">
+            Tình trạng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class="col-sm-2">
+            Ghi chú
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+        <dt class="col-sm-2">
+            Khách hàng
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Customer.CustomerId)
+        </dd>
+        <dt class="col-sm-2">
+            Đơn hàng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.OrderId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.OrderId">Chỉnh sửa</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.WarrantyId">Chỉnh sửa</a> |
     <a asp-action="Index">Trở về</a>
 </div>

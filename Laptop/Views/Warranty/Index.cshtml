@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<style>
+    .your-custom-block {
+        width: 100%; /* Chiều rộng của block là 100% */
+        max-width: 600px; /* Đặt chiều rộng tối đa của block là 600px */
+        padding: 20px; /* Thêm padding vào block */
+        background-color: #f9f9f9; /* Đặt màu nền của block */
+        border: 1px solid #ccc; /* Đặt đường viền của block */
+        border-radius: 5px; /* Bo tròn các góc của block */
+        text-align: center; /* Căn giữa theo chiều dọc */
+        margin: 0 auto; /* Căn giữa theo chiều ngang */
+    }
+
+    .bh-tits {
+        color: red; /* Đặt màu chữ của phần tử h2 là đỏ */
+    }
+</style>
+
+<div class="your-custom-block">
+    <div class="bh-tabs" id="TCTGBH">
+        <div class="bh-boxs">
+            <div class="bh-forms" style="margin-top: 20px;">
+                <h2 style="margin-bottom:50px" class="bh-tits">Tra cứu thời gian bảo hành máy</h2>
+                <ul class="bh-fip clearfix">
+                    <li class="bh-fip1" value="0">
+                        <input style="width: 100%;" id="txt-tgbh" class="form-control" data-val="warranty" placeholder="Nhập số IMEI để tra cứu...">
+                    </li>
+                    <li class="bh-fip2" style="margin-top: 30px;margin-bottom: 10px;">
+                        <a asp-action="WarrantyInfo" class="btn btn-primary">KIỂM TRA</a>
+                    </li>
+                </ul>
+                <p class="bh-bherror" style="display:none">Thông tin không chính xác. Vui lòng kiểm tra lại</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

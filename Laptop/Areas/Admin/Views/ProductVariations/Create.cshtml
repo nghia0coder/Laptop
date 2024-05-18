@@ -38,6 +38,11 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="mb-3">
+                <label asp-for="WarrantyTime" class="form-label"></label>
+                <input asp-for="WarrantyTime" class="form-control" />
+                <span asp-validation-for="WarrantyTime" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" /> <!-- Sử dụng btn-primary cho nút submit -->
             </div>
         </form>
