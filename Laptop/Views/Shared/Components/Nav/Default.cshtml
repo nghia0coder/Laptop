@@ -8,10 +8,10 @@
 		<div id="responsive-nav">
 			<!-- NAV -->
 			<ul class="main-nav nav navbar-nav">
-				<li class="active"><a asp-area="" asp-action="Index" asp-controller="Home">Home</a></li>
+				<li><a asp-area="" asp-action="Index" asp-controller="Home">Home</a></li>
 				@foreach (var item in Model)
 				{
-					<li><a href="/Product/@SlugGenerator.SlugGenerator.GenerateSlug(item.BrandName)-@item.BrandId">@item.BrandName.ToUpper()</a></li>
+					<li><a asp-controller="ProductView" asp-action="ProductBrand" asp-route-id="@item.BrandId">@item.BrandName.ToUpper()</a></li>
 				}
 				<li><a asp-controller="Tintucview" asp-action="Index">Tin tức</a></li>
 			</ul>
@@ -22,3 +22,26 @@
 	<!-- /container -->
 </nav>
 <!-- /NAVIGATION -->
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var navItems = document.querySelectorAll(".main-nav li");
+
+		navItems.forEach(function (item) {
+			var link = item.querySelector("a").getAttribute("href");
+			if (window.location.pathname === link) {
+				item.classList.add("active");
+			}
+
+			item.addEventListener("click", function () {
+				// Loại bỏ lớp "active" từ tất cả các mục
+				navItems.forEach(function (navItem) {
+					navItem.classList.remove("active");
+				});
+				// Thêm lớp "active" cho mục được chọn
+				this.classList.add("active");
+			});
+		});
+	});
+</script>

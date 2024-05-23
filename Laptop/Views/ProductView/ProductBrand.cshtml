@@ -1,14 +1,27 @@
 ﻿@using Microsoft.AspNetCore.Http.Extensions
 @using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
-@model IEnumerable<Product>
+@model IEnumerable<ProductVariation>
 @inject LaptopContext _context
 @inject UserManager<AppUserModel> _user
 @{
 	ViewData["Title"] = "LoaiProduct";
 	Layout = "~/Views/Layout/_CategoryLayout.cshtml";
+
+	Page page = new Page();
+
+	int pageNo = 0;
+
+	if (ViewBag.Page != null)
+	{
+		page = ViewBag.Page;
+		pageNo = page.CurrentPage;
+	}
 }
 @{
+
+	IEnumerable<Category> categories = ViewBag.Categories as IEnumerable<Category>;
+	IEnumerable<Brand> brands = ViewBag.Brand as IEnumerable<Brand>;
 	string currentUrl = Context.Request.GetDisplayUrl();
 	string? userId = null;
 	@if (User.Identity.IsAuthenticated)
@@ -16,6 +29,8 @@
 		userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 	}
 }
+
+<input type="hidden" id="brand-id" value="@Model.FirstOrDefault().ProductItems.Product.Brand" />
 
 <!-- SECTION -->
 <div class="section">
@@ -25,144 +40,39 @@
 		<div class="row">
 			<!-- ASIDE -->
 			<div id="aside" class="col-md-3">
+				<div class="price-filter">
+					<h2>Lọc Theo Giá</h2>
+					<div id="price-slider"></div>
+					<div class="input-number price-min">
+						<input id="price-min" type="number" value="10000000">
+					</div>
+					<span>-</span>
+					<div class="input-number price-max">
+						<input id="price-max" type="number" value="50000000">
+					</div>
+				</div>
 				<!-- aside Widget -->
 				<div class="aside">
-					<h3 class="aside-title">Categories</h3>
+					<h3 class="aside-title">Thương Hiệu</h3>
 					<div class="checkbox-filter">
+						@foreach (var item in categories)
+						{
+							<div class="input-checkbox">
+								<input type="checkbox" class="brand-checkbox" name="brand" id="@item.CategoryId">
+								<label for="@item.CategoryId">
+									<span></span>
+									@item.CategoryName
 
-						<div class="input-checkbox">
-							<input type="checkbox" id="category-1">
-							<label for="category-1">
-								<span></span>
-								Laptops
-								<small>(120)</small>
-							</label>
-						</div>
-
-						<div class="input-checkbox">
-							<input type="checkbox" id="category-2">
-							<label for="category-2">
-								<span></span>
-								Smartphones
-								<small>(740)</small>
-							</label>
-						</div>
-
-						<div class="input-checkbox">
-							<input type="checkbox" id="category-3">
-							<label for="category-3">
-								<span></span>
-								Cameras
-								<small>(1450)</small>
-							</label>
-						</div>
-
-						<div class="input-checkbox">
-							<input type="checkbox" id="category-4">
-							<label for="category-4">
-								<span></span>
-								Accessories
-								<small>(578)</small>
-							</label>
-						</div>
-
-						<div class="input-checkbox">
-							<input type="checkbox" id="category-5">
-							<label for="category-5">
-								<span></span>
-								Laptops
-								<small>(120)</small>
-							</label>
-						</div>
-
-						<div class="input-checkbox">
-							<input type="checkbox" id="category-6">
-							<label for="category-6">
-								<span></span>
-								Smartphones
-								<small>(740)</small>
-							</label>
-						</div>
+								</label>
+							</div>
+						}
 					</div>
+
 				</div>
 				<!-- /aside Widget -->
-				<!-- aside Widget -->
-				<div class="aside">
-					<h3 class="aside-title">Price</h3>
-					<div class="price-filter">
-						<div id="price-slider"></div>
-						<div class="input-number price-min">
-							<input id="price-min" type="number">
-							<span class="">+</span>
-							<span class="qty-down">-</span>
-						</div>
-						<span>-</span>
-						<div class="input-number price-max">
-							<input id="price-max" type="number">
-							<span class="qty-up-sd">+</span>
-							<span class="qty-down-sd">-</span>
-						</div>
-					</div>
-				</div>
-				<!-- /aside Widget -->
-				<!-- aside Widget -->
-				<div class="aside">
-					<h3 class="aside-title">Brand</h3>
-					<div class="checkbox-filter">
-						<div class="input-checkbox">
-							<input type="checkbox" id="brand-1">
-							<label for="brand-1">
-								<span></span>
-								SAMSUNG
-								<small>(578)</small>
-							</label>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="brand-2">
-							<label for="brand-2">
-								<span></span>
-								LG
-								<small>(125)</small>
-							</label>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="brand-3">
-							<label for="brand-3">
-								<span></span>
-								SONY
-								<small>(755)</small>
-							</label>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="brand-4">
-							<label for="brand-4">
-								<span></span>
-								SAMSUNG
-								<small>(578)</small>
-							</label>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="brand-5">
-							<label for="brand-5">
-								<span></span>
-								LG
-								<small>(125)</small>
-							</label>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="brand-6">
-							<label for="brand-6">
-								<span></span>
-								SONY
-								<small>(755)</small>
-							</label>
-						</div>
-					</div>
-				</div>
-				<!-- /aside Widget -->
-				<!-- aside Widget -->
-				
-				<!-- /aside Widget -->
+
+
+				<a></a>
 			</div>
 			<!-- /ASIDE -->
 			<!-- STORE -->
@@ -171,33 +81,25 @@
 				<div class="store-filter clearfix">
 					<div class="store-sort">
 						<label>
-							Sort By:
-							<select class="input-select">
-								<option value="0">Popular</option>
-								<option value="1">Position</option>
-							</select>
-						</label>
-
-						<label>
-							Show:
-							<select class="input-select">
-								<option value="0">20</option>
-								<option value="1">50</option>
+							Sắp Xếp Theo Giá Tiền
+							<select class="sort-select">
+								<option value="0">Tăng Dần</option>
+								<option value="1">Giảm Dần</option>
 							</select>
 						</label>
 					</div>
-					<ul class="store-grid">
-						<li class="active"><i class="fa fa-th"></i></li>
-						<li><a href="#"><i class="fa fa-th-list"></i></a></li>
-					</ul>
+
 				</div>
 				<!-- /store top filter -->
 				<!-- store products -->
 				<div class="row">
 					<!-- product -->
-					@foreach (var item in Model.Take(6))
+				@if(Model.Count() > 0)
+				{
+				
+					@foreach (var item in Model)
 					{
-						var productId = item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault();
+					
 						var customerId = _context.Customers.Where(n => n.AccountId == userId).Select(n => n.CustomerId).FirstOrDefault();
 						if (customerId == 0)
 						{
@@ -205,18 +107,18 @@
 						}
 						<div class="col-md-4 col-xs-6">
 							<div class="product">
-								<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductName)-@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.ProductVarId" />
+								<a asp-route-id="@item.ProductVarId" asp-action="XemChiTiet"/>
 								<div class="product-img">
-									<img src="~/Contents/img/@item.ProductItems.FirstOrDefault()?.Image1" alt="">
+									<img src="~/Contents/img/@item.ProductItems.Image1" alt="">
 									<div class="product-label">
 										<span class="sale">-30%</span>
 										<span class="new">NEW</span>
 									</div>
 								</div>
 								<div class="product-body">
-									<p class="product-category">@item.Category?.CategoryName</p>
-									<h3 class="product-name"><a href="#">@item.ProductName @item.ProductItems.First()?.ProductVariations.First()?.Ram?.RamName?.ToUpper() @item.ProductItems.First().ProductVariations.First().Ssd.Ssdname</a></h3>
-									<h4 class="product-price">@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.Price.ToString("#,##0") VNĐ <del class="product-old-price">@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.OriginPrice</del></h4>
+									<p class="product-category">@item.ProductItems.Product.Category?.CategoryName</p>
+									<h3 class="product-name"><a href="#">@item.ProductItems.Product.ProductName @item.Ram?.RamName?.ToUpper() @item.Ssd.Ssdname</a></h3>
+									<h4 class="product-price">@item.Price.ToString("#,##0") VNĐ <del class="product-old-price">@item.OriginPrice</del></h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
 										<i class="fa fa-star"></i>
@@ -225,19 +127,19 @@
 										<i class="fa fa-star"></i>
 									</div>
 									<div class="product-btns">
-										@if (productId != null && customerId != 0)
+										@if (item != null && customerId != 0)
 										{
-											var wish = _context.WishLists.FirstOrDefault(n => n.ProductId == productId.ProductVarId && n.CustomerId == customerId);
+											var wish = _context.WishLists.FirstOrDefault(n => n.ProductId == item.ProductVarId && n.CustomerId == customerId);
 
 											if (wish != null)
 											{
-												<button id="wishlist-button" data-product-id="@productId.ProductVarId" style="color : red;" class="add-to-wishlist">
+												<button id="wishlist-button" data-product-id="@item.ProductVarId" style="color : red;" class="add-to-wishlist">
 													<i class="fa fa-heart" style="display: none; display : inline;"></i><span class="tooltipp">add to wishlist</span>
 												</button>
 											}
 											else
 											{
-												<button id="wishlist-button" data-product-id="@productId.ProductVarId" class="add-to-wishlist">
+												<button id="wishlist-button" data-product-id="@item.ProductVarId" class="add-to-wishlist">
 													<i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
 												</button>
 											}
@@ -250,21 +152,52 @@
 							</div>
 						</div>
 					}
+				}
 					<!-- /product -->
 				</div>
-				<!-- /store products -->
-				<!-- store bottom filter -->
+				<!-- /store products 	<!-- store bottom filter -->
+
 				<div class="store-filter clearfix">
-					<span class="store-qty">Showing 20-100 products</span>
-					<ul class="store-pagination">
-						<li class="active">1</li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-					</ul>
+					@if (page.TotalItems > 0)
+					{
+						<ul class="store-pagination">
+
+							@if (page.CurrentPage > 1)
+							{
+								<li>
+									<a  asp-controller="ProductView" asp-action="ProductBrand" asp-route-Id="@Model.FirstOrDefault().ProductItems.Product.Brand" asp-route-pg="1"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a>
+								</li>
+								<li>
+									<a asp-controller="ProductView" asp-action="ProductBrand" asp-route-Id="@Model.FirstOrDefault().ProductItems.Product.Brand" asp-route-pg="@(page.CurrentPage - 1)"><i class="fa fa-angle-left"></i></a>
+								</li>
+							}
+							@for (var pge = page.StartPage; pge <= page.EndPage; pge++)
+							{
+								<li class="@(pge == page.CurrentPage ? "active" : "")">
+									<a  asp-controller="ProductView" asp-action="ProductBrand" asp-route-Id="@Model.FirstOrDefault().ProductItems.Product.Brand" asp-route-pg="@pge">@pge </a>
+								</li>
+							}
+
+							@if (page.CurrentPage < page.TotalPages)
+							{
+								<li>
+									<a  asp-controller="ProductView" asp-action="ProductBrand" asp-route-Id="@Model.FirstOrDefault().ProductItems.Product.Brand" asp-route-pg="@(page.CurrentPage+1)"><i class="fa fa-angle-right"></i></a>
+								</li>
+								<li>
+									<a asp-controller="ProductView" asp-action="ProductBrand" asp-route-Id="@Model.FirstOrDefault().ProductItems.Product.Brand" asp-route-pg="@(page.TotalPages)"><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+								</li>
+							}
+
+						</ul>
+
+					}
+					@for (var pge = page.StartPage; pge <= page.EndPage; pge++)
+					{
+
+					}
 				</div>
 				<!-- /store bottom filter -->
+	
 			</div>
 			<!-- /STORE -->
 		</div>
@@ -290,6 +223,11 @@
 	.add-to-wishlist.active .fa.fa-heart {
 		display: inline; /* Hiện icon trái tim đầy khi active */
 	}
+
+	.store-pagination li.active a {
+		color: white;
+	}
+
 
 </style>
 
@@ -343,3 +281,218 @@
 	}
 
 </script>
+
+@section Scripts {
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const checkboxes = document.querySelectorAll('.brand-checkbox');
+
+			checkboxes.forEach((checkbox) => {
+				checkbox.addEventListener('change', function () {
+					// Ensure only one checkbox is checked at a time
+					checkboxes.forEach((otherCheckbox) => {
+						if (otherCheckbox !== this) {
+							otherCheckbox.checked = false;
+						}
+					});
+
+					if (this.checked) {
+						var selectedCate = this.checked ? this.id : null;
+						var brand = $('#brand-id').val();
+
+						$.ajax({
+							url: '@Url.Action("FilterByBrands", "ProductView")',
+							type: 'GET',
+							data: { brandid: brand, cateid: selectedCate },
+							success: function (productlist) {
+								var newproductrow = "";
+								
+								$.each(productlist["$values"], function (index, item) {
+									newproductrow += '<div class="col-md-4 col-xs-6">';
+									newproductrow += '<div class="product">';
+									newproductrow += '<a href = "/detail/' + item.productVarId + '">';
+									newproductrow += '<div class="product-img">';
+									newproductrow += '<img src="/Contents/img/' + item.img + '" width="200" height="200" alt="">';
+									newproductrow += '<div class="product-label">';
+									newproductrow += '<span class="sale">-30%</span>';
+									newproductrow += '<span class="new">NEW</span>';
+									newproductrow += '</div>'; // Close product-label
+									newproductrow += '</div>'; // Close product-img
+									newproductrow += '<div class="product-body">';
+									newproductrow += '<p class="product-category">' + item.category + '</p>';
+															newproductrow += '<h3 class="product-name">' + item.productName + ' ' + item.ram + ' ' + item.ssd + '</h3>';
+									newproductrow += '<h4 class="product-price">' + item.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" }).replace("₫", "VNĐ") + '</h4>';
+									newproductrow += '<div class="product-rating">';
+									newproductrow += '<i class="fa fa-star"></i>';
+									newproductrow += '<i class="fa fa-star"></i>';
+									newproductrow += '<i class="fa fa-star"></i>';
+									newproductrow += '<i class="fa fa-star"></i>';
+									newproductrow += '<i class="fa fa-star"></i>';
+									newproductrow += '</div>'; // Close product-rating
+									newproductrow += '</div>'; // Close product-body
+									newproductrow += '</a>';
+									newproductrow += '</div>'; // Close product
+									newproductrow += '</div>'; // Close col-md-4
+								});
+
+								$("#store .row").html(newproductrow);
+
+
+							}
+						});
+					} else {
+
+						window.location.reload(); // Tải lại trang
+					}
+				});
+			});
+		});
+		var categoryName = $('.product-category').data('category');
+		$(function () {
+			$("#price-slider").slider({
+				range: true,
+				min: 10000000,
+				max: 50000000,
+				values: [10000000, 50000000],
+				slide: function (event, ui) {
+					$("#price-min").val(ui.values[0]);
+					$("#price-max").val(ui.values[1]);
+				}
+			});
+
+			// Set initial values for the input fields
+			$("#price-min").val($("#price-slider").slider("values", 0));
+			$("#price-max").val($("#price-slider").slider("values", 1));
+		});
+
+		$(function () {
+			$("#price-slider").slider({
+				range: true,
+				min: 10000000,
+				max: 50000000,
+				values: [10000000, 50000000],
+				slide: function (event, ui) {
+					$("#price-min").val(ui.values[0]);
+					$("#price-max").val(ui.values[1]);
+
+				},
+				stop: function (event, ui) {
+					var min = ui.values[0];
+					var max = ui.values[1];
+
+
+					var brand = $('#brand-id').val();
+					$.ajax({
+						url: '@Url.Action("FilterByPrice", "ProductView")',
+						type: 'GET',
+						data: { minPrice: min, maxPrice: max, brandId: brand },
+						success: function (productlist) {
+							var newproductrow = "";
+							$.each(productlist["$values"], function (index, item) {
+								newproductrow += '<div class="col-md-4 col-xs-6">';
+								newproductrow += '<div class="product">';
+								newproductrow += '<a href = "/detail/' + item.productVarId + '">';
+								newproductrow += '<div class="product-img">';
+								newproductrow += '<img src="/Contents/img/' + item.img + '" width="200" height="200" alt="">';
+								newproductrow += '<div class="product-label">';
+								newproductrow += '<span class="sale">-30%</span>';
+								newproductrow += '<span class="new">NEW</span>';
+								newproductrow += '</div>'; // Close product-label
+								newproductrow += '</div>'; // Close product-img
+								newproductrow += '<div class="product-body">';
+								newproductrow += '<p class="product-category">' + item.category + '</p>';
+														newproductrow += '<h3 class="product-name">' + item.productName + ' ' + item.ram + ' ' + item.ssd + '</h3>';
+								newproductrow += '<h4 class="product-price">' + item.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" }).replace("₫", "VNĐ") + '</h4>';
+								newproductrow += '<div class="product-rating">';
+								newproductrow += '<i class="fa fa-star"></i>';
+								newproductrow += '<i class="fa fa-star"></i>';
+								newproductrow += '<i class="fa fa-star"></i>';
+								newproductrow += '<i class="fa fa-star"></i>';
+								newproductrow += '<i class="fa fa-star"></i>';
+								newproductrow += '</div>'; // Close product-rating
+								newproductrow += '</div>'; // Close product-body
+								newproductrow += '</a>';
+								newproductrow += '</div>'; // Close product
+								newproductrow += '</div>'; // Close col-md-4
+							});
+
+							$("#store .row").html(newproductrow);
+						}
+					});
+				}
+			});
+		});
+
+		const selectBox = document.querySelector('.sort-select');
+
+		console.log(selectBox);
+
+		selectBox.addEventListener('change', function () {
+			var sort = this.value; // Lấy giá trị được chọn từ select box
+			var categoryId = $('#brand-id').val();
+			// Thực hiện Ajax request dựa trên giá trị được chọn để lọc dữ liệu
+			$.ajax({
+				url: '@Url.Action("SortProducts", "ProductView")', // Đặt url của action xử lý lọc
+				type: 'GET',
+				data: { sortBy: sort, brandId: categoryId }, // Truyền giá trị lựa chọn để xử lý trên phía server
+				success: function (productlist) {
+					var newproductrow = "";
+					$.each(productlist["$values"], function (index, item) {
+						newproductrow += '<div class="col-md-4 col-xs-6">';
+						newproductrow += '<div class="product">';
+						newproductrow += '<a href = "/detail/' + item.productVarId + '">';
+						newproductrow += '<div class="product-img">';
+						newproductrow += '<img src="/Contents/img/' + item.img + '" width="200" height="200" alt="">';
+						newproductrow += '<div class="product-label">';
+						newproductrow += '<span class="sale">-30%</span>';
+						newproductrow += '<span class="new">NEW</span>';
+						newproductrow += '</div>'; // Close product-label
+						newproductrow += '</div>'; // Close product-img
+						newproductrow += '<div class="product-body">';
+						newproductrow += '<p class="product-category">' + item.category + '</p>';
+												newproductrow += '<h3 class="product-name">' + item.productName + ' ' + item.ram + ' ' + item.ssd + '</h3>';
+						newproductrow += '<h4 class="product-price">' + item.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" }).replace("₫", "VNĐ") + '</h4>';
+						newproductrow += '<div class="product-rating">';
+						newproductrow += '<i class="fa fa-star"></i>';
+						newproductrow += '<i class="fa fa-star"></i>';
+						newproductrow += '<i class="fa fa-star"></i>';
+						newproductrow += '<i class="fa fa-star"></i>';
+						newproductrow += '<i class="fa fa-star"></i>';
+						newproductrow += '</div>'; // Close product-rating
+						newproductrow += '</div>'; // Close product-body
+						newproductrow += '</a>';
+						newproductrow += '</div>'; // Close product
+						newproductrow += '</div>'; // Close col-md-4
+					});
+
+					// Thay thế nội dung của #store .row bằng nội dung mới được tạo
+					$("#store .row").html(newproductrow);
+				}
+			});
+		});
+	</script>
+}
+<style>
+	.ui-slider .ui-slider-range {
+		background-color: #D10024; /* Màu nền tùy chỉnh */
+	}
+
+	.ui-slider .ui-slider-handle {
+		width: 20px; /* Đặt chiều rộng của tay cầm */
+		height: 20px; /* Đặt chiều cao của tay cầm */
+		border-radius: 50%; /* Làm tròn tay cầm để tạo hình tròn */
+		background-color: #FFF; /* Màu nền tùy chỉnh cho tay cầm */
+		top: 50%;
+		transform: translateY(-50%); /* Căn giữa tay cầm theo chiều dọc */
+		border: 2px solid #FFF; /* Thêm viền nếu muốn */
+		box-shadow: 0 0 8px rgba(0,0,0,0.3); /* Bóng đổ cho hiệu ứng nổi */
+	}
+
+	.sort-select {
+		padding: 0px 15px;
+		background: #FFF;
+		border: 1px solid #E4E7ED;
+		height: 40px;
+	}
+
+</style>
