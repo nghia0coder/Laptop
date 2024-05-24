@@ -23,13 +23,13 @@
     <div class="bh-tabs" id="TCTGBH">
         <div class="bh-boxs">
             <div class="bh-forms" style="margin-top: 20px;">
-                <h2 style="margin-bottom:50px" class="bh-tits">Tra cứu thời gian bảo hành máy</h2>
+                <h2 style="margin-bottom:50px" class="bh-tits">Tra cứu bảo hành máy</h2>
                 <ul class="bh-fip clearfix">
                     <li class="bh-fip1" value="0">
-                        <input style="width: 100%;" id="txt-tgbh" class="form-control" data-val="warranty" placeholder="Nhập số IMEI để tra cứu...">
+                        <input style="width: 100%;" id="txt-tgbh" class="form-control" placeholder="Nhập số Warranty ID để tra cứu...">
                     </li>
                     <li class="bh-fip2" style="margin-top: 30px;margin-bottom: 10px;">
-                        <a asp-action="WarrantyInfo" class="btn btn-primary">KIỂM TRA</a>
+                        <button onclick="checkWarranty()" class="btn btn-primary">KIỂM TRA</button>
                     </li>
                 </ul>
                 <p class="bh-bherror" style="display:none">Thông tin không chính xác. Vui lòng kiểm tra lại</p>
@@ -38,6 +38,11 @@
     </div>
 </div>
 
-
-
+<script>
+    function checkWarranty() {
+        const input = document.getElementById('txt-tgbh').value;
+        // Chuyển hướng đến trang WarrantyInfo với tham số đầu vào là Order ID
+        window.location.href = `/Warranty/WarrantyInfo?warrantyId=${input}`;
+    }
+</script>
 
