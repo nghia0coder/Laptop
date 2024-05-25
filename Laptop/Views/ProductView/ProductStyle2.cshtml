@@ -50,7 +50,7 @@
 									}
 
 									<div class="product" alt="">
-										<a href="/post/@SlugGenerator.SlugGenerator.GenerateSlug(item.ProductName)-@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.ProductVarId" />
+										<a asp-action="XemChiTiet" asp-controller="ProductView" asp-route-id="@item.ProductItems.FirstOrDefault()?.ProductVariations.FirstOrDefault()?.ProductVarId" />
 										<div class="product-img">
 											<img src="~/Contents/img/@item.ProductItems.FirstOrDefault()?.Image1" alt="">
 
