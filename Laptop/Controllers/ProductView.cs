@@ -201,7 +201,14 @@ namespace Laptop.Controllers
 
 			return PartialView("_CommentPartial", record);
 		}
-	
+		public IActionResult AddProductToCompare (int id)
+		{
+			var context = _context.ProductVariations.FirstOrDefault();
+			id = context.ProductVarId;
+
+			return RedirectToAction("Index", "Compare");
+
+        }
 
 	}
 }
