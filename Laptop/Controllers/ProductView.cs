@@ -36,7 +36,7 @@ namespace Laptop.Controllers
 			return PartialView();
 		}
 		[Route("detail/{id:int}")]
-		public async Task<IActionResult> XemChiTiet(int? id, int? page)
+		public async Task<IActionResult> XemChiTiet(int? id)
 		{
 			if (id == null)
 			{

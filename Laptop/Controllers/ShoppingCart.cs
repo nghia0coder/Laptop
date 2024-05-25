@@ -169,7 +169,7 @@ namespace Laptop.Controllers
             }
             HttpContext.Session.SetJson("Cart", cart);
 			TempData["error"] = "Add To Cart Success";
-            return Redirect(strURL);
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> Decrease(int Id)
 		{
@@ -455,8 +455,77 @@ namespace Laptop.Controllers
             return View(data);
 		}
 
+		public async Task<IActionResult> UserOrders(string orderid, int id, int pg = 1)
+		{
+			const int pageSize = 5;
+			if (orderid == null)
+			{
+
+				var customerId = await GetCurrentUserAsync();
 
 
 
-	}
+				var orders = await _context.Orders.Where(n => n.CustomerId == customerId && n.OrderStatus == id)
+					.Include(o => o.StatusNaviagtion)
+					.OrderByDescending(n => n.OrderDate)
+					.ToListAsync();
+
+
+				if (pg < 1)
+					pg = 1;
+
+				var totalCate = await _context.Orders.Where(n => n.CustomerId == customerId && n.OrderStatus == id).CountAsync();
+
+				var pager = new Page(totalCate, pg, pageSize);
+
+				int recSkip = (pg - 1) * pageSize;
+
+				var data = orders.Skip(recSkip).Take(pageSize).ToList();
+
+				ViewBag.Page = pager;
+
+				return View(data);
+			}
+			else
+			{
+
+				var customerId = await GetCurrentUserAsync();
+
+
+				var orders = await _context.Orders.Where(n => n.CustomerId == customerId && n.OrderStatus == id && n.OrderId.ToString().Contains(orderid))
+					.Include(o => o.StatusNaviagtion)
+					.OrderByDescending(n => n.OrderDate)
+					.ToListAsync();
+
+				return View(orders);
+			}
+
+		}
+        [HttpGet]
+    
+        public async Task<IActionResult> CancelConfirm(string id, int? detail)
+        {
+            var order = await _context.OrdersDetails
+                .Include(n => n.ProductVar.ProductItems)
+                    .ThenInclude(n => n.Product)
+                        .ThenInclude(n => n.BrandNavigation)
+                .Include(n => n.ProductVar.Ram)
+				.Include(n => n.ProductVar.Ssd)
+				.Include(n => n.ProductVar.ProductItems)
+                    .ThenInclude(n => n.Product.Category)
+                 .Include(n => n.ProductVar.ProductItems)
+                    .ThenInclude(n => n.Color)
+                .Include(n => n.Order)
+                    .ThenInclude(n => n.StatusNaviagtion)
+                .Where(n => n.OrderId == id)
+                .ToListAsync();
+
+            ViewBag.Detail = detail;
+            return View(order);
+        }
+
+
+
+
+    }
 }
