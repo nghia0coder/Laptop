@@ -15,6 +15,7 @@ namespace Laptop.Controllers
             _context = context;
             _userManager = userManager;
         }
+        //kkkk
         [HttpPost]
         public async Task<IActionResult> Create(PostComment postComment, string currentUrl)
         {
