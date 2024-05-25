@@ -24,7 +24,7 @@
 						<ul class="footer-links">
 							@foreach (var item in Model)
 							{
-								<li><a href="/category/@SlugGenerator.SlugGenerator.GenerateSlug(item.CategoryName)-@item.CategoryId">@item.CategoryName.ToUpper()</a></li>
+								<li><a asp-action="ProductCate" asp-controller="ProductView" asp-route-id="@item.CategoryId">@item.CategoryName?.ToUpper()</a></li>
 							}
 						</ul>
 
