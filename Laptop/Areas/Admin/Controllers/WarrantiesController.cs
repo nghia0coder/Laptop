@@ -146,7 +146,6 @@ namespace Laptop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", warranty.CustomerId);
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", warranty.OrderId);
 
             ViewData["StatusList"] = new SelectList(new[]
@@ -163,14 +162,15 @@ namespace Laptop.Areas.Admin.Controllers
             }, "Value", "Text");
 
             // Load ProductVariations for the initial OrderId
-            var productVariations = _context.OrdersDetails
-                                             .Where(od => od.OrderId == warranty.OrderId)
-                                             .Include(od => od.ProductVar)
-                                             .Select(od => new
-                                             {
-                                                 ProductVariationId = od.ProductVar.ProductVarId,
-                                             })
-                                             .ToList();
+            var productVariations = await _context.OrdersDetails
+                                                  .Where(od => od.OrderId == warranty.OrderId)
+                                                  .Include(od => od.ProductVar)
+                                                  .Select(od => new
+                                                  {
+                                                      ProductVariationId = od.ProductVar.ProductVarId,
+                                                      //ProductName = od.ProductVar.ProductName // Assuming there's a ProductName property
+                                                  })
+                                                  .ToListAsync();
 
             ViewBag.ProductVariations = new SelectList(productVariations, "ProductVariationId", "ProductName");
 
@@ -190,6 +190,14 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 try
                 {
+                    // Ensure CustomerId is valid
+                    var customerExists = await _context.Customers.AnyAsync(c => c.CustomerId == warranty.CustomerId);
+                    if (!customerExists)
+                    {
+                        ModelState.AddModelError("CustomerId", "Customer does not exist.");
+                        return await ReloadEditView(warranty);
+                    }
+
                     _context.Update(warranty);
                     await _context.SaveChangesAsync();
                 }
@@ -207,7 +215,12 @@ namespace Laptop.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", warranty.CustomerId);
+            return await ReloadEditView(warranty);
+        }
+
+        // Helper method to reload view data
+        private async Task<IActionResult> ReloadEditView(Warranty warranty)
+        {
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", warranty.OrderId);
 
             ViewData["StatusList"] = new SelectList(new[]
@@ -223,16 +236,15 @@ namespace Laptop.Areas.Admin.Controllers
                 new { Value = "Cài đặt lại thiết bị", Text = "Cài đặt lại thiết bị" }
             }, "Value", "Text");
 
-            // Load ProductVariations for the selected OrderId
-            var productVariations = _context.OrdersDetails
-                                             .Where(od => od.OrderId == warranty.OrderId)
-                                             .Include(od => od.ProductVar)
-                                             .Select(od => new
-                                             {
-                                                 ProductVariationId = od.ProductVar.ProductVarId,
-                                                 
-                                             })
-                                             .ToList();
+            var productVariations = await _context.OrdersDetails
+                                                  .Where(od => od.OrderId == warranty.OrderId)
+                                                  .Include(od => od.ProductVar)
+                                                  .Select(od => new
+                                                  {
+                                                      ProductVariationId = od.ProductVar.ProductVarId,
+                                                      //ProductName = od.ProductVar.ProductName // Assuming there's a ProductName property
+                                                  })
+                                                  .ToListAsync();
 
             ViewBag.ProductVariations = new SelectList(productVariations, "ProductVariationId", "ProductName");
 
