@@ -9,7 +9,7 @@
 			<div class="col-md-3">
 				<div class="header-logo">
 					<a href="#" class="logo">
-						<img class="rounded-circle" src="/img/siulogo.png" width="168" height="auto" alt="" style="padding-top: 8px;" />
+						<img class="rounded-circle" src="/img/siulogo.jpg" width="168" height="auto" alt="" style="padding-top: 8px;" />
 
 					</a>
 				</div>
@@ -36,13 +36,13 @@
 					<div class="dropdown">
 						<a href="#" class="dropbtn">
 							<i class="fa fa-shopping-bag" aria-hidden="true"></i>
-							<span>Đơn Hàng</span>
+							<span>Order Status</span>
 						</a>
 						<div class="dropdown-content">
-							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="1">Chờ Duyệt</a>
-							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="2">Đang Giao</a>
-							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="3">Đã Giao</a>
-							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="4">Đã Hủy</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="1">Wait for approval</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="2">Delivering</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="3">Delivered</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="4">Canceled</a>
 						</div>
 					</div>
 					<!-- Wishlist -->
@@ -54,7 +54,7 @@
 							{
 								
 							} *@
-							<div class="qty">2</div>
+							
 						</a>
 					</div>
 					<!-- /Wishlist -->
@@ -75,39 +75,6 @@
 							</a>
 							<div class="qty"></div>
 						</a>
-						<div class="cart-dropdown">
-							<div class="cart-list">
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-									</div>
-									<button class="delete"><i class="fa fa-close"></i></button>
-								</div>
-
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="./img/product02.png" alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-									</div>
-									<button class="delete"><i class="fa fa-close"></i></button>
-								</div>
-							</div>
-							<div class="cart-summary">
-								<small>3 Item(s) selected</small>
-								<h5>SUBTOTAL: $2940.00</h5>
-							</div>
-							<div class="cart-btns">
-								<a href="#">View Cart</a>
-								<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
 					</div>
 					<!-- /Cart -->
 					<!-- Menu Toogle -->
