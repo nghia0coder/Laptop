@@ -1,16 +1,8 @@
 {
   "dependencies": {
-    "secrets1": {
-      "type": "secrets"
-    },
     "mssql1": {
-      "ignored": "True",
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:Laptop_IdentityContextConnection"
-    },
-    "mssql2": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:Store"
+      "type": "azuresql",
+      "connectionId": "AZURE_SQL_CONNECTIONSTRING"
     }
   }
 }
