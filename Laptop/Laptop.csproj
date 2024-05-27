@@ -25,10 +25,6 @@
     <Content Remove="Areas\Identity\Views\Shared\_Layout.cshtml" />
     <Content Remove="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
     <Content Remove="compilerconfig.json;package.json" />
-    <None Include="compilerconfig.json;package.json">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
   </ItemGroup>
 
 
