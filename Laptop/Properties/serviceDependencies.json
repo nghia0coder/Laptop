@@ -1,9 +1,16 @@
 {
   "dependencies": {
+    "redis1": {
+      "ignored": "true",
+      "type": "redis"
+    },
     "mssql1": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:Laptop_IdentityContextConnection",
-      "dynamicId": null
+      "ignored": "true",
+      "type": "mssql"
+    },
+    "sqlite1": {
+      "ignored": "true",
+      "type": "sqlite"
     }
   }
 }
