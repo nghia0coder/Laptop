@@ -1,8 +1,9 @@
 {
   "dependencies": {
     "mssql1": {
-      "type": "azuresql",
-      "connectionId": "AZURE_SQL_CONNECTIONSTRING"
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:Laptop_IdentityContextConnection",
+      "dynamicId": null
     }
   }
 }
