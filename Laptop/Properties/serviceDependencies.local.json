@@ -3,10 +3,6 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:Laptop_IdentityContextConnection"
-    },
-    "secrets1": {
-      "type": "secrets.user",
-      "dynamicId": null
     }
   }
 }
