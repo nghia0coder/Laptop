@@ -25,7 +25,7 @@ namespace Laptop.Models
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<PostComment> PostComments { get; set; }
         public virtual ICollection<ProductComment> ProductComments { get; set; }
-        public virtual ICollection<Warranty> Warranties { get; set; }
+  
         public virtual ICollection<WishList> WishLists { get; set; }
     }
 }
