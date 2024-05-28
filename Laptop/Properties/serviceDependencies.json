@@ -4,13 +4,13 @@
       "ignored": "true",
       "type": "redis"
     },
-    "mssql1": {
-      "ignored": "true",
-      "type": "mssql"
-    },
     "sqlite1": {
       "ignored": "true",
       "type": "sqlite"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:Store"
     }
   }
 }
