@@ -28,5 +28,6 @@ namespace Laptop.Models
         public virtual ICollection<WishList> WishLists { get; set; }
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual ICollection<OrdersDetail> OrdersDetails { get; set; }
+
     }
 }

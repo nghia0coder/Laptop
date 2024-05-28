@@ -1,149 +1,94 @@
 ﻿@model Laptop.Models.Warranty
-
 @{
+    ViewData["Title"] = "Create Warranty";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h1>Create Warranty</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-
-    <h4>Phiếu bảo hành</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                <div class="form-group">
-                    <label asp-for="OrderId" class="control-label"></label>
-                    <select asp-for="OrderId" class="form-control" asp-items="ViewBag.OrderId" id="OrderIdDropdown"></select>
-                </div>
-
-
-                <div class="form-group">
-                    <label asp-for="CreateDate" class="control-label"></label>
-                    <input asp-for="CreateDate" class="form-control" />
-                    <span asp-validation-for="CreateDate" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="EndDate" class="control-label"></label>
-                    <input asp-for="EndDate" class="form-control" />
-                    <span asp-validation-for="EndDate" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Reason" class="control-label"></label>
-                    <input asp-for="Reason" class="form-control" />
-                    <span asp-validation-for="Reason" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Service" class="control-label"></label>
-                    <select asp-for="Service" class="form-control" asp-items="ViewBag.ServiceList"></select>
-                    <span asp-validation-for="Service" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Status" class="control-label"></label>
-                    <select asp-for="Status" class="form-control" asp-items="ViewBag.StatusList"></select>
-                    <span asp-validation-for="Status" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Note" class="control-label"></label>
-                    <input asp-for="Note" class="form-control" />
-                    <span asp-validation-for="Note" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="OrderId">Order ID</label>
+        <select id="OrderId" name="OrderId" class="form-control">
+            <option value="">Select or type Order ID</option>
+            @foreach (var order in ViewBag.OrderId)
+            {
+                <option value="@order.Value">@order.Text</option>
+            }
+        </select>
     </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
+    <div class="form-group">
+        <label for="ProductVariationId">Product</label>
+        <select id="ProductVariationId" name="ProductId" class="form-control">
+            <option value="">Select Product</option>
+        </select>
     </div>
+    <div class="form-group">
+        <label for="Service">Service</label>
+        <select id="Service" name="Service" class="form-control">
+            @foreach (var service in ViewBag.ServiceList)
+            {
+                <option value="@service.Value">@service.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Status">Status</label>
+        <select id="Status" name="Status" class="form-control">
+            @foreach (var status in ViewBag.StatusList)
+            {
+                <option value="@status.Value">@status.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="CreateDate">Create Date</label>
+        <input type="date" class="form-control" id="CreateDate" name="CreateDate" />
+    </div>
+    <div class="form-group">
+        <label for="EndDate">End Date</label>
+        <input type="date" class="form-control" id="EndDate" name="EndDate" />
+    </div>
+    <div class="form-group">
+        <label for="Reason">Reason</label>
+        <textarea class="form-control" id="Reason" name="Reason"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Note">Note</label>
+        <textarea class="form-control" id="Note" name="Note"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Warranty</button>
+</form>
 
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#OrderId').select2({
+                tags: true,
+                placeholder: "Select or type Order ID",
+                allowClear: true
+            });
 
-        <script>
-            $(document).ready(function () {
-                $('#OrderIdDropdown').change(function () {
-                    var orderId = $(this).val();
+            $('#OrderId').change(function () {
+                var order = $(this).val();
+                if (order) {
                     $.ajax({
-                        url: '@Url.Action("GetProductVariationsByOrder")',
-                        data: { orderId: orderId },
+                        url: '@Url.Action("GetProductVariationsByOrder", "Warranties")',
+                        type: 'GET',
+                        data: { orderId: order },
                         success: function (data) {
-                            var productVariationsDropdown = $('#ProductVariations');
-                            productVariationsDropdown.empty();
-                            $.each(data, function (i, item) {
-                                productVariationsDropdown.append($('<option>', {
-                                    value: item.ProductVariationId,
-                                    text: item.ProductName
-                                }));
+                            $('#ProductVariationId').empty();
+                            $('#ProductVariationId').append('<option value="">Select Product</option>');
+                            $.each(data["$values"], function (i, product) {
+                                $('#ProductVariationId').append('<option value="' + product.productVarId + '">' + product.productName + '</option>');
                             });
                         }
                     });
-                });
+                } else {
+                    $('#ProductVariationId').empty();
+                    $('#ProductVariationId').append('<option value="">Select Product</option>');
+                }
             });
-        </script>
-    }
-</body>
-</html>
-<script>
-    $(document).ready(function () {
-        $('#OrderIdDropdown').select2({
-            placeholder: 'Tìm kiếm đơn hàng...',
-            allowClear: true,
-            ajax: {
-                url: '/api/orders/search', // Thay thế URL này bằng endpoint API của bạn
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // Thuật ngữ tìm kiếm
-                        page: params.page
-                    };
-                },
-                processResults: function (data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: data.items,
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
-                        }
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 1,
-            templateResult: formatOrder, // Hàm để định dạng kết quả
-            templateSelection: formatOrderSelection // Hàm để định dạng lựa chọn
         });
-    });
-
-    function formatOrder(order) {
-        if (order.loading) {
-            return order.text;
-        }
-        var markup = "<div class='select2-result-order__title'>" + order.text + "</div>";
-        return markup;
-    }
-
-    function formatOrderSelection(order) {
-        return order.text || order.id;
-    }
-</script>
-    
+    </script>
+}
