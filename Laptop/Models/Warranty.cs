@@ -9,9 +9,6 @@ namespace Laptop.Models
         public int WarrantyId { get; set; }
 
         [Required]
-        public int CustomerId { get; set; }
-
-        [Required]
         public string OrderId { get; set; }
 
        // [DataType(DataType.Date)]
@@ -27,7 +24,7 @@ namespace Laptop.Models
         public string? Status { get; set; }
         public string? Note { get; set; }
 
-        public virtual Customer? Customer { get; set; }
+        public int? ProductId { get; set; }    
         public virtual Order? Order { get; set; }
 
         

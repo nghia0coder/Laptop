@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Order.OrderId)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WarrantyId)
+            </th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -44,7 +47,10 @@
                     @Html.DisplayFor(modelItem => item.Order.OrderId)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.WarrantyId" class="btn btn-sm btn-warning">Edit</a>
+                    @Html.DisplayFor(modelItem => item.WarrantyId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.WarrantyId" class="btn btn-sm btn-warning">Status</a>
                     <a asp-action="Details" asp-route-id="@item.WarrantyId" class="btn btn-sm btn-info">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.WarrantyId" class="btn btn-sm btn-danger">Delete</a>
                 </td>

@@ -474,6 +474,7 @@ namespace Laptop.Controllers
 				return new JsonResult(filteredProducts.OrderBy(n => n.Price));
 			}
 		}
+	
 
 	}
 }
