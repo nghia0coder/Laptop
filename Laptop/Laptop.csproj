@@ -14,6 +14,14 @@
 </PropertyGroup>
 
 
+  <ItemGroup>
+    <Compile Remove="Views\Shared\Components\Menu\**" />
+    <Content Remove="Views\Shared\Components\Menu\**" />
+    <EmbeddedResource Remove="Views\Shared\Components\Menu\**" />
+    <None Remove="Views\Shared\Components\Menu\**" />
+  </ItemGroup>
+
+
 
 
 
@@ -109,12 +117,9 @@
     <None Include="Views\ProductView\ProductStyle2.cshtml" />
     <None Include="Views\ProductView\XemChiTiet.cshtml" />
     <None Include="Views\Shared\Components\Cart\Default.cshtml" />
-    <None Include="Views\Shared\Components\Menu\Default.cshtml" />
     <None Include="Views\Shared\Components\Nav\Default.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
-    <None Include="Views\Shared\Partial\_FooterPartial.cshtml" />
     <None Include="Views\Shared\Partial\_HeaderTopPartial.cshtml" />
-    <None Include="Views\Shared\Partial\_NavbarHeader.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_NotificationPartial.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />

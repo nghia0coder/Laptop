@@ -49,7 +49,7 @@ namespace Laptop.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-B5FIP5M\\SQLEXPRESS01;Initial Catalog=Laptop10;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                optionsBuilder.UseSqlServer("Data Source=NGHIANGHIA\\SQLSEVER2020EV;Initial Catalog=Laptop4;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
 
@@ -107,18 +107,13 @@ namespace Laptop.Models
 
 				entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
-				entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
 
 				entity.Property(e => e.EndDate).HasColumnType("datetime");
 
 				entity.Property(e => e.OrderId)
 					.HasMaxLength(300)
 					.HasColumnName("OrderID");
-
-				entity.HasOne(d => d.Customer)
-					.WithMany(p => p.Warranties)
-					.HasForeignKey(d => d.CustomerId)
-					.HasConstraintName("FK_Warranty_Customer");
 
 				entity.HasOne(d => d.Order)
 					.WithMany(p => p.Warranties)
