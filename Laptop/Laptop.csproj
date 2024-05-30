@@ -6,9 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="C:\Users\nghia\.nuget\packages\microsoft.net.compilers\1.0.0\build\..\tools\**" />
-  </ItemGroup>
+
+  <PropertyGroup>
+ <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+
+ 
+</PropertyGroup>
+
+
+
+
 
   <ItemGroup>
     <Content Remove="Areas\Admin\Views\Tintucs\Create.cshtml" />
@@ -17,6 +24,11 @@
     <Content Remove="Areas\Admin\Views\Tintucs\Displayindex.cshtml" />
     <Content Remove="Areas\Admin\Views\Tintucs\Edit.cshtml" />
     <Content Remove="Areas\Admin\Views\Tintucs\Index.cshtml" />
+
+    <Content Remove="Areas\Identity\Views\Shared\_Layout.cshtml" />
+    <Content Remove="Areas\Identity\Views\Shared\_LoginPartial.cshtml" />
+    <Content Remove="compilerconfig.json;package.json" />
+
   </ItemGroup>
 
   <ItemGroup>

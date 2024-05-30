@@ -1,0 +1,31 @@
+﻿@model Order
+
+@{
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+    ViewData["Title"] = "Home Page";
+    var postUrl = "tich-hop-thanh-toan-momo-voi-asp-net-core-7d5e4hP";
+}
+
+<div class="container mt-7">
+    <div class="text-center">
+        <h1 class="display-4 " style="margin-top: 30px">Bạn Đã Hủy Đơn Hàng</h1>
+        <div class="card mx-auto mt-7" style="max-width: 30rem;margin-left: auto;margin-right: auto;">
+            <div class="card-body">
+                <h3 class="card-title text-danger" style="width: 343px">Hủy Đơn Hàng Thành Công</h3>
+                <p class="card-text">Chi Tiết Đơn Hàng</p>
+                <ul class="list-group list-group-flush text-start">
+                    <li class="list-group-item">Mã Đơn Hàng: <strong>@Model.OrderId</strong></li>
+                    <li class="list-group-item">Tổng Tiền Đơn Hàng: <strong>@Model.PriceTotal</strong></li>
+                
+                </ul>
+            </div>
+        </div>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-4">Tiếp Tục Mua Sắm</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

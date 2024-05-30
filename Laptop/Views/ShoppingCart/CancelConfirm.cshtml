@@ -1,0 +1,172 @@
+﻿@using Laptop.Models
+@using System.Globalization
+@using Microsoft.AspNetCore.Http.Extensions
+@model IEnumerable<OrdersDetail>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var httpContext = HttpContextAccessor.HttpContext;
+    string currentUrl = Context.Request.GetDisplayUrl();
+}
+@{
+    ViewData["Title"] = "XemGioHang";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+@Html.Partial("_NotificationPartial")
+<!-- cd-popup -->
+@if (Model == null) // Check if the list is null or empty
+{
+    <h1 style="color:crimson">Bạn Chưa Có Đơn Hàng Nào</h1>
+}
+else
+{
+    <section class="h-100 h-custom" style="background-color: #fff;">
+
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5" style="margin-top: 40px;">
+                                            @if (ViewBag.Detail == null)
+                                            {
+                                                <h1 class="fw-bold mb-0 text-black">Hủy Đơn</h1>
+                                            }
+                                            else
+                                            {
+                                                <h1 class="fw-bold mb-0 text-black">Chi Tiết Đơn Đặt Hàng</h1>
+                                            }
+
+
+                                        </div>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <hr class="my-4 thick-hr">
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img src="~/Contents/img/@item.ProductVar.ProductItems.Image1"
+                                                         class="img-fluid rounded-3" style="width: 100px; height: auto;">
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-xl-4">
+                                                    @*     <h6 class="text-muted">@item.ProductVar.ProductItems.Product.BrandNavigation.BrandName</h6> *@
+
+                                                    <h6 class="text-black mb-0">Ngày Đặt : @item.Order.OrderDate</h6>
+                                                    <h6 class="text-black mb-0">Trạng Thái Đơn Hàng : @item.Order.StatusNaviagtion.StatusName</h6>
+                                                    <h6 class="text-black mb-0">Màu : @item.ProductVar.ProductItems.Color.ColorName</h6>
+                                                    <h6 class="text-black mb-0">Ram : @item.ProductVar.Ram.RamName</h6>
+                                                    <h6 class="text-black mb-0">Ssd : @item.ProductVar.Ssd.Ssdname</h6>
+                                                    <h6 class="text-black mb-0">Số Lượng : @item.Quanity</h6>
+                                                    <h6 class="text-black mb-0">Giá Tiền : @item.ProductVar.Price.ToString("#,##0") VNĐ</h6>
+                                                </div>
+
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    <a class="btn btn-primary btn-sm" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-strURL="@currentUrl" asp-route-productID="@item.ProductVarId">Mua Lại</a>
+
+                                                </div>
+                                              
+                                            </div>
+                                            <hr class="my-4 thick-hr">
+                                        }
+                                        <div class="pt-5 justify-content-between align-items-center">
+                                            <div class="pt-5">
+                                                <h6 class="mb-0 d-flex ">
+                                                    <a href="#!" class="text-body">
+                                                        <a class="btn btn-primary btn-sm ml-auto" asp-controller="Home" asp-action="Index">Trở Về</a>
+                                                    </a>
+                                                    <strong style="margin-left: 400px; font-size: 20px">
+                                                        Tổng Tiền : @Model.FirstOrDefault().Order.PriceTotal?.ToString("#,##0")VNĐ
+                                                    </strong>
+                                                    @if (ViewBag.Detail == null)
+                                                    {
+                                                        <a class="btn btn-danger btn-sm ml-auto mt-5" style="margin-left: 618px" asp-controller="ShoppingCart" asp-action="Cancel" asp-route-id="@Model.FirstOrDefault().Order.OrderId"> Xác Nhận Hủy Đơn </a>
+                                                    }
+          
+                                                </h6>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                @*  <!-- Order Details -->
+                            <div class="col-lg-4 order-details mt-lg-5">
+                            <div class="section-title text-center">
+                            <h3 class="title">Your Order</h3>
+                            </div>
+                            <div class="order-summary">
+
+                            <div class="order-col">
+                            <div><strong>SẢN PHẨM</strong></div>
+                            <div><strong>TỔNG TIỀN</strong></div>
+                            </div>
+                            <div class="order-products">
+                            @foreach (var item in Model.CartItems)
+                            {
+                            <div class="order-col">
+                            @item.Quanity<span style="margin-right: 0.2em;">x</span>@item.ProductName
+                            <div>$@(item.Price * item.Quanity)</div>
+                            </div>
+                            }
+                            </div>
+                            <div class="order-col">
+                            <div>Giao Hàng</div>
+                            <div><strong>MIỄN PHÍ</strong></div>
+                            </div>
+                            <div class="order-col">
+                            <div><strong>TOTAL</strong></div>
+                            <div><strong class="order-total">$@Model.Total</strong></div>
+                            </div>
+                            </div>
+                            <div class="payment-method">
+                            <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-1">
+                            <label for="payment-1">
+                            <span></span>
+                            Chuyển Khoản
+                            </label>
+                            <div class="caption">
+                            <p>Thanh Toán Qua Ví Điện Tử, Thẻ Ngân Hàng, ...</p>
+                            </div>
+                            </div>
+
+                            <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-3">
+                            <label for="payment-3">
+                            <span></span>
+                            Thanh Toán Sau
+                            </label>
+                            <div class="caption">
+                            <p>Thanh Toán Khi Nhận Hàng</p>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="input-checkbox">
+                            <label for="terms">
+                            <span></span>
+                            Đơn Hàng Sẽ Tới Tay Bạn Từ 3 - 4 Ngày
+                            </label>
+                            </div>
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                            <a asp-action="DatHang" asp-route-total ="@Model.Total" asp-controller="ShoppingCart" class="primary-btn order-submit">Đặt Hàng</a>
+                            }
+                            else
+                            {
+                            <a asp-action="Login" asp-controller="Account" class="primary-btn order-submit">Đăng Nhập Để Đặt Hàng</a>
+                            }
+                            </div>
+                            <!-- /Order Details --> *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+

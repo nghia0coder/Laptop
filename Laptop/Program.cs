@@ -5,7 +5,6 @@ using Laptop.Areas.Admin.Repositories;
 using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json.Serialization;
-using Laptop.Models;
 using Laptop.Interface;
 using Laptop.Repository;
 using Laptop.Service;

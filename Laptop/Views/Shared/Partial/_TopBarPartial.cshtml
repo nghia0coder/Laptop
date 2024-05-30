@@ -9,7 +9,7 @@
 			<div class="col-md-3">
 				<div class="header-logo">
 					<a href="#" class="logo">
-						<img class="rounded-circle" src="/img/siulogo.png" width="168" height="auto" alt="" style="padding-top: 8px;" />
+						<img class="rounded-circle" src="/img/siulogo.jpg" width="168" height="auto" alt="" style="padding-top: 8px;" />
 
 					</a>
 				</div>
@@ -32,13 +32,37 @@
 			<!-- /SEARCH BAR -->
 			<!-- ACCOUNT -->
 			<div class="col-md-3 clearfix">
-				<div class="header-ctn" style="width: 360px;">
+				<div class="header-ctn" style="width: 430px;">
+					<div class="dropdown">
+						<a href="#" class="dropbtn">
+							<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+							<span>Order Status</span>
+						</a>
+						<div class="dropdown-content">
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="1">Wait for approval</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="2">Delivering</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="3">Delivered</a>
+							<a asp-action="UserOrders" asp-controller="ShoppingCart" asp-route-id="4">Canceled</a>
+						</div>
+					</div>
 					<!-- Wishlist -->
 					
 					<div>
+
 						<a asp-controller="Compare" asp-action="Index" class="add-to-compare">
 							<i class="fa fa-exchange" aria-hidden="true"></i>
 							<span>Compare</span>
+          </div>
+           <div>
+						<a asp-action="WishList" asp-controller="ShoppingCart" asp-area="">
+							<i class="fa fa-heart-o"></i>
+							<span>Your Wishlist</span>
+                         @*    @if(HttpContextAccessor.HttpContext.Session.GetInt32(CartCount.sessionCount) != null)
+							{
+								
+							} *@
+							
+
 						</a>
 					</div>
 					<!-- /Wishlist -->
@@ -57,40 +81,8 @@
 							<a asp-area="" asp-action="Index" asp-controller="ShoppingCart">
 								<span>Your Cart</span>
 							</a>
+							<div class="qty"></div>
 						</a>
-						<div class="cart-dropdown">
-							<div class="cart-list">
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-									</div>
-									<button class="delete"><i class="fa fa-close"></i></button>
-								</div>
-
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="./img/product02.png" alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-									</div>
-									<button class="delete"><i class="fa fa-close"></i></button>
-								</div>
-							</div>
-							<div class="cart-summary">
-								<small>3 Item(s) selected</small>
-								<h5>SUBTOTAL: $2940.00</h5>
-							</div>
-							<div class="cart-btns">
-								<a href="#">View Cart</a>
-								<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
 					</div>
 					<!-- /Cart -->
 					<!-- Menu Toogle -->
@@ -110,3 +102,47 @@
 	<!-- container -->
 </div>
 <!-- /MAIN HEADER -->
+
+
+
+<style>
+	/* Style for Dropdown Button */
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Dropdown Content (hidden by default) */
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f9f9f9;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 10000;
+	}
+
+		/* Links inside the dropdown */
+		.dropdown-content a {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+		}
+
+			/* Change color of dropdown links on hover */
+			.dropdown-content a:hover {
+				background-color: #f1f1f1
+			}
+
+	/* Show the dropdown menu on hover */
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+
+	/* Change the background color of the dropdown button when the dropdown content is shown */
+	.dropdown:hover .dropbtn {
+		background-color: #15161D;
+	}
+
+</style>

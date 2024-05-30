@@ -25,7 +25,7 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Warranties
         public async Task<IActionResult> Index()
         {
-            var laptopContext = _context.Warranties.Include(w => w.Customer).Include(w => w.Order);
+            var laptopContext = _context.Warranties.Include(w => w.Order);
             return View(await laptopContext.ToListAsync());
         }
 
@@ -38,13 +38,16 @@ namespace Laptop.Areas.Admin.Controllers
             }
 
             var warranty = await _context.Warranties
-                .Include(w => w.Customer)
                 .Include(w => w.Order)
                 .FirstOrDefaultAsync(m => m.WarrantyId == id);
             if (warranty == null)
             {
                 return NotFound();
             }
+            ViewBag.Product=_context.ProductVariations
+                                    .Include(n => n.ProductItems)
+                                    .ThenInclude(n => n.Product)
+                                    .Where(n => n.ProductVarId == warranty.ProductId).FirstOrDefault();
 
             return View(warranty);
         }
@@ -52,7 +55,6 @@ namespace Laptop.Areas.Admin.Controllers
         // GET: Admin/Warranties/Create
         public IActionResult Create()
         {
-            // Truyền danh sách trạng thái vào ViewData
             ViewData["StatusList"] = new SelectList(new[]
             {
                 new { Value = "Đang bảo hành", Text = "Đang bảo hành" },
@@ -65,31 +67,16 @@ namespace Laptop.Areas.Admin.Controllers
                 new { Value = "Vệ sinh phần cứng", Text = "Vệ sinh phần cứng" },
                 new { Value = "Cài đặt lại thiết bị", Text = "Cài đặt lại thiết bị" }
             }, "Value", "Text");
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId");
+
+
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId");
             return View();
         }
-        private async Task<int> GetCurrentUserAsync()
-        {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            if (user == null)
-            {
-                return 0;
-            }
-            var customerId = _context.Customers.Where(n => n.AccountId == user.Id).Select(n => n.CustomerId).FirstOrDefault();
 
-            if (customerId == 0)
-            {
-                customerId = _context.Employees.Where(n => n.AccountId == user.Id).Select(n => n.EmployeeId).FirstOrDefault();
-            }
-            return customerId;
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WarrantyId,CustomerId,OrderId,CreateDate,EndDate,Reason,Service,Status,Note")] Warranty warranty)
+        public async Task<IActionResult> Create(string? id, [Bind("WarrantyId,OrderId,CreateDate,EndDate,Reason,Service,Status,Note,ProductId")] Warranty warranty)
         {
-
-            warranty.CustomerId = await GetCurrentUserAsync();
             if (ModelState.IsValid)
             {
                 _context.Add(warranty);
@@ -97,7 +84,6 @@ namespace Laptop.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Truyền lại danh sách trạng thái vào ViewData nếu ModelState không hợp lệ
             ViewData["StatusList"] = new SelectList(new[]
             {
                 new { Value = "Đang bảo hành", Text = "Đang bảo hành" },
@@ -111,25 +97,30 @@ namespace Laptop.Areas.Admin.Controllers
                 new { Value = "Cài đặt lại thiết bị", Text = "Cài đặt lại thiết bị" }
             }, "Value", "Text");
 
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", warranty.CustomerId);
+
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", warranty.OrderId);
             return View(warranty);
         }
-
-        [HttpGet]
-        public JsonResult GetProductVariationsByOrder(string orderId)
+        public IActionResult SearchOrders(string query)
         {
-            var productVariations = _context.OrdersDetails
-                                             .Where(od => od.OrderId == orderId)
-                                             .Include(od => od.ProductVar)
-                                             .Select(od => new
-                                             {
-                                                 ProductVariationId = od.ProductVar.ProductVarId,
-                                                 ProductName = od.ProductVar.ProductItems.Product.ProductName
-                                             })
-                                             .ToList();
-            return Json(productVariations);
+            var orders = _context.Orders
+                .Where(o => o.OrderId.Contains(query))
+                .Select(o => new { orderId = o.OrderId })
+                .ToList();
+
+            return Json(orders);
         }
+
+        public IActionResult GetProductVariationsByOrder(string orderId)
+        {
+            var productList = _context.OrdersDetails
+                .Where(od => od.OrderId == orderId)
+                .Select(od => new { od.ProductVar.ProductVarId, od.ProductVar.ProductItems.Product.ProductName })
+                .ToList();
+
+            return Json(productList);
+        }
+
 
 
         // GET: Admin/Warranties/Edit/5
@@ -146,6 +137,7 @@ namespace Laptop.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerId", warranty.CustomerId);
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", warranty.OrderId);
 
             ViewData["StatusList"] = new SelectList(new[]
@@ -162,15 +154,14 @@ namespace Laptop.Areas.Admin.Controllers
             }, "Value", "Text");
 
             // Load ProductVariations for the initial OrderId
-            var productVariations = await _context.OrdersDetails
-                                                  .Where(od => od.OrderId == warranty.OrderId)
-                                                  .Include(od => od.ProductVar)
-                                                  .Select(od => new
-                                                  {
-                                                      ProductVariationId = od.ProductVar.ProductVarId,
-                                                      //ProductName = od.ProductVar.ProductName // Assuming there's a ProductName property
-                                                  })
-                                                  .ToListAsync();
+            var productVariations = _context.OrdersDetails
+                                             .Where(od => od.OrderId == warranty.OrderId)
+                                             .Include(od => od.ProductVar)
+                                             .Select(od => new
+                                             {
+                                                 ProductVariationId = od.ProductVar.ProductVarId,
+                                             })
+                                             .ToList();
 
             ViewBag.ProductVariations = new SelectList(productVariations, "ProductVariationId", "ProductName");
 
@@ -179,26 +170,17 @@ namespace Laptop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WarrantyId,CustomerId,OrderId,CreateDate,EndDate,Reason,Service,Status,Note")] Warranty warranty)
+        public async Task<IActionResult> Edit(int id, Warranty warranty)
         {
             if (id != warranty.WarrantyId)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Ensure CustomerId is valid
-                    var customerExists = await _context.Customers.AnyAsync(c => c.CustomerId == warranty.CustomerId);
-                    if (!customerExists)
-                    {
-                        ModelState.AddModelError("CustomerId", "Customer does not exist.");
-                        return await ReloadEditView(warranty);
-                    }
-
-                    _context.Update(warranty);
+            var warranty1 = _context.Warranties.Where(n => n.WarrantyId == id).FirstOrDefault();
+            warranty1.Status = warranty.Status;
+           try
+                {   
+                    _context.Update(warranty1);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -213,42 +195,7 @@ namespace Laptop.Areas.Admin.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-
-            return await ReloadEditView(warranty);
-        }
-
-        // Helper method to reload view data
-        private async Task<IActionResult> ReloadEditView(Warranty warranty)
-        {
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", warranty.OrderId);
-
-            ViewData["StatusList"] = new SelectList(new[]
-            {
-                new { Value = "Đang bảo hành", Text = "Đang bảo hành" },
-                new { Value = "Đã hoàn thành", Text = "Đã hoàn thành" }
-            }, "Value", "Text");
-
-            ViewData["ServiceList"] = new SelectList(new[]
-            {
-                new { Value = "Kiểm tra, bảo dưỡng máy", Text = "Kiểm tra, bảo dưỡng máy" },
-                new { Value = "Vệ sinh phần cứng", Text = "Vệ sinh phần cứng" },
-                new { Value = "Cài đặt lại thiết bị", Text = "Cài đặt lại thiết bị" }
-            }, "Value", "Text");
-
-            var productVariations = await _context.OrdersDetails
-                                                  .Where(od => od.OrderId == warranty.OrderId)
-                                                  .Include(od => od.ProductVar)
-                                                  .Select(od => new
-                                                  {
-                                                      ProductVariationId = od.ProductVar.ProductVarId,
-                                                      //ProductName = od.ProductVar.ProductName // Assuming there's a ProductName property
-                                                  })
-                                                  .ToListAsync();
-
-            ViewBag.ProductVariations = new SelectList(productVariations, "ProductVariationId", "ProductName");
-
-            return View(warranty);
+            
         }
 
 
@@ -261,7 +208,6 @@ namespace Laptop.Areas.Admin.Controllers
             }
 
             var warranty = await _context.Warranties
-                .Include(w => w.Customer)
                 .Include(w => w.Order)
                 .FirstOrDefaultAsync(m => m.WarrantyId == id);
             if (warranty == null)
@@ -286,14 +232,14 @@ namespace Laptop.Areas.Admin.Controllers
             {
                 _context.Warranties.Remove(warranty);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool WarrantyExists(int id)
         {
-          return (_context.Warranties?.Any(e => e.WarrantyId == id)).GetValueOrDefault();
+            return (_context.Warranties?.Any(e => e.WarrantyId == id)).GetValueOrDefault();
         }
     }
 }

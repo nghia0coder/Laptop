@@ -1,8 +1,16 @@
 {
   "dependencies": {
+    "redis1": {
+      "ignored": "true",
+      "type": "redis"
+    },
     "mssql1": {
-      "type": "azuresql",
-      "connectionId": "AZURE_SQL_CONNECTIONSTRING"
+      "ignored": "true",
+      "type": "mssql"
+    },
+    "sqlite1": {
+      "ignored": "true",
+      "type": "sqlite"
     }
   }
 }
