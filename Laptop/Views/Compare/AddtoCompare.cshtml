@@ -1,0 +1,265 @@
+﻿@model Laptop.Models.ProductVariation
+@{
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<style>
+    .search-box {
+        flex: 1;
+        max-width: 440px;
+        margin-left: 100px;
+    }
+
+        .search-box select {
+            display: block;
+        }
+
+    .search-result {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .selected-product {
+        width: 500px;
+        height: 250px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    /* Màu chữ đỏ cho tiêu đề */
+    #comparisonTitle {
+        text-align: center;
+    }
+
+    /* Màu chữ đỏ cho tên sản phẩm */
+    .red-text {
+        color: red;
+        font: 60px;
+        font-size: 22px;
+    }
+
+    /* Màu chữ đen cho từ "Compare" */
+    .black-text {
+        color: black;
+    }
+
+    #searchInput1 {
+        outline: none; /* Loại bỏ viền xung quanh input khi focus */
+        font-size: 16px; /* Cỡ chữ */
+        padding: 10px 20px; /* Khoảng cách giữa nội dung và đường viền */
+    }
+
+    #searchInput2 {
+        outline: none; /* Loại bỏ viền xung quanh input khi focus */
+        font-size: 16px; /* Cỡ chữ */
+        padding: 10px 20px; /* Khoảng cách giữa nội dung và đường viền */
+    }
+
+    .comparison-table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+        background-color: #f0f0f0; /* Nền xám */
+    }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 10px;
+            border: none; /* Loại bỏ viền */
+        }
+
+            .comparison-table th:first-child,
+            .comparison-table td:first-child {
+                width: 14%; /* Giảm độ rộng của cột đầu tiên */
+            }
+
+            .comparison-table th:not(:first-child),
+            .comparison-table td:not(:first-child) {
+                width: 41%; /* Đặt độ rộng cho các cột còn lại */
+            }
+</style>
+
+<h3 style="margin-top:50px;padding-bottom: 15px;margin-bottom:30px;border-bottom: 1px solid #ccc;" id="comparisonTitle"><span class="black-text">Compare Products</span></h3>
+
+<div style="display: flex; justify-content: space-around;">
+    <div class="search-box">
+        <input style="width:500px; padding-left: 30px; border-radius: 20px; border: 2px solid #ccc; background-color: #f4f4f4; background-image: url('search_icon.png'); background-position: 10px center; background-repeat: no-repeat;" type="text" id="searchInput1" onkeyup="searchFunction(1)" onclick="openDropdownOnClick(1)" placeholder="@Model.ProductItems.Product.ProductName">
+        <select style="margin-left: 30px;">
+            <option>@Model.ProductItems.Product.ProductName</option>
+        </select>
+        
+        
+        <div style="text-align: center;margin-top:20px">
+            <h4>@Model.ProductItems.Product.ProductName - @Model.Ram.RamName - @Model.Ssd.Ssdname</h4>
+            <img src="~/Contents/img/@Model.ProductItems.Image1" style="height:200px;width:265px;object-fit: cover;" />
+            <h4 style="font-size:22px" class='red-text'>Current price: @Model.Price.ToString("#,##0") VNĐ</h4>
+        </div>
+
+    </div>
+
+    <div class="search-box">
+        <input style="width:500px; padding-left: 30px; border-radius: 20px; border: 2px solid #ccc; background-color: #f4f4f4; background-image: url('search_icon.png'); background-position: 10px center; background-repeat: no-repeat;" type="text" id="searchInput2" onkeyup="searchFunction(2)" onclick="openDropdownOnClick(2)" placeholder="Search for products...">
+        <div id="searchResult2" class="search-result"></div>
+        <select style="margin-left: 30px;" id="dropdown2" onchange="selectFromDropdown(2)">
+            <option value="">Select a product</option>
+        </select>
+        <!-- Áp dụng class red-text cho tên sản phẩm 2 -->
+        <div style="margin-top:20px" id="selectedProduct2" class="selected-product"></div>
+    </div>
+</div>
+<table class="comparison-table" style="margin-top:50px">
+    <thead>
+        <tr>
+            <th>Feature</th>
+            <th style="text-align:center" id="feature1">@Model.ProductItems.Product.ProductName</th>
+            <th style ="text-align:center" id="feature2">Product 2</t>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr style="margin-top:40px">
+            <td>RAM</td>
+            <td style="text-align:center" id="ram1">@Model.Ram.RamName</td>
+            <td style="text-align:center" id="ram2"></td>
+        </tr>
+        <tr style="margin-top:40px">
+            <td>SSD</td>
+            <td style="text-align:center" id="ssd1">@Model.Ssd.Ssdname</td>
+            <td style="text-align:center" id="ssd2"></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td id="description1">@Model.ProductItems.Product.Description</td>
+            <td id="description2"></td>
+        </tr>
+    </tbody>
+</table>
+@section scripts {
+    <script>
+        var productImages = {};
+        var productName1 = ""; // Tên sản phẩm 1
+        var productName2 = ""; // Tên sản phẩm 2
+        var productprice = {};
+        var productRam = {};
+        var productSsd = {};
+        var productDes = {};
+        var productFeature = {};
+
+        @foreach (var product in ViewBag.Images)
+        {
+            <text>
+                productImages["@product.Value"] = "/Contents/img/" + "@product.Text";
+            </text>
+        }
+        @foreach (var product in ViewBag.Price)
+        {
+            <text>
+                productprice["@product.Value"] = "@product.Text";
+            </text>
+        }
+        @foreach (var product in ViewBag.Ram)
+        {
+            <text>
+                productRam["@product.Value"] = "@product.Text";
+            </text>
+        }
+        @foreach (var product in ViewBag.Ssd)
+        {
+            <text>
+                productSsd["@product.Value"] = "@product.Text";
+            </text>
+        }
+        @foreach (var product in ViewBag.Des)
+        {
+            <text>
+                productDes["@product.Value"] = "@product.Text";
+            </text>
+        }
+        @foreach (var product in ViewBag.Fea)
+        {
+            <text>
+                productFeature["@product.Value"] = "@product.Text";
+            </text>
+        }
+
+            function selectProduct(productName, productId, searchBox) {
+                var selectedProductDiv = document.getElementById('selectedProduct' + searchBox);
+                selectedProductDiv.innerHTML = "<h4>" + productName + "</h4><img src='" + productImages[productId] + "' alt='" + productName + "' style='height:200px;width:265px;object-fit: cover;'/>" + "<h4 class='red-text'>" + productprice[productId] + "</h4>"
+                
+                ;
+                updateProductDetails(searchBox, productId);
+                updateComparisonTitle(searchBox, productName); // Cập nhật tiêu đề so sánh
+            }
+
+        function addToDropdown(productName, productId, searchBox) {
+            var dropdown = document.getElementById('dropdown' + searchBox);
+            var option = document.createElement("option");
+            option.text = productName;
+            option.value = productId;
+            dropdown.add(option);
+        }
+
+        function selectFromDropdown(searchBox) {
+            var dropdown = document.getElementById('dropdown' + searchBox);
+            var selectedProductId = dropdown.value;
+            var selectedProductName = dropdown.options[dropdown.selectedIndex].text;
+            if (searchBox === 1) {
+                productName1 = selectedProductName;
+            } else {
+                productName2 = selectedProductName;
+            }
+            selectProduct(selectedProductName, selectedProductId, searchBox);
+        }
+
+        function searchFunction(searchBox) {
+            var input, filter, div;
+            input = document.getElementById('searchInput' + searchBox);
+            filter = input.value.toUpperCase();
+            div = document.getElementById('searchResult' + searchBox);
+            div.innerHTML = "";
+
+            var dropdown = document.getElementById('dropdown' + searchBox);
+            dropdown.innerHTML = ""; // Clear dropdown before adding new options
+
+        @foreach (var product in ViewBag.Product)
+        {
+            <text>
+                                            if ("@product.Text".toUpperCase().indexOf(filter) > -1) {
+                    addToDropdown("@product.Text", "@product.Value", searchBox);
+                }
+            </text>
+        }
+                updateComparisonTitle(searchBox); // Cập nhật tiêu đề so sánh
+        }
+
+        function updateComparisonTitle(searchBox, productName) {
+            var comparisonTitle = document.getElementById("comparisonTitle");
+            if (searchBox === 1) {
+                comparisonTitle.innerHTML = "<span class='black-text'>Compare</span> " + "<u>@Model.ProductItems.Product.ProductName - @Model.Ram.RamName - @Model.Ssd.Ssdname</u>" + "<span class='black-text'> vs </span>" + "<u>" + productName2 +"</u>";
+            } else {
+                comparisonTitle.innerHTML = "<span class='black-text'>Compare</span> " + "<u>@Model.ProductItems.Product.ProductName - @Model.Ram.RamName - @Model.Ssd.Ssdname</u>" + "<span class='black-text'> vs </span>" + "<u>" + productName + "</u>";
+            }
+        }
+        function updateProductDetails(searchBox, productId) {
+            if (searchBox === 1) {
+                document.getElementById('ram1').innerText = productRam[productId];
+                document.getElementById('ssd1').innerText = productSsd[productId];
+                document.getElementById('description1').innerText = productDes[productId];
+            } else {
+                document.getElementById('feature2').innerText = productFeature[productId];
+                document.getElementById('ram2').innerText = productRam[productId];
+                document.getElementById('ssd2').innerText = productSsd[productId];
+                document.getElementById('description2').innerText = productDes[productId];
+            }
+        }
+
+        function openDropdownOnClick(searchBox) {
+            var dropdown = document.getElementById('dropdown' + searchBox);
+            dropdown.style.display = "block";
+
+        }
+    </script>
+}

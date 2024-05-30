@@ -34,15 +34,11 @@
 			<div class="col-md-3 clearfix">
 				<div class="header-ctn" style="width: 360px;">
 					<!-- Wishlist -->
+					
 					<div>
-						<a asp-action="WishList" asp-controller="ShoppingCart" asp-area="">
-							<i class="fa fa-heart-o"></i>
-							<span>Your Wishlist</span>
-                         @*    @if(HttpContextAccessor.HttpContext.Session.GetInt32(CartCount.sessionCount) != null)
-							{
-								
-							} *@
-							<div class="qty">2</div>
+						<a asp-controller="Compare" asp-action="Index" class="add-to-compare">
+							<i class="fa fa-exchange" aria-hidden="true"></i>
+							<span>Compare</span>
 						</a>
 					</div>
 					<!-- /Wishlist -->

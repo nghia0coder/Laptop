@@ -90,7 +90,10 @@
 												
 												
 												}
-												<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+												
+												
+													<a asp-controller="Compare" asp-action="AddtoCompare" asp-route-id="@item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().ProductVarId" class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></a>
+												
 											</div>
 										</div>
 									</div>
