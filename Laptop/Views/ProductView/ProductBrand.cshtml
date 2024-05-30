@@ -146,7 +146,9 @@
 
 
 										}
-										<a class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></a>
+											<button class="add-to-compare" onclick="location.href='@Url.Action("AddtoCompare", "Compare", new { id = item.ProductVarId })'">
+												<i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
+											</button>
 									</div>
 								</div>
 							</div>

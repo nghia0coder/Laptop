@@ -177,8 +177,7 @@
 							}
 
 						}
-
-						<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
+						<li><a asp-action="AddtoCompare" asp-controller="Compare" asp-route-id="@Model.ProductVarId"><i class="fa fa-exchange"></i> add to compare</a></li>
 					</ul>
 
 					<ul class="product-links">
@@ -445,7 +444,9 @@
 										</button>
 									}
 
-									<a class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></a>
+									<button class="add-to-compare" onclick="location.href='@Url.Action("AddtoCompare", "Compare", new { id = item.ProductVarId })'">
+										<i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
+									</button>
 								}
 							</div>
 						</div>

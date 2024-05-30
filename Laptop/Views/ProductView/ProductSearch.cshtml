@@ -247,8 +247,9 @@
 										</div>
 										<div class="product-btns">
 											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<a class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></a>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+											<button class="add-to-compare" onclick="location.href='@Url.Action("AddtoCompare", "Compare", new { id = item.ProductItems.FirstOrDefault().ProductVariations.FirstOrDefault().ProductVarId })'">
+												<i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
+											</button>
 										</div>
 									</div>
 
